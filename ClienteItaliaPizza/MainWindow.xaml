@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="364" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Button Content="Iniciar sesión" HorizontalAlignment="Left" Margin="199,352,0,0" VerticalAlignment="Top" Width="91" BorderBrush="#FF02FD19" Background="White"/>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="57,352,0,0" VerticalAlignment="Top" Width="82" Background="White" BorderBrush="#FFFF0606"/>
+        <Label Content="Nombre de usuario" HorizontalAlignment="Left" Margin="128,157,0,0" VerticalAlignment="Top"/>
+        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="148,245,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="57,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="57,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233"/>
+        <Image HorizontalAlignment="Left" Height="103" Margin="140.653,25,0,0" VerticalAlignment="Top" Width="100" Source="C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ClienteItaliaPizza/RecursosGUI/logo.png" Stretch="UniformToFill"/>
+
     </Grid>
 </Window>
