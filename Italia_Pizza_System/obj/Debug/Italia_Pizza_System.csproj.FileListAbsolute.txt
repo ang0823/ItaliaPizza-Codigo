@@ -1,9 +1,0 @@
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\bin\Debug\Italia_Pizza_System.exe.config
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\bin\Debug\Italia_Pizza_System.exe
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\bin\Debug\Italia_Pizza_System.pdb
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\obj\Debug\Italia_Pizza_System.csprojAssemblyReference.cache
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\obj\Debug\Italia_Pizza_System.Properties.Resources.resources
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\obj\Debug\Italia_Pizza_System.csproj.GenerateResource.cache
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\obj\Debug\Italia_Pizza_System.csproj.CoreCompileInputs.cache
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\obj\Debug\Italia_Pizza_System.exe
-C:\Users\Angelopolis\Documents\8o_semestre\desarrollo_software\ItaliaPizza-Codigo\cliente\Italia_Pizza_System\obj\Debug\Italia_Pizza_System.pdb

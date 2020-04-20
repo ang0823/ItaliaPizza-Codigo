@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Italia_Pizza_System.Properties
+namespace ClienteItaliaPizza.Properties
 {
 
 
