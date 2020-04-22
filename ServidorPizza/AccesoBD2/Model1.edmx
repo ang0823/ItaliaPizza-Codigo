@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BDPizzaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BDPizzaModelStoreContainer">
+    <EntitySet Name="CuentaUsuarioSet" EntityType="BDPizzaModel.Store.CuentaUsuarioSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmpleadoSet" EntityType="BDPizzaModel.Store.EmpleadoSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CuentaUsuarioEmpleado" Association="BDPizzaModel.Store.CuentaUsuarioEmpleado">
+      <End Role="CuentaUsuario" EntitySet="CuentaUsuarioSet" />
+      <End Role="Empleado" EntitySet="EmpleadoSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CuentaUsuarioSet">
+    <Key>
+      <PropertyRef Name="IdCuentaUsuario" />
+    </Key>
+    <Property Name="IdCuentaUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreUsuario" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="contraseña" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Empleado_IdEmpleado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmpleadoSet">
+    <Key>
+      <PropertyRef Name="IdEmpleado" />
+    </Key>
+    <Property Name="IdEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="apellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="apellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="rol" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="CuentaUsuarioEmpleado">
+    <End Role="CuentaUsuario" Type="BDPizzaModel.Store.CuentaUsuarioSet" Multiplicity="*" />
+    <End Role="Empleado" Type="BDPizzaModel.Store.EmpleadoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="IdEmpleado" />
+      </Principal>
+      <Dependent Role="CuentaUsuario">
+        <PropertyRef Name="Empleado_IdEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BDPizzaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="BDPizzaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CuentaUsuarioSet" EntityType="BDPizzaModel.CuentaUsuario" />
+          <EntitySet Name="EmpleadoSet" EntityType="BDPizzaModel.Empleado" />
+          <AssociationSet Name="CuentaUsuarioEmpleado" Association="BDPizzaModel.CuentaUsuarioEmpleado">
+            <End EntitySet="CuentaUsuarioSet" Role="CuentaUsuario" />
+            <End EntitySet="EmpleadoSet" Role="Empleado" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CuentaUsuario">
+          <Key>
+            <PropertyRef Name="IdCuentaUsuario" />
+          </Key>
+          <Property Name="IdCuentaUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreUsuario" Type="String" Nullable="false" />
+          <Property Name="contraseña" Type="String" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="BDPizzaModel.CuentaUsuarioEmpleado" FromRole="CuentaUsuario" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="String" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="String" Nullable="false" />
+          <Property Name="telefono" Type="String" Nullable="false" />
+          <Property Name="correo" Type="String" Nullable="false" />
+          <Property Name="rol" Type="String" Nullable="false" />
+          <NavigationProperty Name="CuentaUsuario" Relationship="BDPizzaModel.CuentaUsuarioEmpleado" FromRole="Empleado" ToRole="CuentaUsuario" />
+        </EntityType>
+        <Association Name="CuentaUsuarioEmpleado">
+          <End Type="BDPizzaModel.CuentaUsuario" Multiplicity="1" Role="CuentaUsuario" />
+          <End Type="BDPizzaModel.Empleado" Multiplicity="1" Role="Empleado" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BDPizzaModelStoreContainer" CdmEntityContainer="BDPizzaEntities">
+    <EntitySetMapping Name="CuentaUsuarioSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BDPizzaModel.CuentaUsuario)">
+        <MappingFragment StoreEntitySet="CuentaUsuarioSet">
+          <ScalarProperty Name="IdCuentaUsuario" ColumnName="IdCuentaUsuario" />
+          <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+          <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmpleadoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BDPizzaModel.Empleado)">
+        <MappingFragment StoreEntitySet="EmpleadoSet">
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidoPaterno" ColumnName="apellidoPaterno" />
+          <ScalarProperty Name="apellidoMaterno" ColumnName="apellidoMaterno" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="rol" ColumnName="rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CuentaUsuarioEmpleado" TypeName="BDPizzaModel.CuentaUsuarioEmpleado" StoreEntitySet="CuentaUsuarioSet">
+      <EndProperty Name="Empleado">
+        <ScalarProperty Name="IdEmpleado" ColumnName="Empleado_IdEmpleado" />
+      </EndProperty>
+      <EndProperty Name="CuentaUsuario">
+        <ScalarProperty Name="IdCuentaUsuario" ColumnName="IdCuentaUsuario" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
