@@ -86,7 +86,8 @@ namespace ServidrorPizzaItaliana
             {
                 BDPizzaEntities db = new BDPizzaEntities();
                 //db.CuentaSet.Where(d => d.nombreUsuario == nombreUsuario && d.contraseña == contraseña).First();
-                var cuenta = (from per in db.CuentaUsuarioSet where per.nombreUsuario == nombreUsuario && per.contraseña == contraseña select per).First();
+                db.Configuration.ProxyCreationEnabled = false;
+                CuentaUsuario cuenta = (from per in db.CuentaUsuarioSet where per.nombreUsuario == nombreUsuario && per.contraseña == contraseña select per).First();
                 OperationContext.Current.GetCallbackChannel<ICalculatorServiceCallback>().DevuelveCuenta(cuenta);
                 var connection = OperationContext.Current.GetCallbackChannel<ICalculatorServiceCallback>();
                 usuariosConectados[connection] = nombreUsuario;

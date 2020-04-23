@@ -4,11 +4,11 @@
 -- --------------------------------------------------
 -- Date Created: 04/19/2020 23:34:25
 -- Generated from EDMX file: C:\Users\javie\Documents\8voSemestre\Desarrollo de software\Proyecto\ServidorLoteria\AccesoBD2\Model1.edmx
+-- Date Created: 04/20/2020 18:44:29
+-- Generated from EDMX file: C:\Users\BETO\Documents\OCTAVO SEMESTRE\DESARROLLO DE SOFTWARE\ServidorPizza\AccesoBD2\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
-GO
-USE [master];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,11 +17,20 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_CuentaUsuarioEmpleado]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CuentaUsuarioSet] DROP CONSTRAINT [FK_CuentaUsuarioEmpleado];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[CuentaUsuarioSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CuentaUsuarioSet];
+GO
+IF OBJECT_ID(N'[dbo].[EmpleadoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmpleadoSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables

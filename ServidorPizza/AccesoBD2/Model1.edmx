@@ -4,11 +4,11 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="Model1StoreContainer">
-    <EntitySet Name="CuentaUsuarioSet" EntityType="Model1.Store.CuentaUsuarioSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EmpleadoSet" EntityType="Model1.Store.EmpleadoSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="CuentaUsuarioEmpleado" Association="Model1.Store.CuentaUsuarioEmpleado">
+    <Schema Namespace="BDPizzaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BDPizzaModelStoreContainer">
+    <EntitySet Name="CuentaUsuarioSet" EntityType="BDPizzaModel.Store.CuentaUsuarioSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmpleadoSet" EntityType="BDPizzaModel.Store.EmpleadoSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CuentaUsuarioEmpleado" Association="BDPizzaModel.Store.CuentaUsuarioEmpleado">
       <End Role="CuentaUsuario" EntitySet="CuentaUsuarioSet" />
       <End Role="Empleado" EntitySet="EmpleadoSet" />
     </AssociationSet>
@@ -35,8 +35,8 @@
     <Property Name="rol" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="CuentaUsuarioEmpleado">
-    <End Role="CuentaUsuario" Type="Model1.Store.CuentaUsuarioSet" Multiplicity="*" />
-    <End Role="Empleado" Type="Model1.Store.EmpleadoSet" Multiplicity="1" />
+    <End Role="CuentaUsuario" Type="BDPizzaModel.Store.CuentaUsuarioSet" Multiplicity="*" />
+    <End Role="Empleado" Type="BDPizzaModel.Store.EmpleadoSet" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Empleado">
         <PropertyRef Name="IdEmpleado" />
@@ -54,8 +54,8 @@
           <EntitySet Name="CuentaUsuarioSet" EntityType="BDPizzaModel.CuentaUsuario" />
           <EntitySet Name="EmpleadoSet" EntityType="BDPizzaModel.Empleado" />
           <AssociationSet Name="CuentaUsuarioEmpleado" Association="BDPizzaModel.CuentaUsuarioEmpleado">
-            <End Role="CuentaUsuario" EntitySet="CuentaUsuarioSet" />
-            <End Role="Empleado" EntitySet="EmpleadoSet" />
+            <End EntitySet="CuentaUsuarioSet" Role="CuentaUsuario" />
+            <End EntitySet="EmpleadoSet" Role="Empleado" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CuentaUsuario">
@@ -81,15 +81,15 @@
           <NavigationProperty Name="CuentaUsuario" Relationship="BDPizzaModel.CuentaUsuarioEmpleado" FromRole="Empleado" ToRole="CuentaUsuario" />
         </EntityType>
         <Association Name="CuentaUsuarioEmpleado">
-          <End Type="BDPizzaModel.CuentaUsuario" Role="CuentaUsuario" Multiplicity="1" />
-          <End Type="BDPizzaModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="BDPizzaModel.CuentaUsuario" Multiplicity="1" Role="CuentaUsuario" />
+          <End Type="BDPizzaModel.Empleado" Multiplicity="1" Role="Empleado" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="BDPizzaEntities">
+  <EntityContainerMapping StorageEntityContainer="BDPizzaModelStoreContainer" CdmEntityContainer="BDPizzaEntities">
     <EntitySetMapping Name="CuentaUsuarioSet">
       <EntityTypeMapping TypeName="IsTypeOf(BDPizzaModel.CuentaUsuario)">
         <MappingFragment StoreEntitySet="CuentaUsuarioSet">
