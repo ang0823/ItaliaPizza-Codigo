@@ -1,0 +1,42 @@
+﻿<Window x:Class="ClienteItaliaPizza.BuscarEmpleados"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteItaliaPizza"
+        mc:Ignorable="d"
+        Title="BuscarEmpleados" Height="721" Width="1202" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <ComboBox x:Name="criterioCb" HorizontalAlignment="Left" Margin="108,92,0,0" VerticalAlignment="Top" Width="347" Height="32" SelectionChanged="ComboBox_SelectionChanged" FontFamily="Arial" FontSize="22"/>
+        <TextBox x:Name="entradaTxt" HorizontalAlignment="Left" Height="32" Margin="569,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="519" TextChanged="TextBox_TextChanged" FontFamily="Arial" FontSize="22"/>
+        <DataGrid x:Name="resultsData" HorizontalAlignment="Left" Height="392" Margin="10,220,0,0" VerticalAlignment="Top" Width="1174">
+            
+            <!--Encabezados de la tabla-->
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="50" Binding="{Binding IdEmpleado}"/>
+                <DataGridTextColumn Header="Nombre" Width="175" Binding="{Binding nombre}"/>
+                <DataGridTextColumn Header="Apellido paterno" Width="150" Binding="{Binding apellidoPaterno}"/>
+                <DataGridTextColumn Header="Apellido materno" Width="150" Binding="{Binding apellidoMaterno}"/>
+                <DataGridTextColumn Header="Correo electrónico" Width="150" Binding="{Binding correo}"/>
+                <DataGridTextColumn Header="Teléfono" Width="75" Binding="{Binding telefono}"/>
+                <DataGridTextColumn Header="Puesto" Width="100" Binding="{Binding rol}"/>
+                <DataGridTextColumn Header="Usuario" Width="75"/>
+                <DataGridTextColumn Header="Contraseña" Width="*"/>
+            </DataGrid.Columns>
+
+            <!--Propiedades de la tabla de la tabla-->
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="BorderThickness" Value="1, 2, 1, 2"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+        <Button x:Name="acepttarBtn" Content="Aceptar" HorizontalAlignment="Left" Margin="801,630,0,0" VerticalAlignment="Top" Width="155" Height="50"/>
+        <Button x:Name="cancelarBtn" Content="Cancelar" HorizontalAlignment="Left" Margin="1029,630,0,0" VerticalAlignment="Top" Width="155" Height="50"/>
+        <Button x:Name="buscarBtn" Content="Buscar" HorizontalAlignment="Left" Margin="108,144,0,0" VerticalAlignment="Top" Width="155" Height="50" RenderTransformOrigin="-0.155,0.54" Click="buscarBtn_Click"/>
+        <Button x:Name="editarBtn" Content="Editar" HorizontalAlignment="Left" Margin="516,144,0,0" VerticalAlignment="Top" Width="155" Height="50" RenderTransformOrigin="-0.155,0.54"/>
+        <Button x:Name="eliminarBtn" Content="Eliminar" HorizontalAlignment="Left" Margin="933,144,0,0" VerticalAlignment="Top" Width="155" Height="50" RenderTransformOrigin="-0.155,0.54"/>
+
+    </Grid>
+</Window>

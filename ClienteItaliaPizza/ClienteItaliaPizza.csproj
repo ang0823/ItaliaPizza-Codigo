@@ -57,9 +57,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BuscarEmpleados.xaml.cs">
+      <DependentUpon>BuscarEmpleados.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegistroEmpleados.xaml.cs">
       <DependentUpon>RegistroEmpleados.xaml</DependentUpon>
     </Compile>
+    <Page Include="BuscarEmpleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InicioSesion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
