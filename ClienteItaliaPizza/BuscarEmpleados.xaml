@@ -20,15 +20,15 @@
                 <DataGridTextColumn Header="Correo electrónico" Width="150" Binding="{Binding correo}"/>
                 <DataGridTextColumn Header="Teléfono" Width="75" Binding="{Binding telefono}"/>
                 <DataGridTextColumn Header="Puesto" Width="100" Binding="{Binding rol}"/>
-                <DataGridTextColumn Header="Usuario" Width="75"/>
-                <DataGridTextColumn Header="Contraseña" Width="*"/>
+                <DataGridTextColumn Header="Usuario" Width="75" Binding="{Binding nombreUsuario}"/>
+                <DataGridTextColumn Header="Contraseña" Width="*" Binding="{Binding contraseña}"/>
             </DataGrid.Columns>
 
             <!--Propiedades de la tabla de la tabla-->
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="BorderThickness" Value="1, 2, 1, 2"/>
-                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="Purple"/>
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
