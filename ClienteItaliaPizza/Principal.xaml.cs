@@ -15,5 +15,10 @@ namespace ClienteItaliaPizza
             InitializeComponent();
             nombreUs.Content = cuenta.nombreUsuario;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
