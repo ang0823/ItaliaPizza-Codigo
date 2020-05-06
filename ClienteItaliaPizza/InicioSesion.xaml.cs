@@ -3,6 +3,7 @@
 using System.ServiceModel;
 using System.Windows;
 using ClienteItaliaPizza.Servicio;
+using ClienteItaliaPizza.Pantallas;
 
 namespace ClienteItaliaPizza
 {
@@ -72,6 +73,14 @@ namespace ClienteItaliaPizza
         public void Respuesta(string mensaje)
         {
             throw new NotImplementedException();
+        }
+
+        private void ButtonVentanaMeseros_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaPedidos ventanaPedidos = new VentanaPedidos();
+            ventanaPedidos.Show();
+
+            this.Close();
         }
     }
 }

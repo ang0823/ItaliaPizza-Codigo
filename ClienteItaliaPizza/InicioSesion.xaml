@@ -12,8 +12,8 @@
         <Label Content="Nombre de usuario" HorizontalAlignment="Left" Margin="118,158,0,0" VerticalAlignment="Top"/>
         <Label Content="Contraseña" HorizontalAlignment="Left" Margin="140,251,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxNombreUsuario" HorizontalAlignment="Left" Height="23" Margin="57,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233"/>
-        <Image HorizontalAlignment="Left" Height="103" Margin="131,25,0,0" VerticalAlignment="Top" Width="100" Source="C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ClienteItaliaPizza/RecursosGUI/logo.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="103" Margin="130,37,0,0" VerticalAlignment="Top" Width="100" Source="RecursosGUI\logo.png" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5"/>
         <PasswordBox x:Name="passwordBoxContraseña" HorizontalAlignment="Left" Margin="57,296,0,0" VerticalAlignment="Top" Width="233" Height="25"/>
-
+        <Button x:Name="ButtonVentanaMeseros"  Content="Ventana de Meseros" HorizontalAlignment="Left" Margin="200,5,0,0" VerticalAlignment="Top" Width="145" Height="25" Click="ButtonVentanaMeseros_Click"/>
     </Grid>
 </Window>
