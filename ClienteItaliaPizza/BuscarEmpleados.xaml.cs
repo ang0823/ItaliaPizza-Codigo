@@ -25,7 +25,7 @@ namespace ClienteItaliaPizza
         {
             InitializeComponent();
             criterioCb.Items.Insert(0, "Buscar por:");
-            criterioCb.Items.Insert(1, "ID de empleado");
+            criterioCb.Items.Insert(1, "ID empleado");
             criterioCb.Items.Insert(2, "Nombre");
             criterioCb.Items.Insert(3, "Apellido paterno");
             criterioCb.Items.Insert(4, "Apellido Materno");
@@ -88,6 +88,7 @@ namespace ClienteItaliaPizza
             entradaTxt.Text = "";
             Empleado n = new Servicio.Empleado();
             CuentaUsuario c = new Servicio.CuentaUsuario();
+            EmpleadoDataGrid Data;
 
             n.IdEmpleado = 82205;
             n.nombre = "Ángel Daniel";
@@ -97,8 +98,8 @@ namespace ClienteItaliaPizza
             n.telefono = "2282739774";
             c.nombreUsuario = "ang0823";
             c.contraseña = "abc123";
-            resultsData.Items.Add(n);
-            resultsData.Items.Add(c);
+            Data = new EmpleadoDataGrid(n, c);
+            resultsData.Items.Add(Data);
         }
 
         private void CerrarSesionBtn_Click(object sender, RoutedEventArgs e)
@@ -164,5 +165,6 @@ namespace ClienteItaliaPizza
                 buscarBtn.IsEnabled = false;
             }
         }
+
     }
 }

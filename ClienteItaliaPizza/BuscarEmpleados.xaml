@@ -9,7 +9,7 @@
     <Grid>
         <ComboBox x:Name="criterioCb" HorizontalAlignment="Left" Margin="108,114,0,0" VerticalAlignment="Top" Width="347" Height="32" SelectionChanged="criterioCb_SelectionChanged" FontFamily="Arial" FontSize="22"/>
         <TextBox x:Name="entradaTxt" HorizontalAlignment="Left" Height="32" Margin="569,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="519" TextChanged="entradaTxt_TextChanged" FontFamily="Arial" FontSize="22"/>
-        <DataGrid x:Name="resultsData" 
+        <DataGrid x:Name="resultsData"
                   HorizontalAlignment="Left" 
                   VerticalAlignment="Top" 
                   Margin="108,212,0,0" 
@@ -21,14 +21,14 @@
             <!--Encabezados de la tabla-->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="50" Binding="{Binding IdEmpleado}"/>
-                <DataGridTextColumn Header="Nombre" Width="175" Binding="{Binding nombre}"/>
-                <DataGridTextColumn Header="Apellido paterno" Width="150" Binding="{Binding apellidoPaterno}"/>
-                <DataGridTextColumn Header="Apellido materno" Width="150" Binding="{Binding apellidoMaterno}"/>
-                <DataGridTextColumn Header="Correo electrónico" Width="150" Binding="{Binding correo}"/>
-                <DataGridTextColumn Header="Teléfono" Width="75" Binding="{Binding telefono}"/>
-                <DataGridTextColumn Header="Puesto" Width="100" Binding="{Binding rol}"/>
-                <DataGridTextColumn Header="Usuario" Width="75" Binding="{Binding nombreUsuario}"/>
-                <DataGridTextColumn Header="Contraseña" Width="*" Binding="{Binding contraseña}"/>
+                <DataGridTextColumn Header="Nombre" Width="175" Binding="{Binding Nombre}"/>
+                <DataGridTextColumn Header="Apellido paterno" Width="150" Binding="{Binding ApellidoPaterno}"/>
+                <DataGridTextColumn Header="Apellido materno" Width="150" Binding="{Binding ApellidoMaterno}"/>
+                <DataGridTextColumn Header="Correo electrónico" Width="150" Binding="{Binding CorreoElectronico}"/>
+                <DataGridTextColumn Header="Teléfono" Width="75" Binding="{Binding Telefono}"/>
+                <DataGridTextColumn Header="Puesto" Width="100" Binding="{Binding Puesto}"/>
+                <DataGridTextColumn Header="Usuario" Width="75" Binding="{Binding Usuario}"/>
+                <DataGridTextColumn Header="Contraseña" Width="*" Binding="{Binding Contraseña}"/>
             </DataGrid.Columns>
 
             <!--Propiedades de la tabla de la tabla-->
