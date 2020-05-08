@@ -8,16 +8,16 @@
         Title="Principal" Height="721" Width="1202" WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Source="RecursosGUI/logo.png" Margin="24,51,807,271"/>
-        <Label Name="nombreUs" Content="Nombre de usuario" HorizontalAlignment="Center" Margin="24,449,812,0" VerticalAlignment="Top" Width="358" Height="62" FontSize="35"/>
+        <Label Name="nombreUs" Content="Nombre de usuario" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="24,449,812,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="358" Height="62" FontSize="35"/>
         <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,38,0,0" VerticalAlignment="Top" FontSize="40"/>
-        <UniformGrid Rows="3" Margin="397,143,460,385">
+        <UniformGrid x:Name="empleadosPanel" Rows="3" Margin="397,143,460,385">
             <Label Content="Admistracón de empleados" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="42,0,43,0" Width="252"/>
-            <Button Content="Registrar empleado" Height="40" Width="250" Margin="44,-1,43,15"/>
-            <Button Content="Buscar empleado" Height="40" Width="250" Margin="44,-1,43,15"/>
+            <Button x:Name="registrarEmpBtn" Content="Registrar empleado" HorizontalAlignment="Center" Height="40" Width="250" Margin="44,-1,43,15" Click="registrarEmpBtn_Click"/>
+            <Button x:Name="buscarEmpBtn" Content="Buscar empleado" Height="40" Width="250" Margin="44,-1,43,15" Click="buscarEmpBtn_Click"/>
         </UniformGrid>
-        <UniformGrid Rows="3" Margin="786,143,71,385">
+        <UniformGrid x:Name="productosPanel" Rows="3" Margin="786,143,71,385">
             <Label Content="Admistracón de productos" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="42,0,43,0" Width="252"/>
-            <Button Content="Registrar producto" Height="40" Width="250" Margin="44,-1,43,15"/>
+            <Button x:Name="registrrProdBtn" Content="Registrar producto" Height="40" Width="250" Margin="44,-1,43,15" Click="MostrarRegistroProductosGui"/>
             <Button Content="Buscar prodcuto" Height="40" Width="250" Margin="44,-1,43,15"/>
         </UniformGrid>
         <UniformGrid Rows="3" Margin="397,323,460,205">
@@ -27,7 +27,7 @@
         </UniformGrid>
         <UniformGrid Rows="3" Margin="786,323,71,205">
             <Label Content="Admistración de pedidos" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="54,0,50,0" Width="233"/>
-            <Button Content="Call center" Height="40" Width="250" Margin="44,-1,43,15" Click="Button_Click"/>
+            <Button Content="Call center" Height="40" Width="250" Margin="44,-1,43,15"/>
             <Button Content="Cocina" Height="40" Width="250" Margin="44,-1,43,15"/>
         </UniformGrid>
         <Grid RenderTransformOrigin="0.333,0.739" Margin="387,498,53,39">
@@ -35,6 +35,12 @@
             <Button Content="Generar reporte del día" Height="40" Width="200" Margin="39,0,0,42" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
             <Button Content="Generar reporte del día" Height="40" Width="200" Margin="276,0,278,44" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
             <Button Content="Generar inventario" Height="40" Width="200" Margin="516,0,38,44" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Image HorizontalAlignment="Left" Height="100" Margin="1088,38,0,0" VerticalAlignment="Top" Width="100"/>
         </Grid>
+        <Button x:Name="CerrarSesionBtn" Background="Transparent" Height="87" Width="73" Margin="0,2,4,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CerrarSesionBtn_Click" BorderThickness="0">
+            <StackPanel Height="105" Width="105" HorizontalAlignment="Right">
+                <Image Source="logout.png" Stretch="Fill" Height="81" Margin="10,0,0,0"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>
