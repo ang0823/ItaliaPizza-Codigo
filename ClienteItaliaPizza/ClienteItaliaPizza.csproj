@@ -182,5 +182,11 @@
   <ItemGroup>
     <Resource Include="RecursosGUI\logout.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\fondoPrincipal.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\productosFondo.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
