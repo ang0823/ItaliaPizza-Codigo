@@ -167,4 +167,5 @@
     <Resource Include="RecursosGUI\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<!– esto es un comentario –>
 </Project>
