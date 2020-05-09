@@ -1,0 +1,44 @@
+﻿<Window x:Class="ClienteItaliaPizza.RegistroEmpleados"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteItaliaPizza"
+        mc:Ignorable="d"
+        Title="RegistroEmpleados" Height="721" Width="1202" WindowStartupLocation="CenterScreen" Icon="/RecursosGUI/WindowIcon.jpg">
+    <Grid>
+        <Button x:Name="CerrarSesionBtn" Background="Transparent" Margin="1091,10,28,0" VerticalAlignment="Top" Width="65" Height="73" Click="CerrarSesionBtn_Click">
+            <Image Source="/RecursosGUI/logout.png" Stretch="Fill"/>
+        </Button>
+        <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="996,83,0,0" VerticalAlignment="Top" Width="165" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Image x:Name="background" HorizontalAlignment="Left" Height="475" Margin="358,101,0,0" VerticalAlignment="Top" Width="499" Source="/RecursosGUI/logo.png"/>
+        <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Height="32" Margin="188,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="nombreTxT_TextChanged" PreviewTextInput="nombreTxt_TextInput"/>
+        <TextBox x:Name="aPaternoTxt" HorizontalAlignment="Left" Height="32" Margin="485,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="aPaternoTxt_TextChanged" PreviewTextInput="aPaternoTxt_TextInput"/>
+        <TextBox x:Name="aMaternoTxt" HorizontalAlignment="Left" Height="32" Margin="779,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="aMaternoTxt_TextChanged" PreviewTextInput="aMaternoTxt_TextInput"/>
+        <TextBox x:Name="calleTxt" HorizontalAlignment="Left" Height="32" Margin="188,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontFamily="Arial" FontSize="22" TextChanged="calleTxt_TextChanged" TextInput="calleTxt_TextInput"/>
+        <TextBox x:Name="coloniaTxt" HorizontalAlignment="Left" Height="32" Margin="549,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontFamily="Arial" FontSize="22" TextChanged="coloniaTxt_TextChanged"/>
+        <TextBox x:Name="codigoPostalTxt" HorizontalAlignment="Left" Height="32" Margin="909,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="22" TextChanged="codigoPostalTxt_TextChanged" MaxLength="5" PreviewTextInput="codigoPostalTxt_TextInput"/>
+        <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="correoElectronicoTxt_TextChanged"/>
+        <TextBox x:Name="telefonoTxt" HorizontalAlignment="Left" Height="32" Margin="682,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="telefonoTxt_TextChanged" MaxLength="10" TextInput="telefonoTxt_TextInput" PreviewTextInput="codigoPostalTxt_TextInput"/>
+        <ComboBox x:Name="puestosCB" HorizontalAlignment="Left" Margin="188,443,0,0" VerticalAlignment="Top" Width="347" Height="32" FontFamily="Arial" FontSize="22" SelectionChanged="puestosCB_SelectionChanged"/>
+        <TextBox x:Name="idEmpleadoTxt" HorizontalAlignment="Left" Height="32" Margin="682,443,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial Black" FontSize="22" FontWeight="Bold"/>
+        <TextBox x:Name="usuarioTxt" HorizontalAlignment="Left" Height="32" Margin="188,543,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="usuarioTxt_TextChanged"/>
+        <PasswordBox x:Name="contrasenaTxt" HorizontalAlignment="Left" Margin="682,543,0,0" VerticalAlignment="Top" Height="32" Width="347" PasswordChar="*" PasswordChanged="contrasenaTxt_TextChanged" FontSize="22" FontWeight="Bold"/>
+        <Label Content="Nombre(s):" HorizontalAlignment="Left" Margin="188,122,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Apellido paterno:" HorizontalAlignment="Left" Margin="485,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Apellido materno:" HorizontalAlignment="Left" Margin="779,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Calle y número:" HorizontalAlignment="Left" Margin="188,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Colonia:" HorizontalAlignment="Left" Margin="549,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="C. P." HorizontalAlignment="Left" Margin="909,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Correo eletrónico:" HorizontalAlignment="Left" Margin="188,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="689,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Puesto:" HorizontalAlignment="Left" Margin="188,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label Content="ID de empleado:" HorizontalAlignment="Left" Margin="689,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label x:Name="usuarioLbl" Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="188,510,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Label x:Name="contrasenaLbl" Content="Contraseña:" HorizontalAlignment="Left" Margin="682,507,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="limpiarBtn" Content="Vaciar" HorizontalAlignment="Left" Margin="188,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="limpiarBtn_Click" ToolTip="Elimina toda la información ingresada en los campos"/>
+        <Button x:Name="guardarBtn" Content="Guardar" HorizontalAlignment="Left" Margin="531,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="guardarBtn_Click"/>
+        <Button x:Name="cancelarBtn" Content="Cancelar" HorizontalAlignment="Left" Margin="874,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="cancelarBtn_Click"/>
+        <Label Content="F O R M A T O   D E   R E G I S T R O" HorizontalAlignment="Left" Margin="334,42,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="30" FontWeight="Bold"/>
+    </Grid>
+</Window>

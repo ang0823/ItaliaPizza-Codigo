@@ -58,10 +58,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Pantallas\BuscarEmpleados.xaml.cs">
+    <Compile Include="BuscarEmpleados.xaml.cs">
       <DependentUpon>BuscarEmpleados.xaml</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoDataGrid.cs" />
+    <Compile Include="Principal.xaml.cs">
+      <DependentUpon>Principal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegistroEmpleados.xaml.cs">
       <DependentUpon>RegistroEmpleados.xaml</DependentUpon>
     </Compile>
@@ -89,17 +92,17 @@
       <DependentUpon>InicioSesion.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pantallas\Principal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pantallas\RegistroEmpleados.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pantallas\VentanaPedidos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Principal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RegistroEmpleados.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="RegistroProductos.xaml">
       <SubType>Designer</SubType>
@@ -107,9 +110,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pantallas\Principal.xaml.cs">
-      <DependentUpon>Principal.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pantallas\VentanaPedidos.xaml.cs">
       <DependentUpon>VentanaPedidos.xaml</DependentUpon>
     </Compile>
