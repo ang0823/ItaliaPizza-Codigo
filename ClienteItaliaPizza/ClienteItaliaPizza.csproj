@@ -39,6 +39,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -60,8 +61,12 @@
     <Compile Include="BuscarEmpleados.xaml.cs">
       <DependentUpon>BuscarEmpleados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EmpleadoDataGrid.cs" />
     <Compile Include="RegistroEmpleados.xaml.cs">
       <DependentUpon>RegistroEmpleados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroProductos.xaml.cs">
+      <DependentUpon>RegistroProductos.xaml</DependentUpon>
     </Compile>
     <Page Include="BuscarEmpleados.xaml">
       <SubType>Designer</SubType>
@@ -89,6 +94,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RegistroEmpleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegistroProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,7 +142,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="RecursosGUI\" />
+    <Resource Include="RecursosGUI\pizza.jpg" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -155,6 +164,15 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\WindowIcon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\logout.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
