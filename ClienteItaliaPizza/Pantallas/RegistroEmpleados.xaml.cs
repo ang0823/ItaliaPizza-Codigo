@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ClienteItaliaPizza.Servicio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Security.Tokens;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +22,9 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class RegistroEmpleados : Window
     {
-        public RegistroEmpleados()
+
+        CuentaUsuario CuentaUsuario;
+        public RegistroEmpleados(CuentaUsuario cuenta)
         {
             InitializeComponent();
             puestosCB.Items.Insert(0, "Seleccionar rol");
@@ -29,6 +34,8 @@ namespace ClienteItaliaPizza
             puestosCB.Items.Insert(4, "Contador");
             puestosCB.Items.Insert(5, "Gerente");
             puestosCB.SelectedIndex = 0;
+            CuentaUsuario = cuenta;
+            UsuarioLbl.Content = cuenta.nombreUsuario;
             idEmpleadoTxt.Text = "Falta implementar";
 
             idEmpleadoTxt.IsEnabled = false;
@@ -39,6 +46,9 @@ namespace ClienteItaliaPizza
             usuarioTxt.Visibility = Visibility.Hidden;
             contrasenaLbl.Visibility = Visibility.Hidden;
             contrasenaTxt.Visibility = Visibility.Hidden;
+
+            
+            
         }
 
         private Boolean AlgunCampoLleno()
@@ -47,7 +57,7 @@ namespace ClienteItaliaPizza
                 || correoElectronicoTxt.Text.Length > 0 || telefonoTxt.Text.Length > 0
                 || calleTxt.Text.Length > 0 || coloniaTxt.Text.Length > 0
                 || codigoPostalTxt.Text.Length > 0 || puestosCB.SelectedIndex != 0
-                || usuarioTxt.Text.Length > 0 || contrasenaTxt.Text.Length > 0)
+                || usuarioTxt.Text.Length > 0 || contrasenaTxt.Password.Length > 0)
             {
                 return true;
             }
@@ -62,7 +72,7 @@ namespace ClienteItaliaPizza
                 && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
                 && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 1
                 || puestosCB.SelectedIndex == 2) && usuarioTxt.Text.Length == 0
-                && contrasenaTxt.Text.Length == 0)
+                && contrasenaTxt.Password.Length == 0)
             {
                 return true;
             }
@@ -71,12 +81,32 @@ namespace ClienteItaliaPizza
                 && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
                 && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 3
                 || puestosCB.SelectedIndex == 4 || puestosCB.SelectedIndex == 5)
-                && usuarioTxt.Text.Length > 0 && contrasenaTxt.Text.Length > 0)
+                && usuarioTxt.Text.Length > 0 && contrasenaTxt.Password.Length > 0)
             {
                 return true;
             }
 
             return false;
+        }
+
+        private void CerrarSesion()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                MainWindow ventana = new MainWindow();
+                ventana.Show();
+                this.Close();
+            });
+        }
+
+        private void MostrarVentanaPrincipal()
+        {
+            Dispatcher.Invoke(() =>
+            {   
+                Principal ventana = new Principal(CuentaUsuario);
+                ventana.Show();
+                this.Close();
+            });
         }
 
         private void VaciarCampos()
@@ -91,7 +121,7 @@ namespace ClienteItaliaPizza
             coloniaTxt.Text = "";
             codigoPostalTxt.Text = "";
             usuarioTxt.Text = "";
-            contrasenaTxt.Text = "";
+            contrasenaTxt.Password = "";
         }
 
         private void nombreTxT_TextChanged(object sender, TextChangedEventArgs e)
@@ -283,7 +313,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void contrasenaTxt_TextChanged(object sender, TextChangedEventArgs e)
+        private void contrasenaTxt_TextChanged(object sender, RoutedEventArgs e)
         {
             if (CamposLlenos())
             {
@@ -326,7 +356,12 @@ namespace ClienteItaliaPizza
                 if (opcion == MessageBoxResult.OK)
                 {
                     VaciarCampos();
+                    MostrarVentanaPrincipal();
                 }
+            }
+            else
+            {
+                MostrarVentanaPrincipal();
             }
         }
 
@@ -356,7 +391,7 @@ namespace ClienteItaliaPizza
                 contrasenaLbl.Visibility = Visibility.Hidden;
                 contrasenaTxt.Visibility = Visibility.Hidden;
                 usuarioTxt.Text = "";
-                contrasenaTxt.Text = "";
+                contrasenaTxt.Password = "";
             }
 
             if (AlgunCampoLleno())
@@ -437,6 +472,19 @@ namespace ClienteItaliaPizza
         private void calleTxt_TextInput(object sender, TextCompositionEventArgs e)
         {
             
+        }
+
+        private void CerrarSesionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcion;
+
+            opcion = MessageBox.Show("¿Seguro que deseas cerrar la sesión?", "Cerrar sesión",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (opcion == MessageBoxResult.OK)
+            {
+                CerrarSesion();
+            }
         }
     }
 }

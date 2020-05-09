@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClienteItaliaPizza.Servicio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,39 +20,75 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class BuscarEmpleados : Window
     {
-        public BuscarEmpleados()
+        CuentaUsuario CuentaUsuario;
+        public BuscarEmpleados(CuentaUsuario cuenta)
         {
             InitializeComponent();
             criterioCb.Items.Insert(0, "Buscar por:");
-            criterioCb.Items.Insert(1, "Nombre");
-            criterioCb.Items.Insert(2, "Apellido paterno");
-            criterioCb.Items.Insert(3, "Apellido Materno");
-            criterioCb.Items.Insert(4, "Calle");
-            criterioCb.Items.Insert(5, "Colonia");
-            criterioCb.Items.Insert(6, "Código postal");
-            criterioCb.Items.Insert(7, "Correo electrónico");
-            criterioCb.Items.Insert(8, "Teléfono");
-            criterioCb.Items.Insert(9, "Puesto");
-            criterioCb.Items.Insert(10, "ID de empleado");
+            criterioCb.Items.Insert(1, "ID empleado");
+            criterioCb.Items.Insert(2, "Nombre");
+            criterioCb.Items.Insert(3, "Apellido paterno");
+            criterioCb.Items.Insert(4, "Apellido Materno");
+            criterioCb.Items.Insert(5, "Calle");
+            criterioCb.Items.Insert(6, "Colonia");
+            criterioCb.Items.Insert(7, "Código postal");
+            criterioCb.Items.Insert(8, "Correo electrónico");
+            criterioCb.Items.Insert(9, "Teléfono");
+            criterioCb.Items.Insert(10, "Puesto");
             criterioCb.Items.Insert(11, "Usuario");
 
             criterioCb.SelectedIndex = 0;
+            CuentaUsuario = cuenta;
+            UsuarioLbl.Content = cuenta.nombreUsuario;
+            acepttarBtn.Visibility = Visibility.Hidden;
+            buscarBtn.IsEnabled = false;
+            editarBtn.IsEnabled = false;
+            eliminarBtn.IsEnabled = false;
+            vaciarBtn.IsEnabled = false;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private Boolean CamposLlenos()
         {
+            if (criterioCb.SelectedIndex != 0 && entradaTxt.Text.Length > 0)
+            {
+                return true;
+            }
 
+            return false;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CerrarSesion()
         {
+            Dispatcher.Invoke(() =>
+            {
+                MainWindow ventana = new MainWindow();
+                ventana.Show();
+                this.Close();
+            });
+        }
 
+        private void MostrarVentanaPrincipal()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Principal ventana = new Principal(CuentaUsuario);
+                ventana.Show();
+                this.Close();
+            });
+        }
+
+        private void VaciarCampos()
+        {
+            criterioCb.SelectedIndex = 0;
+            entradaTxt.Text = "";
         }
 
         private void buscarBtn_Click(object sender, RoutedEventArgs e)
         {
-            Servicio.Empleado n = new Servicio.Empleado();
-            Servicio.CuentaUsuario c = new Servicio.CuentaUsuario();
+            entradaTxt.Text = "";
+            Empleado n = new Servicio.Empleado();
+            CuentaUsuario c = new Servicio.CuentaUsuario();
+            EmpleadoDataGrid Data;
 
             n.IdEmpleado = 82205;
             n.nombre = "Ángel Daniel";
@@ -61,8 +98,73 @@ namespace ClienteItaliaPizza
             n.telefono = "2282739774";
             c.nombreUsuario = "ang0823";
             c.contraseña = "abc123";
-            resultsData.Items.Add(n);
-            resultsData.Items.Add(c);
+            Data = new EmpleadoDataGrid(n, c);
+            resultsData.Items.Add(Data);
         }
+
+        private void CerrarSesionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CerrarSesion();
+        }
+
+        private void resultsData_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!resultsData.SelectedItem.Equals(""))
+            {
+                editarBtn.IsEnabled = true;
+                eliminarBtn.IsEnabled = true;
+            }
+            else
+            {
+                editarBtn.IsEnabled = false;
+                eliminarBtn.IsEnabled = false;
+            }
+        }
+
+        private void entradaTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                buscarBtn.IsEnabled = true;
+            }
+            else
+            {
+                buscarBtn.IsEnabled = false;
+            }
+        }
+
+        private void vaciarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            vaciarBtn.IsEnabled = false;
+            resultsData.Items.Clear();
+            resultsData.Items.Refresh();
+        }
+
+        private void cancelarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcion;
+
+            opcion = MessageBox.Show("¿Volver a pantalla anteior?", "Cancelar",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+                if (opcion == MessageBoxResult.OK)
+                {
+                    VaciarCampos();
+                    MostrarVentanaPrincipal();
+                }
+        }
+
+        private void criterioCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                buscarBtn.IsEnabled = true;
+            }
+            else
+            {
+                buscarBtn.IsEnabled = false;
+            }
+        }
+
     }
 }

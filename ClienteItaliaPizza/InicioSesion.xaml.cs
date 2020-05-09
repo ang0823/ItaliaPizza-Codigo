@@ -2,6 +2,7 @@
 
 using System.ServiceModel;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using ClienteItaliaPizza.Servicio;
 using ClienteItaliaPizza.Pantallas;
 
@@ -35,12 +36,12 @@ namespace ClienteItaliaPizza
                 }
                 else
                 {
-                    MessageBox.Show("");
+                    MessageBox.Show("Se requiere usuario y contraseña", "Campos vacios", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (EndpointNotFoundException)
             {
-                MessageBox.Show("");
+                MessageBox.Show("Falló la conexión con el servidor", "Error de comunicación", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

@@ -7,21 +7,32 @@
         mc:Ignorable="d"
         Title="BuscarEmpleados" Height="721" Width="1202" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ComboBox x:Name="criterioCb" HorizontalAlignment="Left" Margin="108,92,0,0" VerticalAlignment="Top" Width="347" Height="32" SelectionChanged="ComboBox_SelectionChanged" FontFamily="Arial" FontSize="22"/>
-        <TextBox x:Name="entradaTxt" HorizontalAlignment="Left" Height="32" Margin="569,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="519" TextChanged="TextBox_TextChanged" FontFamily="Arial" FontSize="22"/>
-        <DataGrid x:Name="resultsData" HorizontalAlignment="Left" Height="392" Margin="10,220,0,0" VerticalAlignment="Top" Width="1174">
-            
+        <Button x:Name="CerrarSesionBtn" Background="Transparent" Margin="1113,0,16,0" VerticalAlignment="Top" Width="65" Height="73" Click="CerrarSesionBtn_Click">
+            <Image Source="/RecursosGUI/logout.png" Stretch="Fill"/>
+        </Button>
+        <Label x:Name="UsuarioLbl" Content="Nombre de usuario" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="1021,69,0,0" VerticalAlignment="Top" Width="165" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+        <ComboBox x:Name="criterioCb" HorizontalAlignment="Left" Margin="108,114,0,0" VerticalAlignment="Top" Width="347" Height="32" SelectionChanged="criterioCb_SelectionChanged" FontFamily="Arial" FontSize="22"/>
+        <TextBox x:Name="entradaTxt" HorizontalAlignment="Left" Height="32" Margin="569,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="519" TextChanged="entradaTxt_TextChanged" FontFamily="Arial" FontSize="22"/>
+        <DataGrid x:Name="resultsData"
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Top" 
+                  Margin="108,212,0,0" 
+                  Height="392" 
+                  Width="980" 
+                  SelectionChanged="resultsData_SelectionChanged"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+
             <!--Encabezados de la tabla-->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="50" Binding="{Binding IdEmpleado}"/>
-                <DataGridTextColumn Header="Nombre" Width="175" Binding="{Binding nombre}"/>
-                <DataGridTextColumn Header="Apellido paterno" Width="150" Binding="{Binding apellidoPaterno}"/>
-                <DataGridTextColumn Header="Apellido materno" Width="150" Binding="{Binding apellidoMaterno}"/>
-                <DataGridTextColumn Header="Correo electrónico" Width="150" Binding="{Binding correo}"/>
-                <DataGridTextColumn Header="Teléfono" Width="75" Binding="{Binding telefono}"/>
-                <DataGridTextColumn Header="Puesto" Width="100" Binding="{Binding rol}"/>
-                <DataGridTextColumn Header="Usuario" Width="75" Binding="{Binding nombreUsuario}"/>
-                <DataGridTextColumn Header="Contraseña" Width="*" Binding="{Binding contraseña}"/>
+                <DataGridTextColumn Header="Nombre" Width="175" Binding="{Binding Nombre}"/>
+                <DataGridTextColumn Header="Apellido paterno" Width="150" Binding="{Binding ApellidoPaterno}"/>
+                <DataGridTextColumn Header="Apellido materno" Width="150" Binding="{Binding ApellidoMaterno}"/>
+                <DataGridTextColumn Header="Correo electrónico" Width="150" Binding="{Binding CorreoElectronico}"/>
+                <DataGridTextColumn Header="Teléfono" Width="75" Binding="{Binding Telefono}"/>
+                <DataGridTextColumn Header="Puesto" Width="100" Binding="{Binding Puesto}"/>
+                <DataGridTextColumn Header="Usuario" Width="75" Binding="{Binding Usuario}"/>
+                <DataGridTextColumn Header="Contraseña" Width="*" Binding="{Binding Contraseña}"/>
             </DataGrid.Columns>
 
             <!--Propiedades de la tabla de la tabla-->
@@ -32,11 +43,11 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        <Button x:Name="acepttarBtn" Content="Aceptar" HorizontalAlignment="Left" Margin="801,630,0,0" VerticalAlignment="Top" Width="155" Height="50"/>
-        <Button x:Name="cancelarBtn" Content="Cancelar" HorizontalAlignment="Left" Margin="1029,630,0,0" VerticalAlignment="Top" Width="155" Height="50"/>
-        <Button x:Name="buscarBtn" Content="Buscar" HorizontalAlignment="Left" Margin="108,144,0,0" VerticalAlignment="Top" Width="155" Height="50" RenderTransformOrigin="-0.155,0.54" Click="buscarBtn_Click"/>
-        <Button x:Name="editarBtn" Content="Editar" HorizontalAlignment="Left" Margin="516,144,0,0" VerticalAlignment="Top" Width="155" Height="50" RenderTransformOrigin="-0.155,0.54"/>
-        <Button x:Name="eliminarBtn" Content="Eliminar" HorizontalAlignment="Left" Margin="933,144,0,0" VerticalAlignment="Top" Width="155" Height="50" RenderTransformOrigin="-0.155,0.54"/>
-
+        <Button x:Name="acepttarBtn" Content="Aceptar" HorizontalAlignment="Left" Margin="705,628,0,0" VerticalAlignment="Top" Width="155" Height="30"/>
+        <Button x:Name="cancelarBtn" Content="Cancelar" HorizontalAlignment="Left" Margin="933,628,0,0" VerticalAlignment="Top" Width="155" Height="30" Click="cancelarBtn_Click"/>
+        <Button x:Name="buscarBtn" Content="Buscar" HorizontalAlignment="Left" Margin="108,166,0,0" VerticalAlignment="Top" Width="155" Height="30" RenderTransformOrigin="-0.155,0.54" Click="buscarBtn_Click"/>
+        <Button x:Name="editarBtn" Content="Editar" HorizontalAlignment="Left" Margin="516,166,0,0" VerticalAlignment="Top" Width="155" Height="30" RenderTransformOrigin="-0.155,0.54"/>
+        <Button x:Name="eliminarBtn" Content="Eliminar" HorizontalAlignment="Left" Margin="933,166,0,0" VerticalAlignment="Top" Width="155" Height="30" RenderTransformOrigin="-0.155,0.54"/>
+        <Button x:Name="vaciarBtn" Content="Vaciar" HorizontalAlignment="Left" Margin="108,628,0,0" VerticalAlignment="Top" Width="155" Height="30" Click="vaciarBtn_Click"/>
     </Grid>
 </Window>
