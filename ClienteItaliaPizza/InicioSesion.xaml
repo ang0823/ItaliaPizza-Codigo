@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
-        Title="Inicio de sesión" Height="650" Width="1000" WindowStartupLocation="CenterScreen" Icon="WindowIcon.jpg">
+        Title="Inicio de sesión" Height="650" Width="1000" WindowStartupLocation="CenterScreen" Icon="/RecursosGUI/WindowIcon.jpg">
     <Window.Background>
-        <ImageBrush ImageSource="pizza.jpg" Stretch="Fill"/>
+        <ImageBrush ImageSource="/RecursosGUI/pizza.jpg" Stretch="Fill"/>
     </Window.Background>
     <Grid>
         <Grid
@@ -17,8 +17,7 @@
             Width="400"
             Margin="0,0,60,0"
             Background="Black" OpacityMask="{x:Null}" Opacity="0.75">
-            <Image x:Name="logo" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="152" Stretch="UniformToFill" Margin="125,76,123,349" Source="logo.png">
-            </Image>
+            <Image x:Name="logo" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="152" Stretch="UniformToFill" Margin="125,76,123,349" Source="/RecursosGUI/logo.png"/>
             <Button Content="Iniciar sesión" HorizontalAlignment="Center" Margin="0,414,0,0" VerticalAlignment="Top" Width="143" BorderBrush="#FF009900" Background="#FF009900" Click="IniciarSesion" Height="31" Foreground="White" FontFamily="Arial" FontSize="15" FontWeight="Bold"/>
             <Button Content="Ventana meseros" HorizontalAlignment="Center" Margin="128,466,128,0" VerticalAlignment="Top" Width="144" Background="White" BorderBrush="#FFCC0000" Height="30" Foreground="#FFCC0000" FontFamily="Arial" FontSize="16" FontWeight="Bold" BorderThickness="2,2,3,2"/>
             <Label Content="Nombre de usuario:" HorizontalAlignment="Center" Margin="0,242,0,0" VerticalAlignment="Top" Width="170" Foreground="White" FontSize="18" FontFamily="Arial"/>

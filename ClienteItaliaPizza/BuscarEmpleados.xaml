@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="BuscarEmpleados" Height="721" Width="1202" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Button x:Name="CerrarSesionBtn" Background="Transparent" Margin="1113,0,16,0" VerticalAlignment="Top" Width="65" Height="73" Click="CerrarSesionBtn_Click">
+            <Image Source="/RecursosGUI/logout.png" Stretch="Fill"/>
+        </Button>
+        <Label x:Name="UsuarioLbl" Content="Nombre de usuario" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="1021,69,0,0" VerticalAlignment="Top" Width="165" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
         <ComboBox x:Name="criterioCb" HorizontalAlignment="Left" Margin="108,114,0,0" VerticalAlignment="Top" Width="347" Height="32" SelectionChanged="criterioCb_SelectionChanged" FontFamily="Arial" FontSize="22"/>
         <TextBox x:Name="entradaTxt" HorizontalAlignment="Left" Height="32" Margin="569,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="519" TextChanged="entradaTxt_TextChanged" FontFamily="Arial" FontSize="22"/>
         <DataGrid x:Name="resultsData"
@@ -44,12 +48,6 @@
         <Button x:Name="buscarBtn" Content="Buscar" HorizontalAlignment="Left" Margin="108,166,0,0" VerticalAlignment="Top" Width="155" Height="30" RenderTransformOrigin="-0.155,0.54" Click="buscarBtn_Click"/>
         <Button x:Name="editarBtn" Content="Editar" HorizontalAlignment="Left" Margin="516,166,0,0" VerticalAlignment="Top" Width="155" Height="30" RenderTransformOrigin="-0.155,0.54"/>
         <Button x:Name="eliminarBtn" Content="Eliminar" HorizontalAlignment="Left" Margin="933,166,0,0" VerticalAlignment="Top" Width="155" Height="30" RenderTransformOrigin="-0.155,0.54"/>
-        <Button x:Name="CerrarSesionBtn" Background="Transparent" Height="60" Width="40" Margin="0,2,12,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CerrarSesionBtn_Click">
-            <StackPanel>
-                <Image Source="RecursosGUI/logout.ico" Height="60" Width="48"/>
-            </StackPanel>
-        </Button>
-        <Label x:Name="UsuarioLbl" Content="Nombre de usuario" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="1023,62,0,0" VerticalAlignment="Top" Width="165" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
         <Button x:Name="vaciarBtn" Content="Vaciar" HorizontalAlignment="Left" Margin="108,628,0,0" VerticalAlignment="Top" Width="155" Height="30" Click="vaciarBtn_Click"/>
     </Grid>
 </Window>
