@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="RecursosGUI\fondo1.jpg" />
+    <Resource Include="RecursosGUI\fondoPrincipal.jpg" />
     <Resource Include="RecursosGUI\pizza.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -181,9 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="RecursosGUI\logout.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="RecursosGUI\fondoPrincipal.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="RecursosGUI\productosFondo.jpg" />
