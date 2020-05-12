@@ -65,6 +65,12 @@
       <DependentUpon>BuscarEmpleados.xaml</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoDataGrid.cs" />
+    <Compile Include="Pantallas\CallCenterUC.xaml.cs">
+      <DependentUpon>CallCenterUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\MeserosUC.xaml.cs">
+      <DependentUpon>MeserosUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Principal.xaml.cs">
       <DependentUpon>Principal.xaml</DependentUpon>
     </Compile>
@@ -99,7 +105,19 @@
       <DependentUpon>InicioSesion.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pantallas\VentanaPedidos.xaml">
+    <Page Include="Pantallas\CallCenterUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pantallas\MeserosUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VentanaCocina.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VentanaPedidos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,7 +135,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pantallas\VentanaPedidos.xaml.cs">
+    <Compile Include="VentanaCocina.xaml.cs">
+      <DependentUpon>VentanaCocina.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VentanaPedidos.xaml.cs">
       <DependentUpon>VentanaPedidos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -156,7 +177,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="RecursosGUI\fondo1.jpg" />
+    <Resource Include="RecursosGUI\fondoPedidos.jpg" />
     <Resource Include="RecursosGUI\fondoPrincipal.jpg" />
     <Resource Include="RecursosGUI\pizza.jpg" />
   </ItemGroup>
@@ -192,6 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="RecursosGUI\productosFondo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\fondoCocina.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

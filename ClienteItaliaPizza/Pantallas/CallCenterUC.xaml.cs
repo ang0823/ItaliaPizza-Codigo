@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ClienteItaliaPizza.Pantallas
 {
     /// <summary>
-    /// Lógica de interacción para VentanaPedidos.xaml
+    /// Lógica de interacción para CallCenterUC.xaml
     /// </summary>
-    public partial class VentanaPedidos : Window
+    public partial class CallCenterUC : UserControl
     {
-        public VentanaPedidos()
+        public CallCenterUC()
         {
             InitializeComponent();
         }
