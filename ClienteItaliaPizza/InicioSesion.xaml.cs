@@ -76,7 +76,16 @@ namespace ClienteItaliaPizza
             throw new NotImplementedException();
         }
 
-        private void ButtonVentanaMeseros_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaCocina ventanaCocina = new VentanaCocina();
+            ventanaCocina.Show();
+
+            this.Close();
+        }
+
+        private void ButtonVentanaMeseros_Click_1(object sender, RoutedEventArgs e)
         {
             VentanaPedidos ventanaPedidos = new VentanaPedidos();
             ventanaPedidos.Show();
