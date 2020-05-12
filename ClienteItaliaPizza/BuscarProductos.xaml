@@ -11,7 +11,7 @@
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Width" Value="375"/>
-            <Setter Property="Height" Value="32"/>
+            <Setter Property="Height" Value="35"/>
             <Setter Property="Background" Value="AliceBlue"/>
             <Setter Property="BorderBrush" Value="#606060"/>
             <Setter Property="FontFamily" Value="Arial"/>
@@ -79,7 +79,7 @@
             <TextBox x:Name="RestriccionesTxt" HorizontalAlignment="Left" Height="110" Margin="41,442,0,-52" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23"/>
             <Image x:Name="ProductoImg" HorizontalAlignment="Left" Height="243" Margin="847,58,0,0" VerticalAlignment="Top" Width="243" Stretch="Fill" OpacityMask="Black"/>
             <Button x:Name="CancelarBtn" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,10" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="CancelarBtn_Click"/>
-            <Button x:Name="EditarBtn" Content="Editar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,59" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="CancelarBtn_Click"/>
+            <Button x:Name="EditSaveBtn" Content="Editar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,59" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="EditSaveBtn_Click"/>
             <Button x:Name="ImagenBtn" Content="Buscar foto" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,348,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
         </Grid>
     </Grid>

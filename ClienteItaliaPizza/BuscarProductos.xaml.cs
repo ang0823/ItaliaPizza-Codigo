@@ -27,8 +27,49 @@ namespace ClienteItaliaPizza
             CuentaUsuario = cuenta;
             InitializeComponent();
 
-            EditarBtn.IsEnabled = false;
             ImagenBtn.Visibility = Visibility.Hidden;
+            //EditSaveBtn.IsEnabled = false;
+            DeshabilitarCampos();
+        }
+
+        private Boolean CamposVacios()
+        {
+            if (nombreTxt.Text.Length > 0 && PrecioTxt.Text.Length > 0 && MinimoTxt.Text.Length > 0
+                && UnidadCb.SelectedIndex != 0 && ActualTxt.Text.Length > 0 && UbicacionTxt.Text.Length > 0
+                && CodigoTxt.Text.Length > 0 && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private void DeshabilitarCampos()
+        {
+            ImagenBtn.Visibility = Visibility.Hidden;
+            nombreTxt.IsEnabled = false;
+            PrecioTxt.IsEnabled = false;
+            MinimoTxt.IsEnabled = false;
+            UnidadCb.IsEnabled = false;
+            ActualTxt.IsEnabled = false;
+            UbicacionTxt.IsEnabled = false;
+            CodigoTxt.IsEnabled = false;
+            DescripcionTxt.IsEnabled = false;
+            RestriccionesTxt.IsEnabled = false;
+        }
+
+        private void HabilitarEdicion()
+        {
+            ImagenBtn.Visibility = Visibility.Visible;
+            nombreTxt.IsEnabled = true;
+            PrecioTxt.IsEnabled = true;
+            MinimoTxt.IsEnabled = true;
+            UnidadCb.IsEnabled = true;
+            ActualTxt.IsEnabled = true;
+            UbicacionTxt.IsEnabled = true;
+            CodigoTxt.IsEnabled = true;
+            DescripcionTxt.IsEnabled = true;
+            RestriccionesTxt.IsEnabled = true;
         }
 
         private void MostrarVentanaPrincipal()
@@ -51,6 +92,29 @@ namespace ClienteItaliaPizza
             if (opcion == MessageBoxResult.OK)
             {
                 MostrarVentanaPrincipal();
+            }
+        }
+
+        private void EditSaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(EditSaveBtn.Content.ToString() == "Editar")
+            {
+                EditSaveBtn.Content = "Guardar";
+                HabilitarEdicion();
+            }
+            else
+            {
+                if(CamposVacios())
+                {
+                    MessageBoxResult opcion;
+                    opcion = MessageBox.Show("No se puede dejar campos vacíos", "Información",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                } 
+                else
+                {
+                    EditSaveBtn.Content = "Editar";
+                    DeshabilitarCampos();
+                }
             }
         }
     }
