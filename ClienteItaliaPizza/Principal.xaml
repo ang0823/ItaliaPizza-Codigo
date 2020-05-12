@@ -10,7 +10,7 @@
         <ImageBrush ImageSource="/RecursosGUI/FondoPrincipal.jpg"/>
     </Window.Background>
     <Grid>
-        <Button x:Name="CerrarSesionBtn" Background="White" Margin="1091,10,28,0" VerticalAlignment="Top" Width="65" Height="73" Click="CerrarSesionBtn_Click" Opacity="0.75">
+        <Button x:Name="CerrarSesionBtn" Background="Gray" Margin="1091,10,28,0" VerticalAlignment="Top" Width="65" Height="73" Click="CerrarSesionBtn_Click" Opacity="0.75" BorderBrush="#FF740005">
             <Image Source="/RecursosGUI/logout.png" Stretch="Fill" Opacity="0.75" OpacityMask="Black"/>
         </Button>
         <Image Source="RecursosGUI/logo.png" Margin="24,143,807,179"/>
@@ -18,29 +18,29 @@
         <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,38,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
         <UniformGrid x:Name="empleadosPanel" Rows="3" Margin="397,143,460,385">
             <Label Content="Admistracón de empleados" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="42,0,43,0" Width="252" Foreground="White"/>
-            <Button x:Name="registrarEmpBtn" Content="Registrar empleado" HorizontalAlignment="Center" Height="40" Width="250" Margin="44,-1,43,15" Click="registrarEmpBtn_Click"/>
-            <Button x:Name="buscarEmpBtn" Content="Buscar empleado" Height="40" Width="250" Margin="44,-1,43,15" Click="buscarEmpBtn_Click"/>
+            <Button x:Name="registrarEmpBtn" Content="Registrar empleado" HorizontalAlignment="Center" Height="40" Width="250" Margin="44,-1,43,15" Click="registrarEmpBtn_Click" Background="#FF807E2A" BorderBrush="#FF444801" Foreground="White"/>
+            <Button x:Name="buscarEmpBtn" Content="Buscar empleado" Height="40" Width="250" Margin="44,-1,43,15" Click="buscarEmpBtn_Click" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White"/>
         </UniformGrid>
         <UniformGrid x:Name="productosPanel" Rows="3" Margin="786,143,71,385">
             <Label Content="Admistracón de productos" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="42,0,43,0" Width="252" Foreground="White"/>
-            <Button x:Name="registrrProdBtn" Content="Registrar producto" Height="40" Width="250" Margin="44,-1,43,15" Click="MostrarRegistroProductosGui"/>
-            <Button Content="Buscar prodcuto" Height="40" Width="250" Margin="44,-1,43,15"/>
+            <Button x:Name="registrrProdBtn" Content="Registrar producto" Height="40" Width="250" Margin="44,-1,43,15" Click="MostrarRegistroProductosGui" Foreground="White" BorderBrush="#FF444801" Background="#FF807E2A"/>
+            <Button Content="Buscar prodcuto" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White"/>
         </UniformGrid>
         <UniformGrid Rows="3" Margin="397,323,460,205">
             <Label Content="Admistración de recetas" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="56,0,60,0" Width="221" Foreground="White"/>
-            <Button Content="Registrar receta" Height="40" Width="250" Margin="44,-1,43,15"/>
-            <Button Content="Buscar receta" Height="40" Width="250" Margin="44,-1,43,15"/>
+            <Button Content="Registrar receta" Height="40" Width="250" Margin="44,-1,43,15" Background="#FF807E2A" BorderBrush="#FF444801" Foreground="White"/>
+            <Button Content="Buscar receta" Height="40" Width="250" Margin="44,-1,43,15" Foreground="White" BorderBrush="#FF740005" Background="#FFC32105"/>
         </UniformGrid>
         <UniformGrid Rows="3" Margin="786,323,71,205">
             <Label Content="Admistración de pedidos" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="54,0,50,0" Width="233" Foreground="White"/>
-            <Button Content="Call center" Height="40" Width="250" Margin="44,-1,43,15"/>
-            <Button Content="Cocina" Height="40" Width="250" Margin="44,-1,43,15"/>
+            <Button Content="Call center" Height="40" Width="250" Margin="44,-1,43,15" Foreground="White" Background="#FF807E2A" BorderBrush="#FF444801"/>
+            <Button Content="Cocina" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White" Click="Button_Click"/>
         </UniformGrid>
         <Grid RenderTransformOrigin="0.333,0.739" Margin="387,498,53,39">
             <Label Content="Otras tareas" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="68,0,67,0" Foreground="White" />
-            <Button Content="Generar reporte del día" Height="40" Width="200" Margin="39,0,0,42" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-            <Button Content="Generar reporte del día" Height="40" Width="200" Margin="276,0,278,44" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-            <Button Content="Generar inventario" Height="40" Width="200" Margin="516,0,38,44" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Button Content="Generar reporte del día" Height="40" Width="200" Margin="39,0,0,42" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#FFAE7A47" BorderBrush="#FF91491A" Foreground="White"/>
+            <Button Content="Generar reporte del día" Height="40" Width="200" Margin="279,0,275,44" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" BorderBrush="#FF91491A" Background="#FFAE7A47"/>
+            <Button Content="Generar inventario" Height="40" Width="200" Margin="516,0,38,44" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFAE7A47" BorderBrush="#FF91491A" Foreground="White"/>
             <Image HorizontalAlignment="Left" Height="100" Margin="1088,38,0,0" VerticalAlignment="Top" Width="100"/>
         </Grid>
     </Grid>
