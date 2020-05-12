@@ -20,7 +20,7 @@
             <Image x:Name="logo" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="152" Stretch="UniformToFill" Margin="125,76,123,349" Source="/RecursosGUI/logo.png"/>
             <Button Content="Iniciar sesión" HorizontalAlignment="Center" Margin="0,414,0,0" VerticalAlignment="Top" Width="143" BorderBrush="#FF009900" Background="#FF009900" Click="IniciarSesion" Height="31" Foreground="White" FontFamily="Arial" FontSize="15" FontWeight="Bold"/>
             <Button Content="Ventana meseros" HorizontalAlignment="Center" Margin="128,466,128,0" VerticalAlignment="Top" Width="144" Background="White" BorderBrush="#FFCC0000" Height="30" Foreground="#FFCC0000" FontFamily="Arial" FontSize="16" FontWeight="Bold" BorderThickness="2,2,3,2"/>
-            <Label Content="Nombre de usuario:" HorizontalAlignment="Center" Margin="0,242,0,0" VerticalAlignment="Top" Width="170" Foreground="White" FontSize="18" FontFamily="Arial"/>
+            <Label Content="Nombre de usuario" HorizontalAlignment="Center" Margin="0,242,0,0" VerticalAlignment="Top" Width="170" Foreground="White" FontSize="18" FontFamily="Arial"/>
             <Label Content="Contraseña:" HorizontalAlignment="Center" Margin="148,312,148,0" VerticalAlignment="Top" Background="Black" Foreground="White" FontSize="18" FontFamily="Arial"/>
             <TextBox x:Name="textBoxNombreUsuario" HorizontalAlignment="Center" Height="26" Margin="54,282,54,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" FontFamily="Arial" FontSize="18"/>
             <PasswordBox x:Name="passwordBoxContraseña" HorizontalAlignment="Center" Margin="54,351,54,0" VerticalAlignment="Top" Width="292" Height="26" FontFamily="Arial" FontSize="18"/>
