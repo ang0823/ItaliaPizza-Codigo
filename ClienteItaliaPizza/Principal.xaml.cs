@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using ClienteItaliaPizza.Pantallas;
 using ClienteItaliaPizza.Servicio;
 
 
@@ -31,6 +32,13 @@ namespace ClienteItaliaPizza
         private void MostrarBuscarEmpledosGui()
         {
             BuscarEmpleados ventana = new BuscarEmpleados(CuentaUsuario);
+            ventana.Show();
+            this.Close();
+        }
+
+        private void MostrarBuscarProductosGui()
+        {
+            BuscarProductos ventana = new BuscarProductos(CuentaUsuario);
             ventana.Show();
             this.Close();
         }
@@ -72,9 +80,9 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BuscarProductosBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            MostrarBuscarProductosGui();
         }
     }
 }

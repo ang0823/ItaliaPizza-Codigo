@@ -24,7 +24,7 @@
         <UniformGrid x:Name="productosPanel" Rows="3" Margin="786,143,71,385">
             <Label Content="Admistracón de productos" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="42,0,43,0" Width="252" Foreground="White"/>
             <Button x:Name="registrrProdBtn" Content="Registrar producto" Height="40" Width="250" Margin="44,-1,43,15" Click="MostrarRegistroProductosGui" Foreground="White" BorderBrush="#FF444801" Background="#FF807E2A"/>
-            <Button Content="Buscar prodcuto" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White"/>
+            <Button x:Name="BuscarProductosBtn" Content="Buscar prodcuto" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White" Click="BuscarProductosBtn_Click"/>
         </UniformGrid>
         <UniformGrid Rows="3" Margin="397,323,460,205">
             <Label Content="Admistración de recetas" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="56,0,60,0" Width="221" Foreground="White"/>
@@ -34,7 +34,7 @@
         <UniformGrid Rows="3" Margin="786,323,71,205">
             <Label Content="Admistración de pedidos" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="54,0,50,0" Width="233" Foreground="White"/>
             <Button Content="Call center" Height="40" Width="250" Margin="44,-1,43,15" Foreground="White" Background="#FF807E2A" BorderBrush="#FF444801"/>
-            <Button Content="Cocina" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White" Click="Button_Click"/>
+            <Button Content="Cocina" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White"/>
         </UniformGrid>
         <Grid RenderTransformOrigin="0.333,0.739" Margin="387,498,53,39">
             <Label Content="Otras tareas" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="68,0,67,0" Foreground="White" />
