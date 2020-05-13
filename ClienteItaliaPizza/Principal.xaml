@@ -32,9 +32,9 @@
             <Button Content="Buscar receta" Height="40" Width="250" Margin="44,-1,43,15" Foreground="White" BorderBrush="#FF740005" Background="#FFC32105"/>
         </UniformGrid>
         <UniformGrid Rows="3" Margin="786,323,71,205">
-            <Label Content="Admistración de pedidos" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="54,0,50,0" Width="233" Foreground="White"/>
-            <Button Content="Call center" Height="40" Width="250" Margin="44,-1,43,15" Foreground="White" Background="#FF807E2A" BorderBrush="#FF444801"/>
-            <Button Content="Cocina" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White"/>
+            <Label Content="Admistración de ingredientes" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Width="268" Foreground="White"/>
+            <Button Content="Registrar ingrediente" Height="40" Width="250" Margin="44,-1,43,15" Foreground="White" Background="#FF807E2A" BorderBrush="#FF444801"/>
+            <Button Content="Buscar ingrediente" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White"/>
         </UniformGrid>
         <Grid RenderTransformOrigin="0.333,0.739" Margin="387,498,53,39">
             <Label Content="Otras tareas" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="68,0,67,0" Foreground="White" />
