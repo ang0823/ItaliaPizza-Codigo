@@ -12,12 +12,18 @@ namespace AccesoBD2
     using System;
     using System.Collections.Generic;
     
-    public partial class CuentaUsuario
+    public partial class Rol
     {
-        public string nombreUsuario { get; set; }
-        public string contraseña { get; set; }
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Rol()
+        {
+            this.Empleado = new HashSet<Empleado>();
+        }
     
-        public virtual Empleado Empleado { get; set; }
+        public int Id { get; set; }
+        public string nombreRol { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Empleado> Empleado { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Host
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(ServidrorPizzaItaliana.ServicioPizzaItaliana)))
+            using (ServiceHost host = new ServiceHost(typeof(ServidrorPizzaItaliana.Servicios)))
             {
                 try
                 {

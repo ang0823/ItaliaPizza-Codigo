@@ -12,12 +12,18 @@ namespace AccesoBD2
     using System;
     using System.Collections.Generic;
     
-    public partial class CuentaUsuario
+    public partial class Mesa
     {
-        public string nombreUsuario { get; set; }
-        public string contraseña { get; set; }
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Mesa()
+        {
+            this.Pedido = new HashSet<Pedido>();
+        }
     
-        public virtual Empleado Empleado { get; set; }
+        public int Id { get; set; }
+        public short numeroMesa { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }
