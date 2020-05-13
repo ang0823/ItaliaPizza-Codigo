@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BuscarProductos.xaml.cs">
+      <DependentUpon>BuscarProductos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BuscarEmpleados.xaml.cs">
       <DependentUpon>BuscarEmpleados.xaml</DependentUpon>
     </Compile>
@@ -71,6 +74,10 @@
     <Compile Include="RegistroProductos.xaml.cs">
       <DependentUpon>RegistroProductos.xaml</DependentUpon>
     </Compile>
+    <Page Include="BuscarProductos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BuscarEmpleados.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
