@@ -26,6 +26,13 @@ namespace ClienteItaliaPizza
             this.Close();
         }
 
+        private void MostrarBusdarIngredienteGui()
+        {
+            BuscarIngrediente ventana = new BuscarIngrediente(CuentaUsuario);
+            ventana.Show();
+            this.Close();
+        }
+
         private void MostrarBuscarProductosGui()
         {
             BuscarProductos ventana = new BuscarProductos(CuentaUsuario);
@@ -41,14 +48,14 @@ namespace ClienteItaliaPizza
         }
         private void MostrarRegistroIngredientesGui()
         {
-            RegistroIngredientes RegistroIngredientesGui = new RegistroIngredientes(CuentaUsuario);
+            RegistroIngredientes RegistroIngredientesGui = new RegistroIngredientes();
             RegistroIngredientesGui.Show();
             this.Close();
         }
 
         private void MostrarRegistroProductosGui(object sender, RoutedEventArgs e)
         {
-            RegistroProductos RegistroProdcutosGui = new RegistroProductos(CuentaUsuario);
+            RegistroProductos RegistroProdcutosGui = new RegistroProductos();
             RegistroProdcutosGui.Show();
             this.Close();
         }
@@ -81,10 +88,14 @@ namespace ClienteItaliaPizza
             MostrarBuscarProductosGui();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BuscarIngedienteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarBusdarIngredienteGui();
+        }
+
+        private void RegistrarIngredienteBtn_Click(object sender, RoutedEventArgs e)
         {
             MostrarRegistroIngredientesGui();
         }
-
     }
 }

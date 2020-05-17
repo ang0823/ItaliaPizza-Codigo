@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,43 +9,44 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MessageBox = System.Windows.MessageBox;
 
 namespace ClienteItaliaPizza
 {
     /// <summary>
-    /// Lógica de interacción para RegistroProductos.xaml
+    /// Lógica de interacción para RegistrarIngrediente.xaml
     /// </summary>
-    public partial class RegistroProductos : Window
+    public partial class RegistroIngredientes : Window, Servicio.IRegistrarIngrediente
     {
         CuentaUsuario CuentaUsuario;
-        /*public RegistroProductos(CuentaUsuario cuenta)
+        
+        /*public RegistroIngredientes(CuentaUsuario cuenta)
         {
-            CuentaUsuario = cuenta;
+            this.CuentaUsuario = cuenta;
             InitializeComponent();
+            IniciarComboBox();
 
-            UsuarioLbl.Content = cuenta.nombreUsuario;
-            GuardarBtn.IsEnabled = false;
             VaciarBtn.IsEnabled = false;
+            GuardarBtn.IsEnabled = false;
         }*/
 
-        public RegistroProductos()
+        public RegistroIngredientes()
         {
             InitializeComponent();
-            GuardarBtn.IsEnabled = false;
+            IniciarComboBox();
+
             VaciarBtn.IsEnabled = false;
+            GuardarBtn.IsEnabled = false;
         }
 
         private Boolean AlgunCampoLleno()
         {
-            if (nombreTxt.Text.Length > 0 || PrecioTxt.Text.Length > 0 || MinimoTxt.Text.Length > 0
-                || ActualTxt.Text.Length > 0 || UbicacionTxt.Text.Length > 0
-                || CodigoTxt.Text.Length > 0 || DescripcionTxt.Text.Length > 0 || RestriccionesTxt.Text.Length > 0)
+            if (IngredienteNombre.Text.Length > 0 || IngredientePrecio.Text.Length > 0
+                || IngredienteUbicacion.Text.Length > 0 || UnidadMedidaCb.SelectedIndex != 0
+                || IngredienteExistencias.Text.Length > 0 || StockMinimo.Text.Length > 0)
             {
                 return true;
             }
@@ -56,9 +56,9 @@ namespace ClienteItaliaPizza
 
         private Boolean CamposLlenos()
         {
-            if (nombreTxt.Text.Length > 0 && PrecioTxt.Text.Length > 0 && MinimoTxt.Text.Length > 0
-                && ActualTxt.Text.Length > 0 && UbicacionTxt.Text.Length > 0
-                && CodigoTxt.Text.Length > 0 && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
+            if (IngredienteNombre.Text.Length > 0 && IngredientePrecio.Text.Length > 0
+                && IngredienteUbicacion.Text.Length > 0 && UnidadMedidaCb.SelectedIndex != 0
+                && IngredienteExistencias.Text.Length > 0 && StockMinimo.Text.Length > 0)
             {
                 return true;
             }
@@ -66,51 +66,35 @@ namespace ClienteItaliaPizza
             return false;
         }
 
+        private void IniciarComboBox()
+        {
+            UnidadMedidaCb.Items.Insert(0, "Seleccionar");
+            UnidadMedidaCb.Items.Insert(1, "Lt");
+            UnidadMedidaCb.Items.Insert(2, "Kg");
+            UnidadMedidaCb.SelectedIndex = 0;
+        }
+
+        private void MostrarVentanaPrincipal()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Principal ventana = new Principal(CuentaUsuario);
+                ventana.Show();
+                this.Close();
+            });
+        }
+
         private void VaciarCampos()
         {
-            nombreTxt.Text = "";
-            PrecioTxt.Text = "";
-            MinimoTxt.Text = "";
-            ActualTxt.Text = "";
-            UbicacionTxt.Text = "";
-            CodigoTxt.Text = "";
-            DescripcionTxt.Text = "";
-            RestriccionesTxt.Text = "";
-            ProductoImg.Source = null;
+            IngredienteNombre.Text = "";
+            IngredientePrecio.Text = "";
+            IngredienteUbicacion.Text = "";
+            IngredienteExistencias.Text = "";
+            StockMinimo.Text = "";
+            UnidadMedidaCb.SelectedIndex = 0;
         }
 
-        private void AceptarBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void VaciarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            VaciarCampos();
-        }
-
-        private void nombreTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (AlgunCampoLleno())
-            {
-                VaciarBtn.IsEnabled = true;
-            } 
-            else
-            {
-                VaciarBtn.IsEnabled = false;
-            }
-
-            if (CamposLlenos())
-            {
-                GuardarBtn.IsEnabled = true;
-            }
-            else
-            {
-                GuardarBtn.IsEnabled = false;
-            }
-        }
-
-        private void PrecioTxt_TextChanged(object sender, TextChangedEventArgs e)
+        private void IngredienteNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (AlgunCampoLleno())
             {
@@ -131,7 +115,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void MinimoTxt_TextChanged(object sender, TextChangedEventArgs e)
+        private void IngredientePrecio_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (AlgunCampoLleno())
             {
@@ -152,7 +136,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void UnidadCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void IngredienteUbicacion_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (AlgunCampoLleno())
             {
@@ -173,7 +157,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void ActualTxt_TextChanged(object sender, TextChangedEventArgs e)
+        private void UnidadMedidaCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AlgunCampoLleno())
             {
@@ -194,7 +178,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void UbicacionTxt_TextChanged(object sender, TextChangedEventArgs e)
+        private void IngredienteExistencias_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (AlgunCampoLleno())
             {
@@ -215,7 +199,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void CodigoTxt_TextChanged(object sender, TextChangedEventArgs e)
+        private void StockMinimo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AlgunCampoLleno())
             {
@@ -233,62 +217,6 @@ namespace ClienteItaliaPizza
             else
             {
                 GuardarBtn.IsEnabled = false;
-            }
-        }
-
-        private void DescripcionTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (AlgunCampoLleno())
-            {
-                VaciarBtn.IsEnabled = true;
-            }
-            else
-            {
-                VaciarBtn.IsEnabled = false;
-            }
-
-            if (CamposLlenos())
-            {
-                GuardarBtn.IsEnabled = true;
-            }
-            else
-            {
-                GuardarBtn.IsEnabled = false;
-            }
-        }
-
-        private void RestriccionesTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (AlgunCampoLleno())
-            {
-                VaciarBtn.IsEnabled = true;
-            }
-            else
-            {
-                VaciarBtn.IsEnabled = false;
-            }
-
-            if (CamposLlenos())
-            {
-                GuardarBtn.IsEnabled = true;
-            }
-            else
-            {
-                GuardarBtn.IsEnabled = false;
-            }
-        }
-
-        private void ImagenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            var ExploradorArchivos = new OpenFileDialog();
-
-            DialogResult RutaImagen = ExploradorArchivos.ShowDialog();
-
-            if(RutaImagen == System.Windows.Forms.DialogResult.OK)
-            {
-                string path = ExploradorArchivos.FileName;
-                Uri FilePath = new Uri(path);
-                ProductoImg.Source = new BitmapImage(FilePath);
             }
         }
 
@@ -304,28 +232,103 @@ namespace ClienteItaliaPizza
                 if (opcion == MessageBoxResult.OK)
                 {
                     VaciarCampos();
-                    FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
-                    this.Close();
+                    MostrarVentanaPrincipal();
                 }
             }
             else
             {
-                FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
-                this.Close();
+                MostrarVentanaPrincipal();
+            }
+        }
+
+        private void IngredienteExistencias_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                GuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                GuardarBtn.IsEnabled = false;
+            }
+        }
+
+        private void VaciarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            VaciarCampos();
+        }
+
+        private void IngredienteExistencias_TextChanged_2(object sender, TextChangedEventArgs e)
+        {
+            if (AlgunCampoLleno())
+            {
+                VaciarBtn.IsEnabled = true;
+            }
+            else
+            {
+                VaciarBtn.IsEnabled = false;
+            }
+
+            if (CamposLlenos())
+            {
+                GuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                GuardarBtn.IsEnabled = false;
+            }
+        }
+
+        private void StockMinimo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (AlgunCampoLleno())
+            {
+                VaciarBtn.IsEnabled = true;
+            }
+            else
+            {
+                VaciarBtn.IsEnabled = false;
+            }
+
+            if (CamposLlenos())
+            {
+                GuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                GuardarBtn.IsEnabled = false;
             }
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult opcion;
+            FuncionesComunes.CerrarSesion();
+            this.Close();
+        }
 
-            opcion = MessageBox.Show("¿Seguro que deseas cerrar la sesión?", "Cerrar sesión",
-                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+        private void GuardarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            InstanceContext context = new InstanceContext(this);
+            RegistrarIngredienteClient ServicioIngrediente = new RegistrarIngredienteClient(context);
 
-            if (opcion == MessageBoxResult.OK)
+            try
             {
-                FuncionesComunes.CerrarSesion();
-                this.Close();
+                Provision ingrediente = new Provision();
+                ingrediente.nombre = IngredienteNombre.Text;
+                short noExistencias = short.Parse(IngredienteExistencias.Text);
+                ingrediente.noExistencias = noExistencias;
+                ingrediente.ubicacion = IngredienteUbicacion.Text;
+                ingrediente.stockMinimo = StockMinimo.Text;
+                float precio = float.Parse(IngredientePrecio.Text);
+                ingrediente.costoUnitario = precio;
+                ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
+                Console.Write($"1. { ingrediente.nombre} 2. {ingrediente.noExistencias} 3. {ingrediente.ubicacion} 4. {ingrediente.stockMinimo} 5. {ingrediente.costoUnitario} 6. {ingrediente.unidadMedida}");
+                ServicioIngrediente.RegistrarIngrediente(ingrediente);
+                VaciarCampos();
+            }
+            catch (CommunicationException)
+            {
+                
             }
         }
 

@@ -1,46 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AccesoBD2" />
-  <xs:element name="IniciarSesion">
+  <xs:import schemaLocation="http://localhost:8080/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" />
+  <xs:element name="BuscarPorNombre">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="nombreUsuario" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="contraseña" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="nombreProducto" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="CerrarSesion">
+  <xs:element name="BuscarPorID">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="nombreUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idProducto" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GuardarCuentaUsuario">
+  <xs:element name="ProvicionDirecta">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuentaUsuario" nillable="true" type="q1:CuentaUsuario" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="provDir" nillable="true" type="q1:ProvisionDirecta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ModificarCuentaUsuario">
+  <xs:element name="Provision">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuentaUsuario" nillable="true" type="q2:CuentaUsuario" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="prov" nillable="true" type="q2:Provision" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ErrorAlRecuperarProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mensajeError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarProductos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Productos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="productos" nillable="true" type="q3:ArrayOfProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ErrorAlRecuperarProductos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mensajeError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistrarIngrediente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="provision" nillable="true" type="q4:Provision" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Respuesta">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DevuelveCuenta">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuenta" nillable="true" type="q3:CuentaUsuario" />
+        <xs:element minOccurs="0" name="mensajeError" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

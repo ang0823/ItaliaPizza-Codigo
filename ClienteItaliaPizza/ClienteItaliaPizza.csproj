@@ -59,6 +59,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BuscarIngrediente.xaml.cs">
+      <DependentUpon>BuscarIngrediente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BuscarProductos.xaml.cs">
       <DependentUpon>BuscarProductos.xaml</DependentUpon>
     </Compile>
@@ -69,6 +72,7 @@
       <DependentUpon>BuscarReceta.xaml</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoDataGrid.cs" />
+    <Compile Include="FuncionesComunes.cs" />
     <Compile Include="Inventario.xaml.cs">
       <DependentUpon>Inventario.xaml</DependentUpon>
     </Compile>
@@ -93,12 +97,19 @@
     <Compile Include="Receta.xaml.cs">
       <DependentUpon>Receta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RegistroIngredientes.xaml.cs">
+      <DependentUpon>RegistroIngredientes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegistroEmpleados.xaml.cs">
       <DependentUpon>RegistroEmpleados.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegistroProductos.xaml.cs">
       <DependentUpon>RegistroProductos.xaml</DependentUpon>
     </Compile>
+    <Page Include="BuscarIngrediente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BuscarProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +167,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RegistroIngredientes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VentanaCocina.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,6 +223,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Servicio\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Servicio\item3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Servicio\ServicioPizzaItaliana.wsdl" />
@@ -265,6 +283,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="RecursosGUI\fondoNuevoPedido.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
