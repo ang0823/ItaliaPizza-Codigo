@@ -1,0 +1,22 @@
+﻿<Window x:Class="ClienteItaliaPizza.BuscarReceta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteItaliaPizza"
+        mc:Ignorable="d"
+        Title="BuscarReceta" Height="650" Width="1000">
+    <Window.Background>
+        <ImageBrush ImageSource="RecursosGUI/fondoPrincipal.jpg"/>
+    </Window.Background>
+    <Grid>
+        <DataGrid x:Name="dataGridRecetas" HorizontalAlignment="Left" Height="409" Margin="43,158,0,0" VerticalAlignment="Top" Width="884">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="ColumnNombreReceta" Header="Nombre de la Receta"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="ButtonEditar" Content="Editar" HorizontalAlignment="Left" Margin="426,102,0,0" VerticalAlignment="Top" Width="155" Height="30"/>
+        <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="772,102,0,0" VerticalAlignment="Top" Width="155" Height="30"/>
+
+    </Grid>
+</Window>
