@@ -19,16 +19,6 @@ namespace ClienteItaliaPizza
             nombreUs.Content = CuentaUsuario.nombreUsuario;
         }
 
-        private void CerrarSesion()
-        {
-            Dispatcher.Invoke(() =>
-            {
-                MainWindow ventana = new MainWindow();
-                ventana.Show();
-                this.Close();
-            });
-        }
-
         private void MostrarBuscarEmpledosGui()
         {
             BuscarEmpleados ventana = new BuscarEmpleados(CuentaUsuario);
@@ -47,6 +37,12 @@ namespace ClienteItaliaPizza
         {
             RegistroEmpleados RegistroEmpleadosGui = new RegistroEmpleados(CuentaUsuario);
             RegistroEmpleadosGui.Show();
+            this.Close();
+        }
+        private void MostrarRegistroIngredientesGui()
+        {
+            RegistroIngredientes RegistroIngredientesGui = new RegistroIngredientes(CuentaUsuario);
+            RegistroIngredientesGui.Show();
             this.Close();
         }
 
@@ -76,7 +72,7 @@ namespace ClienteItaliaPizza
 
             if (opcion == MessageBoxResult.OK)
             {
-                CerrarSesion();
+                FuncionesComunes.CerrarSesion();
             }
         }
 
@@ -84,5 +80,11 @@ namespace ClienteItaliaPizza
         {
             MostrarBuscarProductosGui();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarRegistroIngredientesGui();
+        }
+
     }
 }
