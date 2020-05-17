@@ -1,0 +1,57 @@
+﻿<Window x:Class="ClienteItaliaPizza.Receta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteItaliaPizza"
+        mc:Ignorable="d"
+        Title="Receta" Height="650" Width="1000">
+    <Window.Background>
+        <ImageBrush ImageSource="RecursosGUI/fondoReceta.jpg">
+            <ImageBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ImageBrush.RelativeTransform>
+        </ImageBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="145*"/>
+            <ColumnDefinition Width="103*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110*"/>
+            <RowDefinition Height="509*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="textBlockNombreReceta" HorizontalAlignment="Left" Margin="51,26,0,0" TextWrapping="Wrap" Text="Nombre de la Receta" VerticalAlignment="Top" Height="35" Width="360" FontFamily="Palatino Linotype" FontSize="24" FontWeight="Bold" Foreground="White" OpacityMask="#FFD1B8B8"/>
+        <TextBox x:Name="textBoxNombreReceta" HorizontalAlignment="Left" Height="39" Margin="43,63,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="473" BorderBrush="#FF080808"/>
+        <TextBlock x:Name="textBlockPorciones" HorizontalAlignment="Left" Margin="104,25,0,0" TextWrapping="Wrap" Text="Número de porciones" VerticalAlignment="Top" FontFamily="Palatino Linotype" FontSize="24" FontWeight="Bold" Height="40" Grid.Column="1">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="White"/>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBox x:Name="textBoxPorciones" HorizontalAlignment="Left"  Height="39" Margin="100,69,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="259" BorderBrush="Black" Grid.Column="1"/>
+
+        <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="210" Margin="45,11,0,0" VerticalAlignment="Top" Width="895" BorderBrush="Black" Grid.Row="1" FontSize="20" Grid.ColumnSpan="2" Background="#FFBDB9B9">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="200"/>
+                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100"/>
+                <DataGridTextColumn x:Name="ColumnPeso" Header="Peso" Width="100"/>
+                <DataGridTextColumn x:Name="ColumnVolumen" Header="Volumen" Width="150"/>
+                <DataGridTextColumn x:Name="ColumnCostoPorUnidad" Header="Costo por Unidad" Width="200"/>
+                <DataGridTextColumn x:Name="ColumnCosto" Header="Costo" Width="60"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <TextBlock x:Name="textBlockProcedimiento" HorizontalAlignment="Left" Margin="45,231,0,0" TextWrapping="Wrap" Text="Procedimiento" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.484,-0.251" FontFamily="Palatino Linotype" FontSize="24" Grid.Row="1" Foreground="#FFE2E0D5"/>
+        <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" Height="140" Margin="45,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="895" BorderBrush="#FF0C0C0C" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="532,432,0,0" VerticalAlignment="Top" Width="176" Height="54" Grid.Row="1" Foreground="Black" Background="#FF71B970" FontSize="20" Grid.ColumnSpan="2"/>
+        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="184,432,0,0" VerticalAlignment="Top" Width="176" Height="54" Grid.Row="1" Background="#FF887B4E" FontSize="20" RenderTransformOrigin="0.093,0.315" Grid.Column="1" Foreground="Black"/>
+
+
+    </Grid>
+</Window>

@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="0,0,10,260">
         <Button Content="Domicilio" HorizontalAlignment="Left" Margin="695,55,0,0" VerticalAlignment="Top" Width="75" Height="40" RenderTransformOrigin="1.2,0.625" Background="#FFFF6600" Foreground="#FFF7F3F3" BorderBrush="#FF151414" FontSize="14"/>
-        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="135,65,0,0" VerticalAlignment="Top" Width="80"/>
-        <TextBox x:Name="textBoxNombreCliente" HorizontalAlignment="Left" Height="20" Margin="314,65,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="110"/> 
+        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="120,80,0,0" VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="textBoxNombreCliente" HorizontalAlignment="Left" Height="20" Margin="300,80,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="110"/> 
 
     </Grid>
 </UserControl>

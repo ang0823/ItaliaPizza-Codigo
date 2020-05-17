@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,15 +65,33 @@
     <Compile Include="BuscarEmpleados.xaml.cs">
       <DependentUpon>BuscarEmpleados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BuscarReceta.xaml.cs">
+      <DependentUpon>BuscarReceta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EmpleadoDataGrid.cs" />
+    <Compile Include="Inventario.xaml.cs">
+      <DependentUpon>Inventario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\CallCenterUC.xaml.cs">
       <DependentUpon>CallCenterUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\CocinaPedidoDomicilio.xaml.cs">
+      <DependentUpon>CocinaPedidoDomicilio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\CocinaPedidoLocal.xaml.cs">
+      <DependentUpon>CocinaPedidoLocal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\MeserosUC.xaml.cs">
       <DependentUpon>MeserosUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PedidoADomicilio.xaml.cs">
+      <DependentUpon>PedidoADomicilio.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Principal.xaml.cs">
       <DependentUpon>Principal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Receta.xaml.cs">
+      <DependentUpon>Receta.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegistroEmpleados.xaml.cs">
       <DependentUpon>RegistroEmpleados.xaml</DependentUpon>
@@ -85,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BuscarEmpleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuscarReceta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,11 +128,31 @@
       <DependentUpon>InicioSesion.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Inventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pantallas\CallCenterUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pantallas\CocinaPedidoDomicilio.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pantallas\CocinaPedidoLocal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pantallas\MeserosUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PedidoADomicilio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Receta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +259,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="RecursosGUI\fondoCocina.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\fondoReceta.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\fondoNuevoPedido.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
