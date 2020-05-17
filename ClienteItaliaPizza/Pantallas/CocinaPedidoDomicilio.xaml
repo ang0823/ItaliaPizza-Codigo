@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="ClienteItaliaPizza.Pantallas.CocinaPedidoDomicilio"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" Height="260" Margin="40,20,0,0" VerticalAlignment="Top" Width="720" >
+            <StackPanel.Background>
+                <SolidColorBrush Color="#FF818181" Opacity="0.7"/>
+            </StackPanel.Background>
+            <Label Content="id" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="16" Height="35" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label Content="tipo" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="16" Height="36" Margin="550,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="71" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Button Content="Button" Height="56" Margin="495,75,45,0"/>
+            <DataGrid x:Name="DataGridPlatillos"  Margin="24,-115,360,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="124"  >
+
+                <!--Encabezados de la tabla -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="100" MinWidth="120" Foreground="#FF0F0F11" Binding="{Binding nombreplatillo}"  />
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <TextBlock TextWrapping="Wrap" Text="Instrucciones Especiales" Foreground="#FFF5F1F1" Height="21" Margin="22,0,572,0" HorizontalAlignment="Center"/>
+            <Label Content="instrucciones" Height="45" Margin="22,0,155,0" Foreground="#FFFDF4F4"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
