@@ -7,9 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="235" Margin="30,135,0,0" VerticalAlignment="Top" Width="510">
+        <TabControl HorizontalAlignment="Left" Height="265" Margin="20,135,0,0" VerticalAlignment="Top" Width="540">
             <TabItem Header="En espera">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,-23">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="237*"/>
+                        <ColumnDefinition Width="317*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
             </TabItem>
             <TabItem Header="Preparados">
                 <Grid Background="#FFE5E5E5"/>
@@ -21,15 +26,15 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="600,20,0,0" VerticalAlignment="Top" Width="180" Background="#FFF1F1F1">
             <Label Content="Nuevo Pedido" FontFamily="Palatino Linotype" FontSize="16" Margin="37,-1,26,54"/>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="70" Margin="35,30,0,0" VerticalAlignment="Top" Width="505" Background="#FFBFBEBE" CornerRadius="4">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="70" Margin="19,48,0,0" VerticalAlignment="Top" Width="505" Background="#FFBFBEBE" CornerRadius="4">
             <Label Content="Realizar Búsqueda" FontFamily="Palatino Linotype" Foreground="#FF822B00" FontSize="16" Margin="0,0,254,34" FontWeight="Bold" Padding="5,5,0,0"/>
         </Border>
         <Button Content="Editar" HorizontalAlignment="Left" Margin="610,150,0,0" VerticalAlignment="Top" Width="150" Height="45" Background="#FF54B053" BorderBrush="#FF060606" FontFamily="Palatino Linotype" FontSize="16" Foreground="White"/>
         <Button Content="Quitar" HorizontalAlignment="Left" Margin="610,225,0,0" VerticalAlignment="Top" Width="150" Height="45" Background="#FF887B4E" BorderBrush="#FF020202" Foreground="White" FontFamily="Palatino Linotype" FontSize="16"/>
         <Button Content="Local" HorizontalAlignment="Left" Margin="610,55,0,0" VerticalAlignment="Top" Width="75" Height="40" Background="#FFAE0000" BorderBrush="#FF131313" Foreground="#FFFFF4F4" FontFamily="Palatino Linotype" FontSize="14"/>
-        <Button Content="Buscar" HorizontalAlignment="Left" Margin="440,55,0,0" VerticalAlignment="Top" Width="90" Height="35" BorderBrush="#FF0E0D0D" Background="#FFAE0000" Foreground="#FFF9F5F5" FontFamily="Palatino Linotype" FontSize="16"/>
-        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="45,65,0,0" VerticalAlignment="Top" Width="80"/>
-        <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" Margin="225,65,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.529,0.545"/>
+        <Button Content="Buscar" HorizontalAlignment="Left" Margin="424,73,0,0" VerticalAlignment="Top" Width="90" Height="35" BorderBrush="#FF0E0D0D" Background="#FFAE0000" Foreground="#FFF9F5F5" FontFamily="Palatino Linotype" FontSize="16"/>
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="29,80,0,0" VerticalAlignment="Top" Width="80"/>
+        <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" Margin="209,80,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.529,0.545"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="185" Height="85" Margin="595,295,20,0" Background="#FFBFBEBE" >
             <Label Content="Generar Ticket" FontFamily="Palatino Linotype" FontSize="20" Margin="14,-1,19,49"/>
         </Border>
