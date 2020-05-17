@@ -103,7 +103,7 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IRegistrarIngrediente
     {
-        public void RegistrarProducto(Provision provision)
+        public void RegistrarIngrediente(Provision provision)
         {
             try
             {
