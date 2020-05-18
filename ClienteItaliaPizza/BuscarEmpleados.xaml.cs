@@ -21,35 +21,33 @@ namespace ClienteItaliaPizza
     public partial class BuscarEmpleados : Window
     {
         CuentaUsuario CuentaUsuario;
-        public BuscarEmpleados(CuentaUsuario cuenta)
+        public BuscarEmpleados()
         {
             InitializeComponent();
-            criterioCb.Items.Insert(0, "Buscar por:");
-            criterioCb.Items.Insert(1, "ID empleado");
-            criterioCb.Items.Insert(2, "Nombre");
-            criterioCb.Items.Insert(3, "Apellido paterno");
-            criterioCb.Items.Insert(4, "Apellido Materno");
-            criterioCb.Items.Insert(5, "Calle");
-            criterioCb.Items.Insert(6, "Colonia");
-            criterioCb.Items.Insert(7, "Código postal");
-            criterioCb.Items.Insert(8, "Correo electrónico");
-            criterioCb.Items.Insert(9, "Teléfono");
-            criterioCb.Items.Insert(10, "Puesto");
-            criterioCb.Items.Insert(11, "Usuario");
 
-            criterioCb.SelectedIndex = 0;
-            CuentaUsuario = cuenta;
-            UsuarioLbl.Content = cuenta.nombreUsuario;
-            acepttarBtn.Visibility = Visibility.Hidden;
-            buscarBtn.IsEnabled = false;
-            editarBtn.IsEnabled = false;
-            eliminarBtn.IsEnabled = false;
-            vaciarBtn.IsEnabled = false;
+            //CuentaUsuario = cuenta;
+            //UsuarioLbl.Content = cuenta.nombreUsuario;
+            EditarGuardarBtn.IsEnabled = false;
+            EliminarBtn.IsEnabled = false;
         }
 
         private Boolean CamposLlenos()
         {
-            if (criterioCb.SelectedIndex != 0 && entradaTxt.Text.Length > 0)
+            if (nombreTxt.Text.Length > 0 && aPaternoTxt.Text.Length > 0 && aMaternoTxt.Text.Length > 0
+                && correoElectronicoTxt.Text.Length > 0 && telefonoTxt.Text.Length > 0
+                && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
+                && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 1
+                || puestosCB.SelectedIndex == 2) && usuarioTxt.Text.Length == 0
+                && contrasenaTxt.Password.Length == 0)
+            {
+                return true;
+            }
+            else if (nombreTxt.Text.Length > 0 && aPaternoTxt.Text.Length > 0 && aMaternoTxt.Text.Length > 0
+                && correoElectronicoTxt.Text.Length > 0 && telefonoTxt.Text.Length > 0
+                && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
+                && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 3
+                || puestosCB.SelectedIndex == 4 || puestosCB.SelectedIndex == 5)
+                && usuarioTxt.Text.Length > 0 && contrasenaTxt.Password.Length > 0)
             {
                 return true;
             }
@@ -57,87 +55,29 @@ namespace ClienteItaliaPizza
             return false;
         }
 
-        private void CerrarSesion()
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
-            {
-                MainWindow ventana = new MainWindow();
-                ventana.Show();
-                this.Close();
-            });
-        }
-
-        private void MostrarVentanaPrincipal()
-        {
-            Dispatcher.Invoke(() =>
-            {
-                Principal ventana = new Principal(CuentaUsuario);
-                ventana.Show();
-                this.Close();
-            });
-        }
-
-        private void VaciarCampos()
-        {
-            criterioCb.SelectedIndex = 0;
-            entradaTxt.Text = "";
-        }
-
-        private void buscarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            entradaTxt.Text = "";
+            // Falta el servidor para implementar este metodo
+            SearchBox.Text = "";
             Empleado n = new Servicio.Empleado();
             CuentaUsuario c = new Servicio.CuentaUsuario();
-            EmpleadoDataGrid Data;
-
-            n.IdEmpleado = 82205;
-            n.nombre = "Ángel Daniel";
-            n.apellidoPaterno = "Sánchez";
-            n.apellidoMaterno = "Martínez";
-            n.correo = "angelsanchez934@gmail.com";
-            n.telefono = "2282739774";
-            c.nombreUsuario = "ang0823";
-            c.contraseña = "abc123";
-            Data = new EmpleadoDataGrid(n, c);
-            resultsData.Items.Add(Data);
         }
 
-        private void CerrarSesionBtn_Click(object sender, RoutedEventArgs e)
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
-            CerrarSesion();
-        }
-
-        private void resultsData_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!resultsData.SelectedItem.Equals(""))
-            {
-                editarBtn.IsEnabled = true;
-                eliminarBtn.IsEnabled = true;
-            }
-            else
-            {
-                editarBtn.IsEnabled = false;
-                eliminarBtn.IsEnabled = false;
-            }
+            FuncionesComunes.CerrarSesion();
         }
 
         private void entradaTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (CamposLlenos())
             {
-                buscarBtn.IsEnabled = true;
+                EditarGuardarBtn.IsEnabled = true;
             }
             else
             {
-                buscarBtn.IsEnabled = false;
+                EditarGuardarBtn.IsEnabled = false;
             }
-        }
-
-        private void vaciarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            vaciarBtn.IsEnabled = false;
-            resultsData.Items.Clear();
-            resultsData.Items.Refresh();
         }
 
         private void cancelarBtn_Click(object sender, RoutedEventArgs e)
@@ -149,22 +89,20 @@ namespace ClienteItaliaPizza
 
                 if (opcion == MessageBoxResult.OK)
                 {
-                    VaciarCampos();
-                    MostrarVentanaPrincipal();
+                    FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
                 }
         }
 
-        private void criterioCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cancelarBtn_Click_1(object sender, RoutedEventArgs e)
         {
-            if (CamposLlenos())
-            {
-                buscarBtn.IsEnabled = true;
-            }
-            else
-            {
-                buscarBtn.IsEnabled = false;
-            }
+            FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
+            this.Close();
         }
 
+        private void LogoutBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+            FuncionesComunes.CerrarSesion();
+            this.Close();
+        }
     }
 }
