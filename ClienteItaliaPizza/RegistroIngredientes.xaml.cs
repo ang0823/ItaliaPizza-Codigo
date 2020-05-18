@@ -9,20 +9,25 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ClienteItaliaPizza
 {
+
+    [CallbackBehavior(UseSynchronizationContext = false)]
     /// <summary>
     /// Lógica de interacción para RegistrarIngrediente.xaml
     /// </summary>
-    public partial class RegistroIngredientes : Window, Servicio.IRegistrarIngrediente
+    public partial class RegistroIngredientes : Window, Servicio.IRegistrarIngredienteCallback
     {
         CuentaUsuario CuentaUsuario;
-        
+        Provision ingrediente = new Provision();
+
         /*public RegistroIngredientes(CuentaUsuario cuenta)
         {
             this.CuentaUsuario = cuenta;
@@ -37,7 +42,6 @@ namespace ClienteItaliaPizza
         {
             InitializeComponent();
             IniciarComboBox();
-
             VaciarBtn.IsEnabled = false;
             GuardarBtn.IsEnabled = false;
         }
@@ -66,12 +70,54 @@ namespace ClienteItaliaPizza
             return false;
         }
 
+        private void InicializarObjetoIngrediente()
+        {
+            try
+            {
+            float precio = ParsearPrecio(IngredientePrecio.Text.Trim());
+            short noExistencias = ParsearAShort(IngredienteExistencias.Text.Trim());
+            int minimoPermitido = ParsearAEntero(StockMinimo.Text.Trim());
+
+            ingrediente.nombre = IngredienteNombre.Text.Trim();
+            ingrediente.noExistencias = noExistencias;
+            ingrediente.ubicacion = IngredienteUbicacion.Text.Trim();
+            ingrediente.stockMinimo = StockMinimo.Text.Trim();
+            ingrediente.costoUnitario = precio;
+            ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
+            }
+            catch (FormatException error)
+            {
+                throw new FormatException(error.Message);
+            }
+            catch (OverflowException error)
+            {
+                throw new OverflowException(error.Message);
+            }
+        }
+
         private void IniciarComboBox()
         {
             UnidadMedidaCb.Items.Insert(0, "Seleccionar");
             UnidadMedidaCb.Items.Insert(1, "Lt");
             UnidadMedidaCb.Items.Insert(2, "Kg");
             UnidadMedidaCb.SelectedIndex = 0;
+        }
+
+        private void MostrarCuadroError(string mensaje)
+        {
+            string titulo = "Información";
+            MessageBoxResult opcion;
+            opcion = MessageBox.Show(mensaje, titulo,
+                MessageBoxButton.OK, MessageBoxImage. Error);
+        }
+
+        private void MostrarMensajeExitoso(string Mensaje)
+        {
+            MessageBoxResult opcion;
+            string titulo = "Operación exitósa";
+            opcion = MessageBox.Show(Mensaje, titulo,
+                MessageBoxButton.OK, MessageBoxImage.Information);
+            VaciarCampos();
         }
 
         private void MostrarVentanaPrincipal()
@@ -82,6 +128,106 @@ namespace ClienteItaliaPizza
                 ventana.Show();
                 this.Close();
             });
+        }
+
+        private int ParsearAEntero(string EntradaUsuario)
+        {
+            int entero;
+
+            try
+            {
+                entero = int.Parse(EntradaUsuario);
+            }
+            catch (FormatException)
+            {
+                throw new FormatException("El stock mínimo debe ser numérico");
+            }
+            catch (OverflowException)
+            {
+                throw new OverflowException("El stock mínimo ingresado provoco un desbordamiento");
+            }
+
+            return entero;
+        }
+
+        private short ParsearAShort(string EntradaUsuario)
+        {
+            short shortNumber;
+
+            try
+            {
+                shortNumber = short.Parse(EntradaUsuario);
+            }
+            catch (FormatException)
+            {
+                throw new FormatException("El número de existencias no pueden ser letras");
+            }
+            catch (OverflowException)
+            {
+                throw new OverflowException("El númweo de existencias ingresado provocó un desbordamiento");
+            }
+
+            return shortNumber;
+        }
+        
+        private float ParsearPrecio(string precio) 
+        {
+            float costo = 0;
+
+            try
+            {
+                costo = float.Parse(precio);
+            } 
+            catch (FormatException)
+            {
+                throw new FormatException("El precio del producto debe ser numérico (puede incluir punto decimal).");
+            } catch (OverflowException)
+            {
+                throw new OverflowException("El precio ingresado provoco un desbordamiento");
+            }
+
+            return costo;
+        }
+
+        private void RegistrarIngrediente()
+        {
+            InstanceContext context = new InstanceContext(this);
+            RegistrarIngredienteClient ServicioIngrediente = new RegistrarIngredienteClient(context);
+            string Mensaje;
+
+            try
+            {
+                if (CamposLlenos())
+                {
+                    InicializarObjetoIngrediente();
+                    ServicioIngrediente.RegistrarIngrediente(ingrediente);
+                    Mensaje = "El ingrediente se guardó exitosamente";
+                    MostrarMensajeExitoso(Mensaje);
+                    VaciarCampos();
+                }
+                else
+                {
+                    Mensaje = "Es necesario llenar todos los campos";
+                    MostrarCuadroError(Mensaje);
+                }
+            }
+            catch (CommunicationException)
+            {
+                Mensaje = "Ocurrió un error al comunicarse con el servidor";
+                MostrarCuadroError(Mensaje);
+            }
+            catch (FormatException error)
+            {
+                MostrarCuadroError(error.Message);
+            }
+            catch (OverflowException error)
+            {
+                MostrarCuadroError(error.Message);
+            }
+            catch (InvalidOperationException)
+            {
+
+            }
         }
 
         private void VaciarCampos()
@@ -241,42 +387,9 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void IngredienteExistencias_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                GuardarBtn.IsEnabled = true;
-            }
-            else
-            {
-                GuardarBtn.IsEnabled = false;
-            }
-        }
-
         private void VaciarBtn_Click(object sender, RoutedEventArgs e)
         {
             VaciarCampos();
-        }
-
-        private void IngredienteExistencias_TextChanged_2(object sender, TextChangedEventArgs e)
-        {
-            if (AlgunCampoLleno())
-            {
-                VaciarBtn.IsEnabled = true;
-            }
-            else
-            {
-                VaciarBtn.IsEnabled = false;
-            }
-
-            if (CamposLlenos())
-            {
-                GuardarBtn.IsEnabled = true;
-            }
-            else
-            {
-                GuardarBtn.IsEnabled = false;
-            }
         }
 
         private void StockMinimo_TextChanged(object sender, TextChangedEventArgs e)
@@ -308,38 +421,20 @@ namespace ClienteItaliaPizza
 
         private void GuardarBtn_Click(object sender, RoutedEventArgs e)
         {
-            InstanceContext context = new InstanceContext(this);
-            RegistrarIngredienteClient ServicioIngrediente = new RegistrarIngredienteClient(context);
-
-            try
-            {
-                Provision ingrediente = new Provision();
-                ingrediente.nombre = IngredienteNombre.Text;
-                short noExistencias = short.Parse(IngredienteExistencias.Text);
-                ingrediente.noExistencias = noExistencias;
-                ingrediente.ubicacion = IngredienteUbicacion.Text;
-                ingrediente.stockMinimo = StockMinimo.Text;
-                float precio = float.Parse(IngredientePrecio.Text);
-                ingrediente.costoUnitario = precio;
-                ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
-                Console.Write($"1. { ingrediente.nombre} 2. {ingrediente.noExistencias} 3. {ingrediente.ubicacion} 4. {ingrediente.stockMinimo} 5. {ingrediente.costoUnitario} 6. {ingrediente.unidadMedida}");
-                ServicioIngrediente.RegistrarIngrediente(ingrediente);
-                VaciarCampos();
-            }
-            catch (CommunicationException)
-            {
-                
-            }
+            RegistrarIngrediente();
         }
 
-        public void RegistrarIngrediente(Provision provision)
+        public void Respuesta(string mensajeError)
         {
             throw new NotImplementedException();
         }
 
-        public Task RegistrarIngredienteAsync(Provision provision)
+        private void IngredienteNombre_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if (CamposLlenos() && e.Key == Key.Return)
+            {
+                RegistrarIngrediente();
+            }
         }
     }
 }
