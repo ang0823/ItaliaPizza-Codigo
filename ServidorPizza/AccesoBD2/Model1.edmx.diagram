@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d819516d1b9143e6ad5fe4ffb8d000bb" Name="Diagram1" ZoomLevel="85" >
+        <EntityTypeShape EntityType="BDPizzaModel.CuentaUsuario" Width="1.5" PointX="0.5" PointY="14.375" />
+        <EntityTypeShape EntityType="BDPizzaModel.Empleado" Width="1.5" PointX="3.375" PointY="10.125" />
+        <EntityTypeShape EntityType="BDPizzaModel.Direccion" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="BDPizzaModel.Rol" Width="1.5" PointX="11.75" PointY="16.75" />
+        <EntityTypeShape EntityType="BDPizzaModel.Pedido" Width="1.5" PointX="5.625" PointY="14.75" />
+        <EntityTypeShape EntityType="BDPizzaModel.Cliente" Width="1.5" PointX="7.875" PointY="0.5" />
+        <EntityTypeShape EntityType="BDPizzaModel.Mesa" Width="1.5" PointX="10.5" PointY="2.875" />
+        <EntityTypeShape EntityType="BDPizzaModel.Estado" Width="1.5" PointX="0.75" PointY="19.625" />
+        <EntityTypeShape EntityType="BDPizzaModel.Categoria" Width="1.5" PointX="16.5" PointY="9.875" />
+        <EntityTypeShape EntityType="BDPizzaModel.Producto" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="BDPizzaModel.Cuenta" Width="1.5" PointX="0.75" PointY="22" />
+        <EntityTypeShape EntityType="BDPizzaModel.Telefono" Width="1.5" PointX="14.625" PointY="0.5" />
+        <EntityTypeShape EntityType="BDPizzaModel.ProvisionDirecta" Width="1.5" PointX="0.75" PointY="24.875" />
+        <EntityTypeShape EntityType="BDPizzaModel.Receta" Width="1.5" PointX="20.5" PointY="14.375" />
+        <EntityTypeShape EntityType="BDPizzaModel.Provision" Width="1.5" PointX="26.5" PointY="11.25" />
+        <AssociationConnector Association="BDPizzaModel.CuentaUsuarioEmpleado" />
+        <AssociationConnector Association="BDPizzaModel.EmpleadoDireccion" />
+        <AssociationConnector Association="BDPizzaModel.DireccionCliente" />
+        <AssociationConnector Association="BDPizzaModel.EmpleadoRol" />
+        <AssociationConnector Association="BDPizzaModel.EmpleadoPedido" />
+        <AssociationConnector Association="BDPizzaModel.EstadoPedido" />
+        <AssociationConnector Association="BDPizzaModel.CuentaPedido" />
+        <AssociationConnector Association="BDPizzaModel.ProductoPedido" />
+        <AssociationConnector Association="BDPizzaModel.ProvisionDirectaPedido" />
+        <AssociationConnector Association="BDPizzaModel.ProductoCategoria" />
+        <AssociationConnector Association="BDPizzaModel.ClienteTelefono" />
+        <AssociationConnector Association="BDPizzaModel.ProvisionDirectaProvision" />
+        <AssociationConnector Association="BDPizzaModel.ProductoReceta" />
+        <AssociationConnector Association="BDPizzaModel.RecetaProvision" />
+        <EntityTypeShape EntityType="BDPizzaModel.PedidoLocal" Width="1.5" PointX="12.375" PointY="4.25" />
+        <InheritanceConnector EntityType="BDPizzaModel.PedidoLocal" />
+        <InheritanceConnector EntityType="BDPizzaModel.PedidoLocal" />
+        <EntityTypeShape EntityType="BDPizzaModel.PedidoADomicilio" Width="2.125" PointX="8.25" PointY="16.375" />
+        <InheritanceConnector EntityType="BDPizzaModel.PedidoADomicilio" />
+        <AssociationConnector Association="BDPizzaModel.ClientePedidoADomicilio" />
+        <AssociationConnector Association="BDPizzaModel.MesaPedidoLocal" />
+        <EntityTypeShape EntityType="BDPizzaModel.Ingrediente" Width="1.5" PointX="16.25" PointY="14.625" />
+        <AssociationConnector Association="BDPizzaModel.IngredienteReceta" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
