@@ -12,12 +12,10 @@ namespace AccesoBD2
     using System;
     using System.Collections.Generic;
     
-    public partial class CuentaUsuario
+    public partial class PedidoADomicilio : Pedido
     {
-        public string nombreUsuario { get; set; }
-        public string contraseña { get; set; }
-        public int Id { get; set; }
+        public int ClienteId { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
+        public virtual Cliente Cliente { get; set; }
     }
 }

@@ -27,5 +27,19 @@ namespace AccesoBD2
     
         public virtual DbSet<CuentaUsuario> CuentaUsuarioSet { get; set; }
         public virtual DbSet<Empleado> EmpleadoSet { get; set; }
+        public virtual DbSet<Direccion> DireccionSet { get; set; }
+        public virtual DbSet<Rol> RolSet { get; set; }
+        public virtual DbSet<Pedido> PedidoSet { get; set; }
+        public virtual DbSet<Cliente> ClienteSet { get; set; }
+        public virtual DbSet<Mesa> MesaSet { get; set; }
+        public virtual DbSet<Estado> EstadoSet { get; set; }
+        public virtual DbSet<Categoria> CategoriaSet { get; set; }
+        public virtual DbSet<Producto> ProductoSet { get; set; }
+        public virtual DbSet<Cuenta> CuentaSet { get; set; }
+        public virtual DbSet<Telefono> TelefonoSet { get; set; }
+        public virtual DbSet<ProvisionDirecta> ProvisionDirectaSet { get; set; }
+        public virtual DbSet<Receta> RecetaSet { get; set; }
+        public virtual DbSet<Provision> ProvisionSet { get; set; }
+        public virtual DbSet<Ingrediente> IngredienteSet { get; set; }
     }
 }

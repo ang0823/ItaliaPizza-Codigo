@@ -12,25 +12,26 @@ namespace AccesoBD2
     using System;
     using System.Collections.Generic;
     
-    public partial class Empleado
+    public partial class Cliente
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Empleado()
+        public Cliente()
         {
-            this.Pedido = new HashSet<Pedido>();
+            this.Direccion = new HashSet<Direccion>();
+            this.Telefono = new HashSet<Telefono>();
+            this.PedidoADomicilio = new HashSet<PedidoADomicilio>();
         }
     
-        public int IdEmpleado { get; set; }
+        public int Id { get; set; }
         public string nombre { get; set; }
         public string apellidoPaterno { get; set; }
         public string apellidoMaterno { get; set; }
-        public string telefono { get; set; }
-        public string correo { get; set; }
     
-        public virtual CuentaUsuario CuentaUsuario { get; set; }
-        public virtual Direccion Direccion { get; set; }
-        public virtual Rol Rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedido> Pedido { get; set; }
+        public virtual ICollection<Direccion> Direccion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Telefono> Telefono { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PedidoADomicilio> PedidoADomicilio { get; set; }
     }
 }

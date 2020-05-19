@@ -12,25 +12,25 @@ namespace AccesoBD2
     using System;
     using System.Collections.Generic;
     
-    public partial class Empleado
+    public partial class Pedido
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Empleado()
+        public Pedido()
         {
-            this.Pedido = new HashSet<Pedido>();
+            this.Producto = new HashSet<Producto>();
+            this.ProvisionDirecta = new HashSet<ProvisionDirecta>();
         }
     
-        public int IdEmpleado { get; set; }
-        public string nombre { get; set; }
-        public string apellidoPaterno { get; set; }
-        public string apellidoMaterno { get; set; }
-        public string telefono { get; set; }
-        public string correo { get; set; }
+        public int Id { get; set; }
+        public System.DateTime fecha { get; set; }
+        public string instruccionesEspeciales { get; set; }
     
-        public virtual CuentaUsuario CuentaUsuario { get; set; }
-        public virtual Direccion Direccion { get; set; }
-        public virtual Rol Rol { get; set; }
+        public virtual Empleado Empleado { get; set; }
+        public virtual Estado Estado { get; set; }
+        public virtual Cuenta Cuenta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedido> Pedido { get; set; }
+        public virtual ICollection<Producto> Producto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProvisionDirecta> ProvisionDirecta { get; set; }
     }
 }

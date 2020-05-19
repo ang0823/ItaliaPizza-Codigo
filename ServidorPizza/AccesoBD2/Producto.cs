@@ -12,25 +12,25 @@ namespace AccesoBD2
     using System;
     using System.Collections.Generic;
     
-    public partial class Empleado
+    public partial class Producto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Empleado()
+        public Producto()
         {
             this.Pedido = new HashSet<Pedido>();
         }
     
-        public int IdEmpleado { get; set; }
+        public int Id { get; set; }
         public string nombre { get; set; }
-        public string apellidoPaterno { get; set; }
-        public string apellidoMaterno { get; set; }
-        public string telefono { get; set; }
-        public string correo { get; set; }
+        public string descripcion { get; set; }
+        public double precioUnitario { get; set; }
+        public Nullable<byte> imagen { get; set; }
+        public bool activado { get; set; }
+        public string restricciones { get; set; }
     
-        public virtual CuentaUsuario CuentaUsuario { get; set; }
-        public virtual Direccion Direccion { get; set; }
-        public virtual Rol Rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }
+        public virtual Categoria Categoria { get; set; }
+        public virtual Receta Receta { get; set; }
     }
 }
