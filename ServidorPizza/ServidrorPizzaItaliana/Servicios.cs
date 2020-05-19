@@ -80,7 +80,7 @@ namespace ServidrorPizzaItaliana
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<ILoginCallback>().Respuesta("Alguno de los datos introducidos no son correctos");
+                OperationContext.Current.GetCallbackChannel<ILoginCallback>().LoginRespuesta("Alguno de los datos introducidos no son correctos");
             }
         }
     }
@@ -100,7 +100,7 @@ namespace ServidrorPizzaItaliana
                 if (c != null)
                 {
 
-                    OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().Respuesta("El usuario ya ha sido registrado");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RegistroCuentaUsuarioRespuesta("El usuario ya ha sido registrado");
                 }
             }
             catch (InvalidOperationException)
@@ -111,7 +111,7 @@ namespace ServidrorPizzaItaliana
                 db.CuentaUsuarioSet.Add(cuenta);
                 db.SaveChanges();
                 db.Dispose();
-                OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().Respuesta("La cuenta de usuario se registró correctamente");
+                OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RegistroCuentaUsuarioRespuesta("La cuenta de usuario se registró correctamente");
             }
         }
     }
@@ -146,13 +146,13 @@ namespace ServidrorPizzaItaliana
                 db.RolSet.Attach(r);
                 db.Entry(r).State = EntityState.Modified;
                 db.SaveChanges();
-                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().Respuesta("Se modificó correctamente");
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().ModificarCuentaUsuarioRespuesta("Se modificó correctamente");
                 Console.WriteLine("Se modificó correctamente");
 
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().Respuesta("Alguno de los datos introducidos no son correctos");
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().ModificarCuentaUsuarioRespuesta("Alguno de los datos introducidos no son correctos");
             }
         }
     }
@@ -198,7 +198,7 @@ namespace ServidrorPizzaItaliana
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().Respuesta("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
+                OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().ObtenerCuentaUsuarioRespuesta("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
             }
         }
     }
@@ -227,11 +227,11 @@ namespace ServidrorPizzaItaliana
                 db.DireccionSet.Remove(direccionC);
                 db.RolSet.Remove(rolC);
                 db.SaveChanges();
-                OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().Respuesta("Éxito al eliminar la cuenta de usuario");
+                OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().ObtenerCuentaUsuarioRespuesta("Éxito al eliminar la cuenta de usuario");
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().Respuesta("Error al intentar acceder a la base de datos");
+                OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().ObtenerCuentaUsuarioRespuesta("Error al intentar acceder a la base de datos");
             }
         }
     }
@@ -250,7 +250,7 @@ namespace ServidrorPizzaItaliana
                 if (c != null)
                 {
 
-                    OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().Respuesta("El producto ya ha sido registrado");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RegistroProductooRespuesta("El producto ya ha sido registrado");
                 }
             }
             catch (InvalidOperationException)
@@ -277,7 +277,7 @@ namespace ServidrorPizzaItaliana
                 if (c1 != null)
                 {
 
-                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().Respuesta("La receta ya se encuentra registrada");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RegistrarRecetaRespuesta("La receta ya se encuentra registrada");
                 }
             }
             catch (InvalidOperationException)
@@ -287,7 +287,7 @@ namespace ServidrorPizzaItaliana
                 db.RecetaSet.Add(receta);
                 db.SaveChanges();
                 db.Dispose();
-                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().Respuesta("La receta se registró correctamente");
+                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RegistrarRecetaRespuesta("La receta se registró correctamente");
             }
 
         }
@@ -333,7 +333,7 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IRegistrarIngrediente
     {
-        public void RegistrarProducto(Provision provision)
+        public void RegistrarIngrediente(Provision provision)
         {
             try
             {
