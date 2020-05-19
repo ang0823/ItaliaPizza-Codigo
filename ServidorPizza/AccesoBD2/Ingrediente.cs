@@ -12,24 +12,22 @@ namespace AccesoBD2
     using System;
     using System.Collections.Generic;
     
-    public partial class Receta
+    public partial class Ingrediente
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Receta()
+        public Ingrediente()
         {
-            this.Provision = new HashSet<Provision>();
-            this.Ingrediente = new HashSet<Ingrediente>();
+            this.Receta = new HashSet<Receta>();
         }
     
-        public int id { get; set; }
-        public double porciones { get; set; }
-        public string procedimiento { get; set; }
-        public string nombreReceta { get; set; }
+        public int Id { get; set; }
+        public string nombre { get; set; }
+        public int cantidad { get; set; }
+        public string peso { get; set; }
+        public double costoPorUnidad { get; set; }
+        public string unidad { get; set; }
     
-        public virtual Producto Producto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Provision> Provision { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ingrediente> Ingrediente { get; set; }
+        public virtual ICollection<Receta> Receta { get; set; }
     }
 }

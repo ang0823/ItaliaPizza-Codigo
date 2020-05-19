@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using AccesoBD2;
-using System.ServiceModel;
 
 namespace ServidrorPizzaItaliana
 {
-    [ServiceContract(CallbackContract = typeof(IRegistrarIngredienteCallback))]
-    public interface IRegistrarIngrediente
+    [ServiceContract(CallbackContract = typeof(IEliminarCuentaUsuarioCallback))]
+    interface IEliminarCuentaUsuario
     {
         [OperationContract(IsOneWay = true)]
-        void RegistrarProducto(Provision provision);
+        void EliminarCuentaUsuario(string nombreUsuario, int id);
     }
 
     [ServiceContract]
-    public interface IRegistrarIngredienteCallback
+    public interface IEliminarCuentaUsuarioCallback
     {
+
         [OperationContract(IsOneWay = true)]
-        void Respuesta(string mensajeError);
+        void Respuesta(string mensaje);
     }
 }
