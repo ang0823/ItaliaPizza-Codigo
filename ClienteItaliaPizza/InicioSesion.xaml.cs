@@ -10,7 +10,7 @@ namespace ClienteItaliaPizza
 {
     [CallbackBehavior(UseSynchronizationContext = false)]
 
-    public partial class MainWindow : Window //, IServicioPizzaItalianaCallback
+    public partial class MainWindow : Window, ILoginCallback
     {
         public MainWindow()
         {
@@ -25,17 +25,18 @@ namespace ClienteItaliaPizza
             try
             {
                 InstanceContext instanceContext = new InstanceContext(this);
-                //ServicioPizzaItalianaClient cliente = new ServicioPizzaItalianaClient(instanceContext);
+                LoginClient cliente = new LoginClient(instanceContext);
 
                 if (DatosCompletos())
                 {
                     string nombreUsuario = textBoxNombreUsuario.Text.Trim();
                     string contraseña = passwordBoxContraseña.Password.Trim();
-                    //cliente.IniciarSesion(nombreUsuario, contraseña);
+                    cliente.IniciarSesion(nombreUsuario, contraseña);
                 }
                 else
                 {
-                    MessageBox.Show("Se requiere usuario y contraseña", "Campos vacios", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Mensaje = "Se requiere usuario y contraseña";
+                    FuncionesComunes.MostrarMensajeDeError(Mensaje);
                 }
             }
             catch (EndpointNotFoundException)
@@ -80,12 +81,6 @@ namespace ClienteItaliaPizza
             });
         }
 
-        public void Respuesta(string mensaje)
-        {
-            throw new NotImplementedException();
-        }
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             VentanaCocina ventanaCocina = new VentanaCocina();
@@ -116,6 +111,14 @@ namespace ClienteItaliaPizza
             {
                 IniciarSesion();
             }
+        }
+
+        public void LoginRespuesta(string mensaje)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                FuncionesComunes.MostrarMensajeDeError(mensaje);
+            });
         }
     }
 }
