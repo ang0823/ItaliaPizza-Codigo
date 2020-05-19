@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,31 +16,321 @@ using System.Windows.Shapes;
 
 namespace ClienteItaliaPizza
 {
+
+    [CallbackBehavior(UseSynchronizationContext = false)]
+
     /// <summary>
-    /// Lógica de interacción para BuscarIngrediente.xaml
+    /// Interfaz grádfica del cliente para buscar y ediar un ingrediente guardado en el servidor.
     /// </summary>
-    public partial class BuscarIngrediente : Window
+    public partial class BuscarIngrediente : Window, IBuscarProductoCallback
     {
         CuentaUsuario CuentaUsuario;
+        Provision ingrediente = new Provision();
 
-        public BuscarIngrediente(CuentaUsuario cuenta)
+        public BuscarIngrediente()
         {
-            this.CuentaUsuario = cuenta;
-            UserLbl.Content = cuenta.nombreUsuario;
+            //this.CuentaUsuario = cuenta;
+            //UserLbl.Content = cuenta.nombreUsuario;
             InitializeComponent();
+            DeshabilitarCampos();
+            IniciarUnidadesMedida();
+            EditarGuardarBtn.IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Envia al servidor la nueva información del ingtediente para que se edite en la base de datos.
+        /// </summary>
+        private void ActualizarDatosDeIngrediente()
+        {
+            try
+            {
+                if (InformacionEditada())
+                {
+                    InstanceContext context = new InstanceContext(this);
+                
+                    float precio = FuncionesComunes.ParsearAFloat(IngredientePrecio.Text.Trim());
+                    short noExistencias = FuncionesComunes.ParsearAShort(IngredienteExistencias.Text.Trim());
+                    int minimoPermitido = FuncionesComunes.ParsearAEntero(StockMinimo.Text.Trim());
+
+                    ingrediente.nombre = IngredienteNombre.Text.Trim();
+                    ingrediente.noExistencias = noExistencias;
+                    ingrediente.ubicacion = IngredienteUbicacion.Text.Trim();
+                    ingrediente.stockMinimo = StockMinimo.Text.Trim();
+                    ingrediente.costoUnitario = precio;
+                    ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
+                    FuncionesComunes.MostrarMensajeExitoso("La información del producto ha sido modificada.");
+                    EstablecerInformacion(ingrediente);
+                    DeshabilitarCampos();
+                }
+                else
+                {
+                    EstablecerInformacion(ingrediente);
+                    DeshabilitarCampos();
+                }
+            }
+            catch (FormatException error)
+            {
+                throw new FormatException(error.Message);
+            }
+            catch (OverflowException error)
+            {
+                throw new OverflowException(error.Message);
+            }
+        }
+
+        /// <summary>
+        /// Verfica que todos los campos del formulario tengan contenido.
+        /// </summary>
+        /// <returns>True si todos lo campos están llenos o false en caso contrario.</returns>
+        private Boolean CamposLlenos()
+        {
+            if (IngredienteNombre.Text.Length > 0 && IngredientePrecio.Text.Length > 0
+                && IngredienteUbicacion.Text.Length > 0 && IngredienteExistencias.Text.Length > 0 
+                && StockMinimo.Text.Length > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Se conecta con el servidor para recuperar la información del producto ingresado por el usuario, mostrando los datos en la interfaz gráfica.
+        /// </summary>
+        private void BuscarInformacionDeProducto()
+        {
+            InstanceContext context = new InstanceContext(this);
+            BuscarProductoClient ServicioIngrediente = new BuscarProductoClient(context);
+            string NombreIngrediente = SearchBox.Text;
+
+            try
+            {
+                ServicioIngrediente.BuscarPorNombre(NombreIngrediente);
+            }
+            catch (FormatException error)
+            {
+                FuncionesComunes.MostrarMensajeDeError(error.Message);
+            }
+            catch (OverflowException error)
+            {
+                FuncionesComunes.MostrarMensajeDeError(error.Message);
+            }
+            catch(Exception error)
+            {
+                FuncionesComunes.MostrarMensajeDeError(error.Message);
+            }
+        }
+
+        /// <summary>
+        /// Establece todos los campos del formulario a deshabilitados para evirar que el usuario ingrese o edite información de los mismos.
+        /// </summary>
+        private void DeshabilitarCampos()
+        {
+            IngredienteNombre.IsEnabled = false;
+            IngredientePrecio.IsEnabled = false;
+            IngredienteUbicacion.IsEnabled = false;
+            IngredienteExistencias.IsEnabled = false;
+            StockMinimo.IsEnabled = false;
+            UnidadMedidaCb.IsEnabled = false;
+        }
+
+        private void EstablecerInformacion(Provision provision)
+        {
+            IngredienteNombre.Text = provision.nombre;
+            IngredientePrecio.Text = provision.costoUnitario.ToString();
+            IngredienteUbicacion.Text = provision.ubicacion;
+            IngredienteExistencias.Text = provision.noExistencias.ToString();
+            StockMinimo.Text = provision.stockMinimo;
+            UnidadMedidaCb.SelectedItem = provision.unidadMedida;
+        }
+
+        /// <summary>
+        /// Establece todos los campos del formulario a habilitados para permitir que el usuario edite información de los mismos.
+        /// </summary>
+        private void HabilitarCampos()
+        {
+            IngredienteNombre.IsEnabled = true;
+            IngredientePrecio.IsEnabled = true;
+            IngredienteUbicacion.IsEnabled = true;
+            IngredienteExistencias.IsEnabled = true;
+            StockMinimo.IsEnabled = true;
+            UnidadMedidaCb.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Valida que la información del producto encontrado se haya editado cuado estaban habilitados los campos.
+        /// </summary>
+        /// <returns>True si se encuetra álgún campo con información editada o false en caso contrario.</returns>
+        private Boolean InformacionEditada()
+        {
+            Boolean InformacionEditada = false;
+            string NuevoNombre = IngredienteNombre.Text;
+            string NuevoPrecipo = IngredientePrecio.Text;
+            string NuevaUbicacion = IngredienteUbicacion.Text;
+            string NuevasExistencias = IngredienteExistencias.Text;
+            string NuevoStockMinimo = StockMinimo.Text;
+            string NuevaMedida = UnidadMedidaCb.SelectedItem.ToString();
+
+            if (NuevoNombre != ingrediente.nombre || NuevoPrecipo != ingrediente.costoUnitario.ToString()
+                || NuevaUbicacion != ingrediente.ubicacion || NuevasExistencias != ingrediente.noExistencias.ToString()
+                || NuevoStockMinimo != ingrediente.stockMinimo || NuevaMedida != ingrediente.unidadMedida)
+            {
+                InformacionEditada = true;
+            }
+
+            return InformacionEditada;
+        }
+
+        private void IniciarUnidadesMedida()
+        {
+            UnidadMedidaCb.Items.Insert(0, "Lt");
+            UnidadMedidaCb.Items.Insert(1, "Kg");
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             FuncionesComunes.CerrarSesion();
+            this.Close();
+        }
+
+        private void IngredienteNombre_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                if (CamposLlenos())
+                {
+                    EditarGuardarBtn.IsEnabled = true;
+                }
+                else
+                {
+                    EditarGuardarBtn.IsEnabled = false;
+                }
+            }
+        }
+
+        private void IngredientePrecio_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
+        }
+
+        private void IngredienteUbicacion_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
+        }
+
+        private void UnidadMedidaCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
+        }
+
+        private void IngredienteExistencias_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
+        }
+
+        private void StockMinimo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
+        }
+
+        private void StockMinimo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CamposLlenos())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
         }
 
         private void SearchBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (SearchBox.Text.Length > 0 && e.Key == Key.Return)
             {
-                UserLbl.Content = "Button pushed";
+                BuscarInformacionDeProducto();
             }
+        }
+
+        private void EditarGuardarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(EditarGuardarBtn.Content.ToString() == "Editar")
+            {
+                EditarGuardarBtn.Content = "Guardar";
+                HabilitarCampos();
+            }
+            else if(EditarGuardarBtn.Content.ToString() == "Guardar")
+            {
+                ActualizarDatosDeIngrediente();
+                EditarGuardarBtn.Content = "Editar";
+            }
+
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarInformacionDeProducto();
+        }
+
+        public void ProvicionDirecta(ProvisionDirecta provDir)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Provision(Provision prov)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                ingrediente = prov;
+                EstablecerInformacion(ingrediente);
+                EditarGuardarBtn.IsEnabled = true;
+            });
+        }
+
+        public void ErrorAlRecuperarProducto(string mensajeError)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CancelarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
+            this.Close();
         }
     }
 }
