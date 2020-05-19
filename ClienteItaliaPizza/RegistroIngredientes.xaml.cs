@@ -124,7 +124,7 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-                Principal ventana = new Principal(CuentaUsuario);
+                Principal ventana = new Principal(/*CuentaUsuario*/);
                 ventana.Show();
                 this.Close();
             });
@@ -366,32 +366,6 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void CancelarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult opcion;
-
-            if (AlgunCampoLleno())
-            {
-                opcion = MessageBox.Show("¿Seguro que deseea descartar los cambios?", "Descartar cambios",
-                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
-
-                if (opcion == MessageBoxResult.OK)
-                {
-                    VaciarCampos();
-                    MostrarVentanaPrincipal();
-                }
-            }
-            else
-            {
-                MostrarVentanaPrincipal();
-            }
-        }
-
-        private void VaciarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            VaciarCampos();
-        }
-
         private void StockMinimo_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (AlgunCampoLleno())
@@ -413,6 +387,32 @@ namespace ClienteItaliaPizza
             }
         }
 
+        private void VaciarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            VaciarCampos();
+        }
+
+        private void CancelarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcion;
+
+            if (AlgunCampoLleno())
+            {
+                opcion = MessageBox.Show("¿Seguro que deseea descartar los cambios?", "Descartar cambios",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+                if (opcion == MessageBoxResult.OK)
+                {
+                    VaciarCampos();
+                    MostrarVentanaPrincipal();
+                }
+            }
+            else
+            {
+                MostrarVentanaPrincipal();
+            }
+        }
+
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             FuncionesComunes.CerrarSesion();
@@ -424,17 +424,17 @@ namespace ClienteItaliaPizza
             RegistrarIngrediente();
         }
 
-        public void Respuesta(string mensajeError)
-        {
-            throw new NotImplementedException();
-        }
-
         private void IngredienteNombre_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (CamposLlenos() && e.Key == Key.Return)
             {
                 RegistrarIngrediente();
             }
+        }
+
+        public void Respuesta(string mensajeError)
+        {
+            throw new NotImplementedException();
         }
     }
 }
