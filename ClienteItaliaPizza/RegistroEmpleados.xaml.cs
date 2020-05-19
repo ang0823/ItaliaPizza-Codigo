@@ -25,13 +25,13 @@ namespace ClienteItaliaPizza
         DateTime FechaActual = DateTime.Now;
         Random NumeroGenerado = new Random();
         CuentaUsuario CuentaUsuario;
-        string DiaHoraMinuto;
+        string DiaHora;
 
-        public RegistroEmpleados(CuentaUsuario cuenta)
+        public RegistroEmpleados(/*CuentaUsuario cuenta*/)
         {
-            CuentaUsuario = cuenta;
+            // CuentaUsuario = cuenta;
+            // UsuarioLbl.Content = cuenta.nombreUsuario;
             InitializeComponent();
-            UsuarioLbl.Content = cuenta.nombreUsuario;
             LlenarPuestosCb();
             idEmpleadoTxt.Text = GenerarIdEmpleado();
 
@@ -86,9 +86,9 @@ namespace ClienteItaliaPizza
         private String GenerarIdEmpleado() 
         {
             FechaActual = DateTime.Now;
-            DiaHoraMinuto = FechaActual.Day.ToString() + FechaActual.Hour.ToString() + FechaActual.Minute.ToString();
+            DiaHora = FechaActual.Day.ToString() + FechaActual.Hour.ToString();
 
-            return DiaHoraMinuto + NumeroGenerado.Next(10, 99).ToString();
+            return DiaHora + NumeroGenerado.Next(10, 99).ToString();
         }
 
         private void LlenarPuestosCb()

@@ -12,23 +12,25 @@ namespace ClienteItaliaPizza
     public partial class Principal : Window
     {
         CuentaUsuario CuentaUsuario;
-        public Principal(CuentaUsuario cuenta)
+        public Principal(/*CuentaUsuario cuenta*/)
         {
             InitializeComponent();
-            CuentaUsuario = cuenta;
-            nombreUs.Content = CuentaUsuario.nombreUsuario;
+            //CuentaUsuario = cuenta;
+            //nombreUs.Content = CuentaUsuario.nombreUsuario;
         }
 
         private void MostrarBuscarEmpledosGui()
         {
-            BuscarEmpleados ventana = new BuscarEmpleados(CuentaUsuario);
+            //BuscarEmpleados ventana = new BuscarEmpleados(CuentaUsuario);
+            BuscarEmpleados ventana = new BuscarEmpleados(); //Esto se debe quitar
             ventana.Show();
             this.Close();
         }
 
         private void MostrarBusdarIngredienteGui()
         {
-            BuscarIngrediente ventana = new BuscarIngrediente(CuentaUsuario);
+            //BuscarIngrediente ventana = new BuscarIngrediente(CuentaUsuario);
+            BuscarIngrediente ventana = new BuscarIngrediente();
             ventana.Show();
             this.Close();
         }
@@ -42,7 +44,7 @@ namespace ClienteItaliaPizza
 
         private void MostrarRegistroEmpleadosGui()
         {
-            RegistroEmpleados RegistroEmpleadosGui = new RegistroEmpleados(CuentaUsuario);
+            RegistroEmpleados RegistroEmpleadosGui = new RegistroEmpleados(/*CuentaUsuario*/);
             RegistroEmpleadosGui.Show();
             this.Close();
         }
@@ -80,6 +82,7 @@ namespace ClienteItaliaPizza
             if (opcion == MessageBoxResult.OK)
             {
                 FuncionesComunes.CerrarSesion();
+                this.Close();
             }
         }
 

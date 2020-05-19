@@ -287,5 +287,8 @@
   <ItemGroup>
     <Resource Include="RecursosGUI\search.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\fondoIngrediente.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

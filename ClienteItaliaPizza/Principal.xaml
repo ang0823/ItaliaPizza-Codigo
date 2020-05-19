@@ -10,9 +10,12 @@
         <ImageBrush ImageSource="/RecursosGUI/FondoPrincipal.jpg"/>
     </Window.Background>
     <Grid>
-        <Button x:Name="CerrarSesionBtn" Background="Gray" Margin="1091,10,28,0" VerticalAlignment="Top" Width="50" Height="60" Click="CerrarSesionBtn_Click" Opacity="0.75" BorderBrush="#FF740005" BorderThickness="0">
-            <Image Source="/RecursosGUI/logout.png"/>
-        </Button>
+        <Grid VerticalAlignment="Top" Height="100" Margin="30, 0">
+            <Button x:Name="CerrarSesionBtn" Background="LightGray" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Center" Width="50" Height="60" Click="CerrarSesionBtn_Click" Opacity="0.75" BorderThickness="0">
+                <Image Source="/RecursosGUI/logout.png"/>
+            </Button>
+            <Label Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White"/>
+        </Grid>
         <Image Source="RecursosGUI/logo.png" Margin="24,143,807,179"/>
         <Label Name="nombreUs" Content="Nombre de usuario" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="24,499,812,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="358" Height="62" FontSize="35" Foreground="White"/>
         <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,38,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>

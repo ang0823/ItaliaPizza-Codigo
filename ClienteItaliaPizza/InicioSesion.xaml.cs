@@ -2,7 +2,6 @@
 
 using System.ServiceModel;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using ClienteItaliaPizza.Servicio;
 using ClienteItaliaPizza.Pantallas;
 using System.Windows.Input;
@@ -13,9 +12,6 @@ namespace ClienteItaliaPizza
 
     public partial class MainWindow : Window //, IServicioPizzaItalianaCallback
     {
-        private CuentaUsuario CuentaUsuario;
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -24,6 +20,7 @@ namespace ClienteItaliaPizza
 
         private void IniciarSesion()
         {
+            string Mensaje;
 
             try
             {
@@ -43,7 +40,12 @@ namespace ClienteItaliaPizza
             }
             catch (EndpointNotFoundException)
             {
-                MessageBox.Show("Falló la conexión con el servidor", "Error de comunicación", MessageBoxButton.OK, MessageBoxImage.Information);
+                Mensaje = "Falló la conexión con el servidor";
+                FuncionesComunes.MostrarMensajeDeError(Mensaje);
+            } catch (InvalidOperationException error)
+            {
+                Mensaje = error.Message;
+                FuncionesComunes.MostrarMensajeDeError(Mensaje);
             }
         }
 
@@ -73,9 +75,7 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-                this.CuentaUsuario = cuenta;
-                Principal ventana = new Principal(cuenta);
-                ventana.Show();
+                FuncionesComunes.MostrarVentanaPrincipal(cuenta);
                 this.Close();
             });
         }
