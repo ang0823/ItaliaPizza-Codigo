@@ -1,18 +1,9 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ClienteItaliaPizza
 {
@@ -20,20 +11,20 @@ namespace ClienteItaliaPizza
     [CallbackBehavior(UseSynchronizationContext = false)]
 
     /// <summary>
-    /// Interfaz grádfica del cliente para buscar y ediar un ingrediente guardado en el servidor.
+    /// Interfaz gráfica del cliente para buscar y ediar un ingrediente guardado en el servidor.
     /// </summary>
-    public partial class BuscarIngrediente : Window, IBuscarProductoCallback
+    public partial class BuscarIngrediente : Window, IBuscarProductoCallback, IEditarIngredienteCallback
     {
         CuentaUsuario CuentaUsuario;
         Provision ingrediente = new Provision();
 
-        public BuscarIngrediente()
+        public BuscarIngrediente(CuentaUsuario cuenta)
         {
-            //this.CuentaUsuario = cuenta;
-            //UserLbl.Content = cuenta.nombreUsuario;
+            this.CuentaUsuario = cuenta;
             InitializeComponent();
             DeshabilitarCampos();
             IniciarUnidadesMedida();
+            UserLbl.Content = cuenta.nombreUsuario;
             EditarGuardarBtn.IsEnabled = false;
         }
 
@@ -47,6 +38,7 @@ namespace ClienteItaliaPizza
                 if (InformacionEditada())
                 {
                     InstanceContext context = new InstanceContext(this);
+                    EditarIngredienteClient ServicioIngrediente = new EditarIngredienteClient(context);
                 
                     float precio = FuncionesComunes.ParsearAFloat(IngredientePrecio.Text.Trim());
                     short noExistencias = FuncionesComunes.ParsearAShort(IngredienteExistencias.Text.Trim());
@@ -58,9 +50,9 @@ namespace ClienteItaliaPizza
                     ingrediente.stockMinimo = StockMinimo.Text.Trim();
                     ingrediente.costoUnitario = precio;
                     ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
-                    FuncionesComunes.MostrarMensajeExitoso("La información del producto ha sido modificada.");
-                    EstablecerInformacion(ingrediente);
+                    ServicioIngrediente.Editar(ingrediente);
                     DeshabilitarCampos();
+                    EstablecerInformacion(ingrediente);
                 }
                 else
                 {
@@ -79,21 +71,6 @@ namespace ClienteItaliaPizza
         }
 
         /// <summary>
-        /// Verfica que todos los campos del formulario tengan contenido.
-        /// </summary>
-        /// <returns>True si todos lo campos están llenos o false en caso contrario.</returns>
-        private Boolean CamposLlenos()
-        {
-            if (IngredienteNombre.Text.Length > 0 && IngredientePrecio.Text.Length > 0
-                && IngredienteUbicacion.Text.Length > 0 && IngredienteExistencias.Text.Length > 0 
-                && StockMinimo.Text.Length > 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
         /// Se conecta con el servidor para recuperar la información del producto ingresado por el usuario, mostrando los datos en la interfaz gráfica.
         /// </summary>
         private void BuscarInformacionDeProducto()
@@ -101,6 +78,8 @@ namespace ClienteItaliaPizza
             InstanceContext context = new InstanceContext(this);
             BuscarProductoClient ServicioIngrediente = new BuscarProductoClient(context);
             string NombreIngrediente = SearchBox.Text;
+            DeshabilitarCampos();
+            UnidadMedidaCb.SelectedIndex = 0;
 
             try
             {
@@ -118,6 +97,21 @@ namespace ClienteItaliaPizza
             {
                 FuncionesComunes.MostrarMensajeDeError(error.Message);
             }
+        }
+
+        /// <summary>
+        /// Verfica que todos los campos del formulario tengan contenido.
+        /// </summary>
+        /// <returns>True si todos lo campos están llenos o false en caso contrario.</returns>
+        private Boolean CamposLlenos()
+        {
+            if (IngredienteNombre.Text.Length > 0 && IngredientePrecio.Text.Length > 0
+                && IngredienteUbicacion.Text.Length > 0 && IngredienteExistencias.Text.Length > 0
+                && StockMinimo.Text.Length > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -182,8 +176,11 @@ namespace ClienteItaliaPizza
 
         private void IniciarUnidadesMedida()
         {
-            UnidadMedidaCb.Items.Insert(0, "Lt");
+            UnidadMedidaCb.Items.Insert(0, "");
             UnidadMedidaCb.Items.Insert(1, "Kg");
+            UnidadMedidaCb.Items.Insert(2, "Lt");
+            UnidadMedidaCb.Items.Insert(3, "Pza");
+            UnidadMedidaCb.SelectedIndex = 0;
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
@@ -324,13 +321,44 @@ namespace ClienteItaliaPizza
 
         public void ErrorAlRecuperarProducto(string mensajeError)
         {
-            throw new NotImplementedException();
+            FuncionesComunes.MostrarMensajeDeError(mensajeError);
         }
 
         private void CancelarBtn_Click(object sender, RoutedEventArgs e)
         {
-            FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
-            this.Close();
+            MessageBoxResult opcion;
+
+            if (CamposLlenos())
+            {
+                opcion = MessageBox.Show(
+                    "¿Seguro que deseea volver a la pantalla principal?", 
+                    "Descartar cambios",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question
+                    );
+
+                if (opcion == MessageBoxResult.OK)
+                {
+                   FuncionesComunes.MostrarVentanaPrincipal(CuentaUsuario);
+                   Close();
+                }
+            }
+            else
+            {
+                FuncionesComunes.MostrarVentanaPrincipal(CuentaUsuario);
+                Close();
+            }
+        }
+
+        public void RespuestaEditarIngrediente(string mensajeError)
+        {
+            if (mensajeError == "Cambios Guardados")
+            {
+                FuncionesComunes.MostrarMensajeExitoso(mensajeError);
+            }
+            else
+            {
+                FuncionesComunes.MostrarMensajeDeError(mensajeError);
+            }
         }
     }
 }
