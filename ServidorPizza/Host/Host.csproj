@@ -68,7 +68,6 @@
     <ProjectReference Include="..\AccesoBD2\AccesoBD2.csproj">
       <Project>{40d412ed-0bb7-4561-bb77-01c62a41bd13}</Project>
       <Name>AccesoBD2</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\ServidrorPizzaItaliana\ServidorPizzaItaliana.csproj">
       <Project>{e31493ca-954c-4d75-9690-64358d67c677}</Project>

@@ -5,58 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
-        Title="Buscar productos - Italia pizza" Height="721" Width="1202" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
-    <Window.Resources>
-        <Style x:Key="placeHolderSearchBox" TargetType="{x:Type TextBox}">
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Width" Value="375"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="Background" Value="AliceBlue"/>
-            <Setter Property="BorderBrush" Value="#606060"/>
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <!--Aquí se da estilo al texto que va a introducir el usuario-->
-                            <TextBox Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     x:Name="TextSource"
-                                     Background="Transparent" Panel.ZIndex="2"/>
-
-                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" 
-                                     Panel.ZIndex="1">
-                                <TextBox.Style>
-                                    <Style TargetType="{x:Type TextBox}">
-                                        <Setter Property="Foreground" Value="Transparent"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference TextSource}}" Value="">
-                                                <Setter Property="Foreground" Value="LightGray"/>
-                                                <Setter Property="FontFamily" Value="Arial"/>
-                                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+        Title="Buscar productos - Italia pizza" Height="721" Width="1202" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Icon="RecursosGUI/WindowIcon.jpg">
     <Window.Background>
         <ImageBrush ImageSource="/RecursosGUI/productosFondo.jpg"/>
     </Window.Background>
     <Grid>
-        <Grid Margin="0,16,0,590">
-            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png" Margin="50,0,0,0"/>
-            <TextBox Tag="Nombre o código de producto" Style="{DynamicResource placeHolderSearchBox}" Margin="410,25,410,27"/>
-            <Button HorizontalAlignment="Left" Margin="809,25,0,0" VerticalAlignment="Top" Width="30" Height="30">
-                <Image Source="/RecursosGUI/search.png" Stretch="UniformToFill" Height="15" Width="15"/>
+        <Grid VerticalAlignment="top" Height="100" Margin="30,0">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
+            <TextBox x:Name="SearchBox" Tag="Nombre o código de producto" Style="{DynamicResource placeHolderSearchBox}" Margin="410,32,372,34" Width="Auto" KeyDown="SearchBox_KeyDown"/>
+            <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="AliceBlue">
+                <Image Source="RecursosGUI/search.png" Stretch="Fill"/>
             </Button>
+            <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click">
+                <Image Source="RecursosGUI/logout.png"/>
+            </Button>
+            <Label x:Name="UserLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White"/>
         </Grid>
         <Grid Width="1100" Margin="41,95,53,36">
             <Label Content="Información del producto" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Background="Transparent" BorderBrush="White" Foreground="White"/>
@@ -65,8 +28,7 @@
             <Label x:Name="PrecioLbl" Content="Precio $:" HorizontalAlignment="Left" Margin="295,53,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
             <TextBox x:Name="PrecioTxt" HorizontalAlignment="Left" Height="32" Margin="295,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
             <Label x:Name="MinimoLbl" Content="Stock mímino:" HorizontalAlignment="Left" Margin="555,53,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
-            <TextBox x:Name="MinimoTxt" HorizontalAlignment="Left" Height="32" Margin="555,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="23"/>
-            <ComboBox x:Name="UnidadCb" HorizontalAlignment="Left" Margin="694,89,0,0" VerticalAlignment="Top" Width="120" Height="32" FontFamily="Arial" FontSize="23"/>
+            <TextBox x:Name="MinimoTxt" HorizontalAlignment="Left" Height="32" Margin="555,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23"/>
             <Label x:Name="ActualLbl" Content="Cantidad actual:" HorizontalAlignment="Left" Margin="41,147,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
             <TextBox x:Name="ActualTxt" HorizontalAlignment="Left" Height="39" Margin="41,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
             <Label x:Name="UbicacionLbl" Content="Ubicación:" HorizontalAlignment="Left" Margin="295,147,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>

@@ -56,8 +56,16 @@
   <ItemGroup>
     <Compile Include="IBuscarIngrediente.cs" />
     <Compile Include="IEditarIngrediente.cs" />
+    <Compile Include="IEliminarCuentaUsuario.cs" />
+    <Compile Include="ILogin.cs" />
+    <Compile Include="IModificarCuentaUsuario.cs" />
+    <Compile Include="IObtenerCuentasUsuario.cs" />
     <Compile Include="IRecuperarProductos.cs" />
+    <Compile Include="IRegistrarCuentaUsuario.cs" />
     <Compile Include="IRegistrarIngrediente.cs" />
+    <Compile Include="IRegistrarPedidoADomicilio.cs" />
+    <Compile Include="IRegistrarProducto.cs" />
+    <Compile Include="IRegistrarReceta.cs" />
     <Compile Include="Servicios.cs" />
     <Compile Include="IBuscarProducto.cs" />
     <Compile Include="IModificarProducto.cs" />

@@ -21,10 +21,14 @@
     <EntitySet Name="ProvisionDirectaSet" EntityType="BDPizzaModel.Store.ProvisionDirectaSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RecetaSet" EntityType="BDPizzaModel.Store.RecetaSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProvisionSet" EntityType="BDPizzaModel.Store.ProvisionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IngredienteSet" EntityType="BDPizzaModel.Store.IngredienteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PedidoSet_PedidoADomicilio" EntityType="BDPizzaModel.Store.PedidoSet_PedidoADomicilio" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PedidoSet_PedidoLocal" EntityType="BDPizzaModel.Store.PedidoSet_PedidoLocal" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DireccionCliente" EntityType="BDPizzaModel.Store.DireccionCliente" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProductoPedido" EntityType="BDPizzaModel.Store.ProductoPedido" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProvisionDirectaPedido" EntityType="BDPizzaModel.Store.ProvisionDirectaPedido" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RecetaProvision" EntityType="BDPizzaModel.Store.RecetaProvision" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IngredienteReceta" EntityType="BDPizzaModel.Store.IngredienteReceta" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CuentaUsuarioEmpleado" Association="BDPizzaModel.Store.CuentaUsuarioEmpleado">
       <End Role="CuentaUsuario" EntitySet="CuentaUsuarioSet" />
       <End Role="Empleado" EntitySet="EmpleadoSet" />
@@ -45,16 +49,8 @@
       <End Role="Empleado" EntitySet="EmpleadoSet" />
       <End Role="Rol" EntitySet="RolSet" />
     </AssociationSet>
-    <AssociationSet Name="PedidoCliente" Association="BDPizzaModel.Store.PedidoCliente">
-      <End Role="Pedido" EntitySet="PedidoSet" />
-      <End Role="Cliente" EntitySet="ClienteSet" />
-    </AssociationSet>
     <AssociationSet Name="EmpleadoPedido" Association="BDPizzaModel.Store.EmpleadoPedido">
       <End Role="Empleado" EntitySet="EmpleadoSet" />
-      <End Role="Pedido" EntitySet="PedidoSet" />
-    </AssociationSet>
-    <AssociationSet Name="MesaPedido" Association="BDPizzaModel.Store.MesaPedido">
-      <End Role="Mesa" EntitySet="MesaSet" />
       <End Role="Pedido" EntitySet="PedidoSet" />
     </AssociationSet>
     <AssociationSet Name="EstadoPedido" Association="BDPizzaModel.Store.EstadoPedido">
@@ -105,6 +101,30 @@
       <End Role="Provision" EntitySet="ProvisionSet" />
       <End Role="RecetaProvision" EntitySet="RecetaProvision" />
     </AssociationSet>
+    <AssociationSet Name="ClientePedidoADomicilio" Association="BDPizzaModel.Store.ClientePedidoADomicilio">
+      <End Role="Cliente" EntitySet="ClienteSet" />
+      <End Role="PedidoADomicilio" EntitySet="PedidoSet_PedidoADomicilio" />
+    </AssociationSet>
+    <AssociationSet Name="MesaPedidoLocal" Association="BDPizzaModel.Store.MesaPedidoLocal">
+      <End Role="Mesa" EntitySet="MesaSet" />
+      <End Role="PedidoLocal" EntitySet="PedidoSet_PedidoLocal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IngredienteReceta_Ingrediente" Association="BDPizzaModel.Store.FK_IngredienteReceta_Ingrediente">
+      <End Role="Ingrediente" EntitySet="IngredienteSet" />
+      <End Role="IngredienteReceta" EntitySet="IngredienteReceta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IngredienteReceta_Receta" Association="BDPizzaModel.Store.FK_IngredienteReceta_Receta">
+      <End Role="Receta" EntitySet="RecetaSet" />
+      <End Role="IngredienteReceta" EntitySet="IngredienteReceta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PedidoADomicilio_inherits_Pedido" Association="BDPizzaModel.Store.FK_PedidoADomicilio_inherits_Pedido">
+      <End Role="Pedido" EntitySet="PedidoSet" />
+      <End Role="PedidoADomicilio" EntitySet="PedidoSet_PedidoADomicilio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PedidoLocal_inherits_Pedido" Association="BDPizzaModel.Store.FK_PedidoLocal_inherits_Pedido">
+      <End Role="Pedido" EntitySet="PedidoSet" />
+      <End Role="PedidoLocal" EntitySet="PedidoSet_PedidoLocal" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="CuentaUsuarioSet">
     <Key>
@@ -151,12 +171,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="fecha" Type="datetime" Nullable="false" />
-    <Property Name="total" Type="float" Nullable="false" />
-    <Property Name="tipo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="instruccionesEspeciales" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Cliente_Id" Type="int" Nullable="false" />
     <Property Name="Empleado_IdEmpleado" Type="int" Nullable="false" />
-    <Property Name="Mesa_Id" Type="int" Nullable="false" />
     <Property Name="Estado_Id" Type="int" Nullable="false" />
     <Property Name="Cuenta_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -202,7 +218,7 @@
     <Property Name="activado" Type="bit" Nullable="false" />
     <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Categoria_Id" Type="int" Nullable="false" />
-    <Property Name="Receta_idNombre" Type="int" Nullable="false" />
+    <Property Name="Receta_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="CuentaSet">
     <Key>
@@ -235,11 +251,12 @@
   </EntityType>
   <EntityType Name="RecetaSet">
     <Key>
-      <PropertyRef Name="idNombre" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="idNombre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="porciones" Type="float" Nullable="false" />
     <Property Name="procedimiento" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="nombreReceta" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ProvisionSet">
     <Key>
@@ -252,6 +269,31 @@
     <Property Name="stockMinimo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="costoUnitario" Type="float" Nullable="false" />
     <Property Name="unidadMedida" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IngredienteSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="cantidad" Type="int" Nullable="false" />
+    <Property Name="peso" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="costoPorUnidad" Type="float" Nullable="false" />
+    <Property Name="unidad" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PedidoSet_PedidoADomicilio">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="ClienteId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PedidoSet_PedidoLocal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="MesaId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="DireccionCliente">
     <Key>
@@ -279,11 +321,19 @@
   </EntityType>
   <EntityType Name="RecetaProvision">
     <Key>
-      <PropertyRef Name="Receta_idNombre" />
+      <PropertyRef Name="Receta_id" />
       <PropertyRef Name="Provision_Id" />
     </Key>
-    <Property Name="Receta_idNombre" Type="int" Nullable="false" />
+    <Property Name="Receta_id" Type="int" Nullable="false" />
     <Property Name="Provision_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IngredienteReceta">
+    <Key>
+      <PropertyRef Name="Ingrediente_Id" />
+      <PropertyRef Name="Receta_id" />
+    </Key>
+    <Property Name="Ingrediente_Id" Type="int" Nullable="false" />
+    <Property Name="Receta_id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CuentaUsuarioEmpleado">
     <End Role="CuentaUsuario" Type="BDPizzaModel.Store.CuentaUsuarioSet" Multiplicity="*" />
@@ -321,18 +371,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="PedidoCliente">
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="*" />
-    <End Role="Cliente" Type="BDPizzaModel.Store.ClienteSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Cliente">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Pedido">
-        <PropertyRef Name="Cliente_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="EmpleadoPedido">
     <End Role="Empleado" Type="BDPizzaModel.Store.EmpleadoSet" Multiplicity="1" />
     <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="*" />
@@ -342,18 +380,6 @@
       </Principal>
       <Dependent Role="Pedido">
         <PropertyRef Name="Empleado_IdEmpleado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MesaPedido">
-    <End Role="Mesa" Type="BDPizzaModel.Store.MesaSet" Multiplicity="1" />
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Mesa">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Pedido">
-        <PropertyRef Name="Mesa_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -422,10 +448,34 @@
     <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Receta">
-        <PropertyRef Name="idNombre" />
+        <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Producto">
-        <PropertyRef Name="Receta_idNombre" />
+        <PropertyRef Name="Receta_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientePedidoADomicilio">
+    <End Role="Cliente" Type="BDPizzaModel.Store.ClienteSet" Multiplicity="1" />
+    <End Role="PedidoADomicilio" Type="BDPizzaModel.Store.PedidoSet_PedidoADomicilio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoADomicilio">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MesaPedidoLocal">
+    <End Role="Mesa" Type="BDPizzaModel.Store.MesaSet" Multiplicity="1" />
+    <End Role="PedidoLocal" Type="BDPizzaModel.Store.PedidoSet_PedidoLocal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mesa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoLocal">
+        <PropertyRef Name="MesaId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -506,10 +556,10 @@
     <End Role="RecetaProvision" Type="BDPizzaModel.Store.RecetaProvision" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Receta">
-        <PropertyRef Name="idNombre" />
+        <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="RecetaProvision">
-        <PropertyRef Name="Receta_idNombre" />
+        <PropertyRef Name="Receta_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -522,6 +572,58 @@
       </Principal>
       <Dependent Role="RecetaProvision">
         <PropertyRef Name="Provision_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IngredienteReceta_Ingrediente">
+    <End Role="Ingrediente" Type="BDPizzaModel.Store.IngredienteSet" Multiplicity="1" />
+    <End Role="IngredienteReceta" Type="BDPizzaModel.Store.IngredienteReceta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ingrediente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IngredienteReceta">
+        <PropertyRef Name="Ingrediente_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IngredienteReceta_Receta">
+    <End Role="IngredienteReceta" Type="BDPizzaModel.Store.IngredienteReceta" Multiplicity="*" />
+    <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Receta">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="IngredienteReceta">
+        <PropertyRef Name="Receta_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PedidoADomicilio_inherits_Pedido">
+    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PedidoADomicilio" Type="BDPizzaModel.Store.PedidoSet_PedidoADomicilio" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoADomicilio">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PedidoLocal_inherits_Pedido">
+    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PedidoLocal" Type="BDPizzaModel.Store.PedidoSet_PedidoLocal" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoLocal">
+        <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -561,16 +663,8 @@
             <End Role="Empleado" EntitySet="EmpleadoSet" />
             <End Role="Rol" EntitySet="RolSet" />
           </AssociationSet>
-          <AssociationSet Name="PedidoCliente" Association="BDPizzaModel.PedidoCliente">
-            <End Role="Pedido" EntitySet="PedidoSet" />
-            <End Role="Cliente" EntitySet="ClienteSet" />
-          </AssociationSet>
           <AssociationSet Name="EmpleadoPedido" Association="BDPizzaModel.EmpleadoPedido">
             <End Role="Empleado" EntitySet="EmpleadoSet" />
-            <End Role="Pedido" EntitySet="PedidoSet" />
-          </AssociationSet>
-          <AssociationSet Name="MesaPedido" Association="BDPizzaModel.MesaPedido">
-            <End Role="Mesa" EntitySet="MesaSet" />
             <End Role="Pedido" EntitySet="PedidoSet" />
           </AssociationSet>
           <AssociationSet Name="EstadoPedido" Association="BDPizzaModel.EstadoPedido">
@@ -608,6 +702,19 @@
           <AssociationSet Name="RecetaProvision" Association="BDPizzaModel.RecetaProvision">
             <End Role="Receta" EntitySet="RecetaSet" />
             <End Role="Provision" EntitySet="ProvisionSet" />
+          </AssociationSet>
+          <AssociationSet Name="ClientePedidoADomicilio" Association="BDPizzaModel.ClientePedidoADomicilio">
+            <End Role="Cliente" EntitySet="ClienteSet" />
+            <End Role="PedidoADomicilio" EntitySet="PedidoSet" />
+          </AssociationSet>
+          <AssociationSet Name="MesaPedidoLocal" Association="BDPizzaModel.MesaPedidoLocal">
+            <End Role="Mesa" EntitySet="MesaSet" />
+            <End Role="PedidoLocal" EntitySet="PedidoSet" />
+          </AssociationSet>
+          <EntitySet Name="IngredienteSet" EntityType="BDPizzaModel.Ingrediente" />
+          <AssociationSet Name="IngredienteReceta" Association="BDPizzaModel.IngredienteReceta">
+            <End Role="Ingrediente" EntitySet="IngredienteSet" />
+            <End Role="Receta" EntitySet="RecetaSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CuentaUsuario">
@@ -660,12 +767,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fecha" Type="DateTime" Nullable="false" />
-          <Property Name="total" Type="Double" Nullable="false" />
-          <Property Name="tipo" Type="String" Nullable="false" />
           <Property Name="instruccionesEspeciales" Type="String" Nullable="true" />
-          <NavigationProperty Name="Cliente" Relationship="BDPizzaModel.PedidoCliente" FromRole="Pedido" ToRole="Cliente" />
           <NavigationProperty Name="Empleado" Relationship="BDPizzaModel.EmpleadoPedido" FromRole="Pedido" ToRole="Empleado" />
-          <NavigationProperty Name="Mesa" Relationship="BDPizzaModel.MesaPedido" FromRole="Pedido" ToRole="Mesa" />
           <NavigationProperty Name="Estado" Relationship="BDPizzaModel.EstadoPedido" FromRole="Pedido" ToRole="Estado" />
           <NavigationProperty Name="Cuenta" Relationship="BDPizzaModel.CuentaPedido" FromRole="Pedido" ToRole="Cuenta" />
           <NavigationProperty Name="Producto" Relationship="BDPizzaModel.ProductoPedido" FromRole="Pedido" ToRole="Producto" />
@@ -680,8 +783,8 @@
           <Property Name="apellidoPaterno" Type="String" Nullable="false" />
           <Property Name="apellidoMaterno" Type="String" Nullable="false" />
           <NavigationProperty Name="Direccion" Relationship="BDPizzaModel.DireccionCliente" FromRole="Cliente" ToRole="Direccion" />
-          <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.PedidoCliente" FromRole="Cliente" ToRole="Pedido" />
           <NavigationProperty Name="Telefono" Relationship="BDPizzaModel.ClienteTelefono" FromRole="Cliente" ToRole="Telefono" />
+          <NavigationProperty Name="PedidoADomicilio" Relationship="BDPizzaModel.ClientePedidoADomicilio" FromRole="Cliente" ToRole="PedidoADomicilio" />
         </EntityType>
         <EntityType Name="Mesa">
           <Key>
@@ -689,7 +792,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="numeroMesa" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.MesaPedido" FromRole="Mesa" ToRole="Pedido" />
+          <NavigationProperty Name="PedidoLocal" Relationship="BDPizzaModel.MesaPedidoLocal" FromRole="Mesa" ToRole="PedidoLocal" />
         </EntityType>
         <EntityType Name="Estado">
           <Key>
@@ -755,13 +858,15 @@
         </EntityType>
         <EntityType Name="Receta">
           <Key>
-            <PropertyRef Name="idNombre" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="idNombre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="porciones" Type="Double" Nullable="false" />
           <Property Name="procedimiento" Type="String" Nullable="false" />
           <NavigationProperty Name="Producto" Relationship="BDPizzaModel.ProductoReceta" FromRole="Receta" ToRole="Producto" />
           <NavigationProperty Name="Provision" Relationship="BDPizzaModel.RecetaProvision" FromRole="Receta" ToRole="Provision" />
+          <Property Name="nombreReceta" Type="String" Nullable="false" />
+          <NavigationProperty Name="Ingrediente" Relationship="BDPizzaModel.IngredienteReceta" FromRole="Receta" ToRole="Ingrediente" />
         </EntityType>
         <EntityType Name="Provision">
           <Key>
@@ -793,16 +898,8 @@
           <End Type="BDPizzaModel.Empleado" Role="Empleado" Multiplicity="*" />
           <End Type="BDPizzaModel.Rol" Role="Rol" Multiplicity="1" />
         </Association>
-        <Association Name="PedidoCliente">
-          <End Type="BDPizzaModel.Pedido" Role="Pedido" Multiplicity="*" />
-          <End Type="BDPizzaModel.Cliente" Role="Cliente" Multiplicity="1" />
-        </Association>
         <Association Name="EmpleadoPedido">
           <End Type="BDPizzaModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="BDPizzaModel.Pedido" Role="Pedido" Multiplicity="*" />
-        </Association>
-        <Association Name="MesaPedido">
-          <End Type="BDPizzaModel.Mesa" Role="Mesa" Multiplicity="1" />
           <End Type="BDPizzaModel.Pedido" Role="Pedido" Multiplicity="*" />
         </Association>
         <Association Name="EstadoPedido">
@@ -840,6 +937,54 @@
         <Association Name="RecetaProvision">
           <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="*" />
           <End Type="BDPizzaModel.Provision" Role="Provision" Multiplicity="*" />
+        </Association>
+        <EntityType Name="PedidoLocal" BaseType="BDPizzaModel.Pedido" >
+          <NavigationProperty Name="Mesa" Relationship="BDPizzaModel.MesaPedidoLocal" FromRole="PedidoLocal" ToRole="Mesa" />
+          <Property Name="MesaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PedidoADomicilio" BaseType="BDPizzaModel.Pedido" >
+          <NavigationProperty Name="Cliente" Relationship="BDPizzaModel.ClientePedidoADomicilio" FromRole="PedidoADomicilio" ToRole="Cliente" />
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ClientePedidoADomicilio">
+          <End Type="BDPizzaModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="BDPizzaModel.PedidoADomicilio" Role="PedidoADomicilio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoADomicilio">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MesaPedidoLocal">
+          <End Type="BDPizzaModel.Mesa" Role="Mesa" Multiplicity="1" />
+          <End Type="BDPizzaModel.PedidoLocal" Role="PedidoLocal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoLocal">
+              <PropertyRef Name="MesaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Ingrediente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="peso" Type="String" Nullable="false" />
+          <Property Name="costoPorUnidad" Type="Double" Nullable="false" />
+          <Property Name="unidad" Type="String" Nullable="false" />
+          <NavigationProperty Name="Receta" Relationship="BDPizzaModel.IngredienteReceta" FromRole="Ingrediente" ToRole="Receta" />
+        </EntityType>
+        <Association Name="IngredienteReceta">
+          <End Type="BDPizzaModel.Ingrediente" Role="Ingrediente" Multiplicity="*" />
+          <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -892,9 +1037,19 @@
         <MappingFragment StoreEntitySet="PedidoSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="fecha" ColumnName="fecha" />
-          <ScalarProperty Name="total" ColumnName="total" />
-          <ScalarProperty Name="tipo" ColumnName="tipo" />
           <ScalarProperty Name="instruccionesEspeciales" ColumnName="instruccionesEspeciales" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(BDPizzaModel.PedidoADomicilio)">
+        <MappingFragment StoreEntitySet="PedidoSet_PedidoADomicilio">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(BDPizzaModel.PedidoLocal)">
+        <MappingFragment StoreEntitySet="PedidoSet_PedidoLocal">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MesaId" ColumnName="MesaId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -978,9 +1133,10 @@
     <EntitySetMapping Name="RecetaSet">
       <EntityTypeMapping TypeName="IsTypeOf(BDPizzaModel.Receta)">
         <MappingFragment StoreEntitySet="RecetaSet">
-          <ScalarProperty Name="idNombre" ColumnName="idNombre" />
+          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="porciones" ColumnName="porciones" />
           <ScalarProperty Name="procedimiento" ColumnName="procedimiento" />
+          <ScalarProperty Name="nombreReceta" ColumnName="nombreReceta" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -994,6 +1150,18 @@
           <ScalarProperty Name="stockMinimo" ColumnName="stockMinimo" />
           <ScalarProperty Name="costoUnitario" ColumnName="costoUnitario" />
           <ScalarProperty Name="unidadMedida" ColumnName="unidadMedida" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IngredienteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BDPizzaModel.Ingrediente)">
+        <MappingFragment StoreEntitySet="IngredienteSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="peso" ColumnName="peso" />
+          <ScalarProperty Name="costoPorUnidad" ColumnName="costoPorUnidad" />
+          <ScalarProperty Name="unidad" ColumnName="unidad" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1029,25 +1197,9 @@
         <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="PedidoCliente" TypeName="BDPizzaModel.PedidoCliente" StoreEntitySet="PedidoSet">
-      <EndProperty Name="Cliente">
-        <ScalarProperty Name="Id" ColumnName="Cliente_Id" />
-      </EndProperty>
-      <EndProperty Name="Pedido">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="EmpleadoPedido" TypeName="BDPizzaModel.EmpleadoPedido" StoreEntitySet="PedidoSet">
       <EndProperty Name="Empleado">
         <ScalarProperty Name="IdEmpleado" ColumnName="Empleado_IdEmpleado" />
-      </EndProperty>
-      <EndProperty Name="Pedido">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="MesaPedido" TypeName="BDPizzaModel.MesaPedido" StoreEntitySet="PedidoSet">
-      <EndProperty Name="Mesa">
-        <ScalarProperty Name="Id" ColumnName="Mesa_Id" />
       </EndProperty>
       <EndProperty Name="Pedido">
         <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1111,7 +1263,7 @@
     </AssociationSetMapping>
     <AssociationSetMapping Name="ProductoReceta" TypeName="BDPizzaModel.ProductoReceta" StoreEntitySet="ProductoSet">
       <EndProperty Name="Receta">
-        <ScalarProperty Name="idNombre" ColumnName="Receta_idNombre" />
+        <ScalarProperty Name="id" ColumnName="Receta_id" />
       </EndProperty>
       <EndProperty Name="Producto">
         <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1119,10 +1271,18 @@
     </AssociationSetMapping>
     <AssociationSetMapping Name="RecetaProvision" TypeName="BDPizzaModel.RecetaProvision" StoreEntitySet="RecetaProvision">
       <EndProperty Name="Receta">
-        <ScalarProperty Name="idNombre" ColumnName="Receta_idNombre" />
+        <ScalarProperty Name="id" ColumnName="Receta_id" />
       </EndProperty>
       <EndProperty Name="Provision">
         <ScalarProperty Name="Id" ColumnName="Provision_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="IngredienteReceta" TypeName="BDPizzaModel.IngredienteReceta" StoreEntitySet="IngredienteReceta">
+      <EndProperty Name="Ingrediente">
+        <ScalarProperty Name="Id" ColumnName="Ingrediente_Id" />
+      </EndProperty>
+      <EndProperty Name="Receta">
+        <ScalarProperty Name="id" ColumnName="Receta_id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

@@ -10,9 +10,12 @@
         <ImageBrush ImageSource="/RecursosGUI/FondoPrincipal.jpg"/>
     </Window.Background>
     <Grid>
-        <Button x:Name="CerrarSesionBtn" Background="Gray" Margin="1091,10,28,0" VerticalAlignment="Top" Width="65" Height="73" Click="CerrarSesionBtn_Click" Opacity="0.75" BorderBrush="#FF740005">
-            <Image Source="/RecursosGUI/logout.png" Stretch="Fill" Opacity="0.75" OpacityMask="Black"/>
-        </Button>
+        <Grid VerticalAlignment="Top" Height="100" Margin="30, 0">
+            <Button x:Name="CerrarSesionBtn" Background="LightGray" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Center" Width="50" Height="60" Click="CerrarSesionBtn_Click" Opacity="0.75" BorderThickness="0">
+                <Image Source="/RecursosGUI/logout.png"/>
+            </Button>
+            <Label Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White"/>
+        </Grid>
         <Image Source="RecursosGUI/logo.png" Margin="24,143,807,179"/>
         <Label Name="nombreUs" Content="Nombre de usuario" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="24,499,812,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="358" Height="62" FontSize="35" Foreground="White"/>
         <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,38,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
@@ -33,8 +36,8 @@
         </UniformGrid>
         <UniformGrid Rows="3" Margin="786,323,71,205">
             <Label Content="Admistración de ingredientes" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Width="268" Foreground="White"/>
-            <Button Content="Registrar ingrediente" Height="40" Width="250" Margin="44,-1,43,15" Foreground="White" Background="#FF807E2A" BorderBrush="#FF444801"/>
-            <Button Content="Buscar ingrediente" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White"/>
+            <Button x:Name="RegistrarIngredienteBtn" Content="Registrar ingrediente" Height="40" Width="250" Margin="44,-1,43,15" Foreground="White" Background="#FF807E2A" BorderBrush="#FF444801" Click="RegistrarIngredienteBtn_Click"/>
+            <Button x:Name="BuscarIngedienteBtn" Content="Buscar ingrediente" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFC32105" BorderBrush="#FF740005" Foreground="White" Click="BuscarIngedienteBtn_Click"/>
         </UniformGrid>
         <Grid RenderTransformOrigin="0.333,0.739" Margin="387,498,53,39">
             <Label Content="Otras tareas" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="68,0,67,0" Foreground="White" />
@@ -43,5 +46,16 @@
             <Button x:Name="buttonGenerarInventario" Content="Generar inventario" Height="40" Width="200" Margin="516,0,38,44" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFAE7A47" BorderBrush="#FF91491A" Foreground="White" Click="ButtonGenerarInventario_Click"/>
             <Image HorizontalAlignment="Left" Height="100" Margin="1088,38,0,0" VerticalAlignment="Top" Width="100"/>
         </Grid>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,37,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,36,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,35,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,36,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,37,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,38,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,39,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,38,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,37,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,36,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Label Content="¿Qué deseas hacer?" HorizontalAlignment="Left" Margin="584,38,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
     </Grid>
 </Window>

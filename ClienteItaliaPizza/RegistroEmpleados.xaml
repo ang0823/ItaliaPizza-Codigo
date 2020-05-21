@@ -10,11 +10,14 @@
         <ImageBrush ImageSource="/RecursosGUI/FondoPrincipal.jpg"/>
     </Window.Background>
     <Grid>
-        <Button x:Name="CerrarSesionBtn" Background="White" Margin="1091,10,28,0" VerticalAlignment="Top" Width="75" Height="73" Click="CerrarSesionBtn_Click" Opacity="0.75">
-            <Image Source="/RecursosGUI/logout.png" Stretch="Fill" Opacity="0.75"/>
-        </Button>
-        <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="996,83,0,0" VerticalAlignment="Top" Width="165" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Image x:Name="background" HorizontalAlignment="Left" Height="475" Margin="358,101,0,0" VerticalAlignment="Top" Width="499" Source="/RecursosGUI/logo.png"/>
+        <Grid VerticalAlignment="Top" Height="100" Margin="30, 0">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
+            <Label Content="F O R M A T O   D E   R E G I S T R O" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="30" FontWeight="Bold" Foreground="White"/>
+            <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click">
+                <Image Source="RecursosGUI/logout.png"/> 
+            </Button>
+            <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White"/>
+        </Grid>
         <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Height="32" Margin="188,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="nombreTxT_TextChanged" PreviewTextInput="nombreTxt_TextInput"/>
         <TextBox x:Name="aPaternoTxt" HorizontalAlignment="Left" Height="32" Margin="485,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="aPaternoTxt_TextChanged" PreviewTextInput="aPaternoTxt_TextInput"/>
         <TextBox x:Name="aMaternoTxt" HorizontalAlignment="Left" Height="32" Margin="779,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="aMaternoTxt_TextChanged" PreviewTextInput="aMaternoTxt_TextInput"/>
@@ -31,7 +34,7 @@
         <Label Content="Apellido paterno:" HorizontalAlignment="Left" Margin="485,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Apellido materno:" HorizontalAlignment="Left" Margin="779,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Calle y número:" HorizontalAlignment="Left" Margin="188,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Colonia:" HorizontalAlignment="Left" Margin="549,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Colonia:" HorizontalAlignment="Left" Margin="549,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="C. P." HorizontalAlignment="Left" Margin="909,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Correo eletrónico:" HorizontalAlignment="Left" Margin="188,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="689,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
@@ -42,6 +45,5 @@
         <Button x:Name="limpiarBtn" Content="Vaciar" HorizontalAlignment="Left" Margin="188,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="limpiarBtn_Click" ToolTip="Elimina toda la información ingresada en los campos" Background="#FFF39C39" Foreground="Black" BorderBrush="#FFF39C11"/>
         <Button x:Name="guardarBtn" Content="Guardar" HorizontalAlignment="Left" Margin="531,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="guardarBtn_Click" Foreground="White" Background="#FF305825" BorderBrush="#FF2E2E12"/>
         <Button x:Name="cancelarBtn" Content="Cancelar" HorizontalAlignment="Left" Margin="874,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="cancelarBtn_Click" Background="White" BorderBrush="#FF305825" Foreground="#FF305825"/>
-        <Label Content="F O R M A T O   D E   R E G I S T R O" HorizontalAlignment="Left" Margin="334,42,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="30" FontWeight="Bold" Foreground="White"/>
     </Grid>
 </Window>

@@ -12,18 +12,10 @@ namespace AccesoBD2
     using System;
     using System.Collections.Generic;
     
-    public partial class Mesa
+    public partial class PedidoADomicilio : Pedido
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Mesa()
-        {
-            this.PedidoLocal = new HashSet<PedidoLocal>();
-        }
+        public int ClienteId { get; set; }
     
-        public int Id { get; set; }
-        public short numeroMesa { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoLocal> PedidoLocal { get; set; }
+        public virtual Cliente Cliente { get; set; }
     }
 }

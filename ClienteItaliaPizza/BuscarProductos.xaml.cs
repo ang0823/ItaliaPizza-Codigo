@@ -32,10 +32,15 @@ namespace ClienteItaliaPizza
             DeshabilitarCampos();
         }
 
+        private void BuscarProducto()
+        {
+
+        }
+
         private Boolean CamposVacios()
         {
             if (nombreTxt.Text.Length > 0 && PrecioTxt.Text.Length > 0 && MinimoTxt.Text.Length > 0
-                && UnidadCb.SelectedIndex != 0 && ActualTxt.Text.Length > 0 && UbicacionTxt.Text.Length > 0
+                && ActualTxt.Text.Length > 0 && UbicacionTxt.Text.Length > 0
                 && CodigoTxt.Text.Length > 0 && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
             {
                 return false;
@@ -50,7 +55,6 @@ namespace ClienteItaliaPizza
             nombreTxt.IsEnabled = false;
             PrecioTxt.IsEnabled = false;
             MinimoTxt.IsEnabled = false;
-            UnidadCb.IsEnabled = false;
             ActualTxt.IsEnabled = false;
             UbicacionTxt.IsEnabled = false;
             CodigoTxt.IsEnabled = false;
@@ -64,22 +68,11 @@ namespace ClienteItaliaPizza
             nombreTxt.IsEnabled = true;
             PrecioTxt.IsEnabled = true;
             MinimoTxt.IsEnabled = true;
-            UnidadCb.IsEnabled = true;
             ActualTxt.IsEnabled = true;
             UbicacionTxt.IsEnabled = true;
             CodigoTxt.IsEnabled = true;
             DescripcionTxt.IsEnabled = true;
             RestriccionesTxt.IsEnabled = true;
-        }
-
-        private void MostrarVentanaPrincipal()
-        {
-            Dispatcher.Invoke(() =>
-            {
-                Principal ventana = new Principal(CuentaUsuario);
-                ventana.Show();
-                this.Close();
-            });
         }
 
         private void CancelarBtn_Click(object sender, RoutedEventArgs e)
@@ -91,7 +84,9 @@ namespace ClienteItaliaPizza
 
             if (opcion == MessageBoxResult.OK)
             {
-                MostrarVentanaPrincipal();
+                CamposVacios();
+                FuncionesComunes.MostrarVentanaPrincipal(CuentaUsuario);
+                this.Close();
             }
         }
 
@@ -104,18 +99,38 @@ namespace ClienteItaliaPizza
             }
             else
             {
+                MessageBoxResult opcion;
+
                 if(CamposVacios())
                 {
-                    MessageBoxResult opcion;
                     opcion = MessageBox.Show("No se puede dejar campos vacíos", "Información",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 } 
                 else
                 {
-                    EditSaveBtn.Content = "Editar";
-                    DeshabilitarCampos();
+                    opcion = MessageBox.Show("¿Guardar cambios en la información del producto?", "Guardar",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Information);
+
+                    if(opcion == MessageBoxResult.OK)
+                    {
+                        EditSaveBtn.Content = "Editar";
+                        DeshabilitarCampos();
+                    }
                 }
             }
+        }
+
+        private void SearchBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(SearchBox.Text.Length > 0 && e.Key == Key.Return)
+            {
+                BuscarProducto();
+            }
+        }
+
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FuncionesComunes.CerrarSesion();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace ServidrorPizzaItaliana
     public interface IModificarProductoCallback
     {
         [OperationContract(IsOneWay = true)]
-        void Respuesta(string mensajeError);
+        void RespuestaModificarProducto(string mensajeError);
 
     }
 }

@@ -2,51 +2,63 @@
 
 using System.ServiceModel;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using ClienteItaliaPizza.Servicio;
 using ClienteItaliaPizza.Pantallas;
+using System.Windows.Input;
 
 namespace ClienteItaliaPizza
 {
     [CallbackBehavior(UseSynchronizationContext = false)]
 
-    public partial class MainWindow : Window, IServicioPizzaItalianaCallback
+    public partial class MainWindow : Window, ILoginCallback
     {
-        private CuentaUsuario CuentaUsuario;
-
         public MainWindow()
         {
             InitializeComponent();
+            textBoxNombreUsuario.Focus();
         }
 
-        private void IniciarSesion(object sender, RoutedEventArgs e)
+        private void IniciarSesion()
         {
-            string nombreUsuario = textBoxNombreUsuario.Text.Trim();
-            string contraseña = passwordBoxContraseña.Password.Trim();
+            string Mensaje;
 
             try
             {
                 InstanceContext instanceContext = new InstanceContext(this);
-                ServicioPizzaItalianaClient cliente = new ServicioPizzaItalianaClient(instanceContext);
+                LoginClient cliente = new LoginClient(instanceContext);
 
-                if (ValidarDatosIngresados(nombreUsuario, contraseña))
+                if (DatosCompletos())
                 {
+                    string nombreUsuario = textBoxNombreUsuario.Text.Trim();
+                    string contraseña = passwordBoxContraseña.Password.Trim();
                     cliente.IniciarSesion(nombreUsuario, contraseña);
-
                 }
                 else
                 {
-                    MessageBox.Show("Se requiere usuario y contraseña", "Campos vacios", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Mensaje = "Se requiere usuario y contraseña";
+                    FuncionesComunes.MostrarMensajeDeError(Mensaje);
                 }
             }
             catch (EndpointNotFoundException)
             {
-                MessageBox.Show("Falló la conexión con el servidor", "Error de comunicación", MessageBoxButton.OK, MessageBoxImage.Information);
+                Mensaje = "Falló la conexión con el servidor";
+                FuncionesComunes.MostrarMensajeDeError(Mensaje);
+            } catch (InvalidOperationException error)
+            {
+                Mensaje = error.Message;
+                FuncionesComunes.MostrarMensajeDeError(Mensaje);
             }
         }
 
-        private bool ValidarDatosIngresados(string nombreUsuario, string contraseña)
+        private void IniciarSesion(object sender, RoutedEventArgs e)
         {
+            IniciarSesion();
+        }
+
+        private bool DatosCompletos()
+        {
+            string nombreUsuario = textBoxNombreUsuario.Text.Trim();
+            string contraseña = passwordBoxContraseña.Password.Trim();
             bool datosValidos = false;
 
             if (nombreUsuario != "" && contraseña != "")
@@ -64,18 +76,10 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-                CuentaUsuario = cuenta;
-                Principal ventana = new Principal(cuenta);
-                ventana.Show();
+                FuncionesComunes.MostrarVentanaPrincipal(cuenta);
                 this.Close();
             });
         }
-
-        public void Respuesta(string mensaje)
-        {
-            throw new NotImplementedException();
-        }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -91,6 +95,30 @@ namespace ClienteItaliaPizza
             ventanaPedidos.Show();
 
             this.Close();
+        }
+
+        private void textBoxNombreUsuario_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                IniciarSesion();
+            }
+        }
+
+        private void passwordBoxContraseña_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                IniciarSesion();
+            }
+        }
+
+        public void LoginRespuesta(string mensaje)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                FuncionesComunes.MostrarMensajeDeError(mensaje);
+            });
         }
     }
 }

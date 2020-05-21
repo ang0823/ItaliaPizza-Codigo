@@ -40,5 +40,6 @@ namespace AccesoBD2
         public virtual DbSet<ProvisionDirecta> ProvisionDirectaSet { get; set; }
         public virtual DbSet<Receta> RecetaSet { get; set; }
         public virtual DbSet<Provision> ProvisionSet { get; set; }
+        public virtual DbSet<Ingrediente> IngredienteSet { get; set; }
     }
 }

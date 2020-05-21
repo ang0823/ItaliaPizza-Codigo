@@ -10,19 +10,21 @@
         <ImageBrush ImageSource="/RecursosGUI/productosFondo.jpg"/>
     </Window.Background>
     <Grid>
-        <Button x:Name="CerrarSesionBtn" Background="Transparent" Margin="1107,0,12,0" VerticalAlignment="Top" Width="75" Height="73" Click="CerrarSesionBtn_Click">
-            <Image Source="/RecursosGUI/logout.png" Stretch="Fill"/>
-        </Button>
-        <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="1043,71,12,585" FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="White"/>
+        <Grid VerticalAlignment="Top" Height="100" Margin="30,0">
+        <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="RecursosGUI/logo.png"/>
+            <Label Content="Formato de registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" FontFamily="Arial" Foreground="White"/>
+            <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" BorderThickness="0" Background="LightGray" Click="LogoutBtn_Click">
+                <Image Source="RecursosGUI/logout.png"/>
+            </Button>
+            <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" FontFamily="Arial" FontSize="14" Foreground="White"/>
+        </Grid>
         <Grid Height="600" Width="1100" Margin="41,45,53,45">
-            <Label Content="Formato de registro" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="35" FontWeight="Bold" FontFamily="Arial" Foreground="White"/>
             <Label x:Name="nombreLbl" Content="Nombre:" HorizontalAlignment="Left" Margin="41,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
             <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Height="32" Margin="41,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="nombreTxt_TextChanged"/>
             <Label x:Name="PrecioLbl" Content="Precio $:" HorizontalAlignment="Left" Margin="295,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
             <TextBox x:Name="PrecioTxt" HorizontalAlignment="Left" Height="32" Margin="295,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="PrecioTxt_TextChanged"/>
             <Label x:Name="MinimoLbl" Content="Stock mímino:" HorizontalAlignment="Left" Margin="555,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <TextBox x:Name="MinimoTxt" HorizontalAlignment="Left" Height="32" Margin="555,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="23" TextChanged="MinimoTxt_TextChanged"/>
-            <ComboBox x:Name="UnidadCb" HorizontalAlignment="Left" Margin="694,127,0,0" VerticalAlignment="Top" Width="120" Height="32" FontFamily="Arial" FontSize="23" SelectionChanged="UnidadCb_SelectionChanged"/>
+            <TextBox x:Name="MinimoTxt" HorizontalAlignment="Left" Height="32" Margin="555,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" TextChanged="MinimoTxt_TextChanged"/>
             <Label x:Name="ActualLbl" Content="Cantidad actual:" HorizontalAlignment="Left" Margin="41,185,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
             <TextBox x:Name="ActualTxt" HorizontalAlignment="Left" Height="39" Margin="41,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="ActualTxt_TextChanged"/>
             <Label x:Name="UbicacionLbl" Content="Ubicación:" HorizontalAlignment="Left" Margin="295,185,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>

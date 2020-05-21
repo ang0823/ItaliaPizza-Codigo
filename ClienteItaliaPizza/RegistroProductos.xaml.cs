@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,13 +25,19 @@ namespace ClienteItaliaPizza
     public partial class RegistroProductos : Window
     {
         CuentaUsuario CuentaUsuario;
-        public RegistroProductos(CuentaUsuario cuenta)
+        /*public RegistroProductos(CuentaUsuario cuenta)
         {
             CuentaUsuario = cuenta;
             InitializeComponent();
-            IniciarUnidadesCb();
 
             UsuarioLbl.Content = cuenta.nombreUsuario;
+            GuardarBtn.IsEnabled = false;
+            VaciarBtn.IsEnabled = false;
+        }*/
+
+        public RegistroProductos()
+        {
+            InitializeComponent();
             GuardarBtn.IsEnabled = false;
             VaciarBtn.IsEnabled = false;
         }
@@ -37,7 +45,7 @@ namespace ClienteItaliaPizza
         private Boolean AlgunCampoLleno()
         {
             if (nombreTxt.Text.Length > 0 || PrecioTxt.Text.Length > 0 || MinimoTxt.Text.Length > 0
-                || UnidadCb.SelectedIndex != 0 || ActualTxt.Text.Length > 0 || UbicacionTxt.Text.Length > 0
+                || ActualTxt.Text.Length > 0 || UbicacionTxt.Text.Length > 0
                 || CodigoTxt.Text.Length > 0 || DescripcionTxt.Text.Length > 0 || RestriccionesTxt.Text.Length > 0)
             {
                 return true;
@@ -49,7 +57,7 @@ namespace ClienteItaliaPizza
         private Boolean CamposLlenos()
         {
             if (nombreTxt.Text.Length > 0 && PrecioTxt.Text.Length > 0 && MinimoTxt.Text.Length > 0
-                && UnidadCb.SelectedIndex != 0 && ActualTxt.Text.Length > 0 && UbicacionTxt.Text.Length > 0
+                && ActualTxt.Text.Length > 0 && UbicacionTxt.Text.Length > 0
                 && CodigoTxt.Text.Length > 0 && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
             {
                 return true;
@@ -58,41 +66,11 @@ namespace ClienteItaliaPizza
             return false;
         }
 
-        private void CerrarSesion()
-        {
-            Dispatcher.Invoke(() =>
-            {
-                MainWindow ventana = new MainWindow();
-                ventana.Show();
-                this.Close();
-            });
-        }
-
-        private void IniciarUnidadesCb()
-        {
-            UnidadCb.Items.Insert(0, "Unidad");
-            UnidadCb.Items.Insert(1, "Kg");
-            UnidadCb.Items.Insert(2, "Lt");
-
-            UnidadCb.SelectedIndex = 0;
-        }
-
-        private void MostrarVentanaPrincipal()
-        {
-            Dispatcher.Invoke(() =>
-            {
-                Principal ventana = new Principal(CuentaUsuario);
-                ventana.Show();
-                this.Close();
-            });
-        }
-
         private void VaciarCampos()
         {
             nombreTxt.Text = "";
             PrecioTxt.Text = "";
             MinimoTxt.Text = "";
-            UnidadCb.SelectedIndex = 0;
             ActualTxt.Text = "";
             UbicacionTxt.Text = "";
             CodigoTxt.Text = "";
@@ -326,16 +304,18 @@ namespace ClienteItaliaPizza
                 if (opcion == MessageBoxResult.OK)
                 {
                     VaciarCampos();
-                    MostrarVentanaPrincipal();
+                    FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
+                    this.Close();
                 }
             }
             else
             {
-                MostrarVentanaPrincipal();
+                FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
+                this.Close();
             }
         }
 
-        private void CerrarSesionBtn_Click(object sender, RoutedEventArgs e)
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult opcion;
 
@@ -344,8 +324,19 @@ namespace ClienteItaliaPizza
 
             if (opcion == MessageBoxResult.OK)
             {
-                CerrarSesion();
+                FuncionesComunes.CerrarSesion();
+                this.Close();
             }
+        }
+
+        public void RegistrarIngrediente(Provision provision)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RegistrarIngredienteAsync(Provision provision)
+        {
+            throw new NotImplementedException();
         }
     }
 }

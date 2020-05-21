@@ -1,42 +1,30 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Security.Tokens;
-using System.Text;
+using System.ServiceModel;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ClienteItaliaPizza
 {
     /// <summary>
     /// Lógica de interacción para RegistroEmpleados.xaml
     /// </summary>
-    public partial class RegistroEmpleados : Window
+    public partial class RegistroEmpleados : Window, IRegistrarCuentaUsuarioCallback
     {
-
+        DateTime FechaActual = DateTime.Now;
+        Random NumeroGenerado = new Random();
         CuentaUsuario CuentaUsuario;
+        string DiaHora;
+
         public RegistroEmpleados(CuentaUsuario cuenta)
         {
-            InitializeComponent();
-            puestosCB.Items.Insert(0, "Seleccionar rol");
-            puestosCB.Items.Insert(1, "Mesero");
-            puestosCB.Items.Insert(2, "Cocinero");
-            puestosCB.Items.Insert(3, "Call center");
-            puestosCB.Items.Insert(4, "Contador");
-            puestosCB.Items.Insert(5, "Gerente");
-            puestosCB.SelectedIndex = 0;
             CuentaUsuario = cuenta;
+            InitializeComponent();
+            LlenarPuestosCb();
             UsuarioLbl.Content = cuenta.nombreUsuario;
-            idEmpleadoTxt.Text = "Falta implementar";
+            idEmpleadoTxt.Text = GenerarIdEmpleado();
 
             idEmpleadoTxt.IsEnabled = false;
             limpiarBtn.IsEnabled = false;
@@ -46,9 +34,6 @@ namespace ClienteItaliaPizza
             usuarioTxt.Visibility = Visibility.Hidden;
             contrasenaLbl.Visibility = Visibility.Hidden;
             contrasenaTxt.Visibility = Visibility.Hidden;
-
-            
-            
         }
 
         private Boolean AlgunCampoLleno()
@@ -63,6 +48,41 @@ namespace ClienteItaliaPizza
             }
 
             return false;
+        }
+
+        private CuentaUsuario AsignarCuentaUsuario()
+        {
+            CuentaUsuario cuentaUsuario = new CuentaUsuario();
+
+            cuentaUsuario.nombreUsuario = usuarioTxt.Text;
+            cuentaUsuario.contraseña = contrasenaTxt.Password;
+
+            return cuentaUsuario;
+        }
+
+        private Direccion AsignarDireccion()
+        {
+            Direccion direccion = new Direccion();
+
+            direccion.calle = calleTxt.Text;
+            direccion.colonia = calleTxt.Text;
+            direccion.numeroExterior = codigoPostalTxt.Text;
+            direccion.numeroInterior = codigoPostalTxt.Text;
+
+            return direccion;
+        }
+
+        private Empleado AsignarInfoEmpleado()
+        {
+            Empleado empleado = new Empleado();
+
+            empleado.nombre = nombreTxt.Text;
+            empleado.apellidoPaterno = aPaternoTxt.Text;
+            empleado.apellidoMaterno = aMaternoTxt.Text;
+            empleado.correo = correoElectronicoTxt.Text;
+            empleado.telefono = telefonoTxt.Text;
+
+            return empleado;
         }
 
         private Boolean CamposLlenos()
@@ -89,24 +109,62 @@ namespace ClienteItaliaPizza
             return false;
         }
 
-        private void CerrarSesion()
+        private Boolean EsCorreoElectronicoValido()
         {
-            Dispatcher.Invoke(() =>
-            {
-                MainWindow ventana = new MainWindow();
-                ventana.Show();
-                this.Close();
-            });
+            string ExpresionRegular = "^[_a-z0-9-]+(.[_a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,4})$";
+            string CorreoIngresado = correoElectronicoTxt.Text;
+            Match EsValido = Regex.Match(CorreoIngresado, ExpresionRegular);
+
+            return EsValido.Success;
         }
 
-        private void MostrarVentanaPrincipal()
+        private String GenerarIdEmpleado() 
         {
-            Dispatcher.Invoke(() =>
-            {   
-                Principal ventana = new Principal(CuentaUsuario);
-                ventana.Show();
-                this.Close();
-            });
+            FechaActual = DateTime.Now;
+            DiaHora = FechaActual.Day.ToString() + FechaActual.Hour.ToString();
+
+            return DiaHora + NumeroGenerado.Next(10, 99).ToString();
+        }
+
+        private void LlenarPuestosCb()
+        {
+            puestosCB.Items.Insert(0, "Seleccionar rol");
+            puestosCB.Items.Insert(1, "Mesero");
+            puestosCB.Items.Insert(2, "Cocinero");
+            puestosCB.Items.Insert(3, "Call center");
+            puestosCB.Items.Insert(4, "Contador");
+            puestosCB.Items.Insert(5, "Gerente");
+            puestosCB.SelectedIndex = 0;
+        }
+
+        private void RegistrarInfoEmpleado()
+        {
+            Rol puesto = new Rol();
+            puesto.Id = puestosCB.SelectedIndex;
+            puesto.nombreRol = puestosCB.SelectedItem.ToString();
+            CuentaUsuario cuenta = new CuentaUsuario();
+            Direccion direccion;
+            Empleado empleado;
+
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                RegistrarCuentaUsuarioClient ServicioEmpleado = new RegistrarCuentaUsuarioClient(context);
+
+                if (puestosCB.SelectedIndex != 1 || puestosCB.SelectedIndex != 2)
+                {
+                    cuenta = AsignarCuentaUsuario();
+                }
+                direccion = AsignarDireccion();
+                empleado = AsignarInfoEmpleado();
+
+                ServicioEmpleado.RegistrarCuentaUsuario(cuenta, empleado, direccion, puesto);
+                VaciarCampos();
+            }
+            catch(Exception error)
+            {
+                FuncionesComunes.MostrarMensajeDeError(error.Message);
+            }
         }
 
         private void VaciarCampos()
@@ -252,6 +310,15 @@ namespace ClienteItaliaPizza
 
         private void correoElectronicoTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (EsCorreoElectronicoValido())
+            {
+                correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.Red;
+            }
+            else
+            {
+                correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.Black;
+            }
+
             if (CamposLlenos())
             {
                 guardarBtn.IsEnabled = true;
@@ -341,7 +408,14 @@ namespace ClienteItaliaPizza
 
         private void guardarBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (EsCorreoElectronicoValido())
+            {
+                RegistrarInfoEmpleado();
+            }
+            else
+            {
+                FuncionesComunes.MostrarMensajeDeError("Correo electrónico invalido");
+            }
         }
 
         private void cancelarBtn_Click(object sender, RoutedEventArgs e)
@@ -356,12 +430,14 @@ namespace ClienteItaliaPizza
                 if (opcion == MessageBoxResult.OK)
                 {
                     VaciarCampos();
-                    MostrarVentanaPrincipal();
+                    FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
+                    this.Close();
                 }
             }
             else
             {
-                MostrarVentanaPrincipal();
+                FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
+                this.Close();
             }
         }
 
@@ -469,12 +545,13 @@ namespace ClienteItaliaPizza
             }
         }
 
+        // Se usara para permitir solo letras y numeros en el campo de dirección
         private void calleTxt_TextInput(object sender, TextCompositionEventArgs e)
         {
             
         }
 
-        private void CerrarSesionBtn_Click(object sender, RoutedEventArgs e)
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult opcion;
 
@@ -483,8 +560,24 @@ namespace ClienteItaliaPizza
 
             if (opcion == MessageBoxResult.OK)
             {
-                CerrarSesion();
+                FuncionesComunes.CerrarSesion();
+                this.Close();
             }
+        }
+
+        public void RegistroCuentaUsuarioRespuesta(string mensaje)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if(mensaje == "La cuenta de usuario se registró correctamente")
+                {
+                    FuncionesComunes.MostrarMensajeExitoso(mensaje);
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError(mensaje);
+                }
+            });
         }
     }
 }
