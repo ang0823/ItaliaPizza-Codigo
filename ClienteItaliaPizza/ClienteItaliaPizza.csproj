@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
@@ -84,8 +87,8 @@
     <Compile Include="Pantallas\MeserosUC.xaml.cs">
       <DependentUpon>MeserosUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PedidoADomicilio.xaml.cs">
-      <DependentUpon>PedidoADomicilio.xaml</DependentUpon>
+    <Compile Include="NuevoPedido.xaml.cs">
+      <DependentUpon>NuevoPedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="Principal.xaml.cs">
       <DependentUpon>Principal.xaml</DependentUpon>
@@ -148,7 +151,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PedidoADomicilio.xaml">
+    <Page Include="NuevoPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,6 +181,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Validacion\Validador.cs" />
     <Compile Include="VentanaCocina.xaml.cs">
       <DependentUpon>VentanaCocina.xaml</DependentUpon>
     </Compile>
@@ -211,6 +215,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Servicio\ServicioPizzaItaliana.wsdl" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

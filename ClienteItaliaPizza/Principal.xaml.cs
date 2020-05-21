@@ -84,5 +84,26 @@ namespace ClienteItaliaPizza
         {
             MostrarBuscarProductosGui();
         }
+
+        private void ButtonRegistrarReceta_Click(object sender, RoutedEventArgs e)
+        {
+            Receta ventanaRegistroReceta = new Receta(CuentaUsuario);
+            ventanaRegistroReceta.Show();
+            this.Close();
+        }
+
+        private void ButtonGenerarInventario_Click(object sender, RoutedEventArgs e)
+        {
+            Inventario ventanaInvventario = new Inventario(CuentaUsuario);
+            ventanaInvventario.Show();
+            this.Close();
+        }
+
+        private void ButtonBuscarReceta_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarReceta ventanaBuscarReceta = new BuscarReceta(CuentaUsuario);
+            ventanaBuscarReceta.Show();
+            this.Close();
+        }
     }
 }

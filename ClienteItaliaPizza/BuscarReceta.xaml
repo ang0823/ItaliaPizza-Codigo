@@ -15,8 +15,9 @@
                 <DataGridTextColumn x:Name="ColumnNombreReceta" Header="Nombre de la Receta"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="ButtonEditar" Content="Editar" HorizontalAlignment="Left" Margin="426,102,0,0" VerticalAlignment="Top" Width="155" Height="30"/>
-        <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="772,102,0,0" VerticalAlignment="Top" Width="155" Height="30"/>
+        <Button x:Name="ButtonEditar" Content="Editar" HorizontalAlignment="Left" Margin="426,102,0,0" VerticalAlignment="Top" Width="155" Height="30" Click="ButtonEditar_Click"/>
+        <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="772,102,0,0" VerticalAlignment="Top" Width="155" Height="30" Click="ButtonEliminar_Click"/>
+        <Button x:Name="ButtonRegresar" Content="Regresar" HorizontalAlignment="Left" Margin="22,33,0,0" VerticalAlignment="Top" Width="75" Click="ButtonRegresar_Click"/>
 
     </Grid>
 </Window>

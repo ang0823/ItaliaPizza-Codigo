@@ -19,11 +19,34 @@ namespace ClienteItaliaPizza.Pantallas
     /// </summary>
     public partial class VentanaPedidos : Window
     {
-        public VentanaPedidos()
+        
+        public VentanaPedidos(string tipoUsuario)
         {
             InitializeComponent();
+
+            if(tipoUsuario == "CallCenter")
+            {
+                MeserosUC meserosUC = new MeserosUC("CallCenter");
+                gridpedidos.Children.Add(meserosUC);
+                meserosUC.Visibility = Visibility.Visible;
+            }
+            if(tipoUsuario== "Mesero")
+            {
+                MeserosUC meserosUC = new MeserosUC("Mesero");
+                gridpedidos.Children.Add(meserosUC);
+                meserosUC.Visibility = Visibility.Visible;
+            }
+            
         }
 
-       
+        private void ButtonSalirClick(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+             {
+                 MainWindow ventana = new MainWindow();
+                 ventana.Show();
+                 this.Close();
+             });
+        }
     }
 }
