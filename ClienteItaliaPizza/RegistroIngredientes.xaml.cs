@@ -1,19 +1,9 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MessageBox = System.Windows.MessageBox;
 
 namespace ClienteItaliaPizza
@@ -28,20 +18,12 @@ namespace ClienteItaliaPizza
         CuentaUsuario CuentaUsuario;
         Provision ingrediente = new Provision();
 
-        /*public RegistroIngredientes(CuentaUsuario cuenta)
+        public RegistroIngredientes(CuentaUsuario cuenta)
         {
             this.CuentaUsuario = cuenta;
             InitializeComponent();
             IniciarComboBox();
-
-            VaciarBtn.IsEnabled = false;
-            GuardarBtn.IsEnabled = false;
-        }*/
-
-        public RegistroIngredientes()
-        {
-            InitializeComponent();
-            IniciarComboBox();
+            UserLbl.Content = cuenta.nombreUsuario;
             VaciarBtn.IsEnabled = false;
             GuardarBtn.IsEnabled = false;
         }
@@ -100,6 +82,7 @@ namespace ClienteItaliaPizza
             UnidadMedidaCb.Items.Insert(0, "Seleccionar");
             UnidadMedidaCb.Items.Insert(1, "Lt");
             UnidadMedidaCb.Items.Insert(2, "Kg");
+            UnidadMedidaCb.Items.Insert(3, "Pza");
             UnidadMedidaCb.SelectedIndex = 0;
         }
 
@@ -124,7 +107,7 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-                Principal ventana = new Principal(/*CuentaUsuario*/);
+                Principal ventana = new Principal(CuentaUsuario);
                 ventana.Show();
                 this.Close();
             });

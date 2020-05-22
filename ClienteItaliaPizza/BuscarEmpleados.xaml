@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
-        Title="BuscarEmpleados" Height="721" Width="1202" WindowStartupLocation="CenterScreen">
+        Title="BuscarEmpleados" Height="721" Width="1202" WindowStartupLocation="CenterScreen" Icon="RecursosGUI/WindowIcon.jpg">
     <Window.Background>
         <ImageBrush ImageSource="RecursosGUI/fondoPrincipal.jpg"/>
     </Window.Background>
@@ -29,7 +29,7 @@
         <TextBox x:Name="codigoPostalTxt" HorizontalAlignment="Left" Height="32" Margin="909,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="22" MaxLength="5" />
         <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" />
         <TextBox x:Name="telefonoTxt" HorizontalAlignment="Left" Height="32" Margin="682,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" MaxLength="10" />
-        <ComboBox x:Name="puestosCB" HorizontalAlignment="Left" Margin="188,443,0,0" VerticalAlignment="Top" Width="347" Height="32" FontFamily="Arial" FontSize="22"/>
+        <ComboBox x:Name="puestosCB" HorizontalAlignment="Left" Margin="188,443,0,0" VerticalAlignment="Top" Width="347" Height="32" FontFamily="Arial" FontSize="22" SelectionChanged="puestosCB_SelectionChanged"/>
         <TextBox x:Name="idEmpleadoTxt" HorizontalAlignment="Left" Height="32" Margin="682,443,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial Black" FontSize="22" FontWeight="Bold"/>
         <TextBox x:Name="usuarioTxt" HorizontalAlignment="Left" Height="32" Margin="188,543,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22"/>
         <PasswordBox x:Name="contrasenaTxt" HorizontalAlignment="Left" Margin="682,543,0,0" VerticalAlignment="Top" Height="32" Width="347" PasswordChar="*" FontSize="22" FontWeight="Bold"/>
@@ -45,7 +45,7 @@
         <Label Content="ID de empleado:" HorizontalAlignment="Left" Margin="689,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label x:Name="usuarioLbl" Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="188,510,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label x:Name="contrasenaLbl" Content="Contraseña:" HorizontalAlignment="Left" Margin="682,507,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Button x:Name="EditarGuardarBtn" Content="Editar" HorizontalAlignment="Left" Margin="188,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="#FF305825" BorderBrush="#FF2E2E12"/>
+        <Button x:Name="EditarGuardarBtn" Content="Editar" HorizontalAlignment="Left" Margin="188,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="#FF305825" BorderBrush="#FF2E2E12" Click="EditarGuardarBtn_Click"/>
         <Button x:Name="EliminarBtn" Content="Eliminar" HorizontalAlignment="Left" Margin="520,613,0,0" VerticalAlignment="Top" Width="156" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="#FF740005" BorderBrush="#FF740005"/>
         <Button x:Name="cancelarBtn" Content="Cancelar" HorizontalAlignment="Left" Margin="874,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="White" BorderBrush="#FF740005" Foreground="#FF740005" Click="cancelarBtn_Click_1"/>
     </Grid>

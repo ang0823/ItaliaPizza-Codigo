@@ -24,6 +24,9 @@ namespace ClienteItaliaPizza.Pantallas
             InitializeComponent();
         }
 
-       
+        private void ButtonSalirClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

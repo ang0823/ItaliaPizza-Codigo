@@ -71,7 +71,6 @@
     <Compile Include="BuscarReceta.xaml.cs">
       <DependentUpon>BuscarReceta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EmpleadoDataGrid.cs" />
     <Compile Include="FuncionesComunes.cs" />
     <Compile Include="Inventario.xaml.cs">
       <DependentUpon>Inventario.xaml</DependentUpon>

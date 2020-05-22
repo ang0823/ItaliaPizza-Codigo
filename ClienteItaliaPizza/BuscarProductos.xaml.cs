@@ -27,9 +27,10 @@ namespace ClienteItaliaPizza
             CuentaUsuario = cuenta;
             InitializeComponent();
 
+            UserLbl.Content = cuenta.nombreUsuario;
             ImagenBtn.Visibility = Visibility.Hidden;
-            //EditSaveBtn.IsEnabled = false;
             DeshabilitarCampos();
+            //EditSaveBtn.IsEnabled = false;
         }
 
         private void BuscarProducto()

@@ -25,19 +25,12 @@ namespace ClienteItaliaPizza
     public partial class RegistroProductos : Window
     {
         CuentaUsuario CuentaUsuario;
-        /*public RegistroProductos(CuentaUsuario cuenta)
+        public RegistroProductos(CuentaUsuario cuenta)
         {
             CuentaUsuario = cuenta;
             InitializeComponent();
 
             UsuarioLbl.Content = cuenta.nombreUsuario;
-            GuardarBtn.IsEnabled = false;
-            VaciarBtn.IsEnabled = false;
-        }*/
-
-        public RegistroProductos()
-        {
-            InitializeComponent();
             GuardarBtn.IsEnabled = false;
             VaciarBtn.IsEnabled = false;
         }

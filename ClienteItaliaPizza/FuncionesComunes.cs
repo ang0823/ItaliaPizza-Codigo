@@ -25,7 +25,7 @@ namespace ClienteItaliaPizza
         /// <param name="CuentaUsuario">El usuario actual que está loggeado en la pantalla que llama a este método</param>
         public static void MostrarVentanaPrincipal(CuentaUsuario CuentaUsuario)
         {
-            Principal ventana = new Principal(/*CuentaUsuario*/);
+            Principal ventana = new Principal(CuentaUsuario);
             ventana.Show();
         }
 
