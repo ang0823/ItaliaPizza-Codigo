@@ -9,19 +9,20 @@
     <Window.Background>
         <ImageBrush ImageSource="RecursosGUI/fondoPrincipal.jpg"/>
     </Window.Background>
-    <Grid>
-        <DataGrid x:Name="dataGridInventario" HorizontalAlignment="Left" Height="422" Margin="42,65,0,0" VerticalAlignment="Top" Width="907" BorderBrush="#FF080808" FontSize="16" Background="#FF939292">
+    <Grid x:Name="gridPrincipalInventario">
+        
+        <DataGrid x:Name="dataGridInventario" HorizontalAlignment="Left" Height="422" Margin="42,65,0,0" VerticalAlignment="Top" Width="907" BorderBrush="#FF080808" FontSize="16" Background="#FF939292" CanUserDeleteRows="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ColumnCodigo" Header="Código/Clave" Width="130"/>
                 <DataGridTextColumn x:Name="ColumnDescripcionProducto" Header="Descripcion del Producto" Width="260"/>
                 <DataGridTextColumn x:Name="ColumnUnidadMedida" Header="Unidad de Medida" Width="150"/>
                 <DataGridTextColumn x:Name="ColumnUbicacion" Header="Ubicacion" Width="200"/>
                 <DataGridTextColumn x:Name="ColumnExistencias" Header="Existencia actual" Width="130"/>
-
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="572,536,0,0" VerticalAlignment="Top" Width="156" Height="46"/>
-        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="805,536,0,0" VerticalAlignment="Top" Width="144" Height="46"/>
+        
+        <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="572,536,0,0" VerticalAlignment="Top" Width="156" Height="46" Click="ButtonAceptar_Click"/>
+        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="805,536,0,0" VerticalAlignment="Top" Width="144" Height="46" Click="ButtonCancelar_Click"/>
 
     </Grid>
 </Window>

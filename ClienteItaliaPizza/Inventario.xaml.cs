@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClienteItaliaPizza.Servicio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,26 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class Inventario : Window
     {
-        public Inventario()
+        CuentaUsuario cuenta = new CuentaUsuario(); //creo esta clase temporalmente para conectar las ventanas con la principal
+        public Inventario(CuentaUsuario cuentaUsuario)
         {
             InitializeComponent();
+            cuenta = cuentaUsuario;
+        }
+
+        private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Principal ventana = new Principal(cuenta);
+                ventana.Show();
+                this.Close();
+            });
         }
     }
 }

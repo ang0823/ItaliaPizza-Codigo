@@ -17,11 +17,31 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para PedidoADomicilio.xaml
     /// </summary>
-    public partial class PedidoADomicilio : Window
+    public partial class NuevoPedido : Window
     {
-        public PedidoADomicilio()
+        public NuevoPedido()
         {
             InitializeComponent();
+        }
+
+        private void TextBoxInstruccionesEspeciales_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
+
+        private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void TextBoxDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
         }
     }
 }
