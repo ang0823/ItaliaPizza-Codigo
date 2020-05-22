@@ -91,7 +91,7 @@ namespace ClienteItaliaPizza
 
         private void ButtonVentanaMeseros_Click_1(object sender, RoutedEventArgs e)
         {
-            VentanaPedidos ventanaPedidos = new VentanaPedidos();
+            VentanaPedidos ventanaPedidos = new VentanaPedidos("Mesero");
             ventanaPedidos.Show();
 
             this.Close();
