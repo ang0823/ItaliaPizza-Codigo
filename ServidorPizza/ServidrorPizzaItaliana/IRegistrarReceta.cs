@@ -21,6 +21,6 @@ namespace ServidrorPizzaItaliana
     {
 
         [OperationContract(IsOneWay = true)]
-        void Respuesta(string mensaje);
+        void RespuestaRR(string mensaje);
     }
 }

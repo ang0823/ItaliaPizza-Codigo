@@ -23,7 +23,7 @@ namespace ServidrorPizzaItaliana
         void DevuelveCuentas(List<CuentaUsuario1> cuentas, List<Empleado1> empleados, List<Direccion1> direcciones, List<Rol1> roles);
 
         [OperationContract(IsOneWay = true)]
-        void Respuesta(string mensaje);
+        void RespuestaOCU(string mensaje);
     }
 
     [DataContract]
