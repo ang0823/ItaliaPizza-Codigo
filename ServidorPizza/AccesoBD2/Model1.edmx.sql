@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/19/2020 00:38:27
--- Generated from EDMX file: C:\Users\javie\Documents\8voSemestre\Desarrollo de software\ServidorBetoparaAgregar\Pizzeria\ServidorPizza\AccesoBD2\Model1.edmx
+-- Date Created: 05/20/2020 19:41:29
+-- Generated from EDMX file: C:\Users\BETO\Documents\OCTAVO SEMESTRE\DESARROLLO DE SOFTWARE\Servidor\ServidorPizza\AccesoBD2\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -75,6 +75,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_MesaPedidoLocal]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PedidoSet_PedidoLocal] DROP CONSTRAINT [FK_MesaPedidoLocal];
 GO
+IF OBJECT_ID(N'[dbo].[FK_IngredienteReceta_Ingrediente]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[IngredienteReceta] DROP CONSTRAINT [FK_IngredienteReceta_Ingrediente];
+GO
+IF OBJECT_ID(N'[dbo].[FK_IngredienteReceta_Receta]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[IngredienteReceta] DROP CONSTRAINT [FK_IngredienteReceta_Receta];
+GO
 IF OBJECT_ID(N'[dbo].[FK_PedidoADomicilio_inherits_Pedido]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PedidoSet_PedidoADomicilio] DROP CONSTRAINT [FK_PedidoADomicilio_inherits_Pedido];
 GO
@@ -131,6 +137,9 @@ GO
 IF OBJECT_ID(N'[dbo].[ProvisionSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProvisionSet];
 GO
+IF OBJECT_ID(N'[dbo].[IngredienteSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[IngredienteSet];
+GO
 IF OBJECT_ID(N'[dbo].[PedidoSet_PedidoADomicilio]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PedidoSet_PedidoADomicilio];
 GO
@@ -148,6 +157,9 @@ IF OBJECT_ID(N'[dbo].[ProvisionDirectaPedido]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[RecetaProvision]', 'U') IS NOT NULL
     DROP TABLE [dbo].[RecetaProvision];
+GO
+IF OBJECT_ID(N'[dbo].[IngredienteReceta]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[IngredienteReceta];
 GO
 
 -- --------------------------------------------------
@@ -200,7 +212,7 @@ CREATE TABLE [dbo].[PedidoSet] (
     [instruccionesEspeciales] nvarchar(max)  NULL,
     [Empleado_IdEmpleado] int  NOT NULL,
     [Estado_Id] int  NOT NULL,
-    [Cuenta_Id] int  NOT NULL
+    [Cuenta_Id] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -250,7 +262,7 @@ GO
 
 -- Creating table 'CuentaSet'
 CREATE TABLE [dbo].[CuentaSet] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Id] nvarchar(max)  NOT NULL,
     [precioTotal] float  NOT NULL,
     [subTotal] float  NOT NULL,
     [iva] float  NOT NULL,

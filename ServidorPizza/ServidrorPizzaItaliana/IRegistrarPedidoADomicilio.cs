@@ -13,17 +13,20 @@ namespace ServidrorPizzaItaliana
     public interface IRegistrarPedidoADomicilio
     {
         [OperationContract(IsOneWay = true)]
-        void ObtenerDatos(int idEmpleado);
+        void ObtenerDatos();
 
         [OperationContract(IsOneWay = true)]
-        void RegistrarPedido(PedidoADomicilio pedido);
+        void RegistrarPedido(PedidoADomicilio pedido, Cuenta cuenta, int idEstado, int idEmpleado);
+
+        [OperationContract(IsOneWay = true)]
+        void RegistrarCliente(AccesoBD2.Cliente cliente, Direccion direccionCliente, Telefono telefonoCliente);
     }
 
     [ServiceContract]
     public interface IRegistrarPedidoADomicilioCallback
     {
         [OperationContract(IsOneWay = true)]
-        void Datos(List<Cliente> clientes, List<ProductoDePedido> productos, List<ProvisionVentaDirecta> provisiones, Empleado empleado, List<EstadoDePedido> estados);
+        void Datos(List<Cliente> clientes, List<ProductoDePedido> productos, List<ProvisionVentaDirecta> provisiones,List<EstadoDePedido> estados);
         [OperationContract(IsOneWay = true)]
         void Mensaje(string mensaje);
     }
