@@ -1,34 +1,42 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
+/**
+ * HAY ERROR AL DAR CLICK EN BOTON EDITAR
+ * FALTA DEPURAR
+ * 
+ */
+
 
 namespace ClienteItaliaPizza
 {
     /// <summary>
     /// Lógica de interacción para BuscarEmpleados.xaml
     /// </summary>
-    public partial class BuscarEmpleados : Window
+    public partial class BuscarEmpleados : Window, IObtenerCuentasUsuarioCallback
     {
         CuentaUsuario CuentaUsuario;
-        public BuscarEmpleados()
+
+        Empleado empleado;
+        Direccion direccion;
+        CuentaUsuario cuenta;
+        Rol puesto;
+
+        public BuscarEmpleados(CuentaUsuario cuenta)
         {
             InitializeComponent();
+            LlenarPuestosCb();
+            DeshabilitarCampos();
 
-            //CuentaUsuario = cuenta;
-            //UsuarioLbl.Content = cuenta.nombreUsuario;
-            EditarGuardarBtn.IsEnabled = false;
-            EliminarBtn.IsEnabled = false;
+            CuentaUsuario = cuenta;
+            UsuarioLbl.Content = cuenta.nombreUsuario;
+
+            idEmpleadoTxt.IsEnabled = false;
+            //EditarGuardarBtn.IsEnabled = false;
+            //EliminarBtn.IsEnabled = false;
         }
 
         private Boolean CamposLlenos()
@@ -55,12 +63,130 @@ namespace ClienteItaliaPizza
             return false;
         }
 
+        private void DeshabilitarCampos()
+        {
+            nombreTxt.IsEnabled = false;
+            aPaternoTxt.IsEnabled = false;
+            aMaternoTxt.IsEnabled = false;
+            calleTxt.IsEnabled = false;
+            coloniaTxt.IsEnabled = false;
+            codigoPostalTxt.IsEnabled = false;
+            correoElectronicoTxt.IsEnabled = false;
+            telefonoTxt.IsEnabled = false;
+            puestosCB.IsEnabled = false;
+            usuarioTxt.IsEnabled = false;
+            contrasenaTxt.IsEnabled = false;
+        }
+
+        private void EditarInformacion() 
+        {
+            HabilitarCampos();
+            if (HayInformacionEditada())
+            {
+                FuncionesComunes.MostrarMensajeExitoso("Se edito la información");
+            }
+            else
+            {
+                EstablecerInformacion();
+                DeshabilitarCampos();
+            }
+        }
+
+        private void EstablecerInformacion()
+        {
+            idEmpleadoTxt.Text = empleado.IdEmpleado.ToString();
+            nombreTxt.Text = empleado.nombre;
+            aPaternoTxt.Text = empleado.apellidoPaterno;
+            aMaternoTxt.Text = empleado.apellidoMaterno;
+            correoElectronicoTxt.Text = empleado.correo;
+            telefonoTxt.Text = empleado.telefono;
+            calleTxt.Text = direccion.calle;
+            coloniaTxt.Text = direccion.colonia;
+            codigoPostalTxt.Text = direccion.numeroExterior;
+            puestosCB.SelectedIndex = puesto.Id;
+            if (cuenta != null)
+            {
+                usuarioTxt.Text = cuenta.nombreUsuario;
+                contrasenaTxt.Password = cuenta.contraseña;
+            }
+        }
+
+        private void HabilitarCampos()
+        {
+            nombreTxt.IsEnabled = true;
+            aPaternoTxt.IsEnabled = true;
+            aMaternoTxt.IsEnabled = true;
+            calleTxt.IsEnabled = true;
+            coloniaTxt.IsEnabled = true;
+            codigoPostalTxt.IsEnabled = true;
+            correoElectronicoTxt.IsEnabled = true;
+            telefonoTxt.IsEnabled = true;
+            puestosCB.IsEnabled = true;
+            usuarioTxt.IsEnabled = true;
+            contrasenaTxt.IsEnabled = true;
+        }
+
+        private Boolean HayInformacionEditada()
+        {
+            Boolean InformacionEditada = false;
+            string NuevoNombre = nombreTxt.Text;
+            string NuevoPaterno = aPaternoTxt.Text;
+            string NuevoMaterno = aMaternoTxt.Text;
+            string NuevoCorreo = correoElectronicoTxt.Text;
+            string NuevoTelefono = telefonoTxt.Text;
+            string NuevaCalle = calleTxt.Text;
+            string NuevaColonia = coloniaTxt.Text;
+            string NuevoCodigoPostal = codigoPostalTxt.Text;
+            int NuevoRol = puestosCB.SelectedIndex;
+            string NuevoUsuario = usuarioTxt.Text;
+            string NuevaContrasena = contrasenaTxt.Password;
+
+            if (NuevoNombre != empleado.nombre || NuevoPaterno != empleado.apellidoPaterno || NuevoMaterno != empleado.apellidoMaterno
+                || NuevoCorreo != empleado.correo || NuevoTelefono != empleado.telefono
+                || NuevaCalle != direccion.calle || NuevaColonia != direccion.colonia || NuevoCodigoPostal !=  direccion.numeroExterior
+                || NuevoUsuario != usuarioTxt.Text || NuevaContrasena != contrasenaTxt.Password
+                || NuevoRol != puesto.Id)
+            {
+                InformacionEditada = true;
+            }
+
+            return InformacionEditada;
+        }
+
+        private void LlenarPuestosCb()
+        {
+            puestosCB.Items.Insert(0, "");
+            puestosCB.Items.Insert(1, "Mesero");
+            puestosCB.Items.Insert(2, "Cocinero");
+            puestosCB.Items.Insert(3, "Call center");
+            puestosCB.Items.Insert(4, "Contador");
+            puestosCB.Items.Insert(5, "Gerente");
+            puestosCB.SelectedIndex = 0;
+        }
+
+        private void VaciarCampos()
+        {
+            puestosCB.SelectedIndex = 0;
+            nombreTxt.Text = "";
+            aPaternoTxt.Text = "";
+            aMaternoTxt.Text = "";
+            correoElectronicoTxt.Text = "";
+            telefonoTxt.Text = "";
+            calleTxt.Text = "";
+            coloniaTxt.Text = "";
+            codigoPostalTxt.Text = "";
+            usuarioTxt.Text = "";
+            contrasenaTxt.Password = "";
+        }
+
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Falta el servidor para implementar este metodo
-            SearchBox.Text = "";
-            Empleado n = new Servicio.Empleado();
-            CuentaUsuario c = new Servicio.CuentaUsuario();
+            InstanceContext context = new InstanceContext(this);
+            ObtenerCuentasUsuarioClient ServicioBusqueda = new ObtenerCuentasUsuarioClient(context);
+
+            /*
+             * Falta corrección del servidor para implementar este apartado
+             */
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
@@ -104,5 +230,67 @@ namespace ClienteItaliaPizza
             FuncionesComunes.CerrarSesion();
             this.Close();
         }
+
+        private void puestosCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (puestosCB.SelectedIndex == 3 || puestosCB.SelectedIndex == 4
+                || puestosCB.SelectedIndex == 5)
+            {
+                usuarioLbl.Visibility = Visibility.Visible;
+                usuarioTxt.Visibility = Visibility.Visible;
+                contrasenaLbl.Visibility = Visibility.Visible;
+                contrasenaTxt.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                usuarioLbl.Visibility = Visibility.Hidden;
+                usuarioTxt.Visibility = Visibility.Hidden;
+                contrasenaLbl.Visibility = Visibility.Hidden;
+                contrasenaTxt.Visibility = Visibility.Hidden;
+                usuarioTxt.Text = "";
+                contrasenaTxt.Password = "";
+            }
+        }
+        private void EditarGuardarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Recuerda el método Trim() para eliminar espacios
+
+            if (EditarGuardarBtn.Content.ToString() == "Editar")
+            {
+                EditarGuardarBtn.Content = "Guardar";
+                EditarInformacion();
+            }
+            else
+            {
+                EditarGuardarBtn.Content = "Editar";
+                // Aquí debe ir el método que envía los cambios añl servidor
+                DeshabilitarCampos();
+            }
+        }
+
+        public void DevuelveCuentas(CuentaUsuario1[] cuentas, Empleado1[] empleados, Direccion1[] direcciones, Rol1[] roles)
+        {
+           Dispatcher.Invoke(() =>
+           {
+               /**
+                * Aqui se deben inicializar los objetos de la clase
+                * Empleado empleado;
+                * Direccion direccion;
+                * CuentaUsuario cuenta;
+                * Rol puesto;
+                * Esto ayudara a que funcione el método "EstablecerInformacion()"
+                */
+               EstablecerInformacion();
+           });
+        }
+
+        public void ObtenerCuentaUsuarioRespuesta(string mensaje)
+        {
+           Dispatcher.Invoke(() =>
+           {
+               FuncionesComunes.MostrarMensajeDeError(mensaje);
+           });
+        }
+
     }
 }

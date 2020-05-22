@@ -2964,7 +2964,11 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+<<<<<<< HEAD
           <Upn>DESKTOP-FLLKC20\irasema</Upn>
+=======
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+>>>>>>> 5ca641f20d7e1c042dc4be103b15761ad2547d5a
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

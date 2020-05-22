@@ -5,6 +5,7 @@ using System.Windows;
 using ClienteItaliaPizza.Servicio;
 using ClienteItaliaPizza.Pantallas;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace ClienteItaliaPizza
 {
@@ -12,6 +13,8 @@ namespace ClienteItaliaPizza
 
     public partial class MainWindow : Window, ILoginCallback
     {
+        CuentaUsuario CuentaUsuario;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -21,16 +24,16 @@ namespace ClienteItaliaPizza
         private void IniciarSesion()
         {
             string Mensaje;
+            string nombreUsuario = textBoxNombreUsuario.Text.Trim();
+            string contraseña = passwordBoxContraseña.Password.Trim();
 
             try
             {
                 InstanceContext instanceContext = new InstanceContext(this);
                 LoginClient cliente = new LoginClient(instanceContext);
 
-                if (DatosCompletos())
+                if (DatosCompletos(nombreUsuario, contraseña))
                 {
-                    string nombreUsuario = textBoxNombreUsuario.Text.Trim();
-                    string contraseña = passwordBoxContraseña.Password.Trim();
                     cliente.IniciarSesion(nombreUsuario, contraseña);
                 }
                 else
@@ -50,33 +53,30 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void IniciarSesion(object sender, RoutedEventArgs e)
+        private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             IniciarSesion();
         }
 
-        private bool DatosCompletos()
+        private bool DatosCompletos(string nombreUsuario, string contrasena)
         {
-            string nombreUsuario = textBoxNombreUsuario.Text.Trim();
-            string contraseña = passwordBoxContraseña.Password.Trim();
             bool datosValidos = false;
 
-            if (nombreUsuario != "" && contraseña != "")
+            if (nombreUsuario != "" && contrasena != "")
             {
                 datosValidos = true;
-                return datosValidos;
             }
-            else
-            {
-                return datosValidos;
-            }
+                
+            return datosValidos;
         }
 
         public void DevuelveCuenta(CuentaUsuario cuenta)
         {
             Dispatcher.Invoke(() =>
             {
-                FuncionesComunes.MostrarVentanaPrincipal(cuenta);
+                CuentaUsuario = cuenta;
+                Principal ventana = new Principal(cuenta);
+                ventana.Show();
                 this.Close();
             });
         }
@@ -91,7 +91,7 @@ namespace ClienteItaliaPizza
 
         private void ButtonVentanaMeseros_Click_1(object sender, RoutedEventArgs e)
         {
-            VentanaPedidos ventanaPedidos = new VentanaPedidos();
+            VentanaPedidos ventanaPedidos = new VentanaPedidos("Mesero");
             ventanaPedidos.Show();
 
             this.Close();
@@ -119,6 +119,12 @@ namespace ClienteItaliaPizza
             {
                 FuncionesComunes.MostrarMensajeDeError(mensaje);
             });
+        }
+
+        private void passwordBoxContraseña_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            PasswordBox pb = sender as PasswordBox;
+            pb.Tag = (!string.IsNullOrEmpty(pb.Password)).ToString();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using ClienteItaliaPizza.Pantallas;
+﻿using System.Windows;
 using ClienteItaliaPizza.Servicio;
 
 
@@ -12,54 +10,71 @@ namespace ClienteItaliaPizza
     public partial class Principal : Window
     {
         CuentaUsuario CuentaUsuario;
-        public Principal(/*CuentaUsuario cuenta*/)
+
+        public Principal(CuentaUsuario cuenta)
         {
             InitializeComponent();
-            //CuentaUsuario = cuenta;
-            //nombreUs.Content = CuentaUsuario.nombreUsuario;
+            this.CuentaUsuario = cuenta;
+            nombreUs.Content = CuentaUsuario.nombreUsuario;
         }
 
         private void MostrarBuscarEmpledosGui()
         {
-            //BuscarEmpleados ventana = new BuscarEmpleados(CuentaUsuario);
-            BuscarEmpleados ventana = new BuscarEmpleados(); //Esto se debe quitar
-            ventana.Show();
-            this.Close();
+            Dispatcher.Invoke(() =>
+            {
+                BuscarEmpleados ventana = new BuscarEmpleados(CuentaUsuario);
+                ventana.Show();
+                this.Close();
+            });
         }
 
-        private void MostrarBusdarIngredienteGui()
+        private void MostrarBuscarIngredienteGui()
         {
-            //BuscarIngrediente ventana = new BuscarIngrediente(CuentaUsuario);
-            BuscarIngrediente ventana = new BuscarIngrediente();
-            ventana.Show();
-            this.Close();
+            Dispatcher.Invoke(() =>
+            {
+                BuscarIngrediente ventana = new BuscarIngrediente(CuentaUsuario);
+                ventana.Show();
+                this.Close();
+            });
         }
 
         private void MostrarBuscarProductosGui()
         {
-            BuscarProductos ventana = new BuscarProductos(CuentaUsuario);
-            ventana.Show();
-            this.Close();
+            Dispatcher.Invoke(() =>
+            {
+                BuscarProductos ventana = new BuscarProductos(CuentaUsuario);
+                ventana.Show();
+                this.Close();
+            });
         }
 
         private void MostrarRegistroEmpleadosGui()
         {
-            RegistroEmpleados RegistroEmpleadosGui = new RegistroEmpleados(/*CuentaUsuario*/);
-            RegistroEmpleadosGui.Show();
-            this.Close();
+            Dispatcher.Invoke(() =>
+            {
+                RegistroEmpleados RegistroEmpleadosGui = new RegistroEmpleados(CuentaUsuario);
+                RegistroEmpleadosGui.Show();
+                this.Close();
+            });
         }
         private void MostrarRegistroIngredientesGui()
         {
-            RegistroIngredientes RegistroIngredientesGui = new RegistroIngredientes();
-            RegistroIngredientesGui.Show();
-            this.Close();
+            Dispatcher.Invoke(() =>
+            {
+                RegistroIngredientes RegistroIngredientesGui = new RegistroIngredientes(CuentaUsuario);
+                RegistroIngredientesGui.Show();
+                this.Close();
+            });
         }
 
         private void MostrarRegistroProductosGui(object sender, RoutedEventArgs e)
         {
-            RegistroProductos RegistroProdcutosGui = new RegistroProductos();
-            RegistroProdcutosGui.Show();
-            this.Close();
+            Dispatcher.Invoke(() =>
+            {
+                RegistroProductos RegistroProdcutosGui = new RegistroProductos(CuentaUsuario);
+                RegistroProdcutosGui.Show();
+                this.Close();
+            });
         }
 
         private void registrarEmpBtn_Click(object sender, RoutedEventArgs e)
@@ -114,7 +129,7 @@ namespace ClienteItaliaPizza
         
         private void BuscarIngedienteBtn_Click(object sender, RoutedEventArgs e)
         {
-            MostrarBusdarIngredienteGui();
+            MostrarBuscarIngredienteGui();
         }
 
         private void RegistrarIngredienteBtn_Click(object sender, RoutedEventArgs e)

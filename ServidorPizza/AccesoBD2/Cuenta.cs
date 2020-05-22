@@ -20,7 +20,7 @@ namespace AccesoBD2
             this.Pedido = new HashSet<Pedido>();
         }
     
-        public int Id { get; set; }
+        public string Id { get; set; }
         public double precioTotal { get; set; }
         public double subTotal { get; set; }
         public double iva { get; set; }
