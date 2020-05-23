@@ -80,7 +80,7 @@ namespace ServidrorPizzaItaliana
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<ILoginCallback>().RespuestaLogin("Alguno de los datos introducidos no son correctos");
+                OperationContext.Current.GetCallbackChannel<ILoginCallback>().LoginRespuesta("Alguno de los datos introducidos no son correctos");
             }
         }
     }
