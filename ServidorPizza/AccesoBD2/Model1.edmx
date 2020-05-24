@@ -930,7 +930,7 @@
           <NavigationProperty Name="Receta" Relationship="BDPizzaModel.RecetaProvision" FromRole="Provision" ToRole="Receta" />
         </EntityType>
         <Association Name="CuentaUsuarioEmpleado">
-          <End Type="BDPizzaModel.CuentaUsuario" Role="CuentaUsuario" Multiplicity="1" />
+          <End Type="BDPizzaModel.CuentaUsuario" Role="CuentaUsuario" Multiplicity="0..1" />
           <End Type="BDPizzaModel.Empleado" Role="Empleado" Multiplicity="1" />
         </Association>
         <Association Name="EmpleadoDireccion">

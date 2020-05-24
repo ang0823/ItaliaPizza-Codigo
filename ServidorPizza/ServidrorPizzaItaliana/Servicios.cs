@@ -114,6 +114,32 @@ namespace ServidrorPizzaItaliana
                 OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RespuestaRCU("La cuenta de usuario se registró correctamente");
             }
         }
+
+        public void RegistrarCuentaUsuario2(Empleado empleado, Direccion direccion, Rol rol)
+        {
+            try
+            {
+
+                Console.WriteLine("BDloteriaEntities2");
+                var c = (from per in db.EmpleadoSet where per.IdEmpleado == empleado.IdEmpleado select per).First();
+                Console.WriteLine("Consulta");
+
+                if (c != null)
+                {
+
+                    OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RespuestaRCU("El usuario ya ha sido registrado");
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                empleado.Rol = rol;
+                empleado.Direccion = direccion;
+                db.EmpleadoSet.Add(empleado);
+                db.SaveChanges();
+                db.Dispose();
+                OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RespuestaRCU("La cuenta de usuario se registró correctamente");
+            }
+        }
     }
 
     public partial class Servicios : IModificarCuentaUsuario
