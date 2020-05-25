@@ -46,11 +46,11 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException)
             {
-                throw new FormatException("El stock mínimo debe ser numérico");
+                throw new FormatException("Los campos marcaos solo aceptan valores numéricos");
             }
             catch (OverflowException)
             {
-                throw new OverflowException("El stock mínimo ingresado provoco un desbordamiento porque es deasiado grande.");
+                throw new OverflowException("Los campos marcados provocaron un desbordamiento porque el valor es deasiado grande.");
             }
 
             return entero;

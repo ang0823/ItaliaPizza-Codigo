@@ -1,20 +1,12 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+using System.Linq.Expressions;
 using System.ServiceModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MessageBox = System.Windows.MessageBox;
 
 namespace ClienteItaliaPizza
@@ -22,24 +14,29 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para RegistroProductos.xaml
     /// </summary>
-    public partial class RegistroProductos : Window
+    public partial class RegistroProductos : Window, IRegistrarProductoCallback
     {
         CuentaUsuario CuentaUsuario;
+        Producto producto;
         public RegistroProductos(CuentaUsuario cuenta)
         {
             CuentaUsuario = cuenta;
             InitializeComponent();
+            IniciarComboBoxes();
 
             UsuarioLbl.Content = cuenta.nombreUsuario;
+            EstadoCb.SelectedIndex = 0;
+            CategoriaCb.SelectedIndex = 0;
+            RecetaCb.SelectedIndex = 0;
             GuardarBtn.IsEnabled = false;
             VaciarBtn.IsEnabled = false;
         }
 
         private Boolean AlgunCampoLleno()
         {
-            if (nombreTxt.Text.Length > 0 || PrecioTxt.Text.Length > 0 || MinimoTxt.Text.Length > 0
-                || ActualTxt.Text.Length > 0 || UbicacionTxt.Text.Length > 0
-                || CodigoTxt.Text.Length > 0 || DescripcionTxt.Text.Length > 0 || RestriccionesTxt.Text.Length > 0)
+            if (NombreTxt.Text.Length > 0 || PrecioTxt.Text.Length > 0
+                || CategoriaCb.SelectedIndex != 0 || RecetaCb.SelectedIndex != 0
+                || DescripcionTxt.Text.Length > 0 || RestriccionesTxt.Text.Length > 0)
             {
                 return true;
             }
@@ -49,9 +46,9 @@ namespace ClienteItaliaPizza
 
         private Boolean CamposLlenos()
         {
-            if (nombreTxt.Text.Length > 0 && PrecioTxt.Text.Length > 0 && MinimoTxt.Text.Length > 0
-                && ActualTxt.Text.Length > 0 && UbicacionTxt.Text.Length > 0
-                && CodigoTxt.Text.Length > 0 && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
+            if (NombreTxt.Text.Length > 0 && PrecioTxt.Text.Length > 0 
+                && CategoriaCb.SelectedIndex != 0 && RecetaCb.SelectedIndex != 0
+                && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
             {
                 return true;
             }
@@ -59,14 +56,43 @@ namespace ClienteItaliaPizza
             return false;
         }
 
+        private void IniciarComboBoxes()
+        {
+            EstadoCb.Items.Insert(0, "Activado");
+            EstadoCb.Items.Insert(1, "Desactivado");
+
+            CategoriaCb.Items.Insert(0, "Seleccionar:");
+            CategoriaCb.Items.Insert(1, "Perecederos");
+            CategoriaCb.Items.Insert(2, "Lacteos");
+            CategoriaCb.Items.Insert(3, "Embutidos");
+            CategoriaCb.Items.Insert(4, "Carnes");
+
+            RecetaCb.Items.Insert(0, "Seleccionar");
+            RecetaCb.Items.Insert(1, "Pizza Salami");
+            RecetaCb.Items.Insert(2, "Pizza hawaiana");
+        }
+
+        //Implementado, falta el servidor
+        private void IniciarRegistro()
+        {
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                
+            }
+            catch
+            {
+
+            }
+        }
+
         private void VaciarCampos()
         {
-            nombreTxt.Text = "";
+            NombreTxt.Text = "";
             PrecioTxt.Text = "";
-            MinimoTxt.Text = "";
-            ActualTxt.Text = "";
-            UbicacionTxt.Text = "";
-            CodigoTxt.Text = "";
+            EstadoCb.SelectedIndex = 0;
+            CategoriaCb.SelectedIndex = 0;
+            RecetaCb.SelectedIndex = 0;
             DescripcionTxt.Text = "";
             RestriccionesTxt.Text = "";
             ProductoImg.Source = null;
@@ -167,27 +193,6 @@ namespace ClienteItaliaPizza
         }
 
         private void ActualTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (AlgunCampoLleno())
-            {
-                VaciarBtn.IsEnabled = true;
-            }
-            else
-            {
-                VaciarBtn.IsEnabled = false;
-            }
-
-            if (CamposLlenos())
-            {
-                GuardarBtn.IsEnabled = true;
-            }
-            else
-            {
-                GuardarBtn.IsEnabled = false;
-            }
-        }
-
-        private void UbicacionTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (AlgunCampoLleno())
             {
@@ -328,6 +333,32 @@ namespace ClienteItaliaPizza
         }
 
         public Task RegistrarIngredienteAsync(Provision provision)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CategoriaTxt_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AlgunCampoLleno())
+            {
+                VaciarBtn.IsEnabled = true;
+            }
+            else
+            {
+                VaciarBtn.IsEnabled = false;
+            }
+
+            if (CamposLlenos())
+            {
+                GuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                GuardarBtn.IsEnabled = false;
+            }
+        }
+
+        public void RegistroProductooRespuesta(string mensaje)
         {
             throw new NotImplementedException();
         }

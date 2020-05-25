@@ -1,6 +1,7 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
 using System.ServiceModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,14 +17,14 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para BuscarEmpleados.xaml
     /// </summary>
-    public partial class BuscarEmpleados : Window, IObtenerCuentasUsuarioCallback
+    public partial class BuscarEmpleados : Window, IObtenerCuentasUsuarioCallback, IModificarCuentaUsuarioCallback
     {
         CuentaUsuario CuentaUsuario;
 
-        Empleado empleado;
-        Direccion direccion;
-        CuentaUsuario cuenta;
-        Rol puesto;
+        Empleado empleado = new Empleado();
+        Direccion direccion = new Direccion();
+        CuentaUsuario cuenta = new CuentaUsuario();
+        Rol puesto = new Rol();
 
         public BuscarEmpleados(CuentaUsuario cuenta)
         {
@@ -80,16 +81,52 @@ namespace ClienteItaliaPizza
 
         private void EditarInformacion() 
         {
-            HabilitarCampos();
-            if (HayInformacionEditada())
-            {
-                FuncionesComunes.MostrarMensajeExitoso("Se edito la información");
-            }
-            else
-            {
-                EstablecerInformacion();
+                try
+                {
+                    if (HayInformacionEditada())
+                    {
+                        InstanceContext context = new InstanceContext(this);
+                        ModificarCuentaUsuarioClient ServicioModificar = new ModificarCuentaUsuarioClient(context);
+
+                        //empleado.IdEmpleado  = FuncionesComunes.ParsearAEntero(idEmpleadoTxt.Text.Trim());
+                        empleado.nombre = nombreTxt.Text.Trim();
+                        empleado.apellidoPaterno = aPaternoTxt.Text.Trim();
+                        empleado.apellidoMaterno = aMaternoTxt.Text.Trim();
+                        empleado.correo = correoElectronicoTxt.Text.Trim();
+                        empleado.telefono = telefonoTxt.Text;
+                        direccion.calle = calleTxt.Text;
+                        direccion.colonia = coloniaTxt.Text;
+                        direccion.numeroExterior = codigoPostalTxt.Text;
+                        puesto.Id = puestosCB.SelectedIndex;
+                        //if (usuarioTxt.Text != "" && contrasenaTxt.Password != "")
+                        //{
+                            usuarioTxt.Text = cuenta.nombreUsuario;
+                            contrasenaTxt.Password = cuenta.contraseña;
+                        //}
+                        ServicioModificar.ModificarCuentaUsuario(cuenta, empleado, direccion, puesto);
+                        EstablecerInformacion();
+                    }
+                    else
+                    {
+                        EstablecerInformacion();
+                    }
                 DeshabilitarCampos();
             }
+            catch (Exception e)
+            {
+                FuncionesComunes.MostrarMensajeDeError(e.Message + ": " + e.GetType());
+            }
+        }
+
+        private Boolean EsCorreoElectronicoValido()
+        {
+            Boolean EsValido = true;
+            string ExpresionRegular = "^[_a-z0-9-]+(.[_a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,4})$";
+            string CorreoIngresado = correoElectronicoTxt.Text;
+            Match validacion = Regex.Match(CorreoIngresado, ExpresionRegular);
+            EsValido = validacion.Success;
+
+            return EsValido;
         }
 
         private void EstablecerInformacion()
@@ -104,7 +141,7 @@ namespace ClienteItaliaPizza
             coloniaTxt.Text = direccion.colonia;
             codigoPostalTxt.Text = direccion.numeroExterior;
             puestosCB.SelectedIndex = puesto.Id;
-            if (cuenta != null)
+            if (usuarioTxt.Text != "" && contrasenaTxt.Password != "")
             {
                 usuarioTxt.Text = cuenta.nombreUsuario;
                 contrasenaTxt.Password = cuenta.contraseña;
@@ -164,6 +201,22 @@ namespace ClienteItaliaPizza
             puestosCB.SelectedIndex = 0;
         }
 
+        private void ObtenerEmpledo()
+        {
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                ObtenerCuentasUsuarioClient ServicioBusqueda = new ObtenerCuentasUsuarioClient(context);
+
+                ServicioBusqueda.ObtenerCuentas();
+                EstablecerInformacion();
+            }
+            catch (Exception e)
+            {
+                FuncionesComunes.MostrarMensajeDeError(e.Message);
+            }
+        }
+
         private void VaciarCampos()
         {
             puestosCB.SelectedIndex = 0;
@@ -181,9 +234,7 @@ namespace ClienteItaliaPizza
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            InstanceContext context = new InstanceContext(this);
-            ObtenerCuentasUsuarioClient ServicioBusqueda = new ObtenerCuentasUsuarioClient(context);
-
+            ObtenerEmpledo();
             /*
              * Falta corrección del servidor para implementar este apartado
              */
@@ -225,6 +276,27 @@ namespace ClienteItaliaPizza
             this.Close();
         }
 
+        private void correoElectronicoTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (EsCorreoElectronicoValido())
+            {
+                correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.LightGray;
+            }
+            else
+            {
+                correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.Red;
+            }
+
+            if (CamposLlenos())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
+        }
+
         private void LogoutBtn_Click_1(object sender, RoutedEventArgs e)
         {
             FuncionesComunes.CerrarSesion();
@@ -258,13 +330,13 @@ namespace ClienteItaliaPizza
             if (EditarGuardarBtn.Content.ToString() == "Editar")
             {
                 EditarGuardarBtn.Content = "Guardar";
-                EditarInformacion();
+                HabilitarCampos();
             }
             else
             {
                 EditarGuardarBtn.Content = "Editar";
                 // Aquí debe ir el método que envía los cambios añl servidor
-                DeshabilitarCampos();
+                EditarInformacion();
             }
         }
 
@@ -292,5 +364,19 @@ namespace ClienteItaliaPizza
            });
         }
 
+        public void ModificarCuentaUsuarioRespuesta(string mensaje)
+        {
+            Dispatcher.Invoke(() =>
+           {
+               if(mensaje == "Se modificó correctamente")
+               {
+                   FuncionesComunes.MostrarMensajeExitoso(mensaje);
+               }
+               else
+               {
+                   FuncionesComunes.MostrarMensajeDeError(mensaje);
+               }
+           });
+        }
     }
 }

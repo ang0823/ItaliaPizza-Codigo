@@ -27,7 +27,7 @@
         <TextBox x:Name="calleTxt" HorizontalAlignment="Left" Height="32" Margin="188,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontFamily="Arial" FontSize="22" />
         <TextBox x:Name="coloniaTxt" HorizontalAlignment="Left" Height="32" Margin="549,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontFamily="Arial" FontSize="22" />
         <TextBox x:Name="codigoPostalTxt" HorizontalAlignment="Left" Height="32" Margin="909,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="22" MaxLength="5" />
-        <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" />
+        <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="correoElectronicoTxt_TextChanged" />
         <TextBox x:Name="telefonoTxt" HorizontalAlignment="Left" Height="32" Margin="682,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" MaxLength="10" />
         <ComboBox x:Name="puestosCB" HorizontalAlignment="Left" Margin="188,443,0,0" VerticalAlignment="Top" Width="347" Height="32" FontFamily="Arial" FontSize="22" SelectionChanged="puestosCB_SelectionChanged"/>
         <TextBox x:Name="idEmpleadoTxt" HorizontalAlignment="Left" Height="32" Margin="682,443,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial Black" FontSize="22" FontWeight="Bold"/>

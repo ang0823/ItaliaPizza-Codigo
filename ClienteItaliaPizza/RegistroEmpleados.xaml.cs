@@ -111,11 +111,13 @@ namespace ClienteItaliaPizza
 
         private Boolean EsCorreoElectronicoValido()
         {
+            Boolean EsValido = true;
             string ExpresionRegular = "^[_a-z0-9-]+(.[_a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,4})$";
             string CorreoIngresado = correoElectronicoTxt.Text;
-            Match EsValido = Regex.Match(CorreoIngresado, ExpresionRegular);
+            Match validacion = Regex.Match(CorreoIngresado, ExpresionRegular);
+            EsValido = validacion.Success;
 
-            return EsValido.Success;
+            return EsValido;
         }
 
         private String GenerarIdEmpleado() 
@@ -312,11 +314,11 @@ namespace ClienteItaliaPizza
         {
             if (EsCorreoElectronicoValido())
             {
-                correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.Red;
+                correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             }
             else
             {
-                correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.Black;
+                correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.Red;
             }
 
             if (CamposLlenos())
