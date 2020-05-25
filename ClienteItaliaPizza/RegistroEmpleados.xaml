@@ -14,16 +14,18 @@
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
             <Label Content="F O R M A T O   D E   R E G I S T R O" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="30" FontWeight="Bold" Foreground="White"/>
             <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click">
-                <Image Source="RecursosGUI/logout.png"/> 
+                <Image Source="RecursosGUI/logout.png"/>
             </Button>
             <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White"/>
         </Grid>
         <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Height="32" Margin="188,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="nombreTxT_TextChanged" PreviewTextInput="nombreTxt_TextInput"/>
         <TextBox x:Name="aPaternoTxt" HorizontalAlignment="Left" Height="32" Margin="485,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="aPaternoTxt_TextChanged" PreviewTextInput="aPaternoTxt_TextInput"/>
         <TextBox x:Name="aMaternoTxt" HorizontalAlignment="Left" Height="32" Margin="779,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="aMaternoTxt_TextChanged" PreviewTextInput="aMaternoTxt_TextInput"/>
-        <TextBox x:Name="calleTxt" HorizontalAlignment="Left" Height="32" Margin="188,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontFamily="Arial" FontSize="22" TextChanged="calleTxt_TextChanged" TextInput="calleTxt_TextInput"/>
-        <TextBox x:Name="coloniaTxt" HorizontalAlignment="Left" Height="32" Margin="549,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontFamily="Arial" FontSize="22" TextChanged="coloniaTxt_TextChanged"/>
-        <TextBox x:Name="codigoPostalTxt" HorizontalAlignment="Left" Height="32" Margin="909,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="22" TextChanged="codigoPostalTxt_TextChanged" MaxLength="5" PreviewTextInput="codigoPostalTxt_TextInput"/>
+        <TextBox x:Name="calleTxt" HorizontalAlignment="Left" Height="32" Margin="188,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontFamily="Arial" FontSize="22" TextChanged="calleTxt_TextChanged" TextInput="calleTxt_TextInput"/>
+        <TextBox x:Name="NoExteroorTxt" HorizontalAlignment="Left" Height="32" Margin="437,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontFamily="Arial" FontSize="22" TextChanged="calleTxt_TextChanged" TextInput="calleTxt_TextInput"/>
+        <TextBox x:Name="NoInteroorTxt" HorizontalAlignment="Left" Height="32" Margin="550,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontFamily="Arial" FontSize="22" TextChanged="calleTxt_TextChanged" TextInput="calleTxt_TextInput"/>
+        <TextBox x:Name="coloniaTxt" HorizontalAlignment="Left" Height="32" Margin="663,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontFamily="Arial" FontSize="22" TextChanged="coloniaTxt_TextChanged"/>
+        <TextBox x:Name="codigoPostalTxt" HorizontalAlignment="Left" Height="32" Margin="909,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="22" TextChanged="codigoPostalTxt_TextChanged" MaxLength="5" PreviewTextInput="codigoPostalTxt_TextInput"/>
         <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="correoElectronicoTxt_TextChanged"/>
         <TextBox x:Name="telefonoTxt" HorizontalAlignment="Left" Height="32" Margin="682,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="telefonoTxt_TextChanged" MaxLength="10" TextInput="telefonoTxt_TextInput" PreviewTextInput="codigoPostalTxt_TextInput"/>
         <ComboBox x:Name="puestosCB" HorizontalAlignment="Left" Margin="188,443,0,0" VerticalAlignment="Top" Width="347" Height="32" FontFamily="Arial" FontSize="22" SelectionChanged="puestosCB_SelectionChanged"/>
@@ -33,9 +35,12 @@
         <Label Content="Nombre(s):" HorizontalAlignment="Left" Margin="188,122,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Apellido paterno:" HorizontalAlignment="Left" Margin="485,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Apellido materno:" HorizontalAlignment="Left" Margin="779,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Calle y número:" HorizontalAlignment="Left" Margin="188,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Colonia:" HorizontalAlignment="Left" Margin="549,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="C. P." HorizontalAlignment="Left" Margin="909,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Calle:" HorizontalAlignment="Left" Margin="188,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Número" HorizontalAlignment="Left" Margin="497,206,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Exterior:" HorizontalAlignment="Left" Margin="431,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Interior:" HorizontalAlignment="Left" Margin="550,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Colonia:" HorizontalAlignment="Left" Margin="661,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" RenderTransformOrigin="1,0.571"/>
+        <Label Content="C. P." HorizontalAlignment="Left" Margin="909,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Correo eletrónico:" HorizontalAlignment="Left" Margin="188,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="689,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Label Content="Puesto:" HorizontalAlignment="Left" Margin="188,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
