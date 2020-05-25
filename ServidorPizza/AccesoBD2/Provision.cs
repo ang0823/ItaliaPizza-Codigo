@@ -23,9 +23,9 @@ namespace AccesoBD2
     
         public int Id { get; set; }
         public string nombre { get; set; }
-        public short noExistencias { get; set; }
+        public int noExistencias { get; set; }
         public string ubicacion { get; set; }
-        public string stockMinimo { get; set; }
+        public int stockMinimo { get; set; }
         public double costoUnitario { get; set; }
         public string unidadMedida { get; set; }
     

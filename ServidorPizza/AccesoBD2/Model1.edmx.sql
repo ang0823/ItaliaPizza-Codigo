@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/20/2020 19:41:29
--- Generated from EDMX file: C:\Users\BETO\Documents\OCTAVO SEMESTRE\DESARROLLO DE SOFTWARE\Servidor\ServidorPizza\AccesoBD2\Model1.edmx
+-- Date Created: 05/24/2020 15:54:47
+-- Generated from EDMX file: C:\Users\javie\Desktop\2405Servidor\ItaliaPizza-Codigo\ServidorPizza\AccesoBD2\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -302,9 +302,9 @@ GO
 CREATE TABLE [dbo].[ProvisionSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [nombre] nvarchar(max)  NOT NULL,
-    [noExistencias] smallint  NOT NULL,
+    [noExistencias] int  NOT NULL,
     [ubicacion] nvarchar(max)  NOT NULL,
-    [stockMinimo] nvarchar(max)  NOT NULL,
+    [stockMinimo] int  NOT NULL,
     [costoUnitario] float  NOT NULL,
     [unidadMedida] nvarchar(max)  NOT NULL
 );
