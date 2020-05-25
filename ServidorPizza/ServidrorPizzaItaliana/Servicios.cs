@@ -127,7 +127,7 @@ namespace ServidrorPizzaItaliana
                 if (c != null)
                 {
 
-                    OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RespuestaRCU("El usuario ya ha sido registrado");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RegistroCuentaUsuarioRespuesta("El usuario ya ha sido registrado");
                 }
             }
             catch (InvalidOperationException)
@@ -137,7 +137,7 @@ namespace ServidrorPizzaItaliana
                 db.EmpleadoSet.Add(empleado);
                 db.SaveChanges();
                 db.Dispose();
-                OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RespuestaRCU("La cuenta de usuario se registró correctamente");
+                OperationContext.Current.GetCallbackChannel<IRegistrarCuentaUsuarioCallback>().RegistroCuentaUsuarioRespuesta("La cuenta de usuario se registró correctamente");
             }
         }
     }
