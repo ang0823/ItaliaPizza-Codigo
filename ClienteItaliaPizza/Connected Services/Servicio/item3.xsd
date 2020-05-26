@@ -167,4 +167,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Rol1" nillable="true" type="tns:Rol1" />
+  <xs:complexType name="ArrayOfMesaLocal">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MesaLocal" nillable="true" type="tns:MesaLocal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMesaLocal" nillable="true" type="tns:ArrayOfMesaLocal" />
+  <xs:complexType name="MesaLocal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idMesa" type="xs:int" />
+      <xs:element minOccurs="0" name="numeroMesa" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MesaLocal" nillable="true" type="tns:MesaLocal" />
 </xs:schema>

@@ -332,6 +332,7 @@ namespace ClienteItaliaPizza.Servicio {
     [System.Runtime.Serialization.DataContractAttribute(Name="Pedido", Namespace="http://schemas.datacontract.org/2004/07/AccesoBD2")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(ClienteItaliaPizza.Servicio.PedidoADomicilio))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ClienteItaliaPizza.Servicio.PedidoLocal))]
     public partial class Pedido : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -495,7 +496,7 @@ namespace ClienteItaliaPizza.Servicio {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
+        private string IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private ClienteItaliaPizza.Servicio.Pedido[] PedidoField;
@@ -523,12 +524,12 @@ namespace ClienteItaliaPizza.Servicio {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
+        public string Id {
             get {
                 return this.IdField;
             }
             set {
-                if ((this.IdField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.IdField, value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
                 }
@@ -910,6 +911,45 @@ namespace ClienteItaliaPizza.Servicio {
                 if ((this.ClienteIdField.Equals(value) != true)) {
                     this.ClienteIdField = value;
                     this.RaisePropertyChanged("ClienteId");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PedidoLocal", Namespace="http://schemas.datacontract.org/2004/07/AccesoBD2")]
+    [System.SerializableAttribute()]
+    public partial class PedidoLocal : ClienteItaliaPizza.Servicio.Pedido {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ClienteItaliaPizza.Servicio.Mesa MesaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MesaIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ClienteItaliaPizza.Servicio.Mesa Mesa {
+            get {
+                return this.MesaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MesaField, value) != true)) {
+                    this.MesaField = value;
+                    this.RaisePropertyChanged("Mesa");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MesaId {
+            get {
+                return this.MesaIdField;
+            }
+            set {
+                if ((this.MesaIdField.Equals(value) != true)) {
+                    this.MesaIdField = value;
+                    this.RaisePropertyChanged("MesaId");
                 }
             }
         }
@@ -1994,6 +2034,83 @@ namespace ClienteItaliaPizza.Servicio {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Mesa", Namespace="http://schemas.datacontract.org/2004/07/AccesoBD2")]
+    [System.SerializableAttribute()]
+    public partial class Mesa : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ClienteItaliaPizza.Servicio.PedidoLocal[] PedidoLocalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short numeroMesaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ClienteItaliaPizza.Servicio.PedidoLocal[] PedidoLocal {
+            get {
+                return this.PedidoLocalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PedidoLocalField, value) != true)) {
+                    this.PedidoLocalField = value;
+                    this.RaisePropertyChanged("PedidoLocal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short numeroMesa {
+            get {
+                return this.numeroMesaField;
+            }
+            set {
+                if ((this.numeroMesaField.Equals(value) != true)) {
+                    this.numeroMesaField = value;
+                    this.RaisePropertyChanged("numeroMesa");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Cliente", Namespace="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana")]
     [System.SerializableAttribute()]
     public partial class Cliente1 : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3047,6 +3164,67 @@ namespace ClienteItaliaPizza.Servicio {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MesaLocal", Namespace="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana")]
+    [System.SerializableAttribute()]
+    public partial class MesaLocal : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idMesaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short numeroMesaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idMesa {
+            get {
+                return this.idMesaField;
+            }
+            set {
+                if ((this.idMesaField.Equals(value) != true)) {
+                    this.idMesaField = value;
+                    this.RaisePropertyChanged("idMesa");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short numeroMesa {
+            get {
+                return this.numeroMesaField;
+            }
+            set {
+                if ((this.numeroMesaField.Equals(value) != true)) {
+                    this.numeroMesaField = value;
+                    this.RaisePropertyChanged("numeroMesa");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Servicio.IBuscarProducto", CallbackContract=typeof(ClienteItaliaPizza.Servicio.IBuscarProductoCallback))]
     public interface IBuscarProducto {
@@ -3127,23 +3305,29 @@ namespace ClienteItaliaPizza.Servicio {
     public interface IRegistrarPedidoADomicilio {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoADomicilio/ObtenerDatos")]
-        void ObtenerDatos(int idEmpleado);
+        void ObtenerDatos();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoADomicilio/ObtenerDatos")]
-        System.Threading.Tasks.Task ObtenerDatosAsync(int idEmpleado);
+        System.Threading.Tasks.Task ObtenerDatosAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoADomicilio/RegistrarPedido")]
-        void RegistrarPedido(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido);
+        void RegistrarPedido(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido, ClienteItaliaPizza.Servicio.Cuenta cuenta, int idEstado, int idEmpleado);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoADomicilio/RegistrarPedido")]
-        System.Threading.Tasks.Task RegistrarPedidoAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido);
+        System.Threading.Tasks.Task RegistrarPedidoAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido, ClienteItaliaPizza.Servicio.Cuenta cuenta, int idEstado, int idEmpleado);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoADomicilio/RegistrarCliente")]
+        void RegistrarCliente(ClienteItaliaPizza.Servicio.Cliente cliente, ClienteItaliaPizza.Servicio.Direccion direccionCliente, ClienteItaliaPizza.Servicio.Telefono telefonoCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoADomicilio/RegistrarCliente")]
+        System.Threading.Tasks.Task RegistrarClienteAsync(ClienteItaliaPizza.Servicio.Cliente cliente, ClienteItaliaPizza.Servicio.Direccion direccionCliente, ClienteItaliaPizza.Servicio.Telefono telefonoCliente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IRegistrarPedidoADomicilioCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoADomicilio/Datos")]
-        void Datos(ClienteItaliaPizza.Servicio.Cliente1[] clientes, ClienteItaliaPizza.Servicio.ProductoDePedido[] productos, ClienteItaliaPizza.Servicio.ProvisionVentaDirecta[] provisiones, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.EstadoDePedido[] estados);
+        void Datos(ClienteItaliaPizza.Servicio.Cliente1[] clientes, ClienteItaliaPizza.Servicio.ProductoDePedido[] productos, ClienteItaliaPizza.Servicio.ProvisionVentaDirecta[] provisiones, ClienteItaliaPizza.Servicio.EstadoDePedido[] estados);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoADomicilio/Mensaje")]
         void Mensaje([System.ServiceModel.MessageParameterAttribute(Name="mensaje")] string mensaje1);
@@ -3177,20 +3361,28 @@ namespace ClienteItaliaPizza.Servicio {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void ObtenerDatos(int idEmpleado) {
-            base.Channel.ObtenerDatos(idEmpleado);
+        public void ObtenerDatos() {
+            base.Channel.ObtenerDatos();
         }
         
-        public System.Threading.Tasks.Task ObtenerDatosAsync(int idEmpleado) {
-            return base.Channel.ObtenerDatosAsync(idEmpleado);
+        public System.Threading.Tasks.Task ObtenerDatosAsync() {
+            return base.Channel.ObtenerDatosAsync();
         }
         
-        public void RegistrarPedido(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido) {
-            base.Channel.RegistrarPedido(pedido);
+        public void RegistrarPedido(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido, ClienteItaliaPizza.Servicio.Cuenta cuenta, int idEstado, int idEmpleado) {
+            base.Channel.RegistrarPedido(pedido, cuenta, idEstado, idEmpleado);
         }
         
-        public System.Threading.Tasks.Task RegistrarPedidoAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido) {
-            return base.Channel.RegistrarPedidoAsync(pedido);
+        public System.Threading.Tasks.Task RegistrarPedidoAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido, ClienteItaliaPizza.Servicio.Cuenta cuenta, int idEstado, int idEmpleado) {
+            return base.Channel.RegistrarPedidoAsync(pedido, cuenta, idEstado, idEmpleado);
+        }
+        
+        public void RegistrarCliente(ClienteItaliaPizza.Servicio.Cliente cliente, ClienteItaliaPizza.Servicio.Direccion direccionCliente, ClienteItaliaPizza.Servicio.Telefono telefonoCliente) {
+            base.Channel.RegistrarCliente(cliente, direccionCliente, telefonoCliente);
+        }
+        
+        public System.Threading.Tasks.Task RegistrarClienteAsync(ClienteItaliaPizza.Servicio.Cliente cliente, ClienteItaliaPizza.Servicio.Direccion direccionCliente, ClienteItaliaPizza.Servicio.Telefono telefonoCliente) {
+            return base.Channel.RegistrarClienteAsync(cliente, direccionCliente, telefonoCliente);
         }
     }
     
@@ -3877,6 +4069,78 @@ namespace ClienteItaliaPizza.Servicio {
         
         public System.Threading.Tasks.Task RegistrarRecetaAsync(ClienteItaliaPizza.Servicio.Receta receta, ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria) {
             return base.Channel.RegistrarRecetaAsync(receta, producto, categoria);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Servicio.IRegistrarPedidoLocal", CallbackContract=typeof(ClienteItaliaPizza.Servicio.IRegistrarPedidoLocalCallback))]
+    public interface IRegistrarPedidoLocal {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoLocal/ObtenerInformacionDeProductosYEstados")]
+        void ObtenerInformacionDeProductosYEstados();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoLocal/ObtenerInformacionDeProductosYEstados")]
+        System.Threading.Tasks.Task ObtenerInformacionDeProductosYEstadosAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoLocal/RegistrarPedidoLocal")]
+        void RegistrarPedidoLocal(ClienteItaliaPizza.Servicio.PedidoLocal pedido, ClienteItaliaPizza.Servicio.Cuenta cuenta, int idEstado, int idEmpleado);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoLocal/RegistrarPedidoLocal")]
+        System.Threading.Tasks.Task RegistrarPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido, ClienteItaliaPizza.Servicio.Cuenta cuenta, int idEstado, int idEmpleado);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IRegistrarPedidoLocalCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoLocal/DatosRecuperados")]
+        void DatosRecuperados(ClienteItaliaPizza.Servicio.ProductoDePedido[] productos, ClienteItaliaPizza.Servicio.ProvisionVentaDirecta[] provisiones, ClienteItaliaPizza.Servicio.EstadoDePedido[] estados, ClienteItaliaPizza.Servicio.MesaLocal[] mesas);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarPedidoLocal/MensajeRegistrarPedidoLocal")]
+        void MensajeRegistrarPedidoLocal(string mensaje);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IRegistrarPedidoLocalChannel : ClienteItaliaPizza.Servicio.IRegistrarPedidoLocal, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class RegistrarPedidoLocalClient : System.ServiceModel.DuplexClientBase<ClienteItaliaPizza.Servicio.IRegistrarPedidoLocal>, ClienteItaliaPizza.Servicio.IRegistrarPedidoLocal {
+        
+        public RegistrarPedidoLocalClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public RegistrarPedidoLocalClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public RegistrarPedidoLocalClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public RegistrarPedidoLocalClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public RegistrarPedidoLocalClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void ObtenerInformacionDeProductosYEstados() {
+            base.Channel.ObtenerInformacionDeProductosYEstados();
+        }
+        
+        public System.Threading.Tasks.Task ObtenerInformacionDeProductosYEstadosAsync() {
+            return base.Channel.ObtenerInformacionDeProductosYEstadosAsync();
+        }
+        
+        public void RegistrarPedidoLocal(ClienteItaliaPizza.Servicio.PedidoLocal pedido, ClienteItaliaPizza.Servicio.Cuenta cuenta, int idEstado, int idEmpleado) {
+            base.Channel.RegistrarPedidoLocal(pedido, cuenta, idEstado, idEmpleado);
+        }
+        
+        public System.Threading.Tasks.Task RegistrarPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido, ClienteItaliaPizza.Servicio.Cuenta cuenta, int idEstado, int idEmpleado) {
+            return base.Channel.RegistrarPedidoLocalAsync(pedido, cuenta, idEstado, idEmpleado);
         }
     }
 }

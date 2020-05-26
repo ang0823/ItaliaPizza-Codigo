@@ -33,7 +33,7 @@
   <xs:element name="Pedido" nillable="true" type="tns:Pedido" />
   <xs:complexType name="Cuenta">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:ArrayOfPedido" />
       <xs:element minOccurs="0" name="descuento" nillable="true" type="xs:double" />
       <xs:element minOccurs="0" name="iva" type="xs:double" />
@@ -246,4 +246,29 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfProvisionDirecta" nillable="true" type="tns:ArrayOfProvisionDirecta" />
+  <xs:complexType name="PedidoLocal">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Pedido">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Mesa" nillable="true" type="tns:Mesa" />
+          <xs:element minOccurs="0" name="MesaId" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PedidoLocal" nillable="true" type="tns:PedidoLocal" />
+  <xs:complexType name="Mesa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoLocal" nillable="true" type="tns:ArrayOfPedidoLocal" />
+      <xs:element minOccurs="0" name="numeroMesa" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Mesa" nillable="true" type="tns:Mesa" />
+  <xs:complexType name="ArrayOfPedidoLocal">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PedidoLocal" nillable="true" type="tns:PedidoLocal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPedidoLocal" nillable="true" type="tns:ArrayOfPedidoLocal" />
 </xs:schema>

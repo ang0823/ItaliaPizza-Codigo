@@ -69,6 +69,44 @@ namespace AccesoBD2
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarCuentaDePedido", idParameter, precioTotalParameter, subTotalParameter, ivaParameter, descuentoParameter);
         }
     
+        public virtual int InsertarPedido(Nullable<System.DateTime> fecha, string instruccionesEspeciales, Nullable<int> idEmpleado, Nullable<int> idEstado, string idCuenta)
+        {
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("Fecha", fecha) :
+                new ObjectParameter("Fecha", typeof(System.DateTime));
+    
+            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
+                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
+                new ObjectParameter("InstruccionesEspeciales", typeof(string));
+    
+            var idEmpleadoParameter = idEmpleado.HasValue ?
+                new ObjectParameter("IdEmpleado", idEmpleado) :
+                new ObjectParameter("IdEmpleado", typeof(int));
+    
+            var idEstadoParameter = idEstado.HasValue ?
+                new ObjectParameter("IdEstado", idEstado) :
+                new ObjectParameter("IdEstado", typeof(int));
+    
+            var idCuentaParameter = idCuenta != null ?
+                new ObjectParameter("IdCuenta", idCuenta) :
+                new ObjectParameter("IdCuenta", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarPedido", fechaParameter, instruccionesEspecialesParameter, idEmpleadoParameter, idEstadoParameter, idCuentaParameter);
+        }
+    
+        public virtual int InsertarPedidoLocal(Nullable<int> idMesa, Nullable<int> idPedido)
+        {
+            var idMesaParameter = idMesa.HasValue ?
+                new ObjectParameter("IdMesa", idMesa) :
+                new ObjectParameter("IdMesa", typeof(int));
+    
+            var idPedidoParameter = idPedido.HasValue ?
+                new ObjectParameter("IdPedido", idPedido) :
+                new ObjectParameter("IdPedido", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarPedidoLocal", idMesaParameter, idPedidoParameter);
+        }
+    
         public virtual int InsertarPedioDomicilio(Nullable<int> idCliente, Nullable<int> idPedido)
         {
             var idClienteParameter = idCliente.HasValue ?
@@ -80,6 +118,19 @@ namespace AccesoBD2
                 new ObjectParameter("IdPedido", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarPedioDomicilio", idClienteParameter, idPedidoParameter);
+        }
+    
+        public virtual int LigarClienteADireccion(Nullable<int> idDireccion, Nullable<int> idCliente)
+        {
+            var idDireccionParameter = idDireccion.HasValue ?
+                new ObjectParameter("IdDireccion", idDireccion) :
+                new ObjectParameter("IdDireccion", typeof(int));
+    
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LigarClienteADireccion", idDireccionParameter, idClienteParameter);
         }
     
         public virtual int LigarProductoConPedido(Nullable<int> idProducto, Nullable<int> idPedido)
@@ -106,44 +157,6 @@ namespace AccesoBD2
                 new ObjectParameter("IdPedido", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LigarProvisionConPedido", idProvisionParameter, idPedidoParameter);
-        }
-    
-        public virtual int InsertarPedido(Nullable<System.DateTime> fecha, string instruccionesEspeciales, Nullable<int> idEmpleado, Nullable<int> idEstado, string idCuenta)
-        {
-            var fechaParameter = fecha.HasValue ?
-                new ObjectParameter("Fecha", fecha) :
-                new ObjectParameter("Fecha", typeof(System.DateTime));
-    
-            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
-                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
-                new ObjectParameter("InstruccionesEspeciales", typeof(string));
-    
-            var idEmpleadoParameter = idEmpleado.HasValue ?
-                new ObjectParameter("IdEmpleado", idEmpleado) :
-                new ObjectParameter("IdEmpleado", typeof(int));
-    
-            var idEstadoParameter = idEstado.HasValue ?
-                new ObjectParameter("IdEstado", idEstado) :
-                new ObjectParameter("IdEstado", typeof(int));
-    
-            var idCuentaParameter = idCuenta != null ?
-                new ObjectParameter("IdCuenta", idCuenta) :
-                new ObjectParameter("IdCuenta", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarPedido", fechaParameter, instruccionesEspecialesParameter, idEmpleadoParameter, idEstadoParameter, idCuentaParameter);
-        }
-    
-        public virtual int LigarClienteADireccion(Nullable<int> idDireccion, Nullable<int> idCliente)
-        {
-            var idDireccionParameter = idDireccion.HasValue ?
-                new ObjectParameter("IdDireccion", idDireccion) :
-                new ObjectParameter("IdDireccion", typeof(int));
-    
-            var idClienteParameter = idCliente.HasValue ?
-                new ObjectParameter("IdCliente", idCliente) :
-                new ObjectParameter("IdCliente", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LigarClienteADireccion", idDireccionParameter, idClienteParameter);
         }
     
         public virtual int RegistrarTelefono(string telefono, Nullable<int> idCliente)
@@ -190,19 +203,6 @@ namespace AccesoBD2
                 new ObjectParameter("NumeroInterior", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistroDeClienteConDireccion", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, calleParameter, coloniaParameter, numeroExteriorParameter, numeroInteriorParameter);
-        }
-    
-        public virtual int InsertarPedidoLocal(Nullable<int> idMesa, Nullable<int> idPedido)
-        {
-            var idMesaParameter = idMesa.HasValue ?
-                new ObjectParameter("IdMesa", idMesa) :
-                new ObjectParameter("IdMesa", typeof(int));
-    
-            var idPedidoParameter = idPedido.HasValue ?
-                new ObjectParameter("IdPedido", idPedido) :
-                new ObjectParameter("IdPedido", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarPedidoLocal", idMesaParameter, idPedidoParameter);
         }
     }
 }

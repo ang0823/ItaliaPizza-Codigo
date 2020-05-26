@@ -80,7 +80,7 @@ namespace ServidrorPizzaItaliana
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<ILoginCallback>().RespuestaLogin("Alguno de los datos introducidos no son correctos");
+                OperationContext.Current.GetCallbackChannel<ILoginCallback>().LoginRespuesta("Alguno de los datos introducidos no son correctos");
             }
         }
     }
@@ -637,7 +637,7 @@ namespace ServidrorPizzaItaliana
 
                 foreach (ProvisionDirecta a in provisionesRecuperadas)
                 {
-                    ProvisionVentaDirecta provisionRecuperada = new ProvisionVentaDirecta(a.Id, a.Provision.Id, a.Provision.nombre, a.Provision.costoUnitario, a.descripcion, a.restricciones);
+                    ProvisionVentaDirecta provisionRecuperada = new ProvisionVentaDirecta(a.Provision.Id, a.Id,  a.Provision.nombre, a.Provision.costoUnitario, a.descripcion, a.restricciones);
                     provisionesVentaDirectas.Add(provisionRecuperada);
                     Console.WriteLine(provisionRecuperada.IdProvision.ToString());
                 }
