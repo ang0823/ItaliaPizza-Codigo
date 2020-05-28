@@ -356,7 +356,7 @@ namespace ClienteItaliaPizza
            });
         }
 
-        public void ObtenerCuentaUsuarioRespuesta(string mensaje)
+        public void RespuestaOCU(string mensaje)
         {
            Dispatcher.Invoke(() =>
            {
@@ -364,7 +364,7 @@ namespace ClienteItaliaPizza
            });
         }
 
-        public void ModificarCuentaUsuarioRespuesta(string mensaje)
+        public void RespuestaMCU(string mensaje)
         {
             Dispatcher.Invoke(() =>
            {
@@ -377,6 +377,11 @@ namespace ClienteItaliaPizza
                    FuncionesComunes.MostrarMensajeDeError(mensaje);
                }
            });
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

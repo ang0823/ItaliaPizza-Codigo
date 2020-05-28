@@ -63,7 +63,7 @@ namespace ClienteItaliaPizza
             ingrediente.nombre = IngredienteNombre.Text.Trim();
             ingrediente.noExistencias = noExistencias;
             ingrediente.ubicacion = IngredienteUbicacion.Text.Trim();
-            ingrediente.stockMinimo = StockMinimo.Text.Trim();
+            ingrediente.stockMinimo = int.Parse(StockMinimo.Text.Trim());
             ingrediente.costoUnitario = precio;
             ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
             }

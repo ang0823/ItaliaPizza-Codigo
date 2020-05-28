@@ -23,7 +23,7 @@ namespace ServidrorPizzaItaliana
     {
 
         [OperationContract(IsOneWay = true)]
-        void RegistroCuentaUsuarioRespuesta(string mensaje);
+        void RespuestaRCU(string mensaje);
     }
 }
 

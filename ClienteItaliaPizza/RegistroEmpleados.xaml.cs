@@ -16,7 +16,7 @@ namespace ClienteItaliaPizza
         DateTime FechaActual = DateTime.Now;
         Random NumeroGenerado = new Random();
         CuentaUsuario CuentaUsuario;
-        string DiaHora;
+        string DiaHoraMinuto;
 
         public RegistroEmpleados(CuentaUsuario cuenta)
         {
@@ -50,39 +50,36 @@ namespace ClienteItaliaPizza
             return false;
         }
 
-        private CuentaUsuario AsignarCuentaUsuario()
+        private void AsignarCuentaUsuario(out CuentaUsuario cuentaUsuario)
         {
-            CuentaUsuario cuentaUsuario = new CuentaUsuario();
+            cuentaUsuario = new CuentaUsuario();
 
+            cuentaUsuario.Id = int.Parse(idEmpleadoTxt.Text);
             cuentaUsuario.nombreUsuario = usuarioTxt.Text;
             cuentaUsuario.contraseña = contrasenaTxt.Password;
-
-            return cuentaUsuario;
         }
 
-        private Direccion AsignarDireccion()
+        private void AsignarDireccion(out Direccion direccion)
         {
-            Direccion direccion = new Direccion();
+            direccion = new Direccion();
 
             direccion.calle = calleTxt.Text;
-            direccion.colonia = calleTxt.Text;
-            direccion.numeroExterior = codigoPostalTxt.Text;
-            direccion.numeroInterior = codigoPostalTxt.Text;
-
-            return direccion;
+            direccion.colonia = coloniaTxt.Text;
+            direccion.numeroExterior = NoExteroorTxt.Text;
+            direccion.numeroInterior = NoInteroorTxt.Text;
+            direccion.codigoPostal = codigoPostalTxt.Text;
         }
 
-        private Empleado AsignarInfoEmpleado()
+        private void AsignarInfoEmpleado(out Empleado empleado)
         {
-            Empleado empleado = new Empleado();
+            empleado = new Empleado();
 
+            empleado.idEmpleadoGenerado = idEmpleadoTxt.Text;
             empleado.nombre = nombreTxt.Text;
             empleado.apellidoPaterno = aPaternoTxt.Text;
             empleado.apellidoMaterno = aMaternoTxt.Text;
             empleado.correo = correoElectronicoTxt.Text;
             empleado.telefono = telefonoTxt.Text;
-
-            return empleado;
         }
 
         private Boolean CamposLlenos()
@@ -109,6 +106,18 @@ namespace ClienteItaliaPizza
             return false;
         }
 
+        private Boolean EsAdministrativo()
+        {
+            Boolean EsAdministrativo = false;
+
+            if (puestosCB.SelectedIndex != 1 || puestosCB.SelectedIndex != 2)
+            {
+                EsAdministrativo = true;
+            }
+
+            return EsAdministrativo;
+        }
+
         private Boolean EsCorreoElectronicoValido()
         {
             Boolean EsValido = true;
@@ -123,9 +132,9 @@ namespace ClienteItaliaPizza
         private String GenerarIdEmpleado() 
         {
             FechaActual = DateTime.Now;
-            DiaHora = FechaActual.Day.ToString() + FechaActual.Hour.ToString();
+            DiaHoraMinuto = FechaActual.Day.ToString() + FechaActual.Hour.ToString() + FechaActual.Minute.ToString();
 
-            return DiaHora + NumeroGenerado.Next(10, 99).ToString();
+            return DiaHoraMinuto + NumeroGenerado.Next(10, 99).ToString();
         }
 
         private void LlenarPuestosCb()
@@ -141,31 +150,33 @@ namespace ClienteItaliaPizza
 
         private void RegistrarInfoEmpleado()
         {
+            Empleado empleado;
+            Direccion direccion;
             Rol puesto = new Rol();
             puesto.Id = puestosCB.SelectedIndex;
             puesto.nombreRol = puestosCB.SelectedItem.ToString();
-            CuentaUsuario cuenta = new CuentaUsuario();
-            Direccion direccion;
-            Empleado empleado;
 
             try
             {
                 InstanceContext context = new InstanceContext(this);
                 RegistrarCuentaUsuarioClient ServicioEmpleado = new RegistrarCuentaUsuarioClient(context);
+                AsignarInfoEmpleado(out empleado);
+                AsignarDireccion(out direccion);
 
-                if (puestosCB.SelectedIndex != 1 || puestosCB.SelectedIndex != 2)
+                if (EsAdministrativo())
                 {
-                    cuenta = AsignarCuentaUsuario();
+                    CuentaUsuario cuenta = new CuentaUsuario();
+                    AsignarCuentaUsuario(out cuenta);
+                    ServicioEmpleado.RegistrarCuentaUsuario(cuenta, empleado, direccion, puesto);
                 }
-                direccion = AsignarDireccion();
-                empleado = AsignarInfoEmpleado();
-
-                ServicioEmpleado.RegistrarCuentaUsuario(cuenta, empleado, direccion, puesto);
-                VaciarCampos();
+                else
+                {
+                    ServicioEmpleado.RegistrarCuentaUsuario2(empleado, direccion, puesto);
+                }
             }
             catch(Exception error)
             {
-                FuncionesComunes.MostrarMensajeDeError(error.Message);
+                FuncionesComunes.MostrarMensajeDeError(error.Message + " " + error.GetType());
             }
         }
 
@@ -178,6 +189,8 @@ namespace ClienteItaliaPizza
             correoElectronicoTxt.Text = "";
             telefonoTxt.Text = "";
             calleTxt.Text = "";
+            NoExteroorTxt.Text = "";
+            NoInteroorTxt.Text = "";
             coloniaTxt.Text = "";
             codigoPostalTxt.Text = "";
             usuarioTxt.Text = "";
@@ -312,7 +325,7 @@ namespace ClienteItaliaPizza
 
         private void correoElectronicoTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (EsCorreoElectronicoValido())
+            if (correoElectronicoTxt.Text.Length == 0 || EsCorreoElectronicoValido())
             {
                 correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             }
@@ -413,6 +426,7 @@ namespace ClienteItaliaPizza
             if (EsCorreoElectronicoValido())
             {
                 RegistrarInfoEmpleado();
+                idEmpleadoTxt.Text = GenerarIdEmpleado().ToString();
             }
             else
             {
@@ -567,7 +581,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        public void RegistroCuentaUsuarioRespuesta(string mensaje)
+        public void RespuestaRCU(string mensaje)
         {
             Dispatcher.Invoke(() =>
             {
@@ -580,6 +594,7 @@ namespace ClienteItaliaPizza
                     FuncionesComunes.MostrarMensajeDeError(mensaje);
                 }
             });
+            VaciarCampos();
         }
     }
 }

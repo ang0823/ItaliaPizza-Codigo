@@ -12,7 +12,7 @@ namespace ServidrorPizzaItaliana
     public interface IRegistrarReceta
     {
         [OperationContract(IsOneWay = true)]
-        void RegistrarReceta(Receta receta, AccesoBD2.Producto producto, Categoria categoria, List<Ingrediente> ingredientes);
+        void RegistrarReceta(Receta receta, List<Ingrediente> ingredientes);
 
     }
 
@@ -21,6 +21,6 @@ namespace ServidrorPizzaItaliana
     {
 
         [OperationContract(IsOneWay = true)]
-        void RegistrarRecetaRespuesta(string mensaje);
+        void RespuestaRR(string mensaje);
     }
 }

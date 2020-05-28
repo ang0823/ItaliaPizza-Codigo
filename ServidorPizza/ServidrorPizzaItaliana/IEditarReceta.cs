@@ -12,7 +12,7 @@ namespace ServidrorPizzaItaliana
     interface IEditarReceta
     {
         [OperationContract(IsOneWay = true)]
-        void EditarReceta(Receta receta, AccesoBD2.Producto producto, Categoria categoria, List<Ingrediente> ingredinetes);
+        void EditarReceta(Receta receta, List<Ingrediente> ingredinetes);
 
     }
 

@@ -20,6 +20,6 @@ namespace ServidrorPizzaItaliana
     {
 
         [OperationContract(IsOneWay = true)]
-        void EliminarCuentaUsuarioRespuesta(string mensaje);
+        void RespuestaECU(string mensaje);
     }
 }

@@ -23,7 +23,7 @@ namespace ServidrorPizzaItaliana
         void DevuelveCuentas(List<CuentaUsuario1> cuentas, List<Empleado1> empleados, List<Direccion1> direcciones, List<Rol1> roles);
 
         [OperationContract(IsOneWay = true)]
-        void ObtenerCuentaUsuarioRespuesta(string mensaje);
+        void RespuestaOCU(string mensaje);
     }
 
     [DataContract]
@@ -48,7 +48,7 @@ namespace ServidrorPizzaItaliana
     public class Empleado1
     {
         [DataMember]
-        int idEmpleado;
+        Int64 idEmpleado;
         [DataMember]
         string nombre;
         [DataMember]
@@ -59,9 +59,11 @@ namespace ServidrorPizzaItaliana
         string telefono;
         [DataMember]
         string correo;
+        [DataMember]
+        string idEmpleadoGenerado;
 
 
-        public Empleado1(int idEmpleado, string nombre, string apellidoPaterno, string apellidoMaterno, string telefono, string correo)
+        public Empleado1(Int64 idEmpleado, string nombre, string apellidoPaterno, string apellidoMaterno, string telefono, string correo, string idEmpleadoGenerado)
         {
             this.idEmpleado = idEmpleado;
             this.nombre = nombre;
@@ -69,6 +71,7 @@ namespace ServidrorPizzaItaliana
             this.apellidoMaterno = apellidoMaterno;
             this.telefono = telefono;
             this.correo = correo;
+            this.idEmpleadoGenerado = idEmpleadoGenerado;
         }
     }
 
@@ -85,15 +88,18 @@ namespace ServidrorPizzaItaliana
         string numeroExterior;
         [DataMember]
         string numeroInterior;
+        [DataMember]
+        string codigoPostal;
 
 
-        public Direccion1(int id, string calle, string colonia, string numeroExterior, string numeroInterior)
+        public Direccion1(int id, string calle, string colonia, string numeroExterior, string numeroInterior, string codigoPostal)
         {
             this.id = id;
             this.calle = calle;
             this.colonia = colonia;
             this.numeroExterior = numeroExterior;
             this.numeroInterior = numeroInterior;
+            this.codigoPostal = codigoPostal;
         }
     }
 

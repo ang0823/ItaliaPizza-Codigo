@@ -133,18 +133,19 @@
     <Property Name="nombreUsuario" Type="nvarchar(max)" Nullable="false" />
     <Property Name="contraseña" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Empleado_IdEmpleado" Type="int" Nullable="false" />
+    <Property Name="Empleado_IdEmpleado" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="EmpleadoSet">
     <Key>
       <PropertyRef Name="IdEmpleado" />
     </Key>
-    <Property Name="IdEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEmpleado" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="apellidoPaterno" Type="nvarchar(max)" Nullable="false" />
     <Property Name="apellidoMaterno" Type="nvarchar(max)" Nullable="false" />
     <Property Name="telefono" Type="nvarchar(max)" Nullable="false" />
     <Property Name="correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="idEmpleadoGenerado" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Direccion_Id" Type="int" Nullable="false" />
     <Property Name="Rol_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -157,6 +158,7 @@
     <Property Name="colonia" Type="nvarchar(max)" Nullable="false" />
     <Property Name="numeroExterior" Type="nvarchar(max)" Nullable="false" />
     <Property Name="numeroInterior" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="codigoPostal" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="RolSet">
     <Key>
@@ -172,7 +174,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="fecha" Type="datetime" Nullable="false" />
     <Property Name="instruccionesEspeciales" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Empleado_IdEmpleado" Type="int" Nullable="false" />
+    <Property Name="Empleado_IdEmpleado" Type="bigint" Nullable="false" />
     <Property Name="Estado_Id" Type="int" Nullable="false" />
     <Property Name="Cuenta_Id" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
@@ -218,7 +220,6 @@
     <Property Name="activado" Type="bit" Nullable="false" />
     <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Categoria_Id" Type="int" Nullable="false" />
-    <Property Name="Receta_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="CuentaSet">
     <Key>
@@ -257,6 +258,7 @@
     <Property Name="porciones" Type="float" Nullable="false" />
     <Property Name="procedimiento" Type="nvarchar(max)" Nullable="false" />
     <Property Name="nombreReceta" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Producto_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProvisionSet">
     <Key>
@@ -444,14 +446,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ProductoReceta">
-    <End Role="Producto" Type="BDPizzaModel.Store.ProductoSet" Multiplicity="*" />
-    <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="1" />
+    <End Role="Producto" Type="BDPizzaModel.Store.ProductoSet" Multiplicity="1" />
+    <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Receta">
-        <PropertyRef Name="id" />
+      <Principal Role="Producto">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Producto">
-        <PropertyRef Name="Receta_id" />
+      <Dependent Role="Receta">
+        <PropertyRef Name="Producto_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -777,7 +779,7 @@
           <Key>
             <PropertyRef Name="IdEmpleado" />
           </Key>
-          <Property Name="IdEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleado" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="apellidoPaterno" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="apellidoMaterno" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
@@ -787,6 +789,7 @@
           <NavigationProperty Name="Direccion" Relationship="BDPizzaModel.EmpleadoDireccion" FromRole="Empleado" ToRole="Direccion" />
           <NavigationProperty Name="Rol" Relationship="BDPizzaModel.EmpleadoRol" FromRole="Empleado" ToRole="Rol" />
           <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.EmpleadoPedido" FromRole="Empleado" ToRole="Pedido" />
+          <Property Name="idEmpleadoGenerado" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Direccion">
           <Key>
@@ -799,6 +802,7 @@
           <Property Name="numeroInterior" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Empleado" Relationship="BDPizzaModel.EmpleadoDireccion" FromRole="Direccion" ToRole="Empleado" />
           <NavigationProperty Name="Cliente" Relationship="BDPizzaModel.DireccionCliente" FromRole="Direccion" ToRole="Cliente" />
+          <Property Name="codigoPostal" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -979,7 +983,7 @@
         </Association>
         <Association Name="ProductoReceta">
           <End Type="BDPizzaModel.Producto" Role="Producto" Multiplicity="1" />
-          <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="1" />
+          <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="*" />
         </Association>
         <Association Name="RecetaProvision">
           <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="*" />
@@ -1057,6 +1061,7 @@
           <ScalarProperty Name="apellidoMaterno" ColumnName="apellidoMaterno" />
           <ScalarProperty Name="telefono" ColumnName="telefono" />
           <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="idEmpleadoGenerado" ColumnName="idEmpleadoGenerado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1068,6 +1073,7 @@
           <ScalarProperty Name="colonia" ColumnName="colonia" />
           <ScalarProperty Name="numeroExterior" ColumnName="numeroExterior" />
           <ScalarProperty Name="numeroInterior" ColumnName="numeroInterior" />
+          <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1308,12 +1314,12 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ProductoReceta" TypeName="BDPizzaModel.ProductoReceta" StoreEntitySet="ProductoSet">
-      <EndProperty Name="Receta">
-        <ScalarProperty Name="id" ColumnName="Receta_id" />
-      </EndProperty>
+    <AssociationSetMapping Name="ProductoReceta" TypeName="BDPizzaModel.ProductoReceta" StoreEntitySet="RecetaSet">
       <EndProperty Name="Producto">
-        <ScalarProperty Name="Id" ColumnName="Id" />
+        <ScalarProperty Name="Id" ColumnName="Producto_Id" />
+      </EndProperty>
+      <EndProperty Name="Receta">
+        <ScalarProperty Name="id" ColumnName="id" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="RecetaProvision" TypeName="BDPizzaModel.RecetaProvision" StoreEntitySet="RecetaProvision">

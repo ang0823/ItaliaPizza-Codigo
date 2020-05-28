@@ -1,6 +1,7 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
-using System.Linq.Expressions;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,22 +15,26 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para RegistroProductos.xaml
     /// </summary>
-    public partial class RegistroProductos : Window, IRegistrarProductoCallback
+    public partial class RegistroProductos : Window, IRegistrarProductoCallback, IObtenerRecetasCallback
     {
         CuentaUsuario CuentaUsuario;
         Producto producto;
+        List<Receta1> recetas = new List<Receta1>();
         public RegistroProductos(CuentaUsuario cuenta)
         {
             CuentaUsuario = cuenta;
             InitializeComponent();
+            GenerarIdProducto();
+            CargarRecetas();
             IniciarComboBoxes();
 
             UsuarioLbl.Content = cuenta.nombreUsuario;
-            EstadoCb.SelectedIndex = 0;
+            EstadoCb.SelectedIndex = 1;
             CategoriaCb.SelectedIndex = 0;
             RecetaCb.SelectedIndex = 0;
             GuardarBtn.IsEnabled = false;
             VaciarBtn.IsEnabled = false;
+            CodigoTxt.IsEnabled = false;
         }
 
         private Boolean AlgunCampoLleno()
@@ -56,34 +61,91 @@ namespace ClienteItaliaPizza
             return false;
         }
 
-        private void IniciarComboBoxes()
-        {
-            EstadoCb.Items.Insert(0, "Activado");
-            EstadoCb.Items.Insert(1, "Desactivado");
-
-            CategoriaCb.Items.Insert(0, "Seleccionar:");
-            CategoriaCb.Items.Insert(1, "Perecederos");
-            CategoriaCb.Items.Insert(2, "Lacteos");
-            CategoriaCb.Items.Insert(3, "Embutidos");
-            CategoriaCb.Items.Insert(4, "Carnes");
-
-            RecetaCb.Items.Insert(0, "Seleccionar");
-            RecetaCb.Items.Insert(1, "Pizza Salami");
-            RecetaCb.Items.Insert(2, "Pizza hawaiana");
-        }
-
-        //Implementado, falta el servidor
-        private void IniciarRegistro()
+        private void CargarRecetas()
         {
             try
             {
                 InstanceContext context = new InstanceContext(this);
-                
-            }
-            catch
-            {
+                ObtenerRecetasClient ServicioRecetas = new ObtenerRecetasClient(context);
 
+                ServicioRecetas.ObtenerRecetas();
             }
+            catch(Exception exc)
+            {
+                FuncionesComunes.MostrarMensajeDeError(exc.Message);
+            }
+        }
+
+        private byte ConvertirImagenABytes()
+        {
+            Uri ImageUri = new Uri(ProductoImg.Source.ToString());
+            BitmapImage Imagen = new BitmapImage(ImageUri);
+            byte ImagenConvertida = Convert.ToByte(Imagen);
+
+            return ImagenConvertida;
+        }
+
+        public bool EstaActivado()
+        {
+            bool EstaActivado = false;
+
+            if (EstadoCb.SelectedIndex == 1)
+            {
+                EstaActivado = true;
+            }
+
+            return EstaActivado;
+        }
+
+        private void GenerarIdProducto()
+        {
+            Random aleatorio = new Random();
+            int PrimerPar = aleatorio.Next(10, 99);
+            int SegundoPar = aleatorio.Next(10, 99);
+
+            CodigoTxt.Text = PrimerPar.ToString() + SegundoPar.ToString();
+        }
+
+        private void IniciarComboBoxes()
+        {
+            EstadoCb.Items.Insert(0, "Desactivado");
+            EstadoCb.Items.Insert(1, "Activado");
+
+            CategoriaCb.Items.Insert(0, "Seleccionar:");
+            CategoriaCb.Items.Insert(1, "Ensaladas");
+            CategoriaCb.Items.Insert(2, "Pizzas");
+            CategoriaCb.Items.Insert(3, "Pastas");
+            CategoriaCb.Items.Insert(4, "Postres");
+            CategoriaCb.Items.Insert(5, "Bebidas");
+        }
+
+        private void RegistrarProductoClient()
+        {
+            Producto producto;
+            Categoria categoria;
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                RegistrarProductoClient ServicioRegistro = new RegistrarProductoClient(context);
+                producto = new Producto();
+                producto.nombre = NombreTxt.Text;
+                producto.precioUnitario = double.Parse(PrecioTxt.Text.Trim());
+                producto.imagen = ConvertirImagenABytes();
+                producto.activado = EstaActivado();
+                producto.descripcion = DescripcionTxt.Text;
+                producto.restricciones = RestriccionesTxt.Text;
+
+                categoria = new Categoria();
+                categoria.Id = CategoriaCb.SelectedIndex;
+                categoria.categoria = CategoriaCb.SelectedItem.ToString();
+
+                ServicioRegistro.RegistrarProducto(producto, categoria);
+            }
+            catch (Exception e)
+            {
+                FuncionesComunes.MostrarMensajeDeError(e.Message);
+            }
+
         }
 
         private void VaciarCampos()
@@ -96,11 +158,6 @@ namespace ClienteItaliaPizza
             DescripcionTxt.Text = "";
             RestriccionesTxt.Text = "";
             ProductoImg.Source = null;
-        }
-
-        private void AceptarBtn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void VaciarBtn_Click(object sender, RoutedEventArgs e)
@@ -358,7 +415,38 @@ namespace ClienteItaliaPizza
             }
         }
 
-        public void RegistroProductooRespuesta(string mensaje)
+        public void RespuestaRP(string mensaje)
+        {
+            FuncionesComunes.MostrarMensajeExitoso(mensaje);
+        }
+
+        private void GuardarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrarProductoClient();
+        }
+
+        public void DatosRecuperados(ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones, EstadoDePedido[] estados, MesaLocal[] mesas)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MensajeRegistrarPedidoLocal(string mensaje)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DevuelveRecetas(Receta1[] receta, Ingrediente1[] ingredientes)
+        {
+            Dispatcher.Invoke(() => {
+            for (int i = 0; i < receta.Length; i++)
+                {
+                    recetas.Add(receta[i]);
+                    RecetaCb.Items.Add(receta[i].nombreReceta);
+                }
+            });
+        }
+
+        public void RespuestaIOR(string mensaje)
         {
             throw new NotImplementedException();
         }
