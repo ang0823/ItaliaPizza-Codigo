@@ -22,7 +22,9 @@
     <Grid x:Name="gridPedido">
         <TabControl x:Name="tabControlProductos" HorizontalAlignment="Left" Height="202" Margin="58,234,0,0" VerticalAlignment="Top" Width="593" BorderBrush="#FF060606">
             <TabItem x:Name="tabItemEnsaladas" Header="Ensaladas">
-                <Grid Background="#FFE5E5E5" Margin="0,2,0,-2"/>
+                <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
+                    <ListBox x:Name="ListBox1Productos" HorizontalAlignment="Left" Height="139" Margin="18,19,0,0" VerticalAlignment="Top" Width="554" SelectionChanged="SeleccionaUnProducto" />
+                </Grid>
             </TabItem>
             <TabItem x:Name="tabItemPizzas" Header="Pizzas">
                 <Grid Background="#FFE5E5E5" Margin="0,0,-8,-18">
@@ -81,5 +83,9 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
+        <Label x:Name="labelNumEmpleado" Content="Número de empleado" HorizontalAlignment="Left" Margin="60,44,0,0" VerticalAlignment="Top" Foreground="#FFFFF2F2"/>
+        <ComboBox x:Name="comboBoxNumEmpleado" HorizontalAlignment="Left" Margin="198,47,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" Loaded="ComboBoxNumEmpleado_Loaded" />
+        <Label x:Name="labelNoMesa" Content="No.Mesa" HorizontalAlignment="Left" Margin="58,121,0,0" VerticalAlignment="Top" Foreground="#FFF9F9F9"/>
+        <ComboBox x:Name="comboBoxNoMesa" HorizontalAlignment="Left" Margin="203,119,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

@@ -725,9 +725,24 @@
             <Parameter Name="Iva" Mode="In" Type="Double" />
             <Parameter Name="Descuento" Mode="In" Type="Double" />
           </FunctionImport>
+          <FunctionImport Name="InsertarPedido">
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int32" />
+            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
+            <Parameter Name="IdCuenta" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertarPedidoLocal">
+            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
+            <Parameter Name="IdPedido" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="InsertarPedioDomicilio">
             <Parameter Name="IdCliente" Mode="In" Type="Int32" />
             <Parameter Name="IdPedido" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LigarClienteADireccion">
+            <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="LigarProductoConPedido">
             <Parameter Name="IdProducto" Mode="In" Type="Int32" />
@@ -736,17 +751,6 @@
           <FunctionImport Name="LigarProvisionConPedido">
             <Parameter Name="IdProvision" Mode="In" Type="Int32" />
             <Parameter Name="IdPedido" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="InsertarPedido">
-            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
-            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
-            <Parameter Name="IdEmpleado" Mode="In" Type="Int32" />
-            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
-            <Parameter Name="IdCuenta" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="LigarClienteADireccion">
-            <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RegistrarTelefono">
             <Parameter Name="Telefono" Mode="In" Type="String" />
@@ -760,10 +764,6 @@
             <Parameter Name="Colonia" Mode="In" Type="String" />
             <Parameter Name="NumeroExterior" Mode="In" Type="String" />
             <Parameter Name="NumeroInterior" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertarPedidoLocal">
-            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
-            <Parameter Name="IdPedido" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="CuentaUsuario">
@@ -1338,6 +1338,15 @@
         <ScalarProperty Name="id" ColumnName="Receta_id" />
       </EndProperty>
     </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="InsertarCuentaDePedido" FunctionName="BDPizzaModel.Store.InsertarCuentaDePedido" />
+          <FunctionImportMapping FunctionImportName="InsertarPedido" FunctionName="BDPizzaModel.Store.InsertarPedido" />
+          <FunctionImportMapping FunctionImportName="InsertarPedidoLocal" FunctionName="BDPizzaModel.Store.InsertarPedidoLocal" />
+          <FunctionImportMapping FunctionImportName="InsertarPedioDomicilio" FunctionName="BDPizzaModel.Store.InsertarPedioDomicilio" />
+          <FunctionImportMapping FunctionImportName="LigarClienteADireccion" FunctionName="BDPizzaModel.Store.LigarClienteADireccion" />
+          <FunctionImportMapping FunctionImportName="LigarProductoConPedido" FunctionName="BDPizzaModel.Store.LigarProductoConPedido" />
+          <FunctionImportMapping FunctionImportName="LigarProvisionConPedido" FunctionName="BDPizzaModel.Store.LigarProvisionConPedido" />
+          <FunctionImportMapping FunctionImportName="RegistrarTelefono" FunctionName="BDPizzaModel.Store.RegistrarTelefono" />
+          <FunctionImportMapping FunctionImportName="RegistroDeClienteConDireccion" FunctionName="BDPizzaModel.Store.RegistroDeClienteConDireccion" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
