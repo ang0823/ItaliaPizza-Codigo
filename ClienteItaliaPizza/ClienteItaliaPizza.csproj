@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +38,48 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v18.2, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Data_yesfree.18.2.5\lib\net40\DevExpress.Data.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Images.v18.2, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Images_yesfree.18.2.5\lib\net40\DevExpress.Images.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v18.2, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Mvvm_yesfree.18.2.5\lib\net40\DevExpress.Mvvm.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v18.2.Core, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Pdf.Core_yesfree.18.2.5\lib\net40\DevExpress.Pdf.v18.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v18.2.Drawing, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Pdf.Drawing_yesfree.18.2.5\lib\net40\DevExpress.Pdf.v18.2.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v18.2.Core, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Printing.Core_yesfree.18.2.5\lib\net40\DevExpress.Printing.v18.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Core.v18.2, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Xpf.Core_yesfree.18.2.5\lib\net40\DevExpress.Xpf.Core.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Docking.v18.2, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Xpf.Docking_yesfree.18.2.5\lib\net40\DevExpress.Xpf.Docking.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.DocumentViewer.v18.2.Core, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Xpf.DocumentViewer.Core_yesfree.18.2.5\lib\net40\DevExpress.Xpf.DocumentViewer.v18.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v18.2, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Xpf.Grid_yesfree.18.2.5\lib\net40\DevExpress.Xpf.Grid.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v18.2.Core, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Xpf.Grid.Core_yesfree.18.2.5\lib\net40\DevExpress.Xpf.Grid.v18.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Layout.v18.2.Core, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Xpf.Layout.Core_yesfree.18.2.5\lib\net40\DevExpress.Xpf.Layout.v18.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.PdfViewer.v18.2, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Xpf.PdfViewer_yesfree.18.2.5\lib\net40\DevExpress.Xpf.PdfViewer.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Ribbon.v18.2, Version=18.2.5.0, Culture=neutral, PublicKeyToken=1b6562238b11e6dd, processorArchitecture=MSIL">
+      <HintPath>packages\YshXaf.DevExpress.Xpf.Ribbon_yesfree.18.2.5\lib\net40\DevExpress.Xpf.Ribbon.v18.2.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
     </Reference>
@@ -43,6 +87,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encoding.CodePages.4.4.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,6 +140,12 @@
     <Compile Include="NuevoPedido.xaml.cs">
       <DependentUpon>NuevoPedido.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\NuevoPedido_Domicilio.xaml.cs">
+      <DependentUpon>NuevoPedido_Domicilio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\NuevoPedido_Local.xaml.cs">
+      <DependentUpon>NuevoPedido_Local.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Principal.xaml.cs">
       <DependentUpon>Principal.xaml</DependentUpon>
     </Compile>
@@ -107,6 +160,9 @@
     </Compile>
     <Compile Include="RegistroProductos.xaml.cs">
       <DependentUpon>RegistroProductos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisorPDF.xaml.cs">
+      <DependentUpon>VisorPDF.xaml</DependentUpon>
     </Compile>
     <Page Include="BuscarIngrediente.xaml">
       <SubType>Designer</SubType>
@@ -165,6 +221,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pantallas\NuevoPedido_Domicilio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pantallas\NuevoPedido_Local.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Receta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -190,6 +254,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="RegistroProductos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisorPDF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -294,5 +362,21 @@
   <ItemGroup>
     <Resource Include="RecursosGUI\fondoIngrediente.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\Back_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecursosGUI\Plus_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TicketsPDF\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets'))" />
+  </Target>
 </Project>

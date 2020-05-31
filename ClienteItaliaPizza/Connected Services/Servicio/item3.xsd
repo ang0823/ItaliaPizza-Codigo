@@ -107,6 +107,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Producto" nillable="true" type="tns:Producto" />
+  <xs:complexType name="CuentaCliente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nombreUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CuentaCliente" nillable="true" type="tns:CuentaCliente" />
   <xs:complexType name="ArrayOfCuentaUsuario1">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="CuentaUsuario1" nillable="true" type="tns:CuentaUsuario1" />

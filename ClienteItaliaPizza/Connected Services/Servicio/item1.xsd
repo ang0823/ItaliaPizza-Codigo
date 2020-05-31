@@ -179,7 +179,7 @@
   <xs:element name="DevuelveCuenta">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuenta" nillable="true" type="q18:CuentaUsuario" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="cuenta" nillable="true" type="q18:CuentaCliente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
