@@ -6,23 +6,23 @@
              xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800">
-    <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="260" Margin="40,20,0,0" VerticalAlignment="Top" Width="720" >
+    <Grid Margin="0,0,-120,0">
+        <StackPanel x:Name="stackPanelPedidoLocal" HorizontalAlignment="Left" Height="260" Margin="40,20,0,0" VerticalAlignment="Top" Width="834" Loaded="StackPanelPedidoLocal_Loaded" >
             <StackPanel.Background>
-                <SolidColorBrush Color="#FF818181" Opacity="0.7"/>
+                <SolidColorBrush Color="#FFCCCCCC" Opacity="0.75"/>
             </StackPanel.Background>
             <Label Content="id" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="16" Height="35" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Label Content="tipo" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="16" Height="36" Margin="550,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="71" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <DataGrid x:Name="DataGridPlatillos"  Margin="24,5,360,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="124"  >
+            <Label Content="tipo" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="16" Height="36" Margin="550,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="73" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <DataGrid x:Name="DataGridPlatillos"  Margin="24,5,470,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="124"  >
 
                 <!--Encabezados de la tabla -->
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="100" MinWidth="120" Foreground="#FF0F0F11" Binding="{Binding nombreplatillo}"  />
-                    <DataGridCheckBoxColumn x:Name="ColumnCasillaCheckBox" Header="Preparado" Width="60" MinWidth="100" Binding="{Binding preparado}"/>
+                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="100" MinWidth="200" Foreground="#FF0F0F11" IsReadOnly="True" Binding="{Binding nombreplatillo}"  />
+                    <DataGridCheckBoxColumn x:Name="ColumnCasillaCheckBox" Header="Preparado" Width="60" MinWidth="150" Binding="{Binding preparado}"/>
                 </DataGrid.Columns>
 
             </DataGrid>
-            <TextBlock TextWrapping="Wrap" Text="Instrucciones Especiales" Foreground="#FFF5F1F1" Height="21" Margin="22,0,572,0" HorizontalAlignment="Center"/>
+            <TextBlock TextWrapping="Wrap" Text="Instrucciones Especiales" Foreground="#FFF5F1F1" Height="21" Margin="27,0,681,0" HorizontalAlignment="Center"/>
             <Label Content="instrucciones" Height="45" Margin="22,0,155,0" Foreground="#FFFDF4F4"/>
         </StackPanel>
 

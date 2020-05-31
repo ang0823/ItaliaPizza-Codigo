@@ -20,9 +20,19 @@ namespace ClienteItaliaPizza.Pantallas
     /// </summary>
     public partial class CocinaPedidoLocal : UserControl
     {
+        public List<platillo> llenarDataGrid
+        {          
+            set { DataGridPlatillos.ItemsSource = value; }
+        }
         public CocinaPedidoLocal()
         {
             InitializeComponent();
+        }
+
+        public event EventHandler eventoDataGridPlatillos;
+        private void StackPanelPedidoLocal_Loaded(object sender, RoutedEventArgs e)
+        {
+            eventoDataGridPlatillos?.Invoke(this, e);
         }
     }
 }

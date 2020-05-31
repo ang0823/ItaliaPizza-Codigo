@@ -9,11 +9,11 @@
     <Grid>
         <StackPanel HorizontalAlignment="Left" Height="260" Margin="40,20,0,0" VerticalAlignment="Top" Width="720" >
             <StackPanel.Background>
-                <SolidColorBrush Color="#FF818181" Opacity="0.7"/>
+                <SolidColorBrush Color="#FFCCCCCC" Opacity="0.75"/>
             </StackPanel.Background>
             <Label Content="id" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="16" Height="35" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Label Content="tipo" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="16" Height="36" Margin="550,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="71" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <Button Content="Button" Height="56" Margin="495,75,45,0"/>
+            <Button Content="Listo" Height="56" Margin="495,75,45,0" Background="#FFF39C27" FontSize="18" FontWeight="Bold"/>
             <DataGrid x:Name="DataGridPlatillos"  Margin="24,-115,360,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="124"  >
 
                 <!--Encabezados de la tabla -->
