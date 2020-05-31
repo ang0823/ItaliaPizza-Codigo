@@ -10,7 +10,7 @@
         <ImageBrush ImageSource="RecursosGUI/fondoPrincipal.jpg"/>
     </Window.Background>
     <Grid>
-        <DataGrid x:Name="dataGridRecetas" HorizontalAlignment="Left" Height="409" Margin="43,158,0,0" VerticalAlignment="Top" Width="884">
+        <DataGrid x:Name="dataGridRecetas" HorizontalAlignment="Left" Height="409"  Margin="43,158,0,0" VerticalAlignment="Top" Width="884">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ColumnNombreReceta" Header="Nombre de la Receta"/>
             </DataGrid.Columns>

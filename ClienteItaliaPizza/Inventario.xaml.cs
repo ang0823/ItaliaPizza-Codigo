@@ -20,11 +20,11 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class Inventario : Window
     {
-        CuentaUsuario cuenta = new CuentaUsuario(); //creo esta clase temporalmente para conectar las ventanas con la principal
+        CuentaCliente cuenta = new CuentaCliente(); //creo esta clase temporalmente para conectar las ventanas con la principal
         public Inventario(CuentaUsuario cuentaUsuario)
         {
             InitializeComponent();
-            cuenta = cuentaUsuario;
+           // cuenta = cuentaUsuario;
         }
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)

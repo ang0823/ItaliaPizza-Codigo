@@ -33,6 +33,7 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
+
                 Principal ventana = new Principal(cuenta);
                 ventana.Show();
                 this.Close();
@@ -52,5 +53,6 @@ namespace ClienteItaliaPizza
         {
 
         }
+       
     }
 }

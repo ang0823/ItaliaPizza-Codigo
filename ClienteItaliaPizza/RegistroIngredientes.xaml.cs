@@ -20,9 +20,10 @@ namespace ClienteItaliaPizza
 
         public RegistroIngredientes(CuentaUsuario cuenta)
         {
-            this.CuentaUsuario = cuenta;
+           // this.CuentaUsuario = cuenta;
             InitializeComponent();
             IniciarComboBox();
+            CuentaUsuario = cuenta;
             UserLbl.Content = cuenta.nombreUsuario;
             VaciarBtn.IsEnabled = false;
             GuardarBtn.IsEnabled = false;
