@@ -73,10 +73,14 @@ namespace ServidrorPizzaItaliana
                 BDPizzaEntities db = new BDPizzaEntities();
                 db.Configuration.ProxyCreationEnabled = false;
                 //db.CuentaSet.Where(d => d.nombreUsuario == nombreUsuario && d.contraseña == contraseña).First();
-                var cuenta = (from per in db.CuentaUsuarioSet where per.nombreUsuario == nombreUsuario && per.contraseña == contraseña select per).First();
-                OperationContext.Current.GetCallbackChannel<ILoginCallback>().DevuelveCuenta(cuenta);
+                var cuenta = (from per in db.CuentaUsuarioSet where per.nombreUsuario == nombreUsuario && per.contraseña == contraseña select per).Include(x => x.Empleado.Rol).First();
+
+                CuentaCliente cuentaCliente = new CuentaCliente(cuenta.Empleado.Rol.nombreRol, cuenta.nombreUsuario);
+
+                OperationContext.Current.GetCallbackChannel<ILoginCallback>().DevuelveCuenta(cuentaCliente);
                 Console.WriteLine(cuenta.nombreUsuario + ": Ha iniciado sesión");
-                db.Dispose();
+                Console.WriteLine(cuenta.Empleado.Rol.nombreRol);
+                //db.Dispose();
             }
             catch (InvalidOperationException)
             {
