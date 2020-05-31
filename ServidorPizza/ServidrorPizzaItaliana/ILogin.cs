@@ -19,7 +19,7 @@ namespace ServidrorPizzaItaliana
     public interface ILoginCallback
     {
         [OperationContract(IsOneWay = true)]
-        void DevuelveCuenta(CuentaUsuario cuenta);
+        void DevuelveCuenta(CuentaUsuario1 cuenta,Empleado1 empleado, Direccion1 direccion,Rol1 rol);
 
         [OperationContract(IsOneWay = true)]
         void RespuestaLogin(string mensaje);

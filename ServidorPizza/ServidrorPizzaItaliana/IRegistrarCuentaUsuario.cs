@@ -12,10 +12,10 @@ namespace ServidrorPizzaItaliana
     interface IRegistrarCuentaUsuario
     {
         [OperationContract(IsOneWay = true)]
-        void RegistrarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, Rol rol);
+        void RegistrarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int rol);
        
         [OperationContract(IsOneWay = true)]
-        void RegistrarCuentaUsuario2(Empleado empleado, Direccion direccion, Rol rol);
+        void RegistrarCuentaUsuario2(Empleado empleado, Direccion direccion, int rol);
     }
 
     [ServiceContract]

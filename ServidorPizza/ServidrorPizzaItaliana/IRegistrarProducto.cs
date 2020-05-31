@@ -13,7 +13,7 @@ namespace ServidrorPizzaItaliana
     interface IRegistrarProducto
     {
         [OperationContract(IsOneWay = true)]
-        void RegistrarProducto(AccesoBD2.Producto producto, Categoria categoria);
+        void RegistrarProducto(AccesoBD2.Producto producto, Categoria categoria, int receta);
     }
 
     [ServiceContract]

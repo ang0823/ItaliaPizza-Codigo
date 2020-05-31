@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/24/2020 15:54:47
--- Generated from EDMX file: C:\Users\javie\Desktop\2405Servidor\ItaliaPizza-Codigo\ServidorPizza\AccesoBD2\Model1.edmx
+-- Date Created: 05/31/2020 02:13:59
+-- Generated from EDMX file: C:\Users\javie\Desktop\Nueva carpeta (2)\ItaliaPizza-Codigo-master\ServidorPizza\AccesoBD2\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -61,7 +61,7 @@ IF OBJECT_ID(N'[dbo].[FK_ProvisionDirectaProvision]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProvisionDirectaSet] DROP CONSTRAINT [FK_ProvisionDirectaProvision];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProductoReceta]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProductoSet] DROP CONSTRAINT [FK_ProductoReceta];
+    ALTER TABLE [dbo].[RecetaSet] DROP CONSTRAINT [FK_ProductoReceta];
 GO
 IF OBJECT_ID(N'[dbo].[FK_RecetaProvision_Receta]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RecetaProvision] DROP CONSTRAINT [FK_RecetaProvision_Receta];
@@ -171,18 +171,20 @@ CREATE TABLE [dbo].[CuentaUsuarioSet] (
     [nombreUsuario] nvarchar(max)  NOT NULL,
     [contraseña] nvarchar(max)  NOT NULL,
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Empleado_IdEmpleado] int  NOT NULL
+    [Empleado_IdEmpleado] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'EmpleadoSet'
 CREATE TABLE [dbo].[EmpleadoSet] (
-    [IdEmpleado] int IDENTITY(1,1) NOT NULL,
+    [IdEmpleado] bigint IDENTITY(1,1) NOT NULL,
     [nombre] nvarchar(max)  NOT NULL,
     [apellidoPaterno] nvarchar(max)  NOT NULL,
     [apellidoMaterno] nvarchar(max)  NOT NULL,
     [telefono] nvarchar(max)  NOT NULL,
     [correo] nvarchar(max)  NOT NULL,
+    [idEmpleadoGenerado] nvarchar(max)  NOT NULL,
+    [activado] bit  NOT NULL,
     [Direccion_Id] int  NOT NULL,
     [Rol_Id] int  NOT NULL
 );
@@ -194,7 +196,8 @@ CREATE TABLE [dbo].[DireccionSet] (
     [calle] nvarchar(max)  NOT NULL,
     [colonia] nvarchar(max)  NOT NULL,
     [numeroExterior] nvarchar(max)  NOT NULL,
-    [numeroInterior] nvarchar(max)  NOT NULL
+    [numeroInterior] nvarchar(max)  NOT NULL,
+    [codigoPostal] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -210,7 +213,7 @@ CREATE TABLE [dbo].[PedidoSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [fecha] datetime  NOT NULL,
     [instruccionesEspeciales] nvarchar(max)  NULL,
-    [Empleado_IdEmpleado] int  NOT NULL,
+    [Empleado_IdEmpleado] bigint  NOT NULL,
     [Estado_Id] int  NOT NULL,
     [Cuenta_Id] nvarchar(max)  NOT NULL
 );
@@ -294,7 +297,8 @@ CREATE TABLE [dbo].[RecetaSet] (
     [id] int IDENTITY(1,1) NOT NULL,
     [porciones] float  NOT NULL,
     [procedimiento] nvarchar(max)  NOT NULL,
-    [nombreReceta] nvarchar(max)  NOT NULL
+    [nombreReceta] nvarchar(max)  NOT NULL,
+    [activado] bit  NOT NULL
 );
 GO
 
@@ -306,7 +310,8 @@ CREATE TABLE [dbo].[ProvisionSet] (
     [ubicacion] nvarchar(max)  NOT NULL,
     [stockMinimo] int  NOT NULL,
     [costoUnitario] float  NOT NULL,
-    [unidadMedida] nvarchar(max)  NOT NULL
+    [unidadMedida] nvarchar(max)  NOT NULL,
+    [activado] bit  NOT NULL
 );
 GO
 
