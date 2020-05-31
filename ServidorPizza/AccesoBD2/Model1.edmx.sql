@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/20/2020 19:41:29
--- Generated from EDMX file: C:\Users\BETO\Documents\OCTAVO SEMESTRE\DESARROLLO DE SOFTWARE\Servidor\ServidorPizza\AccesoBD2\Model1.edmx
+-- Date Created: 05/27/2020 01:46:32
+-- Generated from EDMX file: C:\Users\javie\Desktop\Nueva carpeta (2)\ItaliaPizza-Codigo-master\ServidorPizza\AccesoBD2\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -171,18 +171,19 @@ CREATE TABLE [dbo].[CuentaUsuarioSet] (
     [nombreUsuario] nvarchar(max)  NOT NULL,
     [contraseña] nvarchar(max)  NOT NULL,
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Empleado_IdEmpleado] int  NOT NULL
+    [Empleado_IdEmpleado] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'EmpleadoSet'
 CREATE TABLE [dbo].[EmpleadoSet] (
-    [IdEmpleado] int IDENTITY(1,1) NOT NULL,
+    [IdEmpleado] bigint IDENTITY(1,1) NOT NULL,
     [nombre] nvarchar(max)  NOT NULL,
     [apellidoPaterno] nvarchar(max)  NOT NULL,
     [apellidoMaterno] nvarchar(max)  NOT NULL,
     [telefono] nvarchar(max)  NOT NULL,
     [correo] nvarchar(max)  NOT NULL,
+    [idEmpleadoGenerado] nvarchar(max)  NOT NULL,
     [Direccion_Id] int  NOT NULL,
     [Rol_Id] int  NOT NULL
 );
@@ -194,7 +195,8 @@ CREATE TABLE [dbo].[DireccionSet] (
     [calle] nvarchar(max)  NOT NULL,
     [colonia] nvarchar(max)  NOT NULL,
     [numeroExterior] nvarchar(max)  NOT NULL,
-    [numeroInterior] nvarchar(max)  NOT NULL
+    [numeroInterior] nvarchar(max)  NOT NULL,
+    [codigoPostal] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -210,7 +212,7 @@ CREATE TABLE [dbo].[PedidoSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [fecha] datetime  NOT NULL,
     [instruccionesEspeciales] nvarchar(max)  NULL,
-    [Empleado_IdEmpleado] int  NOT NULL,
+    [Empleado_IdEmpleado] bigint  NOT NULL,
     [Estado_Id] int  NOT NULL,
     [Cuenta_Id] nvarchar(max)  NOT NULL
 );
@@ -255,8 +257,7 @@ CREATE TABLE [dbo].[ProductoSet] (
     [imagen] tinyint  NULL,
     [activado] bit  NOT NULL,
     [restricciones] nvarchar(max)  NOT NULL,
-    [Categoria_Id] int  NOT NULL,
-    [Receta_id] int  NOT NULL
+    [Categoria_Id] int  NOT NULL
 );
 GO
 
@@ -294,7 +295,8 @@ CREATE TABLE [dbo].[RecetaSet] (
     [id] int IDENTITY(1,1) NOT NULL,
     [porciones] float  NOT NULL,
     [procedimiento] nvarchar(max)  NOT NULL,
-    [nombreReceta] nvarchar(max)  NOT NULL
+    [nombreReceta] nvarchar(max)  NOT NULL,
+    [Producto_Id] int  NOT NULL
 );
 GO
 
@@ -302,9 +304,9 @@ GO
 CREATE TABLE [dbo].[ProvisionSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [nombre] nvarchar(max)  NOT NULL,
-    [noExistencias] smallint  NOT NULL,
+    [noExistencias] int  NOT NULL,
     [ubicacion] nvarchar(max)  NOT NULL,
-    [stockMinimo] nvarchar(max)  NOT NULL,
+    [stockMinimo] int  NOT NULL,
     [costoUnitario] float  NOT NULL,
     [unidadMedida] nvarchar(max)  NOT NULL
 );
@@ -723,19 +725,19 @@ ON [dbo].[ProvisionDirectaSet]
     ([Provision_Id]);
 GO
 
--- Creating foreign key on [Receta_id] in table 'ProductoSet'
-ALTER TABLE [dbo].[ProductoSet]
+-- Creating foreign key on [Producto_Id] in table 'RecetaSet'
+ALTER TABLE [dbo].[RecetaSet]
 ADD CONSTRAINT [FK_ProductoReceta]
-    FOREIGN KEY ([Receta_id])
-    REFERENCES [dbo].[RecetaSet]
-        ([id])
+    FOREIGN KEY ([Producto_Id])
+    REFERENCES [dbo].[ProductoSet]
+        ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ProductoReceta'
 CREATE INDEX [IX_FK_ProductoReceta]
-ON [dbo].[ProductoSet]
-    ([Receta_id]);
+ON [dbo].[RecetaSet]
+    ([Producto_Id]);
 GO
 
 -- Creating foreign key on [Receta_id] in table 'RecetaProvision'

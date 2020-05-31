@@ -23,7 +23,7 @@ namespace ServidrorPizzaItaliana
         void DevuelveCuenta(CuentaCliente cuenta);
 
         [OperationContract(IsOneWay = true)]
-        void LoginRespuesta(string mensaje);
+        void RespuestaLogin(string mensaje);
     }
 
     [DataContract]

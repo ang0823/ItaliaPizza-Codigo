@@ -183,7 +183,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="LoginRespuesta">
+  <xs:element name="RespuestaLogin">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
@@ -200,7 +200,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="RegistroCuentaUsuarioRespuesta">
+  <xs:element name="RegistrarCuentaUsuario2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="empleado" nillable="true" type="q23:Empleado" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="direccion" nillable="true" type="q24:Direccion" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="rol" nillable="true" type="q25:Rol" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RespuestaRCU">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
@@ -210,14 +219,14 @@
   <xs:element name="ModificarCuentaUsuario">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuenta" nillable="true" type="q23:CuentaUsuario" />
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="empleado" nillable="true" type="q24:Empleado" />
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="direccion" nillable="true" type="q25:Direccion" />
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="rol" nillable="true" type="q26:Rol" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuenta" nillable="true" type="q26:CuentaUsuario" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="empleado" nillable="true" type="q27:Empleado" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="direccion" nillable="true" type="q28:Direccion" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="rol" nillable="true" type="q29:Rol" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ModificarCuentaUsuarioRespuesta">
+  <xs:element name="RespuestaMCU">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
@@ -232,14 +241,14 @@
   <xs:element name="DevuelveCuentas">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="cuentas" nillable="true" type="q27:ArrayOfCuentaUsuario1" />
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="empleados" nillable="true" type="q28:ArrayOfEmpleado1" />
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="direcciones" nillable="true" type="q29:ArrayOfDireccion1" />
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="roles" nillable="true" type="q30:ArrayOfRol1" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="cuentas" nillable="true" type="q30:ArrayOfCuentaUsuario1" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="empleados" nillable="true" type="q31:ArrayOfEmpleado1" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="direcciones" nillable="true" type="q32:ArrayOfDireccion1" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="roles" nillable="true" type="q33:ArrayOfRol1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ObtenerCuentaUsuarioRespuesta">
+  <xs:element name="RespuestaOCU">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
@@ -254,7 +263,27 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EliminarCuentaUsuarioRespuesta">
+  <xs:element name="RespuestaECU">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerRecetas">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DevuelveRecetas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="receta" nillable="true" type="q34:ArrayOfReceta1" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="ingredientes" nillable="true" type="q35:ArrayOfIngrediente1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RespuestaIOR">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
@@ -264,12 +293,12 @@
   <xs:element name="RegistrarProducto">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="producto" nillable="true" type="q31:Producto" />
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="categoria" nillable="true" type="q32:Categoria" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="producto" nillable="true" type="q36:Producto" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="categoria" nillable="true" type="q37:Categoria" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="RegistroProductooRespuesta">
+  <xs:element name="RespuestaRP">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
@@ -279,13 +308,12 @@
   <xs:element name="RegistrarReceta">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="receta" nillable="true" type="q33:Receta" />
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="producto" nillable="true" type="q34:Producto" />
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="categoria" nillable="true" type="q35:Categoria" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="receta" nillable="true" type="q38:Receta" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="ingredientes" nillable="true" type="q39:ArrayOfIngrediente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="RegistrarRecetaRespuesta">
+  <xs:element name="RespuestaRR">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
@@ -300,8 +328,8 @@
   <xs:element name="RegistrarPedidoLocal">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="pedido" nillable="true" type="q36:PedidoLocal" />
-        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuenta" nillable="true" type="q37:Cuenta" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="pedido" nillable="true" type="q40:PedidoLocal" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuenta" nillable="true" type="q41:Cuenta" />
         <xs:element minOccurs="0" name="idEstado" type="xs:int" />
         <xs:element minOccurs="0" name="idEmpleado" type="xs:int" />
       </xs:sequence>
@@ -310,14 +338,63 @@
   <xs:element name="DatosRecuperados">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="productos" nillable="true" type="q38:ArrayOfProductoDePedido" />
-        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="provisiones" nillable="true" type="q39:ArrayOfProvisionVentaDirecta" />
-        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="estados" nillable="true" type="q40:ArrayOfEstadoDePedido" />
-        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="mesas" nillable="true" type="q41:ArrayOfMesaLocal" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="productos" nillable="true" type="q42:ArrayOfProductoDePedido" />
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="provisiones" nillable="true" type="q43:ArrayOfProvisionVentaDirecta" />
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="estados" nillable="true" type="q44:ArrayOfEstadoDePedido" />
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="mesas" nillable="true" type="q45:ArrayOfMesaLocal" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="MensajeRegistrarPedidoLocal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarInventario">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DevuelveInventario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="cuentas" nillable="true" type="q46:ArrayOfProvision1" />
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="empleados" nillable="true" type="q47:ArrayOfProvisionDirecta1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RespuestaCI">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditarReceta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="receta" nillable="true" type="q48:Receta" />
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="ingredinetes" nillable="true" type="q49:ArrayOfIngrediente" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RespuestaER">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerarRespaldoAutomatico">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nombreArchivo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RespuestaGR">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />

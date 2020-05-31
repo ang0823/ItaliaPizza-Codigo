@@ -123,7 +123,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        public void LoginRespuesta(string mensaje)
+        public void RespuestaLogin(string mensaje)
         {
             Dispatcher.Invoke(() =>
             {

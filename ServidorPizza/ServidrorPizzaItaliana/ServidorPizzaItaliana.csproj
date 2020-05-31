@@ -55,11 +55,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBuscarIngrediente.cs" />
+    <Compile Include="IConsultarInventario.cs" />
     <Compile Include="IEditarIngrediente.cs" />
+    <Compile Include="IEditarReceta.cs" />
     <Compile Include="IEliminarCuentaUsuario.cs" />
+    <Compile Include="IGenerarRespaldo.cs" />
     <Compile Include="ILogin.cs" />
     <Compile Include="IModificarCuentaUsuario.cs" />
     <Compile Include="IObtenerCuentasUsuario.cs" />
+    <Compile Include="IObtenerRecetas.cs" />
     <Compile Include="IRecuperarProductos.cs" />
     <Compile Include="IRegistrarCuentaUsuario.cs" />
     <Compile Include="IRegistrarIngrediente.cs" />

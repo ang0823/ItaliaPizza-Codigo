@@ -8,19 +8,19 @@ using AccesoBD2;
 
 namespace ServidrorPizzaItaliana
 {
-    [ServiceContract(CallbackContract = typeof(IRegistrarRecetaCallback))]
-    public interface IRegistrarReceta
+    [ServiceContract(CallbackContract = typeof(IEditarRecetaCallback))]
+    interface IEditarReceta
     {
         [OperationContract(IsOneWay = true)]
-        void RegistrarReceta(Receta receta, List<Ingrediente> ingredientes);
+        void EditarReceta(Receta receta, List<Ingrediente> ingredinetes);
 
     }
 
     [ServiceContract]
-    public interface IRegistrarRecetaCallback
+    public interface IEditarRecetaCallback
     {
 
         [OperationContract(IsOneWay = true)]
-        void RespuestaRR(string mensaje);
+        void RespuestaER(string mensaje);
     }
 }

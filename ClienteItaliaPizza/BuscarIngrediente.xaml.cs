@@ -47,7 +47,7 @@ namespace ClienteItaliaPizza
                     ingrediente.nombre = IngredienteNombre.Text.Trim();
                     ingrediente.noExistencias = noExistencias;
                     ingrediente.ubicacion = IngredienteUbicacion.Text.Trim();
-                    ingrediente.stockMinimo = StockMinimo.Text.Trim();
+                    ingrediente.stockMinimo = int.Parse(StockMinimo.Text.Trim());
                     ingrediente.costoUnitario = precio;
                     ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
                     ServicioIngrediente.Editar(ingrediente);
@@ -133,7 +133,7 @@ namespace ClienteItaliaPizza
             IngredientePrecio.Text = provision.costoUnitario.ToString();
             IngredienteUbicacion.Text = provision.ubicacion;
             IngredienteExistencias.Text = provision.noExistencias.ToString();
-            StockMinimo.Text = provision.stockMinimo;
+            StockMinimo.Text = provision.stockMinimo.ToString();
             UnidadMedidaCb.SelectedItem = provision.unidadMedida;
         }
 
@@ -158,15 +158,15 @@ namespace ClienteItaliaPizza
         {
             Boolean InformacionEditada = false;
             string NuevoNombre = IngredienteNombre.Text;
-            string NuevoPrecipo = IngredientePrecio.Text;
+            string NuevoPrecio = IngredientePrecio.Text;
             string NuevaUbicacion = IngredienteUbicacion.Text;
             string NuevasExistencias = IngredienteExistencias.Text;
             string NuevoStockMinimo = StockMinimo.Text;
             string NuevaMedida = UnidadMedidaCb.SelectedItem.ToString();
 
-            if (NuevoNombre != ingrediente.nombre || NuevoPrecipo != ingrediente.costoUnitario.ToString()
+            if (NuevoNombre != ingrediente.nombre || NuevoPrecio != ingrediente.costoUnitario.ToString()
                 || NuevaUbicacion != ingrediente.ubicacion || NuevasExistencias != ingrediente.noExistencias.ToString()
-                || NuevoStockMinimo != ingrediente.stockMinimo || NuevaMedida != ingrediente.unidadMedida)
+                || NuevoStockMinimo != ingrediente.stockMinimo.ToString() || NuevaMedida != ingrediente.unidadMedida)
             {
                 InformacionEditada = true;
             }
