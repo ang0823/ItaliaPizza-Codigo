@@ -106,30 +106,51 @@ namespace ClienteItaliaPizza.Pantallas
 
         private void ButtonNuevoPedidoLocal_Click(object sender, RoutedEventArgs e)
         {
-            NuevoPedido ventanaNuevoPedido = new NuevoPedido();
+            NuevoPedido ventanaNuevoPedido = new NuevoPedido("Local");
             ventanaNuevoPedido.Show();                        
         }
 
         private void ButtonImprimir_Click(object sender, RoutedEventArgs e)
         {
-           
         }
 
         private void ButtonPDF_Click(object sender, RoutedEventArgs e)
         {
-            Document doc = new Document();
-            PdfWriter.GetInstance(doc, new FileStream("hola.pdf", FileMode.Create));
-            doc.Open();
+            var rutaApp = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
+            string rutaTicketsPDF = "TicketsPDF";
+            var rootDirectory = System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + "../../"+ rutaTicketsPDF);
+            if (Directory.Exists(@rootDirectory) == true)
+            {
+                GenerarTicketPDF(@rootDirectory);
+            }
+            else
+            {
+                DirectoryInfo di = Directory.CreateDirectory(@rootDirectory);
+                GenerarTicketPDF(@rootDirectory);
+            }            
+        }
 
+        public void GenerarTicketPDF(string ruta)
+        {
+            int contadorTicketid = 0;
+            contadorTicketid++;
+   
+            Document doc = new Document();
+
+           var n = PdfWriter.GetInstance(doc, new FileStream(@ruta + "/Ticket" +contadorTicketid +".pdf", FileMode.OpenOrCreate));
+            doc.Open();
             Paragraph title = new Paragraph();
             title.Font = FontFactory.GetFont(FontFactory.TIMES, 18f, BaseColor.BLUE);
-            title.Add("Hola Mundo!!");
+            title.Add("Ticket"+ contadorTicketid);
             doc.Add(title);
 
-            doc.Add(new Paragraph("Hola Mundo!!"));
-            doc.Add(new Paragraph("Parrafo 1"));
-            doc.Add(new Paragraph("Parrafo 2"));
+            doc.Add(new Paragraph("Formato de Ticket - Italia Pizza"));
+            doc.Add(new Paragraph("IdPedido: "+ contadorTicketid));
+            doc.Add(new Paragraph("Costo total: "));
             doc.Close();
+
+            VisorPDF visorPDF = new VisorPDF(@ruta + "/Ticket" + contadorTicketid + ".pdf");
+            visorPDF.Show();
         }
     }
 }

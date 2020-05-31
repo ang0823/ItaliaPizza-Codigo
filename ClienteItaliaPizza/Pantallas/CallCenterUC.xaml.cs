@@ -93,7 +93,7 @@ namespace ClienteItaliaPizza.Pantallas
         }
         private void ButtonNuevoPedidoDomicilio_Click(object sender, RoutedEventArgs e)
         {
-            NuevoPedido ventanaNuevoPedidoADomicilio = new NuevoPedido();
+            NuevoPedido ventanaNuevoPedidoADomicilio = new NuevoPedido("Domicilio");
             ventanaNuevoPedidoADomicilio.Show();
         }
     }
