@@ -13,14 +13,14 @@ namespace ServidrorPizzaItaliana
     interface IObtenerCuentasUsuario
     {
         [OperationContract(IsOneWay = true)]
-        void ObtenerCuentas();
+        void ObtenerCuentas(string idEmleadoGenerado);
     }
 
     [ServiceContract]
     public interface IObtenerCuentasCallback
     {
         [OperationContract(IsOneWay = true)]
-        void DevuelveCuentas(List<CuentaUsuario1> cuentas, List<Empleado1> empleados, List<Direccion1> direcciones, List<Rol1> roles);
+        void DevuelveCuentas(CuentaUsuario1 cuenta,Empleado1 empleado, Direccion1 direccion, Rol1 rol);
 
         [OperationContract(IsOneWay = true)]
         void RespuestaOCU(string mensaje);
@@ -35,6 +35,7 @@ namespace ServidrorPizzaItaliana
         string contraseña;
         [DataMember]
         int id;
+
 
         public CuentaUsuario1(string nombreUsuario, string contraseña, int id)
         {
@@ -62,6 +63,7 @@ namespace ServidrorPizzaItaliana
         [DataMember]
         string idEmpleadoGenerado;
 
+        
 
         public Empleado1(Int64 idEmpleado, string nombre, string apellidoPaterno, string apellidoMaterno, string telefono, string correo, string idEmpleadoGenerado)
         {

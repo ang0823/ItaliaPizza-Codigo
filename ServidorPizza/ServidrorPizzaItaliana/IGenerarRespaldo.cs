@@ -12,7 +12,7 @@ namespace ServidrorPizzaItaliana
     public interface IGenerarRespaldo
     {
         [OperationContract(IsOneWay = true)]
-        void GenerarRespaldoAutomatico(string nombreArchivo);
+        void GenerarRespaldo(string nombreArchivo);
     }
 
     [ServiceContract]

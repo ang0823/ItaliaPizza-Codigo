@@ -41,6 +41,8 @@ public partial class Empleado
 
     public string idEmpleadoGenerado { get; set; }
 
+    public bool activado { get; set; }
+
 
 
     public virtual CuentaUsuario CuentaUsuario { get; set; }

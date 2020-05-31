@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,25 +19,9 @@ namespace ServidrorPizzaItaliana
     public interface ILoginCallback
     {
         [OperationContract(IsOneWay = true)]
-        void DevuelveCuenta(CuentaCliente cuenta);
+        void DevuelveCuenta(CuentaUsuario1 cuenta,Empleado1 empleado, Direccion1 direccion,Rol1 rol);
 
         [OperationContract(IsOneWay = true)]
         void RespuestaLogin(string mensaje);
-    }
-
-    [DataContract]
-    public class CuentaCliente
-    {
-        [DataMember]
-        public string rol;
-
-        [DataMember]
-        public string nombreUsuario;
-
-        public CuentaCliente(string rol, string nombreUsuario)
-        {
-            this.rol = rol;
-            this.nombreUsuario = nombreUsuario;
-        }
     }
 }

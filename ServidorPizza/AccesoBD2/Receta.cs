@@ -37,6 +37,8 @@ public partial class Receta
 
     public string nombreReceta { get; set; }
 
+    public bool activado { get; set; }
+
 
 
     public virtual Producto Producto { get; set; }

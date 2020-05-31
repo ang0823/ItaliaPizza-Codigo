@@ -146,6 +146,7 @@
     <Property Name="telefono" Type="nvarchar(max)" Nullable="false" />
     <Property Name="correo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="idEmpleadoGenerado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="activado" Type="bit" Nullable="false" />
     <Property Name="Direccion_Id" Type="int" Nullable="false" />
     <Property Name="Rol_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -220,6 +221,7 @@
     <Property Name="activado" Type="bit" Nullable="false" />
     <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Categoria_Id" Type="int" Nullable="false" />
+    <Property Name="Receta_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="CuentaSet">
     <Key>
@@ -258,7 +260,7 @@
     <Property Name="porciones" Type="float" Nullable="false" />
     <Property Name="procedimiento" Type="nvarchar(max)" Nullable="false" />
     <Property Name="nombreReceta" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Producto_Id" Type="int" Nullable="false" />
+    <Property Name="activado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="ProvisionSet">
     <Key>
@@ -271,6 +273,7 @@
     <Property Name="stockMinimo" Type="int" Nullable="false" />
     <Property Name="costoUnitario" Type="float" Nullable="false" />
     <Property Name="unidadMedida" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="activado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="IngredienteSet">
     <Key>
@@ -446,14 +449,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ProductoReceta">
-    <End Role="Producto" Type="BDPizzaModel.Store.ProductoSet" Multiplicity="1" />
-    <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="*" />
+    <End Role="Producto" Type="BDPizzaModel.Store.ProductoSet" Multiplicity="*" />
+    <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="Producto">
-        <PropertyRef Name="Id" />
+      <Principal Role="Receta">
+        <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Receta">
-        <PropertyRef Name="Producto_Id" />
+      <Dependent Role="Producto">
+        <PropertyRef Name="Receta_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -725,24 +728,9 @@
             <Parameter Name="Iva" Mode="In" Type="Double" />
             <Parameter Name="Descuento" Mode="In" Type="Double" />
           </FunctionImport>
-          <FunctionImport Name="InsertarPedido">
-            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
-            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
-            <Parameter Name="IdEmpleado" Mode="In" Type="Int32" />
-            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
-            <Parameter Name="IdCuenta" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertarPedidoLocal">
-            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
-            <Parameter Name="IdPedido" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="InsertarPedioDomicilio">
             <Parameter Name="IdCliente" Mode="In" Type="Int32" />
             <Parameter Name="IdPedido" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="LigarClienteADireccion">
-            <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="LigarProductoConPedido">
             <Parameter Name="IdProducto" Mode="In" Type="Int32" />
@@ -751,6 +739,17 @@
           <FunctionImport Name="LigarProvisionConPedido">
             <Parameter Name="IdProvision" Mode="In" Type="Int32" />
             <Parameter Name="IdPedido" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertarPedido">
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int32" />
+            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
+            <Parameter Name="IdCuenta" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="LigarClienteADireccion">
+            <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RegistrarTelefono">
             <Parameter Name="Telefono" Mode="In" Type="String" />
@@ -764,6 +763,10 @@
             <Parameter Name="Colonia" Mode="In" Type="String" />
             <Parameter Name="NumeroExterior" Mode="In" Type="String" />
             <Parameter Name="NumeroInterior" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertarPedidoLocal">
+            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
+            <Parameter Name="IdPedido" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="CuentaUsuario">
@@ -790,6 +793,7 @@
           <NavigationProperty Name="Rol" Relationship="BDPizzaModel.EmpleadoRol" FromRole="Empleado" ToRole="Rol" />
           <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.EmpleadoPedido" FromRole="Empleado" ToRole="Pedido" />
           <Property Name="idEmpleadoGenerado" Type="String" Nullable="false" />
+          <Property Name="activado" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Direccion">
           <Key>
@@ -918,6 +922,7 @@
           <NavigationProperty Name="Provision" Relationship="BDPizzaModel.RecetaProvision" FromRole="Receta" ToRole="Provision" />
           <Property Name="nombreReceta" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Ingrediente" Relationship="BDPizzaModel.IngredienteReceta" FromRole="Receta" ToRole="Ingrediente" />
+          <Property Name="activado" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Provision">
           <Key>
@@ -932,6 +937,7 @@
           <Property Name="unidadMedida" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="ProvisionDirecta" Relationship="BDPizzaModel.ProvisionDirectaProvision" FromRole="Provision" ToRole="ProvisionDirecta" />
           <NavigationProperty Name="Receta" Relationship="BDPizzaModel.RecetaProvision" FromRole="Provision" ToRole="Receta" />
+          <Property Name="activado" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="CuentaUsuarioEmpleado">
           <End Type="BDPizzaModel.CuentaUsuario" Role="CuentaUsuario" Multiplicity="0..1" />
@@ -982,8 +988,8 @@
           <End Type="BDPizzaModel.Provision" Role="Provision" Multiplicity="1" />
         </Association>
         <Association Name="ProductoReceta">
-          <End Type="BDPizzaModel.Producto" Role="Producto" Multiplicity="1" />
-          <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="*" />
+          <End Type="BDPizzaModel.Producto" Role="Producto" Multiplicity="0..1" />
+          <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="1" />
         </Association>
         <Association Name="RecetaProvision">
           <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="*" />
@@ -1062,6 +1068,7 @@
           <ScalarProperty Name="telefono" ColumnName="telefono" />
           <ScalarProperty Name="correo" ColumnName="correo" />
           <ScalarProperty Name="idEmpleadoGenerado" ColumnName="idEmpleadoGenerado" />
+          <ScalarProperty Name="activado" ColumnName="activado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1190,6 +1197,7 @@
           <ScalarProperty Name="porciones" ColumnName="porciones" />
           <ScalarProperty Name="procedimiento" ColumnName="procedimiento" />
           <ScalarProperty Name="nombreReceta" ColumnName="nombreReceta" />
+          <ScalarProperty Name="activado" ColumnName="activado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1203,6 +1211,7 @@
           <ScalarProperty Name="stockMinimo" ColumnName="stockMinimo" />
           <ScalarProperty Name="costoUnitario" ColumnName="costoUnitario" />
           <ScalarProperty Name="unidadMedida" ColumnName="unidadMedida" />
+          <ScalarProperty Name="activado" ColumnName="activado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1314,12 +1323,12 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ProductoReceta" TypeName="BDPizzaModel.ProductoReceta" StoreEntitySet="RecetaSet">
-      <EndProperty Name="Producto">
-        <ScalarProperty Name="Id" ColumnName="Producto_Id" />
-      </EndProperty>
+    <AssociationSetMapping Name="ProductoReceta" TypeName="BDPizzaModel.ProductoReceta" StoreEntitySet="ProductoSet">
       <EndProperty Name="Receta">
-        <ScalarProperty Name="id" ColumnName="id" />
+        <ScalarProperty Name="id" ColumnName="Receta_id" />
+      </EndProperty>
+      <EndProperty Name="Producto">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="RecetaProvision" TypeName="BDPizzaModel.RecetaProvision" StoreEntitySet="RecetaProvision">
@@ -1338,15 +1347,6 @@
         <ScalarProperty Name="id" ColumnName="Receta_id" />
       </EndProperty>
     </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="InsertarCuentaDePedido" FunctionName="BDPizzaModel.Store.InsertarCuentaDePedido" />
-          <FunctionImportMapping FunctionImportName="InsertarPedido" FunctionName="BDPizzaModel.Store.InsertarPedido" />
-          <FunctionImportMapping FunctionImportName="InsertarPedidoLocal" FunctionName="BDPizzaModel.Store.InsertarPedidoLocal" />
-          <FunctionImportMapping FunctionImportName="InsertarPedioDomicilio" FunctionName="BDPizzaModel.Store.InsertarPedioDomicilio" />
-          <FunctionImportMapping FunctionImportName="LigarClienteADireccion" FunctionName="BDPizzaModel.Store.LigarClienteADireccion" />
-          <FunctionImportMapping FunctionImportName="LigarProductoConPedido" FunctionName="BDPizzaModel.Store.LigarProductoConPedido" />
-          <FunctionImportMapping FunctionImportName="LigarProvisionConPedido" FunctionName="BDPizzaModel.Store.LigarProvisionConPedido" />
-          <FunctionImportMapping FunctionImportName="RegistrarTelefono" FunctionName="BDPizzaModel.Store.RegistrarTelefono" />
-          <FunctionImportMapping FunctionImportName="RegistroDeClienteConDireccion" FunctionName="BDPizzaModel.Store.RegistroDeClienteConDireccion" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

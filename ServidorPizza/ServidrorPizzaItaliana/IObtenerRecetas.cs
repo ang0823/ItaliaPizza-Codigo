@@ -12,6 +12,12 @@ namespace ServidrorPizzaItaliana
     interface IObtenerRecetas
     {
         [OperationContract(IsOneWay = true)]
+<<<<<<< HEAD
+=======
+        void ObtenerReceta(string nombre);
+
+        [OperationContract(IsOneWay = true)]
+>>>>>>> 6cfa44b8ca0fa7ac94ae93d8f3d179846a352b36
         void ObtenerRecetas();
     }
 
@@ -19,7 +25,14 @@ namespace ServidrorPizzaItaliana
     public interface IObtenerRecetasCallback
     {
         [OperationContract(IsOneWay = true)]
+<<<<<<< HEAD
         void DevuelveRecetas(List<Receta1> receta, List<Ingrediente1> ingredientes);
+=======
+        void DevuelveReceta(Receta1 receta, List<Ingrediente1> ingredientes);
+
+        [OperationContract(IsOneWay = true)]
+        void DevuelveRecetas(List<Receta1> recetas);
+>>>>>>> 6cfa44b8ca0fa7ac94ae93d8f3d179846a352b36
 
         [OperationContract(IsOneWay = true)]
         void RespuestaIOR(string mensaje);
@@ -37,6 +50,10 @@ namespace ServidrorPizzaItaliana
         [DataMember]
         int id;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6cfa44b8ca0fa7ac94ae93d8f3d179846a352b36
         public Receta1(int id,double porciones, string procedimiento,string nombreReceta)
         {
             this.id = id;

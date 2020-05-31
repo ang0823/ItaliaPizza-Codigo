@@ -43,6 +43,8 @@ public partial class Provision
 
     public string unidadMedida { get; set; }
 
+    public bool activado { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
