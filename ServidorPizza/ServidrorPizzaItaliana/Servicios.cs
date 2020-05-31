@@ -852,4 +852,49 @@ namespace ServidrorPizzaItaliana
             }
         }
     }
+
+    public partial class Servicios : INotificarPedido
+    {
+        Dictionary<INotificarPedidoCallback, string> usuarios = new Dictionary<INotificarPedidoCallback, string>();
+
+        public void AgregarUsuario(string tipoUsuario)
+        {
+            usuarios[Callback9] = tipoUsuario;
+        }
+
+        public void EnviarPedidoLocal(PedidoLocal pedido, string usuario)
+        {
+            foreach (var destinatario in usuarios)
+            {
+                if (!destinatario.Value.Equals(usuario))
+                {
+                    if (destinatario.Key == Callback9)
+                        continue;
+                    destinatario.Key.RecibirPedidoLocal(pedido);
+                }
+            }
+        }
+
+        public void EnviarPedidoADomicilio(PedidoADomicilio pedido, string usuario)
+        {
+            foreach (var destinatario in usuarios)
+            {
+                if (destinatario.Value.Equals(usuario))
+                {
+                    if (destinatario.Key == Callback9)
+                        continue;
+                    destinatario.Key.RecibirPedidoDomicilio(pedido);
+                }
+            }
+        }
+
+        INotificarPedidoCallback Callback9
+        {
+            get
+            {
+                return OperationContext.Current.GetCallbackChannel<INotificarPedidoCallback>();
+            }
+        }
+    }
+
 }
