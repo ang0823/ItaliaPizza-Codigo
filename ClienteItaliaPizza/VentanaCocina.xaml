@@ -34,21 +34,16 @@
             <Label x:Name="labelTipoPedido" Content="TipoPedido" HorizontalAlignment="Left" Margin="530,84,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBD0000" FontSize="16"/>
             <Label x:Name="labelNumMesa" Content="No.Mesa" HorizontalAlignment="Left" Margin="665,75,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBD0000" FontSize="16"/>
             <Button x:Name="ButtonPedidoDomicilioListo" Content="Listo" HorizontalAlignment="Left" Margin="800,125,0,0" VerticalAlignment="Top" Width="140" Background="#FFF39C27" FontWeight="Bold" Height="50" FontSize="18" Click="ButtonPedidoDomicilioListo_Click"/>
-            <Button x:Name="ButtonRegresar" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Width="40" Height="55" Click="ButtonRegresarClick">
-                <Image Height="45" Width="35" Source="RecursosGUI/logout.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleX="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
+            <Button x:Name="ButtonRegresar" HorizontalAlignment="Left" Height="43" Margin="5,5,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.222,0.556" Click="ButtonRegresarClick">
+                <Button.Background>
+                    <SolidColorBrush Color="White" Opacity="0.5"/>
+                </Button.Background>
+                <Image Height="35" Width="39" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
+
             </Button>
 
-            <local:CocinaPedidoLocal Visibility="Collapsed"></local:CocinaPedidoLocal>
-            <local:CocinaPedidoDomicilio Visibility="Collapsed"></local:CocinaPedidoDomicilio>
+            <local:CocinaPedidoLocal x:Name="UC_PedidoLocal" Visibility="Collapsed" ></local:CocinaPedidoLocal>
+            <local:CocinaPedidoDomicilio x:Name="UC_PedidoDomicilio" Visibility="Collapsed"></local:CocinaPedidoDomicilio>
         </Grid>
 
     </ScrollViewer>
