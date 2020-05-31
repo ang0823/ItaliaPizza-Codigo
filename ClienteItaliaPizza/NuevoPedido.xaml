@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ClienteItaliaPizza"
+        xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
         mc:Ignorable="d"
         Title="Pedido" Height="650" Width="1000">
     <Window.Background>
@@ -20,10 +20,10 @@
     </Window.Background>
 
     <Grid x:Name="gridPedido">
-        <TabControl x:Name="tabControlProductos" HorizontalAlignment="Left" Height="202" Margin="58,234,0,0" VerticalAlignment="Top" Width="593" BorderBrush="#FF060606">
+        <TabControl x:Name="tabControlProductos" HorizontalAlignment="Left" Height="202" Margin="58,234,0,0" VerticalAlignment="Top" Width="601" BorderBrush="#FF060606">
             <TabItem x:Name="tabItemEnsaladas" Header="Ensaladas">
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
-                    <ListBox x:Name="ListBox1Productos" HorizontalAlignment="Left" Height="139" Margin="18,19,0,0" VerticalAlignment="Top" Width="554" SelectionChanged="SeleccionaUnProducto" />
+                    <ListBox x:Name="ListBoxEnsaladas" HorizontalAlignment="Left" Height="139" Margin="18,19,0,0" VerticalAlignment="Top" Width="554" SelectionChanged="SeleccionaUnProducto" />
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabItemPizzas" Header="Pizzas">
@@ -42,23 +42,32 @@
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2"/>
             </TabItem>
             <TabItem x:Name="tanItemBebidas" Header="Bebidas">
-                <Grid Background="#FFE5E5E5" Margin="0,2,0,-2"/>
+                <Grid x:Name="gridBebidas" Background="#FFE5E5E5" Margin="0,2,0,-2" IsVisibleChanged="GridBebidas_IsVisibleChanged">
+                    <ListView x:Name ="listviewBebidas"  HorizontalAlignment="Left" Height="138" Margin="21,21,0,0" VerticalAlignment="Top" Width="559">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
             </TabItem>
         </TabControl>
 
         <TextBlock x:Name="textBlockInstruccionesEspeciales" HorizontalAlignment="Left" Margin="64,456,0,0" TextWrapping="Wrap" Text="Instrucciones Especiales" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <TextBox x:Name="textBoxInstruccionesEspeciales" HorizontalAlignment="Left" Height="90" Margin="64,494,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="587" BorderBrush="Black" MaxLength="150" PreviewTextInput="TextBoxInstruccionesEspeciales_PreviewTextInput" />
-        
-        <DataGrid x:Name="dataGridOrden" HorizontalAlignment="Left" Height="230" Margin="722,38,0,0" VerticalAlignment="Top" Width="240" BorderBrush="Black">
+        <TextBox x:Name="textBoxInstruccionesEspeciales" HorizontalAlignment="Left" Height="90" Margin="64,494,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="587" BorderBrush="Black" MaxLength="150" />
+
+        <DataGrid x:Name="dataGridOrden" HorizontalAlignment="Left" Height="230"  Margin="704,34,0,0" VerticalAlignment="Top" Width="265" CanUserResizeColumns="False" BorderBrush="Black" >
             <DataGrid.Background>
                 <SolidColorBrush Color="#FFF0F0F0" Opacity="0.5"/>
             </DataGrid.Background>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="57"/>
-                <DataGridTemplateColumn x:Name="ColumnProducto" Header="Producto" Width="60"/>
-                <DataGridTemplateColumn x:Name="ColumnPreciounitario" Header="P.U" Width="30"/>
-                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="30"/>
-                <DataGridTemplateColumn x:Name="ColumnBoton" Width="30"/>
+                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="60"/>
+                <DataGridTemplateColumn x:Name="ColumnProducto" Header="Producto" Width="70"/>
+                <DataGridTemplateColumn x:Name="ColumnPreciounitario" Header="P.U" Width="50"/>
+                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="50"/>
+                <DataGridTemplateColumn x:Name="ColumnBoton" Width="50"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -70,10 +79,10 @@
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="739,420,0,0" TextWrapping="Wrap" Text="Descuento:" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="18"/>
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="739,454,0,0" TextWrapping="Wrap" Text="Total:" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="18"/>
 
-        <Label x:Name="labelSubtotal" Content="$" HorizontalAlignment="Left" Margin="866,345,0,0" VerticalAlignment="Top" FontSize="18" Height="57" Width="29" Foreground="White"/>
-        <Label x:Name="labelIVA" Content="16%" HorizontalAlignment="Left" Margin="851,378,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="58" Width="63"/>
+        <Label x:Name="labelSubtotal" Content="$" HorizontalAlignment="Left" Margin="866,345,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="29" Foreground="White"/>
+        <Label x:Name="labelIVA" Content="16%" HorizontalAlignment="Left" Margin="851,378,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="38" Width="63"/>
         <Label x:Name="labelTotal" Content="$" HorizontalAlignment="Left" Margin="851,454,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="58" Width="29"/>
-        <TextBox x:Name="textBoxDescuento" HorizontalAlignment="Left" Height="31" Margin="851,423,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="105" RenderTransformOrigin="0.5,0.5" FontSize="18" Foreground="White" MaxLength="4" PreviewTextInput="TextBoxDescuento_PreviewTextInput">
+        <TextBox x:Name="textBoxDescuento" HorizontalAlignment="Left" Height="31" Margin="851,423,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0.5,0.5" FontSize="18" Foreground="Black" MaxLength="3" PreviewTextInput="TextBoxDescuento_PreviewTextInput">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -83,9 +92,9 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <Label x:Name="labelNumEmpleado" Content="Número de empleado" HorizontalAlignment="Left" Margin="60,44,0,0" VerticalAlignment="Top" Foreground="#FFFFF2F2"/>
-        <ComboBox x:Name="comboBoxNumEmpleado" HorizontalAlignment="Left" Margin="198,47,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" Loaded="ComboBoxNumEmpleado_Loaded" />
-        <Label x:Name="labelNoMesa" Content="No.Mesa" HorizontalAlignment="Left" Margin="58,121,0,0" VerticalAlignment="Top" Foreground="#FFF9F9F9"/>
-        <ComboBox x:Name="comboBoxNoMesa" HorizontalAlignment="Left" Margin="203,119,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <local:NuevoPedido_Local x:Name="UC_NuevoPLocal" Visibility="Collapsed" eventLlenarNoMesa="UC_NuevoPLocal_eventLlenarNoMesa" eventLlenarNumEmpleado="UC_NuevoPLocal_eventLlenarNumEmpleado" eventSeleccionarNoMesa="UC_NuevoPLocal_eventSeleccionarNoMesa" eventSeleccionarNumEmpleado="UC_NuevoPLocal_eventSeleccionarNumEmpleado" ></local:NuevoPedido_Local>
+        <local:NuevoPedido_Domicilio x:Name="UC_NuevoDomicilio" Visibility="Collapsed" eventLlenarComboBoxClienteNombre="UC_NuevoDomicilio_eventLlenarComboBoxClienteNombre" eventSeleccionarCliente="UC_NuevoDomicilio_eventSeleccionarCliente" eventLlenarComboBoxDireccion="UC_NuevoDomicilio_eventLlenarComboBoxDireccion" eventSeleccionarDirección="UC_NuevoDomicilio_eventSeleccionarDirección" eventEditarTelefono="UC_NuevoDomicilio_eventEditarTelefono"></local:NuevoPedido_Domicilio>
+        <Label x:Name="labelPorcentajeDescuento" Content="%" HorizontalAlignment="Left" Margin="931,420,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="58" Width="29"/>
     </Grid>
 </Window>
