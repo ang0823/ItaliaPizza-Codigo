@@ -1,7 +1,6 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,10 +16,10 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class RegistroProductos : Window, IRegistrarProductoCallback, IObtenerRecetasCallback
     {
-        CuentaUsuario CuentaUsuario;
-        Producto producto;
-        List<Receta1> recetas = new List<Receta1>();
-        public RegistroProductos(CuentaUsuario cuenta)
+        CuentaUsuario1 CuentaUsuario;
+        Receta1 recetaCliente = new Receta1();
+
+        public RegistroProductos(CuentaUsuario1 cuenta)
         {
             CuentaUsuario = cuenta;
             InitializeComponent();
@@ -68,7 +67,7 @@ namespace ClienteItaliaPizza
                 InstanceContext context = new InstanceContext(this);
                 ObtenerRecetasClient ServicioRecetas = new ObtenerRecetasClient(context);
 
-                ServicioRecetas.ObtenerRecetas();
+                ServicioRecetas.ObtenerReceta("Cadena de prueba");
             }
             catch(Exception exc)
             {
@@ -108,6 +107,8 @@ namespace ClienteItaliaPizza
 
         private void IniciarComboBoxes()
         {
+            RecetaCb.Items.Insert(0, "Seleccionar");
+
             EstadoCb.Items.Insert(0, "Desactivado");
             EstadoCb.Items.Insert(1, "Activado");
 
@@ -121,29 +122,30 @@ namespace ClienteItaliaPizza
 
         private void RegistrarProductoClient()
         {
-            Producto producto;
-            Categoria categoria;
+            Producto producto = new Producto();
+            Categoria categoria = new Categoria();
+            int indiceReceta = RecetaCb.SelectedIndex;
+
             try
             {
                 InstanceContext context = new InstanceContext(this);
                 RegistrarProductoClient ServicioRegistro = new RegistrarProductoClient(context);
-                producto = new Producto();
+
                 producto.nombre = NombreTxt.Text;
                 producto.precioUnitario = double.Parse(PrecioTxt.Text.Trim());
                 producto.imagen = ConvertirImagenABytes();
                 producto.activado = EstaActivado();
                 producto.descripcion = DescripcionTxt.Text;
                 producto.restricciones = RestriccionesTxt.Text;
-
-                categoria = new Categoria();
+                
                 categoria.Id = CategoriaCb.SelectedIndex;
                 categoria.categoria = CategoriaCb.SelectedItem.ToString();
-
-                ServicioRegistro.RegistrarProducto(producto, categoria);
+                int indicePrueba = 1; // Eliminar esta varible
+                ServicioRegistro.RegistrarProducto(producto, categoria, indicePrueba);
             }
             catch (Exception e)
             {
-                FuncionesComunes.MostrarMensajeDeError(e.Message);
+                FuncionesComunes.MostrarMensajeDeError(e.Message + " " + e.GetType());
             }
 
         }
@@ -425,28 +427,17 @@ namespace ClienteItaliaPizza
             RegistrarProductoClient();
         }
 
-        public void DatosRecuperados(ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones, EstadoDePedido[] estados, MesaLocal[] mesas)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MensajeRegistrarPedidoLocal(string mensaje)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DevuelveRecetas(Receta1[] receta, Ingrediente1[] ingredientes)
-        {
-            Dispatcher.Invoke(() => {
-            for (int i = 0; i < receta.Length; i++)
-                {
-                    recetas.Add(receta[i]);
-                    RecetaCb.Items.Add(receta[i].nombreReceta);
-                }
-            });
-        }
-
         public void RespuestaIOR(string mensaje)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DevuelveReceta(Receta1 receta, Ingrediente1[] ingredientes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DevuelveRecetas(Receta1[] recetas)
         {
             throw new NotImplementedException();
         }

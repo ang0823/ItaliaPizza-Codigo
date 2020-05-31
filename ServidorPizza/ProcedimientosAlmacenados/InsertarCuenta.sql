@@ -9,7 +9,7 @@ GO
 -- Description:	Procedimiento almacenado para registrar una cuenta de pedido
 -- =============================================
 
-ALTER PROCEDURE InsertarCuentaDePedido
+CREATE PROCEDURE InsertarCuentaDePedido
 
 	@Id varchar (max),
 	@PrecioTotal float, 

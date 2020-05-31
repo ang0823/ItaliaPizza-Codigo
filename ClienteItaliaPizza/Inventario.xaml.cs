@@ -20,8 +20,8 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class Inventario : Window
     {
-        CuentaUsuario cuenta = new CuentaUsuario(); //creo esta clase temporalmente para conectar las ventanas con la principal
-        public Inventario(CuentaUsuario cuentaUsuario)
+        CuentaUsuario1 cuenta = new CuentaUsuario1(); //creo esta clase temporalmente para conectar las ventanas con la principal
+        public Inventario(CuentaUsuario1 cuentaUsuario)
         {
             InitializeComponent();
             cuenta = cuentaUsuario;

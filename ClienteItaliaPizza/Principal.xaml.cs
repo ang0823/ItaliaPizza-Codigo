@@ -9,9 +9,9 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class Principal : Window
     {
-        CuentaUsuario CuentaUsuario;
+        CuentaUsuario1 CuentaUsuario;
 
-        public Principal(CuentaUsuario cuenta)
+        public Principal(CuentaUsuario1 cuenta)
         {
             InitializeComponent();
             this.CuentaUsuario = cuenta;

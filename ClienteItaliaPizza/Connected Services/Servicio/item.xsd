@@ -49,6 +49,7 @@
       <xs:element minOccurs="0" name="IdEmpleado" type="xs:long" />
       <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:ArrayOfPedido" />
       <xs:element minOccurs="0" name="Rol" nillable="true" type="tns:Rol" />
+      <xs:element minOccurs="0" name="activado" type="xs:boolean" />
       <xs:element minOccurs="0" name="apellidoMaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="apellidoPaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="correo" nillable="true" type="xs:string" />
@@ -168,7 +169,7 @@
       <xs:element minOccurs="0" name="Categoria" nillable="true" type="tns:Categoria" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:ArrayOfPedido" />
-      <xs:element minOccurs="0" name="Receta" nillable="true" type="tns:ArrayOfReceta" />
+      <xs:element minOccurs="0" name="Receta" nillable="true" type="tns:Receta" />
       <xs:element minOccurs="0" name="activado" type="xs:boolean" />
       <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="imagen" nillable="true" type="xs:unsignedByte" />
@@ -186,17 +187,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Categoria" nillable="true" type="tns:Categoria" />
-  <xs:complexType name="ArrayOfReceta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfReceta" nillable="true" type="tns:ArrayOfReceta" />
   <xs:complexType name="Receta">
     <xs:sequence>
       <xs:element minOccurs="0" name="Ingrediente" nillable="true" type="tns:ArrayOfIngrediente" />
       <xs:element minOccurs="0" name="Producto" nillable="true" type="tns:Producto" />
       <xs:element minOccurs="0" name="Provision" nillable="true" type="tns:ArrayOfProvision" />
+      <xs:element minOccurs="0" name="activado" type="xs:boolean" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
       <xs:element minOccurs="0" name="nombreReceta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="porciones" type="xs:double" />
@@ -222,6 +218,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Ingrediente" nillable="true" type="tns:Ingrediente" />
+  <xs:complexType name="ArrayOfReceta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReceta" nillable="true" type="tns:ArrayOfReceta" />
   <xs:complexType name="ArrayOfProvision">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Provision" nillable="true" type="tns:Provision" />
@@ -233,6 +235,7 @@
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="ProvisionDirecta" nillable="true" type="tns:ArrayOfProvisionDirecta" />
       <xs:element minOccurs="0" name="Receta" nillable="true" type="tns:ArrayOfReceta" />
+      <xs:element minOccurs="0" name="activado" type="xs:boolean" />
       <xs:element minOccurs="0" name="costoUnitario" type="xs:double" />
       <xs:element minOccurs="0" name="noExistencias" type="xs:int" />
       <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
