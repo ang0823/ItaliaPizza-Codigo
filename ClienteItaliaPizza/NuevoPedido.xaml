@@ -43,14 +43,22 @@
             </TabItem>
             <TabItem x:Name="tanItemBebidas" Header="Bebidas">
                 <Grid x:Name="gridBebidas" Background="#FFE5E5E5" Margin="0,2,0,-2" IsVisibleChanged="GridBebidas_IsVisibleChanged">
-                    <ListView x:Name ="listviewBebidas"  HorizontalAlignment="Left" Height="138" Margin="21,21,0,0" VerticalAlignment="Top" Width="559">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn/>
-                            </GridView>
-                        </ListView.View>
+                   
+                    <ListView x:Name="ListViewBebidas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" SelectionChanged="ListViewBebidas_SelectionChanged" >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <TextBlock Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
-
                 </Grid>
             </TabItem>
         </TabControl>

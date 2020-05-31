@@ -33,9 +33,9 @@ namespace ClienteItaliaPizza
             if (tipoPedido.Equals("Local"))
             {
                 UC_NuevoPLocal.Visibility = Visibility.Visible;
-                InstanceContext instanceContext = new InstanceContext(this);
-                RegistrarPedidoLocalClient cliente = new RegistrarPedidoLocalClient(instanceContext);
-                cliente.ObtenerInformacionDeProductosYEstados();
+                //InstanceContext instanceContext = new InstanceContext(this);
+              //  RegistrarPedidoLocalClient cliente = new RegistrarPedidoLocalClient(instanceContext);
+               // cliente.ObtenerInformacionDeProductosYEstados();
             }
             if (tipoPedido.Equals("Domicilio"))
             {
@@ -174,23 +174,35 @@ namespace ClienteItaliaPizza
 
         private void GridBebidas_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            ImageList listaImagesBebidas = new ImageList();
-           
-           /* Esto era para mostrar la imagen del producto
-            * 
-            * Image image = new Image();            
-            image.Height = 66;
-            image.Width = 78;
-            image.Margin = new Thickness(21, 17, 0, 0);
-            image.Stretch = Stretch.Fill;
-            image.Name = "imagen";
-            image.Opacity = 100;
-            Uri uri = new Uri("C:/Users/survi/Pictures/Granos Selectos (4).jpg");
-            image.Source = new BitmapImage(uri);
+            //ImageList listaImagesBebidas = new ImageList();
+            ListViewBebidas.ItemsSource = new MovieData[] {
+            new MovieData{Title="Movie 1", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+            new MovieData{Title="Movie 2", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+            new MovieData{Title="Movie 3", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+            new MovieData{Title="Movie 4", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+            new MovieData{Title="Movie 5", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+            new MovieData{Title="Movie 6", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")}
+            };          
+            /* Esto era para mostrar la imagen del producto
+             * 
+             * Image image = new Image();            
+             image.Height = 66;
+             image.Width = 78;
+             image.Margin = new Thickness(21, 17, 0, 0);
+             image.Stretch = Stretch.Fill;
+             image.Name = "imagen";
+             image.Opacity = 100;
+             Uri uri = new Uri("C:/Users/survi/Pictures/Granos Selectos (4).jpg");
+             image.Source = new BitmapImage(uri);
 
-            gridBebidas.Children.Add(image); */
+             gridBebidas.Children.Add(image); */
         }
 
+        // for this code image needs to be a project resource
+        private BitmapImage LoadImage(string filename)
+        {
+            return new BitmapImage(new Uri(filename));
+        }
 
 
         /**
@@ -277,6 +289,29 @@ namespace ClienteItaliaPizza
                 return true;
             }
             return false;
+        }
+
+        private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selecto = ListViewBebidas.SelectedItem.ToString();
+            textBlockInstruccionesEspeciales.Text =  selecto;
+        }
+    }
+
+    public class MovieData
+    {
+        private string _Title;
+        public string Title
+        {
+            get { return this._Title; }
+            set { this._Title = value; }
+        }
+
+        private BitmapImage _ImageData;
+        public BitmapImage ImageData
+        {
+            get { return this._ImageData; }
+            set { this._ImageData = value; }
         }
     }
 }

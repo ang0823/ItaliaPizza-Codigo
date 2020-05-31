@@ -86,7 +86,7 @@ namespace ClienteItaliaPizza
             Categoria categoria = new Categoria();
             categoria.categoria = "Pizza";
 
-            registrarRecetaClient.RegistrarReceta(receta, producto , categoria);
+          //  registrarRecetaClient.RegistrarReceta(receta, producto , categoria);
 
         }
 
@@ -120,6 +120,11 @@ namespace ClienteItaliaPizza
         public void RegistrarRecetaRespuesta(string mensaje)
         {
             MessageBox.Show(mensaje);
+        }
+
+        public void RespuestaRR(string mensaje)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
