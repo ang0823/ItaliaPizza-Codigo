@@ -12,7 +12,7 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para BuscarEmpleados.xaml
     /// </summary>
-    public partial class BuscarEmpleados : Window, IObtenerCuentasUsuarioCallback, IModificarCuentaUsuarioCallback
+    public partial class BuscarEmpleados : Window, IObtenerCuentasUsuarioCallback, IModificarCuentaUsuarioCallback, IEliminarCuentaUsuarioCallback
     {
         CuentaUsuario1 CuentaUsuario;
 
@@ -61,6 +61,21 @@ namespace ClienteItaliaPizza
             return false;
         }
 
+        private void DesactivarEmpleado()
+        {
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                EliminarCuentaUsuarioClient ServicioEliminar = new EliminarCuentaUsuarioClient(context);
+
+                ServicioEliminar.EliminarCuentaUsuario(empleado.idEmpleadoGenerado);
+            }
+            catch (Exception e)
+            {
+                FuncionesComunes.MostrarMensajeDeError(e.Message);
+            }
+        }
+
         private void DeshabilitarCampos()
         {
             nombreTxt.IsEnabled = false;
@@ -80,39 +95,60 @@ namespace ClienteItaliaPizza
 
         private void EditarInformacion() 
         {
-                try
-                {
-                    if (HayInformacionEditada())
-                    {
-                        InstanceContext context = new InstanceContext(this);
-                        ModificarCuentaUsuarioClient ServicioModificar = new ModificarCuentaUsuarioClient(context);
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                ModificarCuentaUsuarioClient ServicioModificar = new ModificarCuentaUsuarioClient(context);
 
-                        empleado.nombre = nombreTxt.Text.Trim();
-                        empleado.apellidoPaterno = aPaternoTxt.Text.Trim();
-                        empleado.apellidoMaterno = aMaternoTxt.Text.Trim();
-                        empleado.correo = correoElectronicoTxt.Text.Trim();
-                        empleado.telefono = telefonoTxt.Text;
-                        direccion.calle = calleTxt.Text;
-                        direccion.colonia = coloniaTxt.Text;
-                        direccion.numeroExterior = codigoPostalTxt.Text;
-                        idPuesto = puestosCB.SelectedIndex;
-                        if (idPuesto == 3 || idPuesto == 4 || idPuesto == 5)
-                        {
-                            usuarioTxt.Text = cuenta.nombreUsuario;
-                            contrasenaTxt.Password = cuenta.contraseña;
-                        }
-                        ServicioModificar.ModificarCuentaUsuario(this.cuenta, empleado, direccion, idPuesto);
+                if (HayInformacionEditada())
+                {
+                    empleado.nombre = nombreTxt.Text.Trim();
+                    empleado.apellidoPaterno = aPaternoTxt.Text.Trim();
+                    empleado.apellidoMaterno = aMaternoTxt.Text.Trim();
+                    empleado.correo = correoElectronicoTxt.Text.Trim();
+                    empleado.telefono = telefonoTxt.Text.Trim();
+                    empleado.activado = EstaActivado();
+                    direccion.calle = calleTxt.Text.Trim();
+                    direccion.colonia = coloniaTxt.Text.Trim();
+                    direccion.numeroExterior = codigoPostalTxt.Text.Trim();
+                    idPuesto = puestosCB.SelectedIndex;
+
+                    if (EsAdministrativo())
+                    {
+                        usuarioTxt.Text = cuenta.nombreUsuario;
+                        contrasenaTxt.Password = cuenta.contraseña;
+                        ServicioModificar.ModificarCuentaUsuario(cuenta, empleado, direccion, idPuesto);
+                        EstablecerInformacion();
                     }
                     else
                     {
+                        ServicioModificar.ModificarCuentaUsuario2(empleado, direccion, idPuesto);
                         EstablecerInformacion();
                     }
+                }
+                else
+                {
+                    EstablecerInformacion();
+                }
+
                 DeshabilitarCampos();
             }
             catch (Exception e)
             {
                 FuncionesComunes.MostrarMensajeDeError(e.Message + ": " + e.GetType());
             }
+        }
+
+        private Boolean EsAdministrativo()
+        {
+            bool EsAdministrativo = false;
+
+            if (puestosCB.SelectedIndex == 3 || puestosCB.SelectedIndex == 4 || puestosCB.SelectedIndex == 5)
+            {
+                EsAdministrativo = true;
+            }
+
+            return EsAdministrativo;
         }
 
         private Boolean EsCorreoElectronicoValido()
@@ -126,6 +162,18 @@ namespace ClienteItaliaPizza
             return EsValido;
         }
 
+        private bool EstaActivado()
+        {
+            bool estaActivado = false;
+
+            if (empleado.activado == true)
+            {
+                estaActivado = true;
+            }
+
+            return estaActivado;
+        }
+
         private void EstablecerInformacion()
         {
             idEmpleadoTxt.Text = empleado.idEmpleadoGenerado;
@@ -134,7 +182,7 @@ namespace ClienteItaliaPizza
             aMaternoTxt.Text = empleado.apellidoMaterno;
             correoElectronicoTxt.Text = empleado.correo;
             telefonoTxt.Text = empleado.telefono;
-            if (empleado.activado == false)
+            if (EstaActivado())
             {
                 EstadoTxt.Text = "Activado";
             }
@@ -219,11 +267,24 @@ namespace ClienteItaliaPizza
                 InstanceContext context = new InstanceContext(this);
                 ObtenerCuentasUsuarioClient ServicioBusqueda = new ObtenerCuentasUsuarioClient(context);
 
-                ServicioBusqueda.ObtenerCuentas(idEmpleado);
+                if (SearchBox.Text.Length > 0)
+                {
+                    // Se realiza un parse para corroborar que el ID son números
+                    int.Parse(idEmpleado);
+                    ServicioBusqueda.ObtenerCuentas(idEmpleado);
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError("Se debe introducir un ID para buscar");
+                }
+            }
+            catch (FormatException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("El ID de empleado solo pueden ser numeros");
             }
             catch (Exception e)
             {
-                FuncionesComunes.MostrarMensajeDeError(e.Message);
+                FuncionesComunes.MostrarMensajeDeError(e.GetType() + " " + e.Message);
             }
         }
 
@@ -244,7 +305,7 @@ namespace ClienteItaliaPizza
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            ObtenerEmpledo();
+                ObtenerEmpledo();
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
@@ -271,11 +332,11 @@ namespace ClienteItaliaPizza
             opcion = MessageBox.Show("¿Volver a pantalla principal?", "Cancelar",
                     MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
-                if (opcion == MessageBoxResult.OK)
-                {
-                    FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
-                }
-            this.Close();
+            if (opcion == MessageBoxResult.OK)
+            {
+                FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
+                this.Close();
+            }
         }
 
         private void correoElectronicoTxt_TextChanged(object sender, TextChangedEventArgs e)
@@ -338,10 +399,21 @@ namespace ClienteItaliaPizza
             }
             else
             {
-                EditarGuardarBtn.Content = "Editar";
-                // Aquí debe ir el método que envía los cambios añl servidor
-                EditarInformacion();
+                if (EsCorreoElectronicoValido())
+                {
+                    EditarInformacion();
+                    EditarGuardarBtn.Content = "Editar";
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError("El correo electrónico no tiene un formato válido");
+                }
             }
+        }
+
+        private void EliminarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DesactivarEmpleado();
         }
 
         public void RespuestaOCU(string mensaje)
@@ -359,6 +431,7 @@ namespace ClienteItaliaPizza
            {
                if(mensaje == "Se modificó correctamente")
                {
+                   mensaje = "La información se modificó correctamente";
                    FuncionesComunes.MostrarMensajeExitoso(mensaje);
                }
                else
@@ -366,105 +439,19 @@ namespace ClienteItaliaPizza
                    FuncionesComunes.MostrarMensajeDeError(mensaje);
                }
            });
-            FuncionesComunes.MostrarMensajeExitoso("La información se ha editado correctamente");
             EstablecerInformacion();
         }
 
-        private void nombreTxt_TextChanged(object sender, TextChangedEventArgs e)
+        private void CamposDeTexto_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (CamposLlenos())
             {
                 EditarGuardarBtn.IsEnabled = true;
                 EliminarBtn.IsEnabled = true;
             }
-        }
-
-        private void aPaternoTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
+            else
             {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void aMaternoTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void calleTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void NoExteriorTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void NoInteriorTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void coloniaTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void codigoPostalTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void telefonoTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void idEmpleadoTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
-            }
-        }
-
-        private void usuarioTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
+                EditarGuardarBtn.IsEnabled = false;
                 EliminarBtn.IsEnabled = true;
             }
         }
@@ -474,6 +461,11 @@ namespace ClienteItaliaPizza
             if (CamposLlenos())
             {
                 EditarGuardarBtn.IsEnabled = true;
+                EliminarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
                 EliminarBtn.IsEnabled = true;
             }
         }
@@ -496,6 +488,32 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
+                this.empleado.IdEmpleado = empleado.idEmpleado;
+                this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
+                this.empleado.nombre = empleado.nombre;
+                this.empleado.apellidoPaterno = empleado.apellidoPaterno;
+                this.empleado.apellidoMaterno = empleado.apellidoMaterno;
+                this.empleado.correo = empleado.correo;
+                this.empleado.telefono = empleado.telefono;
+                this.empleado.activado = empleado.activado;
+                this.direccion.Id = direccion.id;
+                this.direccion.calle = direccion.calle;
+                this.direccion.numeroExterior = direccion.numeroExterior;
+                this.direccion.numeroInterior = direccion.numeroInterior;
+                this.direccion.colonia = direccion.colonia;
+                this.direccion.codigoPostal = direccion.codigoPostal;
+                idPuesto = rol.id;
+                    this.cuenta.Id = cuenta.id;
+                    this.cuenta.nombreUsuario = cuenta.nombreUsuario;
+                    this.cuenta.contraseña = cuenta.contraseña;
+                EstablecerInformacion();
+            });
+        }
+
+        public void DevuelveCuentas2(Empleado1 empleado, Direccion1 direccion, Rol1 rol)
+        {
+            Dispatcher.Invoke(() =>
+            {
                 this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
                 this.empleado.nombre = empleado.nombre;
                 this.empleado.apellidoPaterno = empleado.apellidoPaterno;
@@ -508,13 +526,28 @@ namespace ClienteItaliaPizza
                 this.direccion.colonia = direccion.colonia;
                 this.direccion.codigoPostal = direccion.codigoPostal;
                 this.idPuesto = rol.id;
-                if (cuenta != null)
-                {
-                    this.cuenta.nombreUsuario = cuenta.nombreUsuario;
-                    this.cuenta.contraseña = cuenta.contraseña;
-                }
+
                 EstablecerInformacion();
             });
+        }
+
+        public void RespuestaECU(string mensaje)
+        {
+            EstadoTxt.Text = "Desactivado";
+        }
+
+        private void EstadoTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (EstadoTxt.Text == "Desactivado")
+            {
+                EditarGuardarBtn.IsEnabled = false;
+                EliminarBtn.IsEnabled = false;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = true;
+                EliminarBtn.IsEnabled = true;
+            }
         }
     }
 }
