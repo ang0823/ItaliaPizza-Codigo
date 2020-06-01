@@ -1760,6 +1760,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarCuentaUsuario_ModificarCuentaUsuario2_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarCuentaUsuario_RespuestaMCU_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1914,6 +1937,29 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IObtenerCuentasUsuario_DevuelveCuentas_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IObtenerCuentasUsuario_DevuelveCuentas2_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -3053,7 +3099,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IGenerarRespaldo_GenerarRespaldoAutomatico_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IGenerarRespaldo_GenerarRespaldo_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -3419,6 +3465,9 @@
   <wsdl:message name="IModificarCuentaUsuario_ModificarCuentaUsuario_InputMessage">
     <wsdl:part name="parameters" element="tns:ModificarCuentaUsuario" />
   </wsdl:message>
+  <wsdl:message name="IModificarCuentaUsuario_ModificarCuentaUsuario2_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarCuentaUsuario2" />
+  </wsdl:message>
   <wsdl:message name="IModificarCuentaUsuario_RespuestaMCU_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaMCU" />
   </wsdl:message>
@@ -3427,6 +3476,9 @@
   </wsdl:message>
   <wsdl:message name="IObtenerCuentasUsuario_DevuelveCuentas_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:DevuelveCuentas" />
+  </wsdl:message>
+  <wsdl:message name="IObtenerCuentasUsuario_DevuelveCuentas2_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:DevuelveCuentas2" />
   </wsdl:message>
   <wsdl:message name="IObtenerCuentasUsuario_RespuestaOCU_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaOCU" />
@@ -3476,8 +3528,8 @@
   <wsdl:message name="IEditarReceta_RespuestaER_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaER" />
   </wsdl:message>
-  <wsdl:message name="IGenerarRespaldo_GenerarRespaldoAutomatico_InputMessage">
-    <wsdl:part name="parameters" element="tns:GenerarRespaldoAutomatico" />
+  <wsdl:message name="IGenerarRespaldo_GenerarRespaldo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarRespaldo" />
   </wsdl:message>
   <wsdl:message name="IGenerarRespaldo_RespuestaGR_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaGR" />
@@ -3606,6 +3658,9 @@
     <wsdl:operation name="ModificarCuentaUsuario">
       <wsdl:input wsam:Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario" message="tns:IModificarCuentaUsuario_ModificarCuentaUsuario_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ModificarCuentaUsuario2">
+      <wsdl:input wsam:Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario2" message="tns:IModificarCuentaUsuario_ModificarCuentaUsuario2_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RespuestaMCU">
       <wsdl:output wsam:Action="http://tempuri.org/IModificarCuentaUsuario/RespuestaMCU" message="tns:IModificarCuentaUsuario_RespuestaMCU_OutputCallbackMessage" />
     </wsdl:operation>
@@ -3616,6 +3671,9 @@
     </wsdl:operation>
     <wsdl:operation name="DevuelveCuentas">
       <wsdl:output wsam:Action="http://tempuri.org/IObtenerCuentasUsuario/DevuelveCuentas" message="tns:IObtenerCuentasUsuario_DevuelveCuentas_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DevuelveCuentas2">
+      <wsdl:output wsam:Action="http://tempuri.org/IObtenerCuentasUsuario/DevuelveCuentas2" message="tns:IObtenerCuentasUsuario_DevuelveCuentas2_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="RespuestaOCU">
       <wsdl:output wsam:Action="http://tempuri.org/IObtenerCuentasUsuario/RespuestaOCU" message="tns:IObtenerCuentasUsuario_RespuestaOCU_OutputCallbackMessage" />
@@ -3679,8 +3737,8 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IGenerarRespaldo">
-    <wsdl:operation name="GenerarRespaldoAutomatico">
-      <wsdl:input wsam:Action="http://tempuri.org/IGenerarRespaldo/GenerarRespaldoAutomatico" message="tns:IGenerarRespaldo_GenerarRespaldoAutomatico_InputMessage" />
+    <wsdl:operation name="GenerarRespaldo">
+      <wsdl:input wsam:Action="http://tempuri.org/IGenerarRespaldo/GenerarRespaldo" message="tns:IGenerarRespaldo_GenerarRespaldo_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RespuestaGR">
       <wsdl:output wsam:Action="http://tempuri.org/IGenerarRespaldo/RespuestaGR" message="tns:IGenerarRespaldo_RespuestaGR_OutputCallbackMessage" />
@@ -3952,6 +4010,13 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="ModificarCuentaUsuario2">
+      <soap12:operation soapAction="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario2" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarCuentaUsuario_ModificarCuentaUsuario2_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="RespuestaMCU">
       <soap12:operation soapAction="http://tempuri.org/IModificarCuentaUsuario/RespuestaMCU" style="document" />
       <wsdl:output>
@@ -3974,6 +4039,13 @@
       <soap12:operation soapAction="http://tempuri.org/IObtenerCuentasUsuario/DevuelveCuentas" style="document" />
       <wsdl:output>
         <wsp:PolicyReference URI="#WSDualHttpBinding_IObtenerCuentasUsuario_DevuelveCuentas_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DevuelveCuentas2">
+      <soap12:operation soapAction="http://tempuri.org/IObtenerCuentasUsuario/DevuelveCuentas2" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IObtenerCuentasUsuario_DevuelveCuentas2_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -4117,10 +4189,10 @@
   <wsdl:binding name="WSDualHttpBinding_IGenerarRespaldo" type="tns:IGenerarRespaldo">
     <wsp:PolicyReference URI="#WSDualHttpBinding_IGenerarRespaldo_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GenerarRespaldoAutomatico">
-      <soap12:operation soapAction="http://tempuri.org/IGenerarRespaldo/GenerarRespaldoAutomatico" style="document" />
+    <wsdl:operation name="GenerarRespaldo">
+      <soap12:operation soapAction="http://tempuri.org/IGenerarRespaldo/GenerarRespaldo" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IGenerarRespaldo_GenerarRespaldoAutomatico_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IGenerarRespaldo_GenerarRespaldo_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>

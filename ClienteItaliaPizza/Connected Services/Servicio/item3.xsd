@@ -117,6 +117,7 @@
   <xs:element name="CuentaUsuario1" nillable="true" type="tns:CuentaUsuario1" />
   <xs:complexType name="Empleado1">
     <xs:sequence>
+      <xs:element minOccurs="0" name="activado" type="xs:boolean" />
       <xs:element minOccurs="0" name="apellidoMaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="apellidoPaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="correo" nillable="true" type="xs:string" />

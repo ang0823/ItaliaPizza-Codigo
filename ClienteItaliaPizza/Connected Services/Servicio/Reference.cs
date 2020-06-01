@@ -2959,6 +2959,9 @@ namespace ClienteItaliaPizza.Servicio {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool activadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string apellidoMaternoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2986,6 +2989,19 @@ namespace ClienteItaliaPizza.Servicio {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool activado {
+            get {
+                return this.activadoField;
+            }
+            set {
+                if ((this.activadoField.Equals(value) != true)) {
+                    this.activadoField = value;
+                    this.RaisePropertyChanged("activado");
+                }
             }
         }
         
@@ -4381,6 +4397,12 @@ namespace ClienteItaliaPizza.Servicio {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario")]
         System.Threading.Tasks.Task ModificarCuentaUsuarioAsync(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario2")]
+        void ModificarCuentaUsuario2(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario2")]
+        System.Threading.Tasks.Task ModificarCuentaUsuario2Async(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4425,6 +4447,14 @@ namespace ClienteItaliaPizza.Servicio {
         public System.Threading.Tasks.Task ModificarCuentaUsuarioAsync(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol) {
             return base.Channel.ModificarCuentaUsuarioAsync(cuenta, empleado, direccion, rol);
         }
+        
+        public void ModificarCuentaUsuario2(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol) {
+            base.Channel.ModificarCuentaUsuario2(empleado, direccion, rol);
+        }
+        
+        public System.Threading.Tasks.Task ModificarCuentaUsuario2Async(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol) {
+            return base.Channel.ModificarCuentaUsuario2Async(empleado, direccion, rol);
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4443,6 +4473,9 @@ namespace ClienteItaliaPizza.Servicio {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IObtenerCuentasUsuario/DevuelveCuentas")]
         void DevuelveCuentas(ClienteItaliaPizza.Servicio.CuentaUsuario1 cuenta, ClienteItaliaPizza.Servicio.Empleado1 empleado, ClienteItaliaPizza.Servicio.Direccion1 direccion, ClienteItaliaPizza.Servicio.Rol1 rol);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IObtenerCuentasUsuario/DevuelveCuentas2")]
+        void DevuelveCuentas2(ClienteItaliaPizza.Servicio.Empleado1 empleado, ClienteItaliaPizza.Servicio.Direccion1 direccion, ClienteItaliaPizza.Servicio.Rol1 rol);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IObtenerCuentasUsuario/RespuestaOCU")]
         void RespuestaOCU(string mensaje);
@@ -4490,10 +4523,10 @@ namespace ClienteItaliaPizza.Servicio {
     public interface IEliminarCuentaUsuario {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEliminarCuentaUsuario/EliminarCuentaUsuario")]
-        void EliminarCuentaUsuario(string nombreUsuario, int id);
+        void EliminarCuentaUsuario(string idEmpleadoGenerado);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEliminarCuentaUsuario/EliminarCuentaUsuario")]
-        System.Threading.Tasks.Task EliminarCuentaUsuarioAsync(string nombreUsuario, int id);
+        System.Threading.Tasks.Task EliminarCuentaUsuarioAsync(string idEmpleadoGenerado);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4531,12 +4564,12 @@ namespace ClienteItaliaPizza.Servicio {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void EliminarCuentaUsuario(string nombreUsuario, int id) {
-            base.Channel.EliminarCuentaUsuario(nombreUsuario, id);
+        public void EliminarCuentaUsuario(string idEmpleadoGenerado) {
+            base.Channel.EliminarCuentaUsuario(idEmpleadoGenerado);
         }
         
-        public System.Threading.Tasks.Task EliminarCuentaUsuarioAsync(string nombreUsuario, int id) {
-            return base.Channel.EliminarCuentaUsuarioAsync(nombreUsuario, id);
+        public System.Threading.Tasks.Task EliminarCuentaUsuarioAsync(string idEmpleadoGenerado) {
+            return base.Channel.EliminarCuentaUsuarioAsync(idEmpleadoGenerado);
         }
     }
     
@@ -4839,11 +4872,11 @@ namespace ClienteItaliaPizza.Servicio {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Servicio.IGenerarRespaldo", CallbackContract=typeof(ClienteItaliaPizza.Servicio.IGenerarRespaldoCallback))]
     public interface IGenerarRespaldo {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGenerarRespaldo/GenerarRespaldoAutomatico")]
-        void GenerarRespaldoAutomatico(string nombreArchivo);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGenerarRespaldo/GenerarRespaldo")]
+        void GenerarRespaldo(string nombreArchivo);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGenerarRespaldo/GenerarRespaldoAutomatico")]
-        System.Threading.Tasks.Task GenerarRespaldoAutomaticoAsync(string nombreArchivo);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGenerarRespaldo/GenerarRespaldo")]
+        System.Threading.Tasks.Task GenerarRespaldoAsync(string nombreArchivo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4881,12 +4914,12 @@ namespace ClienteItaliaPizza.Servicio {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void GenerarRespaldoAutomatico(string nombreArchivo) {
-            base.Channel.GenerarRespaldoAutomatico(nombreArchivo);
+        public void GenerarRespaldo(string nombreArchivo) {
+            base.Channel.GenerarRespaldo(nombreArchivo);
         }
         
-        public System.Threading.Tasks.Task GenerarRespaldoAutomaticoAsync(string nombreArchivo) {
-            return base.Channel.GenerarRespaldoAutomaticoAsync(nombreArchivo);
+        public System.Threading.Tasks.Task GenerarRespaldoAsync(string nombreArchivo) {
+            return base.Channel.GenerarRespaldoAsync(nombreArchivo);
         }
     }
     
