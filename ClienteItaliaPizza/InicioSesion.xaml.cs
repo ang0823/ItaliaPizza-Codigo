@@ -70,14 +70,25 @@ namespace ClienteItaliaPizza
             return datosValidos;
         }
 
-        public void DevuelveCuenta(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol)
+        public void DevuelveCuenta(CuentaCliente cuenta)
         {
             Dispatcher.Invoke(() =>
             {
-                this.CuentaUsuario = cuenta;
-                Principal ventana = new Principal(cuenta);
-                ventana.Show();
-                this.Close();
+               // CuentaUsuario = cuenta;
+
+                var rol = cuenta.rol;
+                if (rol == "Call center")
+                {
+                    VentanaPedidos ventanaPedidos = new VentanaPedidos("CallCenter");
+                    ventanaPedidos.Show();
+                    this.Close();
+                }
+                else
+                {
+                    Principal ventana = new Principal(cuenta);
+                    ventana.Show();
+                    this.Close();
+                }                
             });
         }
 
@@ -85,7 +96,6 @@ namespace ClienteItaliaPizza
         {
             VentanaCocina ventanaCocina = new VentanaCocina();
             ventanaCocina.Show();
-
             this.Close();
         }
 

@@ -25,7 +25,7 @@ namespace ClienteItaliaPizza
     {
         int ejeY = 40; // eje Y de nuestra ventana
         int conteo = 0; //contador para nuestros controles dinámicos
-
+      
 
         public Pedido pedido
         {
@@ -94,6 +94,14 @@ namespace ClienteItaliaPizza
             cocinaPedidoLocal.Margin = new Thickness(50, ejeY, 0, 0);
             cocinaPedidoLocal.Visibility = Visibility.Visible;
 
+            List<platillo> platillos = new List<platillo>();
+            platillo pla = new platillo("dodo", true);
+            platillo pla1 = new platillo("camote", false);
+            platillos.Add(pla);
+            platillos.Add(pla1);
+
+            cocinaPedidoLocal.llenarDataGrid = platillos;
+
             ejeY += 300;
             conteo++;
 
@@ -120,7 +128,8 @@ namespace ClienteItaliaPizza
                 DataGridPlatillos.Items.Add(platillo);
             }*/
             DataGridPlatillos.ItemsSource = platillos;
-
+            var n = DataGridPlatillos.ItemsSource;
+            
         }
     }
 

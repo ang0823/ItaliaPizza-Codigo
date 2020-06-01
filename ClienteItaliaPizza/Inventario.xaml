@@ -11,11 +11,11 @@
     </Window.Background>
     <Grid x:Name="gridPrincipalInventario">
         
-        <DataGrid x:Name="dataGridInventario" HorizontalAlignment="Left" Height="422" Margin="42,65,0,0" VerticalAlignment="Top" Width="907" BorderBrush="#FF080808" FontSize="16" Background="#FF939292" CanUserDeleteRows="True" >
+        <DataGrid x:Name="dataGridInventario" HorizontalAlignment="Left"  Height="422" Margin="42,65,0,0" VerticalAlignment="Top" Width="907" BorderBrush="#FF080808" FontSize="16" Background="#FF939292" CanUserDeleteRows="True" >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnCodigo" Header="Código/Clave" Width="130"/>
-                <DataGridTextColumn x:Name="ColumnDescripcionProducto" Header="Descripcion del Producto" Width="260"/>
-                <DataGridTextColumn x:Name="ColumnUnidadMedida" Header="Unidad de Medida" Width="150"/>
+                <DataGridTextColumn x:Name="ColumnCodigo" Header="Código/Clave" Width="130" IsReadOnly="True" />
+                <DataGridTextColumn x:Name="ColumnDescripcionIngrediente" Header="Descripcion del Ingrediente" Width="260" IsReadOnly="True"/>
+                <DataGridTextColumn x:Name="ColumnUnidadMedida" Header="Unidad de Medida" Width="150" IsReadOnly="True"/>
                 <DataGridTextColumn x:Name="ColumnUbicacion" Header="Ubicacion" Width="200"/>
                 <DataGridTextColumn x:Name="ColumnExistencias" Header="Existencia actual" Width="130"/>
             </DataGrid.Columns>

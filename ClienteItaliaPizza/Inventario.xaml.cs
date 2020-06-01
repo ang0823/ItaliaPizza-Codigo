@@ -24,7 +24,7 @@ namespace ClienteItaliaPizza
         public Inventario(CuentaUsuario1 cuentaUsuario)
         {
             InitializeComponent();
-            cuenta = cuentaUsuario;
+           // cuenta = cuentaUsuario;
         }
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)

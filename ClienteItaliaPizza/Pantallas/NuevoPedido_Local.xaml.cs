@@ -30,12 +30,15 @@ namespace ClienteItaliaPizza.Pantallas
         /// <summary>
         /// Evento que podrá ser invocado desde otra ventana o UserControl para editar los componentes
         /// </summary>
-        public event EventHandler eventEditarNumEmpleado;
+        public event EventHandler eventSeleccionarNumEmpleado;
 
         /// <summary>
         /// Evento que podrá ser invocado desde otra ventana o UserControl para editar los componentes
         /// </summary>
-        public event EventHandler eventEditarNoMesa;
+        public event EventHandler eventSeleccionarNoMesa;
+
+        public event EventHandler eventLlenarNumEmpleado;
+        public event EventHandler eventLlenarNoMesa;
 
         public NuevoPedido_Local()
         {
@@ -49,7 +52,7 @@ namespace ClienteItaliaPizza.Pantallas
         /// <param name="e"></param>
         private void ComboBoxNoMesa_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            eventEditarNoMesa?.Invoke(this, e);
+            eventSeleccionarNoMesa?.Invoke(this, e);
         }
 
         /// <summary>
@@ -59,7 +62,17 @@ namespace ClienteItaliaPizza.Pantallas
         /// <param name="e"></param>
         private void ComboBoxNumEmpleado_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            eventEditarNumEmpleado?.Invoke(this, e);
+            eventSeleccionarNumEmpleado?.Invoke(this, e);
+        }
+
+        private void ComboBoxNumEmpleado_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            eventLlenarNumEmpleado?.Invoke(this, e);
+        }
+
+        private void ComboBoxNoMesa_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            eventLlenarNoMesa?.Invoke(this, e);
         }
     }
 }

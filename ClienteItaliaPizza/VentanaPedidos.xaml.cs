@@ -18,12 +18,10 @@ namespace ClienteItaliaPizza.Pantallas
     /// Lógica de interacción para VentanaPedidos.xaml
     /// </summary>
     public partial class VentanaPedidos : Window
-    {
-        
+    {        
         public VentanaPedidos(string tipoUsuario)
         {
             InitializeComponent();
-
             if(tipoUsuario == "CallCenter")
             {
                 MeserosUC meserosUC = new MeserosUC("CallCenter");
@@ -35,8 +33,7 @@ namespace ClienteItaliaPizza.Pantallas
                 MeserosUC meserosUC = new MeserosUC("Mesero");
                 gridpedidos.Children.Add(meserosUC);
                 meserosUC.Visibility = Visibility.Visible;
-            }
-            
+            }            
         }
 
         private void ButtonSalirClick(object sender, RoutedEventArgs e)

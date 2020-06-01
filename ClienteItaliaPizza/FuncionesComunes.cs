@@ -110,6 +110,24 @@ namespace ClienteItaliaPizza
             return costo;
         }
 
+        public static double ParsearADouble(string EntradaUsuario)
+        {
+            double valor = 0;
+            try
+            {
+                valor = Convert.ToDouble(EntradaUsuario);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("El formato es incorrecto");
+            }
+            catch (OverflowException)
+            {
+                MessageBox.Show("Ha ocurrido un error por desbordamiento");
+            }
+            return valor;
+        }
+
         /// <summary>
         /// Muestra un mensaje en la interfaz, con el título "Información" y un icono de error dentro de él, incluyendo solo el botón "Aceptar".
         /// </summary>

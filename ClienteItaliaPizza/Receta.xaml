@@ -35,12 +35,12 @@
 
         <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="210" Margin="45,11,0,0" VerticalAlignment="Top" Width="895" BorderBrush="Black" Grid.Row="1" FontSize="20" Grid.ColumnSpan="2" Background="#FFBDB9B9" CanUserDeleteRows="True" >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="200"/>
-                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100"/>
-                <DataGridTextColumn x:Name="ColumnPeso" Header="Peso" Width="100"/>
-                <DataGridTextColumn x:Name="ColumnVolumen" Header="Volumen" Width="150"/>
-                <DataGridTextColumn x:Name="ColumnCostoPorUnidad" Header="Costo por Unidad" Width="200"/>
-                <DataGridTextColumn x:Name="ColumnCosto" Header="Costo" Width="60"/>
+                <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="200" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="ColumnPeso" Header="Peso" Width="100" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="ColumnVolumen" Header="Volumen" Width="150" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="ColumnCostoPorUnidad" Header="Costo por Unidad" Width="200" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="ColumnCosto" Header="Costo" Width="60" IsReadOnly="False"/>
             </DataGrid.Columns>
         </DataGrid>
         
