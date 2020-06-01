@@ -110,7 +110,8 @@ namespace ClienteItaliaPizza
                     empleado.activado = EstaActivado();
                     direccion.calle = calleTxt.Text.Trim();
                     direccion.colonia = coloniaTxt.Text.Trim();
-                    direccion.numeroExterior = codigoPostalTxt.Text.Trim();
+                    direccion.numeroExterior = NoExteriorTxt.Text.Trim();
+                    direccion.numeroInterior = NoInteriorTxt.Text.Trim();
                     idPuesto = puestosCB.SelectedIndex;
 
                     if (EsAdministrativo())

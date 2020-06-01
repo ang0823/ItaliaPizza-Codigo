@@ -74,7 +74,7 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-                CuentaUsuario = cuenta;
+                this.CuentaUsuario = cuenta;
                 Principal ventana = new Principal(cuenta);
                 ventana.Show();
                 this.Close();
