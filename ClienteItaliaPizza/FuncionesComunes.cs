@@ -23,7 +23,7 @@ namespace ClienteItaliaPizza
         /// Muestra la pantalla principal del administrador
         /// </summary>
         /// <param name="CuentaUsuario">El usuario actual que está loggeado en la pantalla que llama a este método</param>
-        public static void MostrarVentanaPrincipal(CuentaUsuario CuentaUsuario)
+        public static void MostrarVentanaPrincipal(CuentaUsuario1 CuentaUsuario)
         {
             Principal ventana = new Principal(CuentaUsuario);
             ventana.Show();

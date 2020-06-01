@@ -772,7 +772,7 @@ namespace ServidrorPizzaItaliana
                 }
                 else
                 {
-                    db.RegistroDeClienteConDireccion(cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, direccionCliente.calle, direccionCliente.colonia, direccionCliente.numeroExterior, direccionCliente.numeroInterior);
+                    db.RegistroDeClienteConDireccion(cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, direccionCliente.calle, direccionCliente.colonia, direccionCliente.numeroExterior, direccionCliente.numeroInterior, direccionCliente.codigoPostal);
                     var clienteBD = (from p in db.ClienteSet where p.nombre == cliente.nombre && p.apellidoMaterno == cliente.apellidoMaterno && p.apellidoPaterno == cliente.apellidoPaterno select p).First();
                     var direcionBD = (from d in db.DireccionSet where d.calle == direccionCliente.calle && d.numeroExterior == direccionCliente.numeroExterior && d.numeroInterior == direccionCliente.numeroInterior select d).First();
                     

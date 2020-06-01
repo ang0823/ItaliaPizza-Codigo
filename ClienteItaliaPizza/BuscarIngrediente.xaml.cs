@@ -15,10 +15,10 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class BuscarIngrediente : Window, IBuscarProductoCallback, IEditarIngredienteCallback
     {
-        CuentaUsuario CuentaUsuario;
+        CuentaUsuario1 CuentaUsuario;
         Provision ingrediente = new Provision();
 
-        public BuscarIngrediente(CuentaUsuario cuenta)
+        public BuscarIngrediente(CuentaUsuario1 cuenta)
         {
             this.CuentaUsuario = cuenta;
             InitializeComponent();

@@ -13,7 +13,7 @@ namespace ClienteItaliaPizza
 
     public partial class MainWindow : Window, ILoginCallback
     {
-        CuentaUsuario CuentaUsuario;
+        CuentaUsuario1 CuentaUsuario;
 
         public MainWindow()
         {
@@ -70,14 +70,14 @@ namespace ClienteItaliaPizza
             return datosValidos;
         }
 
-        public void DevuelveCuenta(CuentaCliente cuenta)
+        public void DevuelveCuenta(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol)
         {
             Dispatcher.Invoke(() =>
             {
                // CuentaUsuario = cuenta;
 
-                var rol = cuenta.rol;
-                if (rol == "Call center")
+                var rolCopia = rol.rol;
+                if (rol.rol == "Call center")
                 {
                     VentanaPedidos ventanaPedidos = new VentanaPedidos("CallCenter");
                     ventanaPedidos.Show();
