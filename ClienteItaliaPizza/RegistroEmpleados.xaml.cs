@@ -15,7 +15,6 @@ namespace ClienteItaliaPizza
     {
         Random idGenerado = new Random();
         CuentaUsuario1 CuentaUsuario;
-        string DiaHoraMinuto;
 
         public RegistroEmpleados(CuentaUsuario1 cuenta)
         {
