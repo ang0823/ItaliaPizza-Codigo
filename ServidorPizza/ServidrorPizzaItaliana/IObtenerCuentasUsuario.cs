@@ -20,7 +20,10 @@ namespace ServidrorPizzaItaliana
     public interface IObtenerCuentasCallback
     {
         [OperationContract(IsOneWay = true)]
-        void DevuelveCuentas(CuentaUsuario1 cuenta,Empleado1 empleado, Direccion1 direccion, Rol1 rol);
+        void DevuelveCuentas(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol);
+
+        [OperationContract(IsOneWay = true)]
+        void DevuelveCuentas2(Empleado1 empleado, Direccion1 direccion, Rol1 rol);
 
         [OperationContract(IsOneWay = true)]
         void RespuestaOCU(string mensaje);
@@ -62,10 +65,12 @@ namespace ServidrorPizzaItaliana
         string correo;
         [DataMember]
         string idEmpleadoGenerado;
+        [DataMember]
+        bool activado;
 
-        
 
-        public Empleado1(Int64 idEmpleado, string nombre, string apellidoPaterno, string apellidoMaterno, string telefono, string correo, string idEmpleadoGenerado)
+
+        public Empleado1(Int64 idEmpleado, string nombre, string apellidoPaterno, string apellidoMaterno, string telefono, string correo, string idEmpleadoGenerado, bool activado)
         {
             this.idEmpleado = idEmpleado;
             this.nombre = nombre;
@@ -74,6 +79,7 @@ namespace ServidrorPizzaItaliana
             this.telefono = telefono;
             this.correo = correo;
             this.idEmpleadoGenerado = idEmpleadoGenerado;
+            this.activado = activado;
         }
     }
 

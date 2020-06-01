@@ -62,6 +62,7 @@
     <Compile Include="IGenerarRespaldo.cs" />
     <Compile Include="ILogin.cs" />
     <Compile Include="IModificarCuentaUsuario.cs" />
+    <Compile Include="INotificarPedido.cs" />
     <Compile Include="IObtenerCuentasUsuario.cs" />
     <Compile Include="IObtenerRecetas.cs" />
     <Compile Include="IRecuperarProductos.cs" />

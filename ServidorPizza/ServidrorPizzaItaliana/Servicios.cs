@@ -78,7 +78,7 @@ namespace ServidrorPizzaItaliana
                 if (cuenta.Empleado.activado == true)
                 {
                     CuentaUsuario1 cuentaCliente = new CuentaUsuario1(cuenta.nombreUsuario, cuenta.contraseña, cuenta.Id);
-                    Empleado1 empleado = new Empleado1(cuenta.Empleado.IdEmpleado, cuenta.Empleado.nombre, cuenta.Empleado.apellidoPaterno, cuenta.Empleado.apellidoMaterno, cuenta.Empleado.telefono, cuenta.Empleado.correo, cuenta.Empleado.idEmpleadoGenerado);
+                    Empleado1 empleado = new Empleado1(cuenta.Empleado.IdEmpleado, cuenta.Empleado.nombre, cuenta.Empleado.apellidoPaterno, cuenta.Empleado.apellidoMaterno, cuenta.Empleado.telefono, cuenta.Empleado.correo, cuenta.Empleado.idEmpleadoGenerado, cuenta.Empleado.activado);
                     Rol1 rol = new Rol1(cuenta.Empleado.Rol.Id, cuenta.Empleado.Rol.nombreRol);
                     Direccion1 direccion = new Direccion1(cuenta.Empleado.Direccion.Id, cuenta.Empleado.Direccion.calle, cuenta.Empleado.Direccion.colonia, cuenta.Empleado.Direccion.numeroExterior, cuenta.Empleado.Direccion.numeroInterior, cuenta.Empleado.Direccion.codigoPostal);
 
@@ -161,7 +161,7 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IModificarCuentaUsuario
     {
-        public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int rol)
+        public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int idrol)
         {
             try
             {
@@ -171,10 +171,10 @@ namespace ServidrorPizzaItaliana
                 db.CuentaUsuarioSet.Attach(c);
                 db.Entry(c).State = EntityState.Modified;
                 db.SaveChanges();
-
+                var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
                 Empleado e = new Empleado();
                 e = empleado;
-                empleado.Rol.Id = rol;
+                e.Rol = rol;
                 db.EmpleadoSet.Attach(e);
                 db.Entry(e).State = EntityState.Modified;
                 db.SaveChanges();
@@ -185,7 +185,36 @@ namespace ServidrorPizzaItaliana
                 db.Entry(d).State = EntityState.Modified;
                 db.SaveChanges();
 
-                
+
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().RespuestaMCU("Se modificó correctamente");
+                Console.WriteLine("Se modificó correctamente");
+
+            }
+            catch (InvalidOperationException)
+            {
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().RespuestaMCU("Alguno de los datos introducidos no son correctos");
+            }
+        }
+
+        public void ModificarCuentaUsuario2(Empleado empleado, Direccion direccion, int idrol)
+        {
+            try
+            {
+                var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
+                Empleado e = new Empleado();
+                e = empleado;
+                e.Rol = rol;
+                db.EmpleadoSet.Attach(e);
+                db.Entry(e).State = EntityState.Modified;
+                db.SaveChanges();
+
+                Direccion d = new Direccion();
+                d = direccion;
+                db.DireccionSet.Attach(d);
+                db.Entry(d).State = EntityState.Modified;
+                db.SaveChanges();
+
+
                 OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().RespuestaMCU("Se modificó correctamente");
                 Console.WriteLine("Se modificó correctamente");
 
@@ -221,13 +250,28 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                var cuenta = (from per in db.EmpleadoSet where per.idEmpleadoGenerado == idEmpleadoGenerado select per).Include(x => x.Rol).Include(x => x.Direccion).Include(x => x.CuentaUsuario).First();
-                CuentaUsuario1 cuenta1 = new CuentaUsuario1(cuenta.CuentaUsuario.nombreUsuario,cuenta.CuentaUsuario.contraseña,cuenta.CuentaUsuario.Id);
-                Empleado1 empleado = new Empleado1(cuenta.IdEmpleado, cuenta.nombre, cuenta.apellidoPaterno, cuenta.apellidoMaterno, cuenta.telefono, cuenta.correo, cuenta.idEmpleadoGenerado);
-                Rol1 rol = new Rol1(cuenta.Rol.Id, cuenta.Rol.nombreRol);
-                Direccion1 direccion = new Direccion1(cuenta.Direccion.Id, cuenta.Direccion.calle, cuenta.Direccion.colonia, cuenta.Direccion.numeroExterior, cuenta.Direccion.numeroInterior, cuenta.Direccion.codigoPostal);
+                var tipo = (from p in db.EmpleadoSet where p.idEmpleadoGenerado == idEmpleadoGenerado select p).Include(x => x.CuentaUsuario).FirstOrDefault();
+                if (tipo.CuentaUsuario != null)
+                {
+                    var cuenta = (from per in db.EmpleadoSet where per.idEmpleadoGenerado == idEmpleadoGenerado select per).Include(x => x.Rol).Include(x => x.Direccion).Include(x => x.CuentaUsuario).First();
 
-                OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().DevuelveCuentas(cuenta1,empleado, direccion, rol);
+                    CuentaUsuario1 cuenta1 = new CuentaUsuario1(cuenta.CuentaUsuario.nombreUsuario, cuenta.CuentaUsuario.contraseña, cuenta.CuentaUsuario.Id);
+                    Empleado1 empleado = new Empleado1(cuenta.IdEmpleado, cuenta.nombre, cuenta.apellidoPaterno, cuenta.apellidoMaterno, cuenta.telefono, cuenta.correo, cuenta.idEmpleadoGenerado, cuenta.activado);
+                    Rol1 rol = new Rol1(cuenta.Rol.Id, cuenta.Rol.nombreRol);
+                    Direccion1 direccion = new Direccion1(cuenta.Direccion.Id, cuenta.Direccion.calle, cuenta.Direccion.colonia, cuenta.Direccion.numeroExterior, cuenta.Direccion.numeroInterior, cuenta.Direccion.codigoPostal);
+
+                    OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().DevuelveCuentas(cuenta1, empleado, direccion, rol);
+                }
+                else
+                {
+                    var cuenta = (from per in db.EmpleadoSet where per.idEmpleadoGenerado == idEmpleadoGenerado select per).Include(x => x.Rol).Include(x => x.Direccion).First();
+                    Empleado1 empleado = new Empleado1(cuenta.IdEmpleado, cuenta.nombre, cuenta.apellidoPaterno, cuenta.apellidoMaterno, cuenta.telefono, cuenta.correo, cuenta.idEmpleadoGenerado, cuenta.activado);
+                    Rol1 rol = new Rol1(cuenta.Rol.Id, cuenta.Rol.nombreRol);
+                    Direccion1 direccion = new Direccion1(cuenta.Direccion.Id, cuenta.Direccion.calle, cuenta.Direccion.colonia, cuenta.Direccion.numeroExterior, cuenta.Direccion.numeroInterior, cuenta.Direccion.codigoPostal);
+
+                    OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().DevuelveCuentas2(empleado, direccion, rol);
+                }
+
             }
             catch (InvalidOperationException)
             {
@@ -238,27 +282,19 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IEliminarCuentaUsuario
     {
-        public void EliminarCuentaUsuario(string nombreUsuario, int id)
+        public void EliminarCuentaUsuario(string idEmpleadoGenerado)
         {
             try
             {
-                var nombreC = (from p in db.CuentaUsuarioSet
-                               where p.nombreUsuario == nombreUsuario
-                               select p).Single();
                 var empleadoC = (from p in db.EmpleadoSet
-                                 where p.IdEmpleado == id
+                                 where p.idEmpleadoGenerado == idEmpleadoGenerado
                                  select p).Single();
-                var direccionC = (from p in db.DireccionSet
-                                  where p.Id == id
-                                  select p).Single();
-                var rolC = (from p in db.RolSet
-                            where p.Id == id
-                            select p).Single();
 
-                db.CuentaUsuarioSet.Remove(nombreC);
-                db.EmpleadoSet.Remove(empleadoC);
-                db.DireccionSet.Remove(direccionC);
-                db.RolSet.Remove(rolC);
+                Empleado e = new Empleado();
+                e = empleadoC;
+                e.activado = false;
+                db.EmpleadoSet.Attach(e);
+                db.Entry(e).State = EntityState.Modified;
                 db.SaveChanges();
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Éxito al eliminar la cuenta de usuario");
             }

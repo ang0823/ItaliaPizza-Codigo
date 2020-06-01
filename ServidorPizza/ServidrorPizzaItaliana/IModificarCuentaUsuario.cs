@@ -14,6 +14,9 @@ namespace ServidrorPizzaItaliana
         [OperationContract(IsOneWay = true)]
         void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int rol);
 
+        [OperationContract(IsOneWay = true)]
+        void ModificarCuentaUsuario2(Empleado empleado, Direccion direccion, int rol);
+
     }
 
     [ServiceContract]
