@@ -44,12 +44,12 @@ namespace ClienteItaliaPizza
                 && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
                 && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 1
                 || puestosCB.SelectedIndex == 2) && usuarioTxt.Text.Length == 0
-                && contrasenaTxt.Password.Length == 0)
+                && contrasenaTxt.Password.Length == 0 && NoExteriorTxt.Text.Length > 0)
             {
                 return true;
             }
             else if (nombreTxt.Text.Length > 0 && aPaternoTxt.Text.Length > 0 && aMaternoTxt.Text.Length > 0
-                && correoElectronicoTxt.Text.Length > 0 && telefonoTxt.Text.Length > 0
+                && correoElectronicoTxt.Text.Length > 0 && telefonoTxt.Text.Length > 0 && NoExteriorTxt.Text.Length > 0
                 && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
                 && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 3
                 || puestosCB.SelectedIndex == 4 || puestosCB.SelectedIndex == 5)
@@ -154,7 +154,7 @@ namespace ClienteItaliaPizza
 
         private Boolean EsCorreoElectronicoValido()
         {
-            Boolean EsValido = true;
+            Boolean EsValido = false;
             string ExpresionRegular = "^[_a-z0-9-]+(.[_a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,4})$";
             string CorreoIngresado = correoElectronicoTxt.Text;
             Match validacion = Regex.Match(CorreoIngresado, ExpresionRegular);
@@ -167,7 +167,7 @@ namespace ClienteItaliaPizza
         {
             bool estaActivado = false;
 
-            if (empleado.activado == true)
+            if (empleado.activado)
             {
                 estaActivado = true;
             }
@@ -183,19 +183,19 @@ namespace ClienteItaliaPizza
             aMaternoTxt.Text = empleado.apellidoMaterno;
             correoElectronicoTxt.Text = empleado.correo;
             telefonoTxt.Text = empleado.telefono;
-            if (EstaActivado())
+            if (empleado.activado)
             {
-                EstadoTxt.Text = "Activado";
+                EstadoTxt.Text = "Activo";
             }
             else
             {
-                EstadoTxt.Text = "Desactivado";
+                EstadoTxt.Text = "Inactivo";
             }
             calleTxt.Text = direccion.calle;
             NoExteriorTxt.Text = direccion.numeroExterior;
             NoInteriorTxt.Text = direccion.numeroInterior;
             coloniaTxt.Text = direccion.colonia;
-            codigoPostalTxt.Text = direccion.numeroExterior;
+            codigoPostalTxt.Text = direccion.codigoPostal;
             puestosCB.SelectedIndex = idPuesto;
             if (cuenta != null)
             {
@@ -230,6 +230,8 @@ namespace ClienteItaliaPizza
             string NuevoCorreo = correoElectronicoTxt.Text;
             string NuevoTelefono = telefonoTxt.Text;
             string NuevaCalle = calleTxt.Text;
+            string NuevoNoExterior = NoExteriorTxt.Text;
+            string NuevoNoInterior = NoInteriorTxt.Text;
             string NuevaColonia = coloniaTxt.Text;
             string NuevoCodigoPostal = codigoPostalTxt.Text;
             int NuevoRol = puestosCB.SelectedIndex;
@@ -237,9 +239,9 @@ namespace ClienteItaliaPizza
             string NuevaContrasena = contrasenaTxt.Password;
 
             if (NuevoNombre != empleado.nombre || NuevoPaterno != empleado.apellidoPaterno || NuevoMaterno != empleado.apellidoMaterno
-                || NuevoCorreo != empleado.correo || NuevoTelefono != empleado.telefono
-                || NuevaCalle != direccion.calle || NuevaColonia != direccion.colonia || NuevoCodigoPostal !=  direccion.numeroExterior
-                || NuevoUsuario != usuarioTxt.Text || NuevaContrasena != contrasenaTxt.Password
+                || NuevoCorreo != empleado.correo || NuevoTelefono != empleado.telefono || NuevaCalle != direccion.calle 
+                || NuevoNoExterior != direccion.numeroExterior || NuevoNoInterior != direccion.numeroInterior || NuevaColonia != direccion.colonia 
+                || NuevoCodigoPostal !=  direccion.codigoPostal || NuevoUsuario != usuarioTxt.Text || NuevaContrasena != contrasenaTxt.Password
                 || NuevoRol != idPuesto)
             {
                 InformacionEditada = true;
@@ -259,7 +261,7 @@ namespace ClienteItaliaPizza
             puestosCB.SelectedIndex = 0;
         }
 
-        private void ObtenerEmpledo()
+        private void ObtenerEmpleado()
         {
             string idEmpleado = SearchBox.Text;
 
@@ -285,7 +287,7 @@ namespace ClienteItaliaPizza
             }
             catch (Exception e)
             {
-                FuncionesComunes.MostrarMensajeDeError(e.GetType() + " " + e.Message);
+                FuncionesComunes.MostrarMensajeDeError(e.GetType() + "Valor máximo: " + int.MaxValue + " " + e.Message);
             }
         }
 
@@ -306,24 +308,7 @@ namespace ClienteItaliaPizza
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-                ObtenerEmpledo();
-        }
-
-        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            FuncionesComunes.CerrarSesion();
-        }
-
-        private void entradaTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-            }
-            else
-            {
-                EditarGuardarBtn.IsEnabled = false;
-            }
+                ObtenerEmpleado();
         }
 
         private void cancelarBtn_Click(object sender, RoutedEventArgs e)
@@ -351,19 +336,17 @@ namespace ClienteItaliaPizza
                 correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.Red;
             }
 
-            if (CamposLlenos())
+            if (CamposLlenos() && EstaActivado())
             {
                 EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
             }
             else
             {
                 EditarGuardarBtn.IsEnabled = false;
-                EliminarBtn.IsEnabled = false;
             }
         }
 
-        private void LogoutBtn_Click_1(object sender, RoutedEventArgs e)
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             FuncionesComunes.CerrarSesion();
             this.Close();
@@ -371,15 +354,14 @@ namespace ClienteItaliaPizza
 
         private void puestosCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (puestosCB.SelectedIndex == 3 || puestosCB.SelectedIndex == 4
-                || puestosCB.SelectedIndex == 5)
+            if (EsAdministrativo())
             {
                 usuarioLbl.Visibility = Visibility.Visible;
                 usuarioTxt.Visibility = Visibility.Visible;
                 contrasenaLbl.Visibility = Visibility.Visible;
                 contrasenaTxt.Visibility = Visibility.Visible;
             }
-            else
+            else if(!EsAdministrativo())
             {
                 usuarioLbl.Visibility = Visibility.Hidden;
                 usuarioTxt.Visibility = Visibility.Hidden;
@@ -387,6 +369,15 @@ namespace ClienteItaliaPizza
                 contrasenaTxt.Visibility = Visibility.Hidden;
                 usuarioTxt.Text = "";
                 contrasenaTxt.Password = "";
+            }
+
+            if (CamposLlenos() && EstaActivado())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
             }
         }
         private void EditarGuardarBtn_Click(object sender, RoutedEventArgs e)
@@ -414,7 +405,15 @@ namespace ClienteItaliaPizza
 
         private void EliminarBtn_Click(object sender, RoutedEventArgs e)
         {
-            DesactivarEmpleado();
+            MessageBoxResult opcion;
+            string mensaje = "La acción que está a punto de realizar no se puede revertir, ¿Deseas proseguir con la desactivación del empleado?";
+            opcion = MessageBox.Show(mensaje, "Confirmar acción",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (opcion == MessageBoxResult.OK)
+            {
+                DesactivarEmpleado();
+            }
         }
 
         public void RespuestaOCU(string mensaje)
@@ -445,42 +444,45 @@ namespace ClienteItaliaPizza
 
         private void CamposDeTexto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (CamposLlenos())
+            if (CamposLlenos() && EstaActivado())
             {
                 EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
             }
             else
             {
                 EditarGuardarBtn.IsEnabled = false;
-                EliminarBtn.IsEnabled = true;
             }
         }
 
         private void contrasenaTxt_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (CamposLlenos())
+            if (CamposLlenos() && EstaActivado())
             {
                 EditarGuardarBtn.IsEnabled = true;
-                EliminarBtn.IsEnabled = true;
             }
             else
             {
                 EditarGuardarBtn.IsEnabled = false;
-                EliminarBtn.IsEnabled = true;
             }
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SearchBtn.IsEnabled = true;
+            if (SearchBox.Text.Length > 0)
+            {
+                SearchBtn.IsEnabled = true;
+            }
+            else
+            {
+                SearchBtn.IsEnabled = false;
+            }
         }
 
         private void SearchBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                ObtenerEmpledo();
+                ObtenerEmpleado();
                 SearchBox.Text = "";
             }
         }
@@ -504,9 +506,9 @@ namespace ClienteItaliaPizza
                 this.direccion.colonia = direccion.colonia;
                 this.direccion.codigoPostal = direccion.codigoPostal;
                 idPuesto = rol.id;
-                    this.cuenta.Id = cuenta.id;
-                    this.cuenta.nombreUsuario = cuenta.nombreUsuario;
-                    this.cuenta.contraseña = cuenta.contraseña;
+                this.cuenta.Id = cuenta.id;
+                this.cuenta.nombreUsuario = cuenta.nombreUsuario;
+                this.cuenta.contraseña = cuenta.contraseña;
                 EstablecerInformacion();
             });
         }
@@ -515,31 +517,36 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
+                VaciarCampos(); 
+
                 this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
                 this.empleado.nombre = empleado.nombre;
                 this.empleado.apellidoPaterno = empleado.apellidoPaterno;
                 this.empleado.apellidoMaterno = empleado.apellidoMaterno;
                 this.empleado.correo = empleado.correo;
                 this.empleado.telefono = empleado.telefono;
+                this.empleado.activado = empleado.activado;
                 this.direccion.calle = direccion.calle;
                 this.direccion.numeroExterior = direccion.numeroExterior;
                 this.direccion.numeroInterior = direccion.numeroInterior;
                 this.direccion.colonia = direccion.colonia;
                 this.direccion.codigoPostal = direccion.codigoPostal;
-                this.idPuesto = rol.id;
-
+                idPuesto = rol.id;
                 EstablecerInformacion();
             });
         }
 
         public void RespuestaECU(string mensaje)
         {
-            EstadoTxt.Text = "Desactivado";
+            if (mensaje == "Éxito al eliminar la cuenta de usuario")
+            {
+                EstadoTxt.Text = "Inactivo";
+            }
         }
 
         private void EstadoTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (EstadoTxt.Text == "Desactivado")
+            if (EstadoTxt.Text == "Inactivo")
             {
                 EditarGuardarBtn.IsEnabled = false;
                 EliminarBtn.IsEnabled = false;

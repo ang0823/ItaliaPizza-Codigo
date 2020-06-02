@@ -16,7 +16,7 @@
             <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="AliceBlue" Click="SearchBtn_Click">
                 <Image Source="RecursosGUI/search.png" Stretch="Fill"/>
             </Button>
-            <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click_1">
+            <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click">
                 <Image Source="RecursosGUI/logout.png"/>
             </Button>
             <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White"/>
@@ -26,10 +26,10 @@
         <TextBox x:Name="aMaternoTxt" HorizontalAlignment="Left" Height="32" Margin="779,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" />
         <TextBox x:Name="calleTxt" HorizontalAlignment="Left" Height="32" Margin="188,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged"/>
         <TextBox x:Name="NoExteriorTxt" HorizontalAlignment="Left" Height="32" Margin="437,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" />
-        <TextBox x:Name="NoInteriorTxt" HorizontalAlignment="Left" Height="32" Margin="550,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontFamily="Arial" FontSize="22" />
+        <TextBox x:Name="NoInteriorTxt" HorizontalAlignment="Left" Height="32" Margin="550,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" />
         <TextBox x:Name="coloniaTxt" HorizontalAlignment="Left" Height="32" Margin="663,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" />
         <TextBox x:Name="codigoPostalTxt" HorizontalAlignment="Left" Height="32" Margin="909,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" />
-        <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" />
+        <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="correoElectronicoTxt_TextChanged" />
         <TextBox x:Name="telefonoTxt" HorizontalAlignment="Left" Height="32" Margin="682,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" MaxLength="10" TextChanged="CamposDeTexto_TextChanged" />
         <ComboBox x:Name="puestosCB" HorizontalAlignment="Left" Margin="188,443,0,0" VerticalAlignment="Top" Width="250" Height="32" FontFamily="Arial" FontSize="22" SelectionChanged="puestosCB_SelectionChanged"/>
         <TextBox x:Name="idEmpleadoTxt" HorizontalAlignment="Left" Height="32" Margin="485,443,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial Black" FontSize="22" FontWeight="Bold"/>
