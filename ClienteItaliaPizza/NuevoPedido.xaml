@@ -66,16 +66,15 @@
         <TextBlock x:Name="textBlockInstruccionesEspeciales" HorizontalAlignment="Left" Margin="64,456,0,0" TextWrapping="Wrap" Text="Instrucciones Especiales" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <TextBox x:Name="textBoxInstruccionesEspeciales" HorizontalAlignment="Left" Height="90" Margin="64,494,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="587" BorderBrush="Black" MaxLength="150" />
 
-        <DataGrid x:Name="dataGridOrden" HorizontalAlignment="Left" Height="230"  Margin="704,34,0,0" VerticalAlignment="Top" Width="265" CanUserResizeColumns="False" BorderBrush="Black" >
+        <DataGrid x:Name="dataGridOrden" HorizontalAlignment="Left" Height="230"  Margin="704,34,0,0" VerticalAlignment="Top" Width="265" CanUserResizeColumns="False" BorderBrush="Black" CanUserAddRows="True" SelectionUnit="Cell" >
             <DataGrid.Background>
                 <SolidColorBrush Color="#FFF0F0F0" Opacity="0.5"/>
             </DataGrid.Background>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="60"/>
-                <DataGridTemplateColumn x:Name="ColumnProducto" Header="Producto" Width="70"/>
-                <DataGridTemplateColumn x:Name="ColumnPreciounitario" Header="P.U" Width="50"/>
-                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="50"/>
-                <DataGridTemplateColumn x:Name="ColumnBoton" Width="50"/>
+                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="60" Binding="{Binding cantidad}" />
+                <DataGridTextColumn x:Name="ColumnProducto" Header="Producto" Width="70" Binding="{Binding nombreProducto}" />
+                <DataGridTextColumn x:Name="ColumnPreciounitario" Header="P.U" Width="50" Binding="{Binding PrecioUnitario}" />
+                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="50" Binding="{Binding PrecioTotal}"/>
             </DataGrid.Columns>
         </DataGrid>
 

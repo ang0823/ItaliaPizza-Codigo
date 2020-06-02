@@ -4,11 +4,10 @@ using ClienteItaliaPizza.Servicio;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.ServiceModel;
 using ClienteItaliaPizza.Validacion;
-using System.Windows.Forms;
+using System.Collections.ObjectModel;
 
 namespace ClienteItaliaPizza
 {
@@ -26,6 +25,9 @@ namespace ClienteItaliaPizza
         private List<Producto> productosSeleccionados = new List<Producto>();
         private List<ProvisionDirecta> provisionesSeleccionadas = new List<ProvisionDirecta>();
 
+        
+        ObservableCollection<Orden> listaOrdenes = new ObservableCollection<Orden>();
+
         public NuevoPedido(string tipoPedido)
         {
             InitializeComponent();            
@@ -34,8 +36,25 @@ namespace ClienteItaliaPizza
             {
                 UC_NuevoPLocal.Visibility = Visibility.Visible;
                 //InstanceContext instanceContext = new InstanceContext(this);
-              //  RegistrarPedidoLocalClient cliente = new RegistrarPedidoLocalClient(instanceContext);
-               // cliente.ObtenerInformacionDeProductosYEstados();
+                //  RegistrarPedidoLocalClient cliente = new RegistrarPedidoLocalClient(instanceContext);
+                // cliente.ObtenerInformacionDeProductosYEstados(); 
+
+                //Lleno el datagrid temporalmente con datos ficticios para probar función de 
+                //obtener /insertar en una celda del DataGridOrden
+                Orden orden = new Orden();
+                orden.cantidad = "1";
+                orden.nombreProducto = "sopa";
+                orden.PrecioUnitario = "12.00";
+                orden.PrecioTotal = "12.00";
+                listaOrdenes.Add(orden);
+
+                Orden orden1 = new Orden();
+                orden1.cantidad = "1";
+                orden1.nombreProducto = "chesco";
+                orden1.PrecioUnitario = "14.00";
+                orden1.PrecioTotal = "14.00";
+                listaOrdenes.Add(orden1);
+                dataGridOrden.ItemsSource = listaOrdenes;
             }
             if (tipoPedido.Equals("Domicilio"))
             {
@@ -84,7 +103,13 @@ namespace ClienteItaliaPizza
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            // this.Close();
+
+            //Temporalmento pongo este funcionamiento para probar que obtiene el elemento seleccionado
+            //del datagridOrden.           
+            var seleccion = dataGridOrden.SelectedCells[0].Item as Orden;           
+           // var con = ColumnCantidad.GetCellContent(seleccion);
+            System.Windows.MessageBox.Show(seleccion.cantidad);
         }
 
         private void TextBoxDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -293,11 +318,21 @@ namespace ClienteItaliaPizza
 
         private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selecto = ListViewBebidas.SelectedItem.ToString();
-            textBlockInstruccionesEspeciales.Text =  selecto;
+            var selecto = ListViewBebidas.SelectedItem as MovieData;
+            textBlockInstruccionesEspeciales.Text =  selecto.Title;         
         }
     }
 
+    //esta será una clase para probar el datagrid de ordenes
+    public class Orden
+    {
+        public string cantidad { get; set; }
+        public string nombreProducto { get; set; }
+        public string PrecioUnitario { get; set; }
+        public string PrecioTotal { get; set; }
+    }
+
+    //esta es una clase temporal unicamente para provar el ListView
     public class MovieData
     {
         private string _Title;
