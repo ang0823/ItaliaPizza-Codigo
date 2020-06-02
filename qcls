@@ -1,0 +1,827 @@
+[33mcommit 3c01f0eb59e12dfb90320f9833b402691864e4bc[m[33m ([m[1;36mHEAD -> [m[1;32mRamaAngelyElsa[m[33m)[m
+Merge: 6aaf7b2 16c1c81
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 31 23:33:03 2020 -0500
+
+    Se hizo pull
+
+[33mcommit 6aaf7b22f1a7a7083011ca6dc0de46ed8712a087[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 31 23:24:56 2020 -0500
+
+    Se actualizaron los servicios
+
+[33mcommit c1d8d4912f9732bb779b4f8dd96fb39710cbe409[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 31 23:24:33 2020 -0500
+
+    Se finalizo el registro de empleados
+
+[33mcommit 31ac7e5e0cfe261574b6ac52a81d0b13633076c5[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 31 23:23:47 2020 -0500
+
+    Se implemento la busqueda y deshabilitacion de empleados
+
+[33mcommit 256d07a1de2a053b748e7f5dfb24004dc04f6fa2[m[33m ([m[1;32mRamaAngel[m[33m)[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 31 18:51:40 2020 -0500
+
+    Preparando para hacer merge con rama master
+
+[33mcommit 16c1c81d82ed2ec9be55da50515c971b5f618911[m[33m ([m[1;31morigin/RamaAngelyElsa[m[33m)[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 31 15:30:28 2020 -0500
+
+    Agrego listview en NuevoPedido, para mostrar las imagenes en los productos
+
+[33mcommit 70ca2866575499753553434e56c30687e0afc37c[m
+Merge: 1ac0b10 68e7ca4
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:50:02 2020 -0500
+
+    Merge branch 'RamaAngelyElsa' of https://github.com/ang0823/ItaliaPizza-Codigo into RamaAngelyElsa
+
+[33mcommit 1ac0b10573036b96fe4ec81a52cc2890b197f83c[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:49:14 2020 -0500
+
+    Cambios en el csproj y referencias de servicios
+
+[33mcommit 161506e11b81ccbbf1d796c3274024d0f3a29a56[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:48:36 2020 -0500
+
+    Paso de parámetro objetos Cuenta y validación de rol de Empleado en Inicio de Sesión
+
+[33mcommit 295e1e9117e67b8a1fecda367467e913ca0f4e45[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:45:31 2020 -0500
+
+    cambios en los componentes GUI de Cocina
+
+[33mcommit 7138bd828bbd94990dd9c4c86d93991f74a283d3[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:44:21 2020 -0500
+
+    validaciones y implementación del registro Pedido Local (en proceso)
+
+[33mcommit d09c28e832008d36f6043866eb86664f556c53c4[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:43:23 2020 -0500
+
+    comunicación entre user control CallCenterUC y MeserosUC
+
+[33mcommit 3e8038952abb53a5cf51735f19d51810fdee9a0e[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:41:25 2020 -0500
+
+    validaciones y implementación del registro Pedido Local (en proceso)
+
+[33mcommit 1347bcb79b6769b386383f7c0e59b764d75d968d[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:39:26 2020 -0500
+
+    Método de conversión de string a double
+
+[33mcommit c56e7d0709d682365365059a62bb76a064419a2d[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:37:57 2020 -0500
+
+    Cambios en GUI de pantalla de Cocina
+
+[33mcommit a13f4ef444705242747abe58f71c8c74edee360e[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:36:10 2020 -0500
+
+    Generando Docmento PDF del Ticket
+
+[33mcommit 5d6dea2801913b1b430443903323a5eeb759be19[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:35:18 2020 -0500
+
+    Agrego Biblioteca DevExpres.Xpf.PdfViewer
+
+[33mcommit 31750c90429a7b5a2219b2033a440b9371cf5382[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:33:37 2020 -0500
+
+    Serialización de un objeto CuentaCliente en el Método Inicio de sesión
+
+[33mcommit 7a93dc3ef97befccd459cd48782b3e008df131d5[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:31:19 2020 -0500
+
+    componentes GUI de Nuevo Pedido a Domicilio UserControl
+
+[33mcommit 6a715b918b6b7df4766affdfddc61a2edd8ca10c[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:29:58 2020 -0500
+
+    Images en RecursosGUI: plus y back icons
+
+[33mcommit 3d556e4e28482a85357c44dc85a6e27c75e6907f[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 30 20:28:56 2020 -0500
+
+    Visor de PDF y genere de Tickets en PDF
+
+[33mcommit 68e7ca4c567dfa9ce39b2be3a832e14d5eff9ff0[m
+Merge: 4248c92 9dd3157
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 29 20:41:57 2020 -0500
+
+    Se realizo pull
+
+[33mcommit 4248c929b7304475b3b09edb774f24b33d032ac9[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Thu May 28 16:59:42 2020 -0500
+
+    Preparando para segunda entrega
+
+[33mcommit 9dd31573474493f1b1729a1e7c124e7fd6aa5ea8[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Tue May 26 15:39:18 2020 -0500
+
+    Agrego UserControl NuevoPedidoLocal
+
+[33mcommit 88359953727ba15eec645a4dddcc6acbb4b430e8[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Mon May 25 20:44:15 2020 -0500
+
+    Prueba de Nuevo Pedido Local y pequeños cambios en método guardarPedido Local en Server
+
+[33mcommit b652d7f7a6f0f19b0b6628caec315645b2080a9e[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Mon May 25 19:50:40 2020 -0500
+
+    Prueba rápida de registro de PedidoLocal
+
+[33mcommit e994e9ff4598f337178f186e9c02dd81527918cb[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Mon May 25 14:31:50 2020 -0500
+
+    Se agrego numero interior y numero exterior como en la base de datos
+
+[33mcommit e1613472e18100b977b52f55a58bd290f7215649[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Mon May 25 14:30:52 2020 -0500
+
+    Se modifico el nombre del metodo RegistrarCU por RegistroCuentaUsuarioRespuestaen el arcbhivo Servicios.cs
+
+[33mcommit 57550cadf327d566b23a9b2136fcf4ea66d9a9bd[m
+Merge: 4063bb5 5d06dcf
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Mon May 25 13:46:24 2020 -0500
+
+    Merge con rama master
+
+[33mcommit 4063bb5bb3848e2d6dbda0c42698af3777acf622[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Mon May 25 13:43:46 2020 -0500
+
+    Guardando para hacer commit con rama master
+
+[33mcommit 5d06dcfb82d6cb3881fa77ebc5721bda107ec7b5[m
+Author: Javier Juarez <javierjuarez.jj28@gmail.com>
+Date:   Sun May 24 16:10:21 2020 -0500
+
+    Commit de cambios para entrega
+    
+    se cambió el valor de stock minimo a entreo y numero exietncia a int 32, se modificó la relación de empleado a cuenta de 0 a1, se agregaron las interfaces y metodos de Cosultar inventario, Editar receta, y Generar respaldo automatico, no se puede hacer un metodo con sobre cargar por lo que en registrar empleado para registrar un empleado sin cuenta agrega un 2 al final del metodo
+
+[33mcommit 6c4387bbbb7d9a61baf49eed1fee0b822beb1710[m
+Author: Javier Juarez <javierjuarez.jj28@gmail.com>
+Date:   Sun May 24 02:32:35 2020 -0500
+
+    Commit de cambios
+    
+    a provision de le cambio el stockminimo a int y num existencia a int 32, ademas se generaro las interfaces consultar inventario, editar receta y generar respaldo
+
+[33mcommit 6e6757e7e38ff8fdfc8033deb121ac066f938bec[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sat May 23 10:46:30 2020 -0500
+
+    Se cambio el nombre RespuestaLogin por LoginRespuesta del callback en el catch de la funcion INICIAR SESION
+
+[33mcommit ed692394fbcfa6b4be2865528e552835d3d46906[m
+Merge: 6529d72 5ca641f
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Fri May 22 15:21:32 2020 -0500
+
+    se hizo pull
+
+[33mcommit 6529d72f3dacf07d3cc8a411a69924199fea670d[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Fri May 22 14:51:11 2020 -0500
+
+    Trabajo en progreso, integrando mis cambios
+
+[33mcommit 5ca641f20d7e1c042dc4be103b15761ad2547d5a[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 22 14:29:08 2020 -0500
+
+    Merge con rama master
+
+[33mcommit 392bce2faaa333869f66f84f62912df2af882b3c[m
+Merge: 9b88b02 a5b438c
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 22 13:56:37 2020 -0500
+
+    Merge con rama master
+
+[33mcommit 9b88b024a8dbdfebdeb870156106660ea6f6bdcc[m
+Merge: c1a3d56 0253264
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 22 13:43:41 2020 -0500
+
+    Se hizo pull
+
+[33mcommit c1a3d56b4c3814d790135e0294dd31c838ec6e86[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 22 13:28:08 2020 -0500
+
+    Trabajo en progreso
+
+[33mcommit a5b438cc0dfafa850c8b3acca5f3b7893cead716[m
+Author: bet160 <36347319+bet160@users.noreply.github.com>
+Date:   Thu May 21 23:41:59 2020 -0500
+
+    Servidor con procesos almacenados
+    
+    Servidor con procesos almacenados y entidad "Cuenta" modificada
+
+[33mcommit 025326480c24ab78862494e20b619769c239d9a2[m
+Merge: 143ff6a f0d9275
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Thu May 21 14:16:59 2020 -0500
+
+    Resoluciion de conflicto en pantalla Principal por nuevos métodos de botones
+
+[33mcommit 143ff6a8f39297cf740ce82c07d482b92aa5e34a[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Thu May 21 13:48:47 2020 -0500
+
+    instalo paquete de NUGET para la utilización de documentos PDF
+
+[33mcommit c60387298e0702a32225b8430f6f4577f4ed740a[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Thu May 21 13:47:34 2020 -0500
+
+    subo carpeta de validaciones
+
+[33mcommit 8a6984f8f375be5dcf5f9bb7ed241add2fd6dbad[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Thu May 21 13:46:57 2020 -0500
+
+    renombro la ventana
+
+[33mcommit c478b4260ee3e4f5950694a7d6b31616a18b7ece[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Thu May 21 13:45:32 2020 -0500
+
+    Conecto pantallas y valido entradas
+
+[33mcommit f0d9275cd4e9c9e1237a67f910464e686497d795[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Wed May 20 02:17:46 2020 -0500
+
+    Se implemento el funcionamiento para que se puedan registrar empleados en el servidor
+
+[33mcommit 8f1de9efb449111c84aa33b694146ea5d501227c[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Wed May 20 02:16:04 2020 -0500
+
+    Se agrego un recurso para agregar placeholder en los cuadros de contrasena
+
+[33mcommit 28d4c7fbceffa16caea04135bf226cd3c9425159[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Wed May 20 00:15:57 2020 -0500
+
+    Ya registra al empleado en la base de datos
+
+[33mcommit c13d49aabc4a5e3e44adcc189111ed67e41d9bad[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Wed May 20 01:40:08 2020 -0500
+
+    Se agregaron funciones para implementar la edicion de productos
+
+[33mcommit cea43995bd6d3f523844e523665a7bbc538c0f39[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 15:32:22 2020 -0500
+
+    Se renombraron algunos metodos para correjir excepciones y poder actualizar el servicio del cliente
+
+[33mcommit 05acf44ea78f5b73a5d2b3d2939b5310079a26f9[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 15:31:26 2020 -0500
+
+    Se volvio a implementar el inicio de sesion
+
+[33mcommit 031bad0f82025ad7d3c55c8ad899f6d5bd5df414[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 15:30:13 2020 -0500
+
+    Se actualizo la referencia del servicio
+
+[33mcommit 3da2b60fbcb9a57c7faa8977225f7c0e393e607e[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 13:38:18 2020 -0500
+
+    Se cambio el servidor por el de rama master
+
+[33mcommit 684a27a31ed6dcda563c553871b13607e82c4f65[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 13:18:55 2020 -0500
+
+    Se elimino servidor actual
+
+[33mcommit 884e234d26bbe3509dc34e7536c4d2b326bac3d3[m
+Merge: 30e8080 000fed7
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 13:11:15 2020 -0500
+
+    Se realizo merge con rama masrter
+
+[33mcommit 30e80803922b3141e1ff4f69c99170e5c21acfa5[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 11:41:07 2020 -0500
+
+    Se quito el recurso de la ventana para pasarlo a recurso de la aplicacion
+
+[33mcommit 5dba8450059e3da07d5f73b4c0488d8121bcda5c[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 11:39:54 2020 -0500
+
+    Se agregaron recursos del sistema para poner placeholder en TextBox
+
+[33mcommit bbf447ee283381669b5cc330aae9fb79d53c0908[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 11:16:36 2020 -0500
+
+    Se actualizo la referencia del servicio
+
+[33mcommit 8bb6c94519dd5242cc2aa72211a96d33066655df[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 11:12:08 2020 -0500
+
+    Mi segunda entrega
+
+[33mcommit 000fed703c2fafec31c5c326ce19fe41495e37d0[m
+Author: Javier Juarez <javierjuarez.jj28@gmail.com>
+Date:   Tue May 19 01:56:28 2020 -0500
+
+    Servidor colaborativo version 2.0
+    
+    Se agregegaron los comportamientos de los CU
+
+[33mcommit f651335780e3cd7d049611757878825ef6932996[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 00:52:56 2020 -0500
+
+    Archivo innecesario se elimino
+
+[33mcommit e190f60276a20564a0cd39f340a6f7ce0c007eeb[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 00:51:36 2020 -0500
+
+    Se agrego un fondo de pantalla y se dio funcionamiento para que pueda recuperar el ingrediente buscado
+
+[33mcommit e4737c2cd3a775b900d41bed87c253cc7da198b2[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 00:50:18 2020 -0500
+
+    Se agrego un fondo de pantalla
+
+[33mcommit 29c81f47165c03d06cb11f237109991cce0d70d4[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 19 00:47:28 2020 -0500
+
+    Se agrego imagen para el fondo de la administracion de ingredientes
+
+[33mcommit b6f30fc3b3d0aadcdfe99d8a554cc5c878491b90[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Mon May 18 14:39:19 2020 -0500
+
+    Se modifico la interfaz
+
+[33mcommit 731de75f2ecac5eebf89c0dc1d5586bc595438b2[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Mon May 18 12:10:10 2020 -0500
+
+    Se agregaron funciones para mostrar mensaje exito y mensaje de error y se documentaron las funciones existentes y las nuevas
+
+[33mcommit 944738784c2690077e2c62d7eceb148ceed4e21d[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 17 21:06:56 2020 -0500
+
+    Se dio funcionamiento a la ventana para que se conecte con el servidor
+
+[33mcommit 8d6b1b43248c27c5f04aa714cc64a7d88b5856f0[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 17 16:48:20 2020 -0500
+
+    Se hizo pull request
+
+[33mcommit 4eef042bf32fb07036960a2cd2437b67e6f29696[m
+Merge: 2a62ffc ff5fc1e
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 17 16:13:16 2020 -0500
+
+    Merge branch 'RamaAngelyElsa' of https://github.com/ang0823/ItaliaPizza-Codigo into RamaAngelyElsa
+
+[33mcommit 2a62ffc3d221b4974a37a500aed94693b78cc26e[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 17 16:10:55 2020 -0500
+
+    Se renombro el servicio de registro de ingredientes con un nombre mas adecuado
+
+[33mcommit ff5fc1ea331be31edd3083cf510baab422764933[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:55:55 2020 -0500
+
+    se hicieron cmbios minimos
+
+[33mcommit 4702300faf0ac4e43cbbabfd327908897ce57f7d[m
+Merge: 514932e d854096
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:42:51 2020 -0500
+
+    Merge branch 'RamaAngelyElsa' of https://github.com/ang0823/ItaliaPizza-Codigo into RamaAngelyElsa
+
+[33mcommit 514932edaf500e5fdd098530b38b05ec73c3a34a[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:40:56 2020 -0500
+
+    agregue pantallas de  receta, inventario y nuevoPedido
+
+[33mcommit a4ecf49e021fa59c26cdb49550b5549663e4eb6a[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:39:05 2020 -0500
+
+    agrego fondos para las ventanas de Receta y Nuevo Pedido
+
+[33mcommit f963eeffdd0c917509a8727f7477e8388c118c27[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:37:12 2020 -0500
+
+    creo ventana de receta
+
+[33mcommit ab433c0d6e210c8547547c86f508b10117118fb5[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:36:32 2020 -0500
+
+    creo la ventana para editar y agregar un nuevo pedido
+
+[33mcommit ed3f8c8fe54a80a41da263036fbc44d7c2fa41d0[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:35:31 2020 -0500
+
+    creo user control de pedido local de cocina
+
+[33mcommit 51101cd177115a0a8f954117d0daa7d07b8328c4[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:34:16 2020 -0500
+
+    agrego user control de pedido a domicilio de cocina
+
+[33mcommit 282c15211b7f8808f70cf423bc72e3fe836e0925[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:32:49 2020 -0500
+
+    creo la ventana de inventario
+
+[33mcommit 3b832fc385c4306893b10ec96fd5afd6f471e98b[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:26:39 2020 -0500
+
+    creo la ventana de Buscar Receta
+
+[33mcommit 89b42c1c0579b3a8d52213b13299cb692420222e[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:22:05 2020 -0500
+
+    agrego users controls dinámicos
+
+[33mcommit fcc6e866bcc51f58957753afa5a0f75e7d492957[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:20:33 2020 -0500
+
+    se agregaron cambios minimos
+
+[33mcommit 969f29cc1e93c76dfe9d572b803f5aa88463ba18[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sun May 17 01:19:47 2020 -0500
+
+    se agregaron cambios minimos
+
+[33mcommit 13358aaaaa65a5a7d3c42cbdfd159b44dfbd006e[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 17 00:14:07 2020 -0500
+
+    Se relaciono el boton de Registro de ingredintes con su respectiva ventana
+
+[33mcommit d85409604a2d693204f498809fdef92971a1165b[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Wed May 13 12:40:07 2020 -0500
+
+    Se cambio el nombre del panel de administracion de pedidos por administracion de ingredientes
+
+[33mcommit da791fdbda8fa648bcffb4a255c23c8ef5910dcf[m
+Merge: 46fdfb6 4077c04
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 12 17:47:46 2020 -0500
+
+    Se hizo pull request
+
+[33mcommit 46fdfb6b56a030fcf09b6aaa3442abbcf9061241[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 12 17:39:45 2020 -0500
+
+    Se agrego fondo de pantalla
+
+[33mcommit 504f7e5cebf81fed7df8e08cd4d959b32614c323[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 12 17:39:08 2020 -0500
+
+    Cambio minimo en la etiqueta de nombre de usuario
+
+[33mcommit cb9cd0ea9b0e7aadb48950e4f859adde8f67f827[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 12 17:38:26 2020 -0500
+
+    Se agrego la pantalla de registrar productos
+
+[33mcommit 46530d1098033166a31b83f78aaa49e3cb44a27f[m
+Merge: f813d65 958a561
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 12 20:44:38 2020 -0500
+
+    Merge con RamaAlberto
+
+[33mcommit f813d656b78e251d3dad1b7cf727ab9117ce8ab8[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 12 20:29:51 2020 -0500
+
+    Se agrego la ventana de regidtro de productos
+
+[33mcommit 9b59ebc140088a11037963f439cecf6dcf5d944a[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 12 20:29:10 2020 -0500
+
+    Ss agregp icono de buscar
+
+[33mcommit e705eccad99cb34ab4d4a9df99d3150c0b7daaf0[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue May 12 20:27:50 2020 -0500
+
+    Se dio vinculo el boton de registro de productos con su respectiva ventana
+
+[33mcommit 4077c0483bc0b5c782fc39fedd47cf486ab925f9[m
+Merge: d5fd000 f813d65
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Tue May 12 17:20:43 2020 -0500
+
+    Merge branch 'RamaAngelyElsa' of https://github.com/ang0823/ItaliaPizza-Codigo into RamaAngelyElsa
+
+[33mcommit d5fd000ae10eeb9a3600a8c72a82f6aa23874322[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Tue May 12 17:18:52 2020 -0500
+
+    Agrego usercontrol´s de Meseros y Call Center
+
+[33mcommit 17ca046801999550e05cc4cdb727ff5721616fb4[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Tue May 12 17:17:51 2020 -0500
+
+    Agrego usercontrol´s a la ventana de Pedidos y cambio de nombre a la imagen de fondo
+
+[33mcommit a3109595bad778df377d979a5b2c712cba0b41e8[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Tue May 12 17:15:44 2020 -0500
+
+    se agregó ventana de cocina y su fondo de ventana
+
+[33mcommit c7ebb4af53cc0ddfcc196be74eaabd3a1a2f6aab[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Tue May 12 17:14:22 2020 -0500
+
+    Agrego funcionalidad a los botones de cocina y meseros
+
+[33mcommit 8adecef90187fb5001825e9a1930baf206bcbbbf[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Tue May 12 17:10:50 2020 -0500
+
+    Agrego pantalla de call center
+
+[33mcommit 298d95751eac47422f3cb01508681752d09df480[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Mon May 11 20:39:18 2020 -0500
+
+    Se agrego fondo de ventanas y color a los botones
+
+[33mcommit 958a561c7c8e0c804476aa7fb5874262c83fd264[m
+Author: bet160 <36347319+bet160@users.noreply.github.com>
+Date:   Mon May 11 18:56:58 2020 -0500
+
+    Servidor con mis CU implementados
+    
+    Casos de uso implementados
+
+[33mcommit 9a376bab0532e8cd749216e19b466f36065c0bd4[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sat May 9 15:05:22 2020 -0500
+
+    Se giro la imagen a modo horizontal
+
+[33mcommit 26bcb98d116a79812297af3dcb328884f50e1ea9[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sat May 9 15:04:17 2020 -0500
+
+    Se dio un poco de estilo al fondo de la ventana y se cambio color de etiquetas
+
+[33mcommit cc2fece99fc32f049154dc0a636a319d4691815c[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Sat May 9 01:03:09 2020 -0500
+
+    se agregaron imágenes a la carpeta de recursos
+
+[33mcommit ca91b4b7c721ba3b7fb0915227566f13011ee8d4[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sat May 9 00:02:23 2020 -0500
+
+    Se posisicionaron archivos afuera nuevamente
+
+[33mcommit c7c1f319380536c5cf0f0995718a1b7a7e73c673[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sat May 9 00:00:55 2020 -0500
+
+    Se sacaron archivos de la carpeta
+
+[33mcommit 324eab6d020f580e518392461eeae2558bb1da17[m
+Merge: a745558 38e588d
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 23:37:25 2020 -0500
+
+    Se realizo merge de RamaAngelyElsa con RamaAngel
+
+[33mcommit a745558077097b7004c6a605e49b17e673c62d54[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Fri May 8 21:31:04 2020 -0500
+
+    agrego comentario en .csproj
+    
+    agrego comentario en .csproj
+
+[33mcommit 38e588dc82179bd0e5f1ac651e83ffb8d65c618f[m[33m ([m[1;31morigin/RamaAngel[m[33m)[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 19:24:16 2020 -0500
+
+    Se agrego la ventana de Registro de productos
+
+[33mcommit f92e89aa20997f3b72cbed92647b4b5efe41e676[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 19:23:44 2020 -0500
+
+    Se usaron las imagenes de recursos para mostrar en las interfaces
+
+[33mcommit dda2da4ecb2a091b174514b13b76402ad7afbb39[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 19:21:53 2020 -0500
+
+    Se agregaron imagenes para los recursos de las interfaces
+
+[33mcommit 8c5c6b97797536506a0b2f0ceeb6910667277938[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 17:28:33 2020 -0500
+
+    Se agrego la interfaz para registrar productos con funcionamiento para los botones de Cerrar sesion, Busc<r foto, Vaciar y Cancelar
+
+[33mcommit f4f2e46b57b449e2f7a140244fdb614ed2a158f6[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 17:25:17 2020 -0500
+
+    Se dio funcionamiento al boton REGISTRAR PRODUCTO
+
+[33mcommit acd235b4552253e156907fb064e3a57c55f428d8[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 17:22:10 2020 -0500
+
+    En proceso: se esta dando funcionamiento a los botones
+
+[33mcommit ec142f5138e3655fd8c4b09140b8e42efc1cf176[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 17:19:45 2020 -0500
+
+    Se agrego una Clase para mostrar en el DataGrid en la busqueda de emplados
+
+[33mcommit bdff45c76636e2f56a3e66a7081b496a85789ef4[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri May 8 17:16:13 2020 -0500
+
+    Se modifico la interfaz de inicio de sesion
+
+[33mcommit 161a8838317ceb10f30dd6676f73715178e7bad8[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Wed May 6 20:12:42 2020 -0500
+
+    Se agrego funcionamiento de CU03 a la pantalla de BuscarEmpleados
+
+[33mcommit 75d9a074a69dc77b139cc0771cce0279ad0d34b8[m
+Author: irasemcai <36616732+irasemcai@users.noreply.github.com>
+Date:   Wed May 6 00:10:06 2020 -0500
+
+    Agrego Ventana de Pedidos
+    
+    se agregó la ventana de pedidos y fondo1.jpg a la carpeta de Recursos GUI
+
+[33mcommit ffbee96f7bdcd9fe5de51baf2888983395c1d633[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 3 18:11:51 2020 -0500
+
+    WIP
+
+[33mcommit 085e2365a16a860d4f7245c2abb60522e58af938[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 3 18:11:04 2020 -0500
+
+    Se agrego la interfaz principal del gerente
+
+[33mcommit e0c4ef327412fe4141a658c2d8991b0082e09333[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Sun May 3 18:09:34 2020 -0500
+
+    Se esta creando la interfaz para buscar empleados
+
+[33mcommit cea133526de22b7f9c03e66efeb33ee3ae09b7b6[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Fri Apr 24 12:34:37 2020 -0500
+
+    Se agrego pantalla de registro de empledos
+
+[33mcommit aefd090e19e18d6a7f7c00f9fb9ef3b0f64b3752[m
+Merge: fd4291f 13e5eb2
+Author: bet160 <36347319+bet160@users.noreply.github.com>
+Date:   Wed Apr 22 23:29:18 2020 -0500
+
+    Merge branch 'RamAlberto'
+
+[33mcommit 13e5eb23460444fe436af50962369dfaf047ae76[m
+Author: bet160 <36347319+bet160@users.noreply.github.com>
+Date:   Tue Apr 21 20:24:30 2020 -0500
+
+    Servidor
+    
+    Proyecto servidor
+
+[33mcommit 6abd02e0f2a30d7782d30a12acc36c4b8bd48899[m
+Author: bet160 <36347319+bet160@users.noreply.github.com>
+Date:   Tue Apr 21 20:21:15 2020 -0500
+
+    Inicio de sesión implementado
+    
+    Inicio de sesión y conexión al servidor.
+
+[33mcommit fd4291f233601a9e030ecaa2f11ddcca4d70f747[m
+Author: bet160 <36347319+bet160@users.noreply.github.com>
+Date:   Mon Apr 20 18:36:33 2020 -0500
+
+    Aplicación servidor del proyecto
+    
+    Servidor con inicio de sesión y administración de cuenta de usuario
+
+[33mcommit fe361f03ae4ed5d48af16fdf9d8599b6cb6485e5[m
+Author: bet160 <36347319+bet160@users.noreply.github.com>
+Date:   Mon Apr 20 15:58:02 2020 -0500
+
+    GUI Inicio de sesión
+    
+    Pantalla de inicio de sesión
+
+[33mcommit 7ad5ab7683c48e7f2b0e4022bbe82e431f02acae[m
+Author: bet160 <36347319+bet160@users.noreply.github.com>
+Date:   Mon Apr 20 10:44:51 2020 -0500
+
+    Aplicación cliente del proyecto
+    
+    Acciones realizadas:
+    -Proyecto de Windows Forms eliminado.
+    -Proyecto WPF creado.
+
+[33mcommit 16f9b24a6a2c65b5bd2aea005e8fe72ba121d249[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue Apr 14 13:55:35 2020 -0500
+
+    Se agrego archivo gitignore
+
+[33mcommit 938aacfa77c92f2fe7fc4eb58d20c064d4a89286[m
+Author: ang0823 <angelsanchez934@gmail.com>
+Date:   Tue Apr 14 13:51:59 2020 -0500
+
+    Se inicializo el proyecto del cliente para el sistema de Italia Pizza
+
+[33mcommit c7504fbc9872d5e7428c36df42136b13a7e9335d[m
+Author: ang0823 <36551792+ang0823@users.noreply.github.com>
+Date:   Thu Mar 19 17:31:48 2020 -0600
+
+    Initial commit

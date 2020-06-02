@@ -11,20 +11,21 @@ namespace ClienteItaliaPizza
     {
         CuentaUsuario1 CuentaUsuario;
 
-        public Principal(CuentaUsuario1 cuenta)
+        /*public Principal(CuentaUsuario1 cuenta)
         {
             InitializeComponent();
-            CuentaUsuario = new CuentaUsuario();
+            CuentaUsuario = new CuentaUsuario1();
             CuentaUsuario.nombreUsuario = cuenta.nombreUsuario;
-            CuentaUsuario.Empleado = new Empleado();
-            CuentaUsuario.Empleado.Rol = new Rol();
+            CuentaUsuario.Empleado = new Empleado1();
+            CuentaUsuario.Empleado.Rol = new Rol1();
             CuentaUsuario.Empleado.Rol.nombreRol = cuenta.rol;               
             nombreUs.Content = CuentaUsuario.nombreUsuario;
-        }
-        public Principal (CuentaUsuario cuenta)
+        }*/
+
+        public Principal (CuentaUsuario1 cuenta)
         {
             InitializeComponent();
-            CuentaUsuario = new CuentaUsuario();
+            CuentaUsuario = new CuentaUsuario1();
             CuentaUsuario.nombreUsuario = cuenta.nombreUsuario;           
         }
 

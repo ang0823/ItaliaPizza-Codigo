@@ -13,7 +13,7 @@ namespace ClienteItaliaPizza
     public partial class Receta : Window, IRegistrarRecetaCallback
     {
         protected object recetaExistente; //creo esta clase temporalmente para VALIDAR si la ventna se llama con un objeto receta o no
-        protected CuentaUsuario1 cuenta = new CuentaUsuario();
+        protected CuentaUsuario1 cuenta = new CuentaUsuario1();
 
         List<Ingrediente> Ingredientes = new List<Ingrediente>();
         List<Provision> Provisiones = new List<Provision>();

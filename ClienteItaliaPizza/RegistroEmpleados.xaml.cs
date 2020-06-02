@@ -125,7 +125,7 @@ namespace ClienteItaliaPizza
 
         private String GenerarIdEmpleado() 
         {
-            int primerPar = idGenerado.Next(10, 99);
+            int primerPar = idGenerado.Next(10, 20);
             int segundoPar = idGenerado.Next(10, 99);
             int tercerPar = idGenerado.Next(10, 99);
             int cuartoPart = idGenerado.Next(20, 99);

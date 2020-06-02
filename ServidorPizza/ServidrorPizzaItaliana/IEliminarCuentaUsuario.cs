@@ -12,7 +12,7 @@ namespace ServidrorPizzaItaliana
     interface IEliminarCuentaUsuario
     {
         [OperationContract(IsOneWay = true)]
-        void EliminarCuentaUsuario(string nombreUsuario, int id);
+        void EliminarCuentaUsuario(string idEmpleadoGenerado);
     }
 
     [ServiceContract]
