@@ -15,10 +15,10 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class RegistroIngredientes : Window, Servicio.IRegistrarIngredienteCallback
     {
-        CuentaUsuario CuentaUsuario;
+        CuentaUsuario1 CuentaUsuario;
         Provision ingrediente = new Provision();
 
-        public RegistroIngredientes(CuentaUsuario cuenta)
+        public RegistroIngredientes(CuentaUsuario1 cuenta)
         {
            // this.CuentaUsuario = cuenta;
             InitializeComponent();

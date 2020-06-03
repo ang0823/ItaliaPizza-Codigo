@@ -20,8 +20,8 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class BuscarReceta : Window
     {
-        CuentaUsuario cuenta = new CuentaUsuario(); 
-        public BuscarReceta(CuentaUsuario cuentaUsuario)
+        CuentaUsuario1 cuenta = new CuentaUsuario1(); 
+        public BuscarReceta(CuentaUsuario1 cuentaUsuario)
         {
             InitializeComponent();
             cuenta = cuentaUsuario;

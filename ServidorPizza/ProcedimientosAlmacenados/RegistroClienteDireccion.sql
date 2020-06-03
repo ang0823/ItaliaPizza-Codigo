@@ -15,14 +15,15 @@ CREATE PROCEDURE RegistroDeClienteConDireccion
 	@Calle varchar(max),
 	@Colonia varchar(max),
 	@NumeroExterior varchar(10),
-	@NumeroInterior varchar(10)
+	@NumeroInterior varchar(10),
+	@codigoPostal varchar(5)
 
 AS
 BEGIN
 	
 	insert ClienteSet values (@Nombre, @ApellidoPaterno, @ApellidoMaterno)
 
-	insert DireccionSet values (@Calle, @Colonia, @NumeroExterior, @NumeroInterior)
+	insert DireccionSet values (@Calle, @Colonia, @NumeroExterior, @NumeroInterior, @codigoPostal)
 
 END
 GO

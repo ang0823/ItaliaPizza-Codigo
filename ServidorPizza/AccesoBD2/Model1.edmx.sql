@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/27/2020 01:46:32
+-- Date Created: 05/31/2020 02:13:59
 -- Generated from EDMX file: C:\Users\javie\Desktop\Nueva carpeta (2)\ItaliaPizza-Codigo-master\ServidorPizza\AccesoBD2\Model1.edmx
 -- --------------------------------------------------
 
@@ -61,7 +61,7 @@ IF OBJECT_ID(N'[dbo].[FK_ProvisionDirectaProvision]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProvisionDirectaSet] DROP CONSTRAINT [FK_ProvisionDirectaProvision];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProductoReceta]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProductoSet] DROP CONSTRAINT [FK_ProductoReceta];
+    ALTER TABLE [dbo].[RecetaSet] DROP CONSTRAINT [FK_ProductoReceta];
 GO
 IF OBJECT_ID(N'[dbo].[FK_RecetaProvision_Receta]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RecetaProvision] DROP CONSTRAINT [FK_RecetaProvision_Receta];
@@ -184,6 +184,7 @@ CREATE TABLE [dbo].[EmpleadoSet] (
     [telefono] nvarchar(max)  NOT NULL,
     [correo] nvarchar(max)  NOT NULL,
     [idEmpleadoGenerado] nvarchar(max)  NOT NULL,
+    [activado] bit  NOT NULL,
     [Direccion_Id] int  NOT NULL,
     [Rol_Id] int  NOT NULL
 );
@@ -257,7 +258,8 @@ CREATE TABLE [dbo].[ProductoSet] (
     [imagen] tinyint  NULL,
     [activado] bit  NOT NULL,
     [restricciones] nvarchar(max)  NOT NULL,
-    [Categoria_Id] int  NOT NULL
+    [Categoria_Id] int  NOT NULL,
+    [Receta_id] int  NOT NULL
 );
 GO
 
@@ -296,7 +298,7 @@ CREATE TABLE [dbo].[RecetaSet] (
     [porciones] float  NOT NULL,
     [procedimiento] nvarchar(max)  NOT NULL,
     [nombreReceta] nvarchar(max)  NOT NULL,
-    [Producto_Id] int  NOT NULL
+    [activado] bit  NOT NULL
 );
 GO
 
@@ -308,7 +310,8 @@ CREATE TABLE [dbo].[ProvisionSet] (
     [ubicacion] nvarchar(max)  NOT NULL,
     [stockMinimo] int  NOT NULL,
     [costoUnitario] float  NOT NULL,
-    [unidadMedida] nvarchar(max)  NOT NULL
+    [unidadMedida] nvarchar(max)  NOT NULL,
+    [activado] bit  NOT NULL
 );
 GO
 
@@ -725,19 +728,19 @@ ON [dbo].[ProvisionDirectaSet]
     ([Provision_Id]);
 GO
 
--- Creating foreign key on [Producto_Id] in table 'RecetaSet'
-ALTER TABLE [dbo].[RecetaSet]
+-- Creating foreign key on [Receta_id] in table 'ProductoSet'
+ALTER TABLE [dbo].[ProductoSet]
 ADD CONSTRAINT [FK_ProductoReceta]
-    FOREIGN KEY ([Producto_Id])
-    REFERENCES [dbo].[ProductoSet]
-        ([Id])
+    FOREIGN KEY ([Receta_id])
+    REFERENCES [dbo].[RecetaSet]
+        ([id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ProductoReceta'
 CREATE INDEX [IX_FK_ProductoReceta]
-ON [dbo].[RecetaSet]
-    ([Producto_Id]);
+ON [dbo].[ProductoSet]
+    ([Receta_id]);
 GO
 
 -- Creating foreign key on [Receta_id] in table 'RecetaProvision'

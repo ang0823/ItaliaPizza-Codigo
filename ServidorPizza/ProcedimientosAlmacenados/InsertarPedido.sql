@@ -9,7 +9,7 @@ GO
 -- Description:	Procedimiento almacenado para registrar una cuenta de pedido
 -- =============================================
 
-ALTER PROCEDURE InsertarPedido
+CREATE PROCEDURE InsertarPedido
 
 	@Fecha Datetime, 
 	@InstruccionesEspeciales varchar(max),

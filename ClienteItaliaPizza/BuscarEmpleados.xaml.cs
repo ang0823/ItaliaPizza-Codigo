@@ -4,12 +4,7 @@ using System.ServiceModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-
-/**
- * HAY ERROR AL DAR CLICK EN BOTON EDITAR
- * FALTA DEPURAR
- * 
- */
+using System.Windows.Input;
 
 
 namespace ClienteItaliaPizza
@@ -17,16 +12,16 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para BuscarEmpleados.xaml
     /// </summary>
-    public partial class BuscarEmpleados : Window, IObtenerCuentasUsuarioCallback, IModificarCuentaUsuarioCallback
+    public partial class BuscarEmpleados : Window, IObtenerCuentasUsuarioCallback, IModificarCuentaUsuarioCallback, IEliminarCuentaUsuarioCallback
     {
-        CuentaUsuario CuentaUsuario;
+        CuentaUsuario1 CuentaUsuario;
 
         Empleado empleado = new Empleado();
         Direccion direccion = new Direccion();
         CuentaUsuario cuenta = new CuentaUsuario();
-        Rol puesto = new Rol();
+        int idPuesto;
 
-        public BuscarEmpleados(CuentaUsuario cuenta)
+        public BuscarEmpleados(CuentaUsuario1 cuenta)
         {
             InitializeComponent();
             LlenarPuestosCb();
@@ -36,8 +31,10 @@ namespace ClienteItaliaPizza
             UsuarioLbl.Content = cuenta.nombreUsuario;
 
             idEmpleadoTxt.IsEnabled = false;
-            //EditarGuardarBtn.IsEnabled = false;
-            //EliminarBtn.IsEnabled = false;
+            EstadoTxt.IsEnabled = false;
+            SearchBtn.IsEnabled = false;
+            EditarGuardarBtn.IsEnabled = false;
+            EliminarBtn.IsEnabled = false;
         }
 
         private Boolean CamposLlenos()
@@ -47,12 +44,12 @@ namespace ClienteItaliaPizza
                 && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
                 && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 1
                 || puestosCB.SelectedIndex == 2) && usuarioTxt.Text.Length == 0
-                && contrasenaTxt.Password.Length == 0)
+                && contrasenaTxt.Password.Length == 0 && NoExteriorTxt.Text.Length > 0)
             {
                 return true;
             }
             else if (nombreTxt.Text.Length > 0 && aPaternoTxt.Text.Length > 0 && aMaternoTxt.Text.Length > 0
-                && correoElectronicoTxt.Text.Length > 0 && telefonoTxt.Text.Length > 0
+                && correoElectronicoTxt.Text.Length > 0 && telefonoTxt.Text.Length > 0 && NoExteriorTxt.Text.Length > 0
                 && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
                 && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 3
                 || puestosCB.SelectedIndex == 4 || puestosCB.SelectedIndex == 5)
@@ -64,12 +61,29 @@ namespace ClienteItaliaPizza
             return false;
         }
 
+        private void DesactivarEmpleado()
+        {
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                EliminarCuentaUsuarioClient ServicioEliminar = new EliminarCuentaUsuarioClient(context);
+
+                ServicioEliminar.EliminarCuentaUsuario(empleado.idEmpleadoGenerado);
+            }
+            catch (Exception e)
+            {
+                FuncionesComunes.MostrarMensajeDeError(e.Message);
+            }
+        }
+
         private void DeshabilitarCampos()
         {
             nombreTxt.IsEnabled = false;
             aPaternoTxt.IsEnabled = false;
             aMaternoTxt.IsEnabled = false;
             calleTxt.IsEnabled = false;
+            NoInteriorTxt.IsEnabled = false;
+            NoExteriorTxt.IsEnabled = false;
             coloniaTxt.IsEnabled = false;
             codigoPostalTxt.IsEnabled = false;
             correoElectronicoTxt.IsEnabled = false;
@@ -81,35 +95,43 @@ namespace ClienteItaliaPizza
 
         private void EditarInformacion() 
         {
-                try
-                {
-                    if (HayInformacionEditada())
-                    {
-                        InstanceContext context = new InstanceContext(this);
-                        ModificarCuentaUsuarioClient ServicioModificar = new ModificarCuentaUsuarioClient(context);
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                ModificarCuentaUsuarioClient ServicioModificar = new ModificarCuentaUsuarioClient(context);
 
-                        //empleado.IdEmpleado  = FuncionesComunes.ParsearAEntero(idEmpleadoTxt.Text.Trim());
-                        empleado.nombre = nombreTxt.Text.Trim();
-                        empleado.apellidoPaterno = aPaternoTxt.Text.Trim();
-                        empleado.apellidoMaterno = aMaternoTxt.Text.Trim();
-                        empleado.correo = correoElectronicoTxt.Text.Trim();
-                        empleado.telefono = telefonoTxt.Text;
-                        direccion.calle = calleTxt.Text;
-                        direccion.colonia = coloniaTxt.Text;
-                        direccion.numeroExterior = codigoPostalTxt.Text;
-                        puesto.Id = puestosCB.SelectedIndex;
-                        //if (usuarioTxt.Text != "" && contrasenaTxt.Password != "")
-                        //{
-                            usuarioTxt.Text = cuenta.nombreUsuario;
-                            contrasenaTxt.Password = cuenta.contraseña;
-                        //}
-                        ServicioModificar.ModificarCuentaUsuario(cuenta, empleado, direccion, puesto);
+                if (HayInformacionEditada())
+                {
+                    empleado.nombre = nombreTxt.Text.Trim();
+                    empleado.apellidoPaterno = aPaternoTxt.Text.Trim();
+                    empleado.apellidoMaterno = aMaternoTxt.Text.Trim();
+                    empleado.correo = correoElectronicoTxt.Text.Trim();
+                    empleado.telefono = telefonoTxt.Text.Trim();
+                    empleado.activado = EstaActivado();
+                    direccion.calle = calleTxt.Text.Trim();
+                    direccion.colonia = coloniaTxt.Text.Trim();
+                    direccion.numeroExterior = NoExteriorTxt.Text.Trim();
+                    direccion.numeroInterior = NoInteriorTxt.Text.Trim();
+                    idPuesto = puestosCB.SelectedIndex;
+
+                    if (EsAdministrativo())
+                    {
+                        usuarioTxt.Text = cuenta.nombreUsuario;
+                        contrasenaTxt.Password = cuenta.contraseña;
+                        ServicioModificar.ModificarCuentaUsuario(cuenta, empleado, direccion, idPuesto);
                         EstablecerInformacion();
                     }
                     else
                     {
+                        ServicioModificar.ModificarCuentaUsuario2(empleado, direccion, idPuesto);
                         EstablecerInformacion();
                     }
+                }
+                else
+                {
+                    EstablecerInformacion();
+                }
+
                 DeshabilitarCampos();
             }
             catch (Exception e)
@@ -118,9 +140,21 @@ namespace ClienteItaliaPizza
             }
         }
 
+        private Boolean EsAdministrativo()
+        {
+            bool EsAdministrativo = false;
+
+            if (puestosCB.SelectedIndex == 3 || puestosCB.SelectedIndex == 4 || puestosCB.SelectedIndex == 5)
+            {
+                EsAdministrativo = true;
+            }
+
+            return EsAdministrativo;
+        }
+
         private Boolean EsCorreoElectronicoValido()
         {
-            Boolean EsValido = true;
+            Boolean EsValido = false;
             string ExpresionRegular = "^[_a-z0-9-]+(.[_a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,4})$";
             string CorreoIngresado = correoElectronicoTxt.Text;
             Match validacion = Regex.Match(CorreoIngresado, ExpresionRegular);
@@ -129,19 +163,41 @@ namespace ClienteItaliaPizza
             return EsValido;
         }
 
+        private bool EstaActivado()
+        {
+            bool estaActivado = false;
+
+            if (empleado.activado)
+            {
+                estaActivado = true;
+            }
+
+            return estaActivado;
+        }
+
         private void EstablecerInformacion()
         {
-            idEmpleadoTxt.Text = empleado.IdEmpleado.ToString();
+            idEmpleadoTxt.Text = empleado.idEmpleadoGenerado;
             nombreTxt.Text = empleado.nombre;
             aPaternoTxt.Text = empleado.apellidoPaterno;
             aMaternoTxt.Text = empleado.apellidoMaterno;
             correoElectronicoTxt.Text = empleado.correo;
             telefonoTxt.Text = empleado.telefono;
+            if (empleado.activado)
+            {
+                EstadoTxt.Text = "Activo";
+            }
+            else
+            {
+                EstadoTxt.Text = "Inactivo";
+            }
             calleTxt.Text = direccion.calle;
+            NoExteriorTxt.Text = direccion.numeroExterior;
+            NoInteriorTxt.Text = direccion.numeroInterior;
             coloniaTxt.Text = direccion.colonia;
-            codigoPostalTxt.Text = direccion.numeroExterior;
-            puestosCB.SelectedIndex = puesto.Id;
-            if (usuarioTxt.Text != "" && contrasenaTxt.Password != "")
+            codigoPostalTxt.Text = direccion.codigoPostal;
+            puestosCB.SelectedIndex = idPuesto;
+            if (cuenta != null)
             {
                 usuarioTxt.Text = cuenta.nombreUsuario;
                 contrasenaTxt.Password = cuenta.contraseña;
@@ -154,6 +210,8 @@ namespace ClienteItaliaPizza
             aPaternoTxt.IsEnabled = true;
             aMaternoTxt.IsEnabled = true;
             calleTxt.IsEnabled = true;
+            NoExteriorTxt.IsEnabled = true;
+            NoInteriorTxt.IsEnabled = true;
             coloniaTxt.IsEnabled = true;
             codigoPostalTxt.IsEnabled = true;
             correoElectronicoTxt.IsEnabled = true;
@@ -172,6 +230,8 @@ namespace ClienteItaliaPizza
             string NuevoCorreo = correoElectronicoTxt.Text;
             string NuevoTelefono = telefonoTxt.Text;
             string NuevaCalle = calleTxt.Text;
+            string NuevoNoExterior = NoExteriorTxt.Text;
+            string NuevoNoInterior = NoInteriorTxt.Text;
             string NuevaColonia = coloniaTxt.Text;
             string NuevoCodigoPostal = codigoPostalTxt.Text;
             int NuevoRol = puestosCB.SelectedIndex;
@@ -179,10 +239,10 @@ namespace ClienteItaliaPizza
             string NuevaContrasena = contrasenaTxt.Password;
 
             if (NuevoNombre != empleado.nombre || NuevoPaterno != empleado.apellidoPaterno || NuevoMaterno != empleado.apellidoMaterno
-                || NuevoCorreo != empleado.correo || NuevoTelefono != empleado.telefono
-                || NuevaCalle != direccion.calle || NuevaColonia != direccion.colonia || NuevoCodigoPostal !=  direccion.numeroExterior
-                || NuevoUsuario != usuarioTxt.Text || NuevaContrasena != contrasenaTxt.Password
-                || NuevoRol != puesto.Id)
+                || NuevoCorreo != empleado.correo || NuevoTelefono != empleado.telefono || NuevaCalle != direccion.calle 
+                || NuevoNoExterior != direccion.numeroExterior || NuevoNoInterior != direccion.numeroInterior || NuevaColonia != direccion.colonia 
+                || NuevoCodigoPostal !=  direccion.codigoPostal || NuevoUsuario != usuarioTxt.Text || NuevaContrasena != contrasenaTxt.Password
+                || NuevoRol != idPuesto)
             {
                 InformacionEditada = true;
             }
@@ -201,19 +261,33 @@ namespace ClienteItaliaPizza
             puestosCB.SelectedIndex = 0;
         }
 
-        private void ObtenerEmpledo()
+        private void ObtenerEmpleado()
         {
+            string idEmpleado = SearchBox.Text;
+
             try
             {
                 InstanceContext context = new InstanceContext(this);
                 ObtenerCuentasUsuarioClient ServicioBusqueda = new ObtenerCuentasUsuarioClient(context);
 
-                ServicioBusqueda.ObtenerCuentas();
-                EstablecerInformacion();
+                if (SearchBox.Text.Length > 0)
+                {
+                    // Se realiza un parse para corroborar que el ID son números
+                    int.Parse(idEmpleado);
+                    ServicioBusqueda.ObtenerCuentas(idEmpleado);
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError("Se debe introducir un ID para buscar");
+                }
+            }
+            catch (FormatException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("El ID de empleado solo pueden ser numeros");
             }
             catch (Exception e)
             {
-                FuncionesComunes.MostrarMensajeDeError(e.Message);
+                FuncionesComunes.MostrarMensajeDeError(e.GetType() + "Valor máximo: " + int.MaxValue + " " + e.Message);
             }
         }
 
@@ -234,46 +308,21 @@ namespace ClienteItaliaPizza
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            ObtenerEmpledo();
-            /*
-             * Falta corrección del servidor para implementar este apartado
-             */
-        }
-
-        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            FuncionesComunes.CerrarSesion();
-        }
-
-        private void entradaTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CamposLlenos())
-            {
-                EditarGuardarBtn.IsEnabled = true;
-            }
-            else
-            {
-                EditarGuardarBtn.IsEnabled = false;
-            }
+                ObtenerEmpleado();
         }
 
         private void cancelarBtn_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult opcion;
 
-            opcion = MessageBox.Show("¿Volver a pantalla anteior?", "Cancelar",
+            opcion = MessageBox.Show("¿Volver a pantalla principal?", "Cancelar",
                     MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
-                if (opcion == MessageBoxResult.OK)
-                {
-                    FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
-                }
-        }
-
-        private void cancelarBtn_Click_1(object sender, RoutedEventArgs e)
-        {
-            FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
-            this.Close();
+            if (opcion == MessageBoxResult.OK)
+            {
+                FuncionesComunes.MostrarVentanaPrincipal(this.CuentaUsuario);
+                this.Close();
+            }
         }
 
         private void correoElectronicoTxt_TextChanged(object sender, TextChangedEventArgs e)
@@ -287,7 +336,7 @@ namespace ClienteItaliaPizza
                 correoElectronicoTxt.BorderBrush = System.Windows.Media.Brushes.Red;
             }
 
-            if (CamposLlenos())
+            if (CamposLlenos() && EstaActivado())
             {
                 EditarGuardarBtn.IsEnabled = true;
             }
@@ -297,7 +346,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void LogoutBtn_Click_1(object sender, RoutedEventArgs e)
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             FuncionesComunes.CerrarSesion();
             this.Close();
@@ -305,15 +354,14 @@ namespace ClienteItaliaPizza
 
         private void puestosCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (puestosCB.SelectedIndex == 3 || puestosCB.SelectedIndex == 4
-                || puestosCB.SelectedIndex == 5)
+            if (EsAdministrativo())
             {
                 usuarioLbl.Visibility = Visibility.Visible;
                 usuarioTxt.Visibility = Visibility.Visible;
                 contrasenaLbl.Visibility = Visibility.Visible;
                 contrasenaTxt.Visibility = Visibility.Visible;
             }
-            else
+            else if(!EsAdministrativo())
             {
                 usuarioLbl.Visibility = Visibility.Hidden;
                 usuarioTxt.Visibility = Visibility.Hidden;
@@ -321,6 +369,15 @@ namespace ClienteItaliaPizza
                 contrasenaTxt.Visibility = Visibility.Hidden;
                 usuarioTxt.Text = "";
                 contrasenaTxt.Password = "";
+            }
+
+            if (CamposLlenos() && EstaActivado())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
             }
         }
         private void EditarGuardarBtn_Click(object sender, RoutedEventArgs e)
@@ -334,32 +391,36 @@ namespace ClienteItaliaPizza
             }
             else
             {
-                EditarGuardarBtn.Content = "Editar";
-                // Aquí debe ir el método que envía los cambios añl servidor
-                EditarInformacion();
+                if (EsCorreoElectronicoValido())
+                {
+                    EditarInformacion();
+                    EditarGuardarBtn.Content = "Editar";
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError("El correo electrónico no tiene un formato válido");
+                }
             }
         }
 
-        public void DevuelveCuentas(CuentaUsuario1[] cuentas, Empleado1[] empleados, Direccion1[] direcciones, Rol1[] roles)
+        private void EliminarBtn_Click(object sender, RoutedEventArgs e)
         {
-           Dispatcher.Invoke(() =>
-           {
-               /**
-                * Aqui se deben inicializar los objetos de la clase
-                * Empleado empleado;
-                * Direccion direccion;
-                * CuentaUsuario cuenta;
-                * Rol puesto;
-                * Esto ayudara a que funcione el método "EstablecerInformacion()"
-                */
-               EstablecerInformacion();
-           });
+            MessageBoxResult opcion;
+            string mensaje = "La acción que está a punto de realizar no se puede revertir, ¿Deseas proseguir con la desactivación del empleado?";
+            opcion = MessageBox.Show(mensaje, "Confirmar acción",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (opcion == MessageBoxResult.OK)
+            {
+                DesactivarEmpleado();
+            }
         }
 
         public void RespuestaOCU(string mensaje)
         {
            Dispatcher.Invoke(() =>
            {
+               mensaje = "El ID ingresado no arrojó ningún resultado";
                FuncionesComunes.MostrarMensajeDeError(mensaje);
            });
         }
@@ -370,6 +431,7 @@ namespace ClienteItaliaPizza
            {
                if(mensaje == "Se modificó correctamente")
                {
+                   mensaje = "La información se modificó correctamente";
                    FuncionesComunes.MostrarMensajeExitoso(mensaje);
                }
                else
@@ -377,11 +439,123 @@ namespace ClienteItaliaPizza
                    FuncionesComunes.MostrarMensajeDeError(mensaje);
                }
            });
+            EstablecerInformacion();
+        }
+
+        private void CamposDeTexto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CamposLlenos() && EstaActivado())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
+        }
+
+        private void contrasenaTxt_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (CamposLlenos() && EstaActivado())
+            {
+                EditarGuardarBtn.IsEnabled = true;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = false;
+            }
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (SearchBox.Text.Length > 0)
+            {
+                SearchBtn.IsEnabled = true;
+            }
+            else
+            {
+                SearchBtn.IsEnabled = false;
+            }
+        }
 
+        private void SearchBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                ObtenerEmpleado();
+                SearchBox.Text = "";
+            }
+        }
+
+        public void DevuelveCuentas(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                this.empleado.IdEmpleado = empleado.idEmpleado;
+                this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
+                this.empleado.nombre = empleado.nombre;
+                this.empleado.apellidoPaterno = empleado.apellidoPaterno;
+                this.empleado.apellidoMaterno = empleado.apellidoMaterno;
+                this.empleado.correo = empleado.correo;
+                this.empleado.telefono = empleado.telefono;
+                this.empleado.activado = empleado.activado;
+                this.direccion.Id = direccion.id;
+                this.direccion.calle = direccion.calle;
+                this.direccion.numeroExterior = direccion.numeroExterior;
+                this.direccion.numeroInterior = direccion.numeroInterior;
+                this.direccion.colonia = direccion.colonia;
+                this.direccion.codigoPostal = direccion.codigoPostal;
+                idPuesto = rol.id;
+                this.cuenta.Id = cuenta.id;
+                this.cuenta.nombreUsuario = cuenta.nombreUsuario;
+                this.cuenta.contraseña = cuenta.contraseña;
+                EstablecerInformacion();
+            });
+        }
+
+        public void DevuelveCuentas2(Empleado1 empleado, Direccion1 direccion, Rol1 rol)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                VaciarCampos(); 
+
+                this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
+                this.empleado.nombre = empleado.nombre;
+                this.empleado.apellidoPaterno = empleado.apellidoPaterno;
+                this.empleado.apellidoMaterno = empleado.apellidoMaterno;
+                this.empleado.correo = empleado.correo;
+                this.empleado.telefono = empleado.telefono;
+                this.empleado.activado = empleado.activado;
+                this.direccion.calle = direccion.calle;
+                this.direccion.numeroExterior = direccion.numeroExterior;
+                this.direccion.numeroInterior = direccion.numeroInterior;
+                this.direccion.colonia = direccion.colonia;
+                this.direccion.codigoPostal = direccion.codigoPostal;
+                idPuesto = rol.id;
+                EstablecerInformacion();
+            });
+        }
+
+        public void RespuestaECU(string mensaje)
+        {
+            if (mensaje == "Éxito al eliminar la cuenta de usuario")
+            {
+                EstadoTxt.Text = "Inactivo";
+            }
+        }
+
+        private void EstadoTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (EstadoTxt.Text == "Inactivo")
+            {
+                EditarGuardarBtn.IsEnabled = false;
+                EliminarBtn.IsEnabled = false;
+            }
+            else
+            {
+                EditarGuardarBtn.IsEnabled = true;
+                EliminarBtn.IsEnabled = true;
+            }
         }
     }
 }
