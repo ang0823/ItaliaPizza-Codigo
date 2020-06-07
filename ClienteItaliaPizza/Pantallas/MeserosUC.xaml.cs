@@ -115,8 +115,7 @@ namespace ClienteItaliaPizza.Pantallas
         }
 
         private void ButtonPDF_Click(object sender, RoutedEventArgs e)
-        {
-            var rutaApp = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
+        {            
             string rutaTicketsPDF = "TicketsPDF";
             var rootDirectory = System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + "../../"+ rutaTicketsPDF);
             if (Directory.Exists(@rootDirectory) == true)
@@ -136,14 +135,14 @@ namespace ClienteItaliaPizza.Pantallas
             contadorTicketid++;
    
             Document doc = new Document();
+            PdfWriter.GetInstance(doc, new FileStream(@ruta + "/Ticket" +contadorTicketid +".pdf", FileMode.OpenOrCreate));
 
-           var n = PdfWriter.GetInstance(doc, new FileStream(@ruta + "/Ticket" +contadorTicketid +".pdf", FileMode.OpenOrCreate));
             doc.Open();
             Paragraph title = new Paragraph();
             title.Font = FontFactory.GetFont(FontFactory.TIMES, 18f, BaseColor.BLUE);
             title.Add("Ticket"+ contadorTicketid);
             doc.Add(title);
-
+            
             doc.Add(new Paragraph("Formato de Ticket - Italia Pizza"));
             doc.Add(new Paragraph("IdPedido: "+ contadorTicketid));
             doc.Add(new Paragraph("Costo total: "));
