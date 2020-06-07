@@ -41,7 +41,7 @@
         </UniformGrid>
         <Grid RenderTransformOrigin="0.333,0.739" Margin="387,498,53,39">
             <Label Content="Otras tareas" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="68,0,67,0" Foreground="White" />
-            <Button Content="Generar reporte del día" Height="40" Width="200" Margin="39,0,0,42" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#FFAE7A47" BorderBrush="#FF91491A" Foreground="White"/>
+            <Button x:Name="buttonRespaldoManual" Content="Generar respaldo manual" Height="40" Width="200" Margin="39,0,0,42" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#FFAE7A47" BorderBrush="#FF91491A" Foreground="White" Click="ButtonRespaldoManual_Click" />
             <Button Content="Generar reporte del día" Height="40" Width="200" Margin="279,0,275,44" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" BorderBrush="#FF91491A" Background="#FFAE7A47"/>
             <Button x:Name="buttonGenerarInventario" Content="Generar inventario" Height="40" Width="200" Margin="516,0,38,44" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFAE7A47" BorderBrush="#FF91491A" Foreground="White" Click="ButtonGenerarInventario_Click"/>
             <Image HorizontalAlignment="Left" Height="100" Margin="1088,38,0,0" VerticalAlignment="Top" Width="100"/>
