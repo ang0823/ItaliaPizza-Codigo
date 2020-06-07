@@ -39,7 +39,6 @@
                     <SolidColorBrush Color="White" Opacity="0.5"/>
                 </Button.Background>
                 <Image Height="35" Width="39" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
-
             </Button>
 
             <local:CocinaPedidoLocal x:Name="UC_PedidoLocal" Visibility="Collapsed" ></local:CocinaPedidoLocal>

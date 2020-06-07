@@ -27,7 +27,7 @@ namespace ClienteItaliaPizza
 
         private void PdfDX_Loaded(object sender, RoutedEventArgs e)
         {
-           // pdfDX.OpenDocument("C:/Users/survi/Documents/ItaliaPizza-Codigo/ClienteItaliaPizza/bin/Debug/hola.pdf");
+          // pdfDX. .OpenDocument("C:/Users/survi/Documents/ItaliaPizza-Codigo/ClienteItaliaPizza/bin/Debug/hola.pdf");
 
         }
 
