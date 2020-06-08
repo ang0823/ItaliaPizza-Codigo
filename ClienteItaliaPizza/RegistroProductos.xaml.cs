@@ -17,7 +17,9 @@ namespace ClienteItaliaPizza
     public partial class RegistroProductos : Window, IRegistrarProductoCallback, IObtenerRecetasCallback
     {
         CuentaUsuario1 CuentaUsuario;
-        Receta1 recetaCliente = new Receta1();
+        List<Receta1> recetas = new List<Receta1>();
+        byte[] imagen;
+        string imagePath;
 
         public RegistroProductos(CuentaUsuario1 cuenta)
         {
@@ -67,7 +69,7 @@ namespace ClienteItaliaPizza
                 InstanceContext context = new InstanceContext(this);
                 ObtenerRecetasClient ServicioRecetas = new ObtenerRecetasClient(context);
 
-                ServicioRecetas.ObtenerReceta("Cadena de prueba");
+                ServicioRecetas.ObtenerRecetas();
             }
             catch(Exception exc)
             {
@@ -75,16 +77,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private byte ConvertirImagenABytes()
-        {
-            Uri ImageUri = new Uri(ProductoImg.Source.ToString());
-            BitmapImage Imagen = new BitmapImage(ImageUri);
-            byte ImagenConvertida = Convert.ToByte(Imagen);
-
-            return ImagenConvertida;
-        }
-
-        public bool EstaActivado()
+        public bool ProductoActivado()
         {
             bool EstaActivado = false;
 
@@ -120,8 +113,9 @@ namespace ClienteItaliaPizza
             CategoriaCb.Items.Insert(5, "Bebidas");
         }
 
-        private void RegistrarProductoClient()
+        private void RegistrarProducto()
         {
+            // AQUI HAY ERROR AL ASIGNAR IMAGEN AL PRODUCTO
             Producto producto = new Producto();
             Categoria categoria = new Categoria();
             int indiceReceta = RecetaCb.SelectedIndex;
@@ -131,17 +125,17 @@ namespace ClienteItaliaPizza
                 InstanceContext context = new InstanceContext(this);
                 RegistrarProductoClient ServicioRegistro = new RegistrarProductoClient(context);
 
-                producto.nombre = NombreTxt.Text;
-                producto.precioUnitario = double.Parse(PrecioTxt.Text.Trim());
-                producto.imagen = ConvertirImagenABytes();
-                producto.activado = EstaActivado();
-                producto.descripcion = DescripcionTxt.Text;
-                producto.restricciones = RestriccionesTxt.Text;
+                producto.nombre = NombreTxt.Text.Trim(); //
+                producto.precioUnitario = double.Parse(PrecioTxt.Text.Trim()); //
+                // producto.imagen = byte.Parse(imagen.ToString());
+                producto.activado = ProductoActivado(); //
+                producto.descripcion = DescripcionTxt.Text; //
+                producto.restricciones = RestriccionesTxt.Text; //
                 
                 categoria.Id = CategoriaCb.SelectedIndex;
                 categoria.categoria = CategoriaCb.SelectedItem.ToString();
-                int indicePrueba = 1; // Eliminar esta varible
-                ServicioRegistro.RegistrarProducto(producto, categoria, indicePrueba);
+
+                ServicioRegistro.RegistrarProducto(producto, categoria, indiceReceta);
             }
             catch (Exception e)
             {
@@ -152,13 +146,13 @@ namespace ClienteItaliaPizza
 
         private void VaciarCampos()
         {
-            NombreTxt.Text = "";
-            PrecioTxt.Text = "";
-            EstadoCb.SelectedIndex = 0;
+            NombreTxt.Text = string.Empty;
+            PrecioTxt.Text = string.Empty;
+            EstadoCb.SelectedIndex = 1;
             CategoriaCb.SelectedIndex = 0;
             RecetaCb.SelectedIndex = 0;
-            DescripcionTxt.Text = "";
-            RestriccionesTxt.Text = "";
+            DescripcionTxt.Text = string.Empty;
+            RestriccionesTxt.Text = string.Empty;
             ProductoImg.Source = null;
         }
 
@@ -337,15 +331,18 @@ namespace ClienteItaliaPizza
 
         private void ImagenBtn_Click(object sender, RoutedEventArgs e)
         {
-            var ExploradorArchivos = new OpenFileDialog();
+            OpenFileDialog exploradorArchivos = new OpenFileDialog();
+            exploradorArchivos.Filter = "*.jpg; *.png; *.bmp | *.jpg; *.png; *.bmp";
+            exploradorArchivos.Title = "Imagen del producto";
+            exploradorArchivos.RestoreDirectory = true;
 
-            DialogResult RutaImagen = ExploradorArchivos.ShowDialog();
+            DialogResult rutaImagen = exploradorArchivos.ShowDialog();
 
-            if(RutaImagen == System.Windows.Forms.DialogResult.OK)
+            if(rutaImagen == System.Windows.Forms.DialogResult.OK)
             {
-                string path = ExploradorArchivos.FileName;
-                Uri FilePath = new Uri(path);
-                ProductoImg.Source = new BitmapImage(FilePath);
+                string imagePath = exploradorArchivos.FileName;
+                 Uri FilePath = new Uri(imagePath);
+                 ProductoImg.Source = new BitmapImage(FilePath);
             }
         }
 
@@ -386,16 +383,6 @@ namespace ClienteItaliaPizza
             }
         }
 
-        public void RegistrarIngrediente(Provision provision)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RegistrarIngredienteAsync(Provision provision)
-        {
-            throw new NotImplementedException();
-        }
-
         private void CategoriaTxt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AlgunCampoLleno())
@@ -419,12 +406,20 @@ namespace ClienteItaliaPizza
 
         public void RespuestaRP(string mensaje)
         {
-            FuncionesComunes.MostrarMensajeExitoso(mensaje);
+            if (mensaje == "Guardado")
+            {
+                FuncionesComunes.MostrarMensajeExitoso("El producto se guardó exitosamente");
+                VaciarCampos();
+            }
+            else
+            {
+                FuncionesComunes.MostrarMensajeDeError(mensaje);
+            }
         }
 
         private void GuardarBtn_Click(object sender, RoutedEventArgs e)
         {
-            RegistrarProductoClient();
+            RegistrarProducto();
         }
 
         public void RespuestaIOR(string mensaje)
@@ -439,7 +434,14 @@ namespace ClienteItaliaPizza
 
         public void DevuelveRecetas(Receta1[] recetas)
         {
-            throw new NotImplementedException();
+            Dispatcher.Invoke(() =>
+            {
+                foreach (var receta in recetas)
+                {
+                    this.recetas.Add(receta);
+                    RecetaCb.Items.Add(receta.nombreReceta);
+                }
+            });
         }
     }
 }

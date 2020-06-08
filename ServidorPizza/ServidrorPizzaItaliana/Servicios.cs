@@ -311,27 +311,27 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                var rece = (from p in db.ProductoSet where p.nombre == producto.nombre select p).FirstOrDefault();
+                var product = (from p in db.ProductoSet where p.nombre == producto.nombre select p).FirstOrDefault();
 
-                if (rece != null)
+                if (product != null)
                 {
                     OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
                 }
                 else
                 {
-                    var recetadb = (from p in db.RecetaSet where p.id == receta select p).FirstOrDefault();
+                    var recetadb = (from r in db.RecetaSet where r.id == receta select r).FirstOrDefault();
 
                     producto.Receta = recetadb;
                     producto.Categoria = categoria;
                     db.ProductoSet.Add(producto);
                     db.SaveChanges();
-                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Guardado");
                 }
             }
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e.StackTrace);
-                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Ocurrio un error al registrarReceta");
+                OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Error guardado");
             }
         }
     }
