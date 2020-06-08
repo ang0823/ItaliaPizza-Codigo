@@ -22,15 +22,6 @@ namespace ClienteItaliaPizza
             nombreUs.Content = CuentaUsuario.nombreUsuario;
         }
 
-        public Principal (CuentaUsuario1 cuenta)
-        {
-            InitializeComponent();
-            CuentaUsuario = new CuentaUsuario1();
-            CuentaUsuario.nombreUsuario = cuenta.nombreUsuario;
-
-            nombreUs.Content = CuentaUsuario.nombreUsuario;
-        }
-
         private void MostrarBuscarEmpledosGui()
         {
             Dispatcher.Invoke(() =>
