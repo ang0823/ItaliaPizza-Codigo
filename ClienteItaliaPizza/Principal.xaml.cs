@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.ServiceModel;
+using System.Windows;
 using ClienteItaliaPizza.Servicio;
 
 
@@ -7,20 +10,17 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para Principal.xaml
     /// </summary>
-    public partial class Principal : Window
+    public partial class Principal : Window, IGenerarRespaldoCallback
     {
         CuentaUsuario1 CuentaUsuario;
 
-        /*public Principal(CuentaUsuario1 cuenta)
+        public Principal (CuentaUsuario1 cuenta)
         {
             InitializeComponent();
             CuentaUsuario = new CuentaUsuario1();
             CuentaUsuario.nombreUsuario = cuenta.nombreUsuario;
-            CuentaUsuario.Empleado = new Empleado1();
-            CuentaUsuario.Empleado.Rol = new Rol1();
-            CuentaUsuario.Empleado.Rol.nombreRol = cuenta.rol;               
             nombreUs.Content = CuentaUsuario.nombreUsuario;
-        }*/
+        }
 
         public Principal (CuentaUsuario1 cuenta)
         {
@@ -148,6 +148,29 @@ namespace ClienteItaliaPizza
         private void RegistrarIngredienteBtn_Click(object sender, RoutedEventArgs e)
         {
             MostrarRegistroIngredientesGui();
+        }
+
+        private void ButtonRespaldoManual_Click(object sender, RoutedEventArgs e)
+        {
+            string nombreArchivo = GenerarNombreArchivoRespaldo();
+
+            if(nombreArchivo!= null)
+            {
+                InstanceContext context = new InstanceContext(this);
+                GenerarRespaldoClient ServidorRespaldo = new GenerarRespaldoClient(context);
+                ServidorRespaldo.GenerarRespaldo(nombreArchivo);
+            }
+        }
+
+        public void RespuestaGR(string mensaje)
+        {
+            MessageBox.Show(mensaje);
+        }
+
+        public string GenerarNombreArchivoRespaldo()
+        {
+            string nombreRespaldoFechaActual = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+            return nombreRespaldoFechaActual;
         }
     }
 }

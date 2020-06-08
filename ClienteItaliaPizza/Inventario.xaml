@@ -10,19 +10,35 @@
         <ImageBrush ImageSource="RecursosGUI/fondoPrincipal.jpg"/>
     </Window.Background>
     <Grid x:Name="gridPrincipalInventario">
-        
-        <DataGrid x:Name="dataGridInventario" HorizontalAlignment="Left"  Height="422" Margin="42,65,0,0" VerticalAlignment="Top" Width="907" BorderBrush="#FF080808" FontSize="16" Background="#FF939292" CanUserDeleteRows="True" >
+
+        <DataGrid x:Name="dataGridInventario" HorizontalAlignment="Left"  Height="505" Margin="22,87,0,0" VerticalAlignment="Top" Width="938" BorderBrush="#FF080808" FontSize="16" Foreground="#FF0A0A09" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CellEditEnding="DataGridInventario_CellEditEnding" PreviewTextInput="DataGridInventario_PreviewTextInput"  >
+            <DataGrid.Background>
+                <SolidColorBrush Color="#FF939292" Opacity="0.5"/>
+            </DataGrid.Background>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnCodigo" Header="Código/Clave" Width="130" IsReadOnly="True" />
-                <DataGridTextColumn x:Name="ColumnDescripcionIngrediente" Header="Descripcion del Ingrediente" Width="260" IsReadOnly="True"/>
-                <DataGridTextColumn x:Name="ColumnUnidadMedida" Header="Unidad de Medida" Width="150" IsReadOnly="True"/>
-                <DataGridTextColumn x:Name="ColumnUbicacion" Header="Ubicacion" Width="200"/>
-                <DataGridTextColumn x:Name="ColumnExistencias" Header="Existencia actual" Width="130"/>
+                <DataGridTextColumn x:Name="ColumnCodigo" Header="Código/Clave" Width="110" IsReadOnly="True" Foreground="#FF0A0A0A" Binding="{Binding Id}" />
+                <DataGridTextColumn x:Name="ColumnNombre" Header="Nombre de Provisión" Width="170" IsReadOnly="True" Foreground="#FF040404" Binding="{Binding nombre}"/>
+                <DataGridTextColumn x:Name="ColumnUnidadMedida" Header="Unidad de Medida" Width="140" IsReadOnly="True" Foreground="Black" Binding="{Binding unidadMedida}"/>
+                <DataGridTextColumn x:Name="ColumnUbicacion" Header="Ubicacion" Width="120" IsReadOnly="True" Foreground="Black"  Binding="{Binding ubicacion}"/>
+                <DataGridTextColumn x:Name="ColumnCostoUnitario" Header="Costo Unitario" Width="120" IsReadOnly="True" Foreground="#FF060606" Binding="{Binding costoUnitario}"/>
+                <DataGridTextColumn x:Name="ColumnStockMinimo" Header="Stock Minimo" Width="125" IsReadOnly="True" Foreground="Black" Binding="{Binding stockMinimo}"/>
+                <DataGridTextColumn x:Name="ColumnExistencias" Header="Existencias actuales" Width="150" IsReadOnly="False" Foreground="#FF040404"  Binding="{Binding noExistencias}"  />
+
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="572,536,0,0" VerticalAlignment="Top" Width="156" Height="46" Click="ButtonAceptar_Click"/>
-        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="805,536,0,0" VerticalAlignment="Top" Width="144" Height="46" Click="ButtonCancelar_Click"/>
+
+        <Button x:Name="ButtonImprimir" Content="Imprimir" HorizontalAlignment="Left" Margin="847,21,0,0" VerticalAlignment="Top" Width="111" Height="46" Click="ButtonImprimir_Click" FontSize="16" Background="#FF305825" FontFamily="Arial" FontWeight="Bold">
+            <Button.Foreground>
+                <SolidColorBrush Color="White" Opacity="0.75"/>
+            </Button.Foreground>
+        </Button>
+        <Button x:Name="ButtonRegresar" HorizontalAlignment="Left" Margin="13,12,0,0" VerticalAlignment="Top" Width="63" Height="49" Click="ButtonRegresar_Click">
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Button.Background>
+            <Image Height="42" Width="50" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
+
+        </Button>
 
     </Grid>
 </Window>

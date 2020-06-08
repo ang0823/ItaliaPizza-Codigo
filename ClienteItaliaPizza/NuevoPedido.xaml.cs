@@ -17,17 +17,20 @@ namespace ClienteItaliaPizza
     public partial class NuevoPedido : Window, IRegistrarPedidoLocalCallback
     {
         InstanceContext context;
+        string mesaSeleccionada;
+
+        //Listas de productos disponibles a elegir.
         private List<Producto> productosDisponibles = new List<Producto>();
         private List<ProvisionDirecta> provisionesDisponibles = new List<ProvisionDirecta>();
         private List<Mesa> Listamesas = new List<Mesa>();
-        string mesaSeleccionada;
-
+        
+        //listas de productos seleccionados para el NUEVO Pedido
         private List<Producto> productosSeleccionados = new List<Producto>();
         private List<ProvisionDirecta> provisionesSeleccionadas = new List<ProvisionDirecta>();
-
         
-        ObservableCollection<Orden> listaOrdenes = new ObservableCollection<Orden>();
+        ObservableCollection<Orden> listaOrdenes = new ObservableCollection<Orden>(); //lista observable temporal para prueba de datagrid
 
+        //Constructor para registrar un nuevo Pedido (hacer uno para la edicion de pedido)
         public NuevoPedido(string tipoPedido)
         {
             InitializeComponent();            
@@ -62,42 +65,17 @@ namespace ClienteItaliaPizza
             }
         }       
 
+        //Llamará al registrar local, domicilio, editar local y editar domicilio
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
             bool resultado = ValidarCamposLlenosPedidoLocal();
             if (resultado == true)
-            {               
-                context = new InstanceContext(this);
-
-                //esto irá encapsulado en un método cuando comparemos si es local o a domicilio
-                RegistrarPedidoLocalClient pedidoLocalClient = new RegistrarPedidoLocalClient(context);
-                int numeroMesa = FuncionesComunes.ParsearAEntero(mesaSeleccionada);
-                var seleccionEmpleado = UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado;
-                var numeroEmpleado = FuncionesComunes.ParsearAEntero(seleccionEmpleado);
-                var descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
-                Mesa mesa = Listamesas.Find(x => x.numeroMesa == numeroMesa);
-
-                PedidoLocal pedidoLocalNuevo = new PedidoLocal();
-                pedidoLocalNuevo.fecha = DateTime.Now;
-                pedidoLocalNuevo.instruccionesEspeciales = textBoxInstruccionesEspeciales.Text;
-                pedidoLocalNuevo.MesaId = mesa.Id;
-                pedidoLocalNuevo.Producto = new Producto[1];
-                productosDisponibles.CopyTo(pedidoLocalNuevo.Producto);
-                pedidoLocalNuevo.ProvisionDirecta = new ProvisionDirecta[1];
-                provisionesDisponibles.CopyTo(pedidoLocalNuevo.ProvisionDirecta);
-
-                Cuenta c = new Cuenta();
-                c.precioTotal = 50;
-                c.subTotal = 50;
-                c.descuento = descuento;
-                c.iva = 50;
-                c.Id = GenerarIdPedidoLocal(1);
-
-                pedidoLocalClient.RegistrarPedidoLocal(pedidoLocalNuevo, c, 1, numeroEmpleado);
+            {
+                RegistrarPedidoLocal();
             }
             else
             {
-                System.Windows.MessageBox.Show("No se han ingresado todos los datos");
+                FuncionesComunes.MostrarMensajeDeError("Existen campos vacíos");
             }
         }
 
@@ -320,6 +298,36 @@ namespace ClienteItaliaPizza
         {
             var selecto = ListViewBebidas.SelectedItem as MovieData;
             textBlockInstruccionesEspeciales.Text =  selecto.Title;         
+        }
+
+        public void RegistrarPedidoLocal()
+        {
+            context = new InstanceContext(this);
+            RegistrarPedidoLocalClient pedidoLocalClient = new RegistrarPedidoLocalClient(context);
+
+            int numeroMesa = FuncionesComunes.ParsearAEntero(mesaSeleccionada);
+            var seleccionEmpleado = UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado;
+            var numeroEmpleado = FuncionesComunes.ParsearAEntero(seleccionEmpleado);
+            var descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
+            Mesa mesa = Listamesas.Find(x => x.numeroMesa == numeroMesa);
+
+            PedidoLocal pedidoLocalNuevo = new PedidoLocal();
+            pedidoLocalNuevo.fecha = DateTime.Now;
+            pedidoLocalNuevo.instruccionesEspeciales = textBoxInstruccionesEspeciales.Text;
+            pedidoLocalNuevo.MesaId = mesa.Id;
+            pedidoLocalNuevo.Producto = new Producto[1];
+            productosDisponibles.CopyTo(pedidoLocalNuevo.Producto);
+            pedidoLocalNuevo.ProvisionDirecta = new ProvisionDirecta[1];
+            provisionesDisponibles.CopyTo(pedidoLocalNuevo.ProvisionDirecta);
+
+            Cuenta c = new Cuenta();
+            c.precioTotal = 50;
+            c.subTotal = 50;
+            c.descuento = descuento;
+            c.iva = 50;
+            c.Id = GenerarIdPedidoLocal(1);
+
+            pedidoLocalClient.RegistrarPedidoLocal(pedidoLocalNuevo, c, 1, numeroEmpleado);
         }
     }
 

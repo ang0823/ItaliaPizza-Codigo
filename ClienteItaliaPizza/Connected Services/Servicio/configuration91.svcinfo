@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="NQW2I0KWeXe/IfqNJW9pkltyhhOrSVt9/+s+O8WHOlo=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="/2Au7oCCrt9Z37x+TUZrUSXVeLg=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsDualHttpBinding" name="WSDualHttpBinding_IBuscarProducto">
       <properties>
@@ -1129,6 +1129,100 @@
         </property>
       </properties>
     </bindingConfiguration>
+    <bindingConfiguration bindingType="wsDualHttpBinding" name="WSDualHttpBinding_IObtenerRecetas">
+      <properties>
+        <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>WSDualHttpBinding_IObtenerRecetas</serializedValue>
+        </property>
+        <property path="/closeTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/openTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/receiveTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/sendTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/bypassProxyOnLocal" isComplexType="false" isExplicitlyDefined="true" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/clientBaseAddress" isComplexType="false" isExplicitlyDefined="false" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/transactionFlow" isComplexType="false" isExplicitlyDefined="false" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>False</serializedValue>
+        </property>
+        <property path="/hostNameComparisonMode" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.HostNameComparisonMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>StrongWildcard</serializedValue>
+        </property>
+        <property path="/maxBufferPoolSize" isComplexType="false" isExplicitlyDefined="true" clrType="System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/maxReceivedMessageSize" isComplexType="false" isExplicitlyDefined="true" clrType="System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/messageEncoding" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.WSMessageEncoding, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>Text</serializedValue>
+        </property>
+        <property path="/proxyAddress" isComplexType="false" isExplicitlyDefined="false" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+        <property path="/readerQuotas" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.XmlDictionaryReaderQuotasElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>System.ServiceModel.Configuration.XmlDictionaryReaderQuotasElement</serializedValue>
+        </property>
+        <property path="/readerQuotas/maxDepth" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>0</serializedValue>
+        </property>
+        <property path="/readerQuotas/maxStringContentLength" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>0</serializedValue>
+        </property>
+        <property path="/readerQuotas/maxArrayLength" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>0</serializedValue>
+        </property>
+        <property path="/readerQuotas/maxBytesPerRead" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>0</serializedValue>
+        </property>
+        <property path="/readerQuotas/maxNameTableCharCount" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>0</serializedValue>
+        </property>
+        <property path="/reliableSession" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.StandardBindingReliableSessionElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>System.ServiceModel.Configuration.StandardBindingReliableSessionElement</serializedValue>
+        </property>
+        <property path="/reliableSession/ordered" isComplexType="false" isExplicitlyDefined="false" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>True</serializedValue>
+        </property>
+        <property path="/reliableSession/inactivityTimeout" isComplexType="false" isExplicitlyDefined="false" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>00:10:00</serializedValue>
+        </property>
+        <property path="/security" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.WSDualHttpSecurityElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>System.ServiceModel.Configuration.WSDualHttpSecurityElement</serializedValue>
+        </property>
+        <property path="/security/mode" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.WSDualHttpSecurityMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>Message</serializedValue>
+        </property>
+        <property path="/security/message" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.MessageSecurityOverHttpElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>System.ServiceModel.Configuration.MessageSecurityOverHttpElement</serializedValue>
+        </property>
+        <property path="/security/message/clientCredentialType" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.MessageCredentialType, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>Windows</serializedValue>
+        </property>
+        <property path="/security/message/negotiateServiceCredential" isComplexType="false" isExplicitlyDefined="false" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>True</serializedValue>
+        </property>
+        <property path="/security/message/algorithmSuite" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.Security.SecurityAlgorithmSuite, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>Default</serializedValue>
+        </property>
+        <property path="/textEncoding" isComplexType="false" isExplicitlyDefined="false" clrType="System.Text.Encoding, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>System.Text.UTF8Encoding</serializedValue>
+        </property>
+        <property path="/useDefaultWebProxy" isComplexType="false" isExplicitlyDefined="true" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
+        </property>
+      </properties>
+    </bindingConfiguration>
     <bindingConfiguration bindingType="wsDualHttpBinding" name="WSDualHttpBinding_IRegistrarProducto">
       <properties>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1599,10 +1693,10 @@
         </property>
       </properties>
     </bindingConfiguration>
-    <bindingConfiguration bindingType="wsDualHttpBinding" name="WSDualHttpBinding_IObtenerRecetas">
+    <bindingConfiguration bindingType="wsDualHttpBinding" name="WSDualHttpBinding_IGenerarRespaldo">
       <properties>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>WSDualHttpBinding_IObtenerRecetas</serializedValue>
+          <serializedValue>WSDualHttpBinding_IGenerarRespaldo</serializedValue>
         </property>
         <property path="/closeTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -1787,100 +1881,6 @@
         </property>
       </properties>
     </bindingConfiguration>
-    <bindingConfiguration bindingType="wsDualHttpBinding" name="WSDualHttpBinding_IGenerarRespaldo1">
-      <properties>
-        <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>WSDualHttpBinding_IGenerarRespaldo1</serializedValue>
-        </property>
-        <property path="/closeTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/openTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/receiveTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/sendTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/bypassProxyOnLocal" isComplexType="false" isExplicitlyDefined="true" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/clientBaseAddress" isComplexType="false" isExplicitlyDefined="false" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/transactionFlow" isComplexType="false" isExplicitlyDefined="false" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>False</serializedValue>
-        </property>
-        <property path="/hostNameComparisonMode" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.HostNameComparisonMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>StrongWildcard</serializedValue>
-        </property>
-        <property path="/maxBufferPoolSize" isComplexType="false" isExplicitlyDefined="true" clrType="System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/maxReceivedMessageSize" isComplexType="false" isExplicitlyDefined="true" clrType="System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/messageEncoding" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.WSMessageEncoding, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Text</serializedValue>
-        </property>
-        <property path="/proxyAddress" isComplexType="false" isExplicitlyDefined="false" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-        <property path="/readerQuotas" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.XmlDictionaryReaderQuotasElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>System.ServiceModel.Configuration.XmlDictionaryReaderQuotasElement</serializedValue>
-        </property>
-        <property path="/readerQuotas/maxDepth" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>0</serializedValue>
-        </property>
-        <property path="/readerQuotas/maxStringContentLength" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>0</serializedValue>
-        </property>
-        <property path="/readerQuotas/maxArrayLength" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>0</serializedValue>
-        </property>
-        <property path="/readerQuotas/maxBytesPerRead" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>0</serializedValue>
-        </property>
-        <property path="/readerQuotas/maxNameTableCharCount" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>0</serializedValue>
-        </property>
-        <property path="/reliableSession" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.StandardBindingReliableSessionElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>System.ServiceModel.Configuration.StandardBindingReliableSessionElement</serializedValue>
-        </property>
-        <property path="/reliableSession/ordered" isComplexType="false" isExplicitlyDefined="false" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>True</serializedValue>
-        </property>
-        <property path="/reliableSession/inactivityTimeout" isComplexType="false" isExplicitlyDefined="false" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>00:10:00</serializedValue>
-        </property>
-        <property path="/security" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.WSDualHttpSecurityElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>System.ServiceModel.Configuration.WSDualHttpSecurityElement</serializedValue>
-        </property>
-        <property path="/security/mode" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.WSDualHttpSecurityMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Message</serializedValue>
-        </property>
-        <property path="/security/message" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.MessageSecurityOverHttpElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>System.ServiceModel.Configuration.MessageSecurityOverHttpElement</serializedValue>
-        </property>
-        <property path="/security/message/clientCredentialType" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.MessageCredentialType, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Windows</serializedValue>
-        </property>
-        <property path="/security/message/negotiateServiceCredential" isComplexType="false" isExplicitlyDefined="false" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>True</serializedValue>
-        </property>
-        <property path="/security/message/algorithmSuite" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.Security.SecurityAlgorithmSuite, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Default</serializedValue>
-        </property>
-        <property path="/textEncoding" isComplexType="false" isExplicitlyDefined="false" clrType="System.Text.Encoding, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>System.Text.UTF8Encoding</serializedValue>
-        </property>
-        <property path="/useDefaultWebProxy" isComplexType="false" isExplicitlyDefined="true" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue />
-        </property>
-      </properties>
-    </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
     <endpoint name="WSDualHttpBinding_IBuscarProducto" contract="Servicio.IBuscarProducto" bindingType="wsDualHttpBinding" address="http://localhost:8080/CalculatorService" bindingConfiguration="WSDualHttpBinding_IBuscarProducto">
@@ -1913,7 +1913,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -1998,7 +1998,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2083,7 +2083,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2168,7 +2168,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2253,7 +2253,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2338,7 +2338,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2423,7 +2423,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2508,7 +2508,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2593,7 +2593,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2678,7 +2678,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2763,7 +2763,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2848,7 +2848,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -2933,7 +2933,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -3018,7 +3018,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -3103,7 +3103,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -3188,7 +3188,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -3273,7 +3273,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -3358,7 +3358,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -3413,7 +3413,7 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="WSDualHttpBinding_IGenerarRespaldo1" contract="Servicio.IGenerarRespaldo" bindingType="wsDualHttpBinding" address="http://localhost:8080/CalculatorService" bindingConfiguration="WSDualHttpBinding_IGenerarRespaldo1">
+    <endpoint name="WSDualHttpBinding_IGenerarRespaldo" contract="Servicio.IGenerarRespaldo" bindingType="wsDualHttpBinding" address="http://localhost:8080/CalculatorService" bindingConfiguration="WSDualHttpBinding_IGenerarRespaldo">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://localhost:8080/CalculatorService</serializedValue>
@@ -3425,7 +3425,7 @@
           <serializedValue>wsDualHttpBinding</serializedValue>
         </property>
         <property path="/bindingConfiguration" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>WSDualHttpBinding_IGenerarRespaldo1</serializedValue>
+          <serializedValue>WSDualHttpBinding_IGenerarRespaldo</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>Servicio.IGenerarRespaldo</serializedValue>
@@ -3443,7 +3443,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -3488,7 +3488,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>WSDualHttpBinding_IGenerarRespaldo1</serializedValue>
+          <serializedValue>WSDualHttpBinding_IGenerarRespaldo</serializedValue>
         </property>
         <property path="/kind" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3528,7 +3528,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-2561MMJ\14-ab007la</serializedValue>
+          <serializedValue>DESKTOP-FLLKC20\irasema</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
