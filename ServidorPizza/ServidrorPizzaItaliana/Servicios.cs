@@ -333,6 +333,11 @@ namespace ServidrorPizzaItaliana
                 Console.WriteLine(e.StackTrace);
                 OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Error guardado");
             }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP(e.Message + " " + e.GetType());
+            }
         }
     }
 
