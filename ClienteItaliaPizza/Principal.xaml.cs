@@ -26,7 +26,9 @@ namespace ClienteItaliaPizza
         {
             InitializeComponent();
             CuentaUsuario = new CuentaUsuario1();
-            CuentaUsuario.nombreUsuario = cuenta.nombreUsuario;           
+            CuentaUsuario.nombreUsuario = cuenta.nombreUsuario;
+
+            nombreUs.Content = CuentaUsuario.nombreUsuario;
         }
 
         private void MostrarBuscarEmpledosGui()
