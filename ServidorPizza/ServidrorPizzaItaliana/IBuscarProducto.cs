@@ -6,25 +6,25 @@ using System.Runtime.Serialization;
 
 namespace ServidrorPizzaItaliana
 {
-   
+
     [ServiceContract(CallbackContract = typeof(IBuscarProductoCallback))]
     public interface IBuscarProducto
     {
         [OperationContract(IsOneWay = true)]
-        void BuscarPorNombre(string nombreProducto);
+        void BuscarProductoInternoPorNombre(string nombreProducto);
 
         [OperationContract(IsOneWay = true)]
-        void BuscarPorID(int idProducto);
+        void BuscarProductoExternoPorNombre(string nombreProducto);
     }
 
     [ServiceContract]
     public interface IBuscarProductoCallback
     {
         [OperationContract(IsOneWay = true)]
-        void ProvicionDirecta(ProvisionDirecta provDir);
+        void ProductoInterno(AccesoBD2.Producto productoInterno);
 
         [OperationContract(IsOneWay = true)]
-        void Provision(Provision prov);
+        void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta);
 
         [OperationContract(IsOneWay = true)]
         void ErrorAlRecuperarProducto(string mensajeError);

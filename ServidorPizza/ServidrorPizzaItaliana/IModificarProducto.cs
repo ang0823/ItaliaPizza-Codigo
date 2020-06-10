@@ -7,7 +7,13 @@ namespace ServidrorPizzaItaliana
     public interface IModificarProducto
     {
         [OperationContract(IsOneWay = true)]
-        void Modificar(Provision provision, ProvisionDirecta provDirecta);
+        void ModificarProvisionDirectaDeProductoExterno(ProvisionDirecta provisionDirecta);
+
+        [OperationContract(IsOneWay = true)]
+        void ModificarProvisionDeProductoExterno(Provision provision);
+
+        [OperationContract(IsOneWay = true)]
+        void ModificarProductoInterno(AccesoBD2.Producto producto);
     }
 
     [ServiceContract]
