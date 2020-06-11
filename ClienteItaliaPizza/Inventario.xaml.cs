@@ -131,10 +131,8 @@ namespace ClienteItaliaPizza
         }
 
         private void DataGridInventario_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Validador Validacion = new Validador();
-            bool resultadoValidacion = Validacion.validarSoloNumeros(e.Text);
-            if (resultadoValidacion == false)
+        {            
+            if (Validador.validarSoloNumeros(e.Text) == false)
             {
                 e.Handled = true;
             }

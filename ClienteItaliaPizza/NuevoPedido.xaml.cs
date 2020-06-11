@@ -91,18 +91,15 @@ namespace ClienteItaliaPizza
         }
 
         private void TextBoxDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Validador Validacion = new Validador();
-            bool resultadoValidacion = Validacion.validarSoloNumeros(e.Text);
-            if (resultadoValidacion == false)
+        {           
+            if (Validador.validarSoloNumeros(e.Text) == false == false)
             {
                 e.Handled = true;
             }
         }
 
         public void DatosRecuperados(ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones, EstadoDePedido[] estados, MesaLocal[] mesas)
-        {
-           
+        {         
             mostrarProductos(productos);
             mostrarProvisionesDirectas(provisiones);
             //no entiendo porque recibe los estados de pedido

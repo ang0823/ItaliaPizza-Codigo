@@ -84,9 +84,7 @@ namespace ClienteItaliaPizza.Pantallas
 
         private void TextBoxNombreCliente_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Validador Validacion = new Validador();
-            bool resultadoValidacion = Validacion.validarSoloLetrasConAcentos(e.Text);
-            if (resultadoValidacion == false)
+            if (Validador.validarSoloLetrasConAcentos(e.Text) == false)
             {
                 e.Handled = true;
             }
