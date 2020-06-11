@@ -253,11 +253,11 @@ namespace ServidrorPizzaItaliana
                 string dbname = db.Database.Connection.Database;
                 string sqlCommand = @"BACKUP DATABASE [{0}] TO  DISK = N'{1}' WITH NOFORMAT, NOINIT,  NAME = N'MyAir-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
                 db.Database.ExecuteSqlCommand(System.Data.Entity.TransactionalBehavior.DoNotEnsureTransaction, string.Format(sqlCommand, dbname, nombreArchivo));
-                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("El respaldo se generó correctmente");
+                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("Se modificó correctamente");
             }
             catch(Exception)
             {
-                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("Error al generar el respaldo manual, intente más tarde");
+                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("Error al conectar con la base de datos");
             }
         }
     }
@@ -329,32 +329,27 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                var product = (from p in db.ProductoSet where p.nombre == producto.nombre select p).FirstOrDefault();
+                var rece = (from p in db.ProductoSet where p.nombre == producto.nombre select p).FirstOrDefault();
 
-                if (product != null)
+                if (rece != null)
                 {
                     OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
                 }
                 else
                 {
-                    var recetadb = (from r in db.RecetaSet where r.id == receta select r).FirstOrDefault();
+                    var recetadb = (from p in db.RecetaSet where p.id == receta select p).FirstOrDefault();
 
                     producto.Receta = recetadb;
                     producto.Categoria = categoria;
                     db.ProductoSet.Add(producto);
                     db.SaveChanges();
-                    OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Guardado");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
                 }
             }
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e.StackTrace);
-                OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Error guardado");
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP(e.Message + " " + e.GetType());
+                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Ocurrio un error al registrarReceta");
             }
         }
     }
@@ -365,26 +360,35 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                List<Provision> provisionlista = new List<Provision>();
-               
+                List<Provision1> provisionlista = new List<Provision1>();
+                List<ProvisionDirecta1> pDirectalista = new List<ProvisionDirecta1>();
                 using (var ctx = new BDPizzaEntities())
                 {
                     var provisiones = from s in ctx.ProvisionSet
                                       select s;
-                   
+                    var pDirectas = from s in ctx.ProvisionDirectaSet
+                                    select s;
+
                     foreach (var valor in provisiones)
                     {
                         if (valor.activado == true)
                         {
-                            provisionlista.Add(new Provision(valor.Id, valor.nombre, valor.noExistencias, valor.ubicacion, valor.stockMinimo, valor.costoUnitario, valor.unidadMedida));
+                            provisionlista.Add(new Provision1(valor.Id, valor.nombre, valor.noExistencias, valor.ubicacion, valor.stockMinimo, valor.costoUnitario, valor.unidadMedida));
                         }
-                    }                   
+                    }
+                    foreach (var valor in pDirectas)
+                    {
+                        if (valor.activado == true)
+                        {
+                            pDirectalista.Add(new ProvisionDirecta1(valor.Id, valor.descripcion, valor.activado, valor.restricciones));
+                        }
+                    }
                 }
-                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().DevuelveInventario(provisionlista);
+                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().DevuelveInventario(provisionlista, pDirectalista);
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().RespuestaInventario("Error al consultar inventario, intente más tarde");
+                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().RespuestaCI("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
             }
         }
     }
