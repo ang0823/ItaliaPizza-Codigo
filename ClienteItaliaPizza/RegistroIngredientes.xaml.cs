@@ -67,6 +67,7 @@ namespace ClienteItaliaPizza
             ingrediente.stockMinimo = int.Parse(StockMinimo.Text.Trim());
             ingrediente.costoUnitario = precio;
             ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
+            ingrediente.activado = true;
             }
             catch (FormatException error)
             {
