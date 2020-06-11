@@ -1,5 +1,6 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -8,7 +9,7 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para BuscarEmpleado.xaml
     /// </summary>
-    public partial class BuscarProductos : Window
+    public partial class BuscarProductos : Window, IBuscarProductoCallback
     {
         CuentaUsuario1 CuentaUsuario;
 
@@ -23,16 +24,56 @@ namespace ClienteItaliaPizza
             //EditSaveBtn.IsEnabled = false;
         }
 
-        private void BuscarProducto()
+        // FALTA LA CORRECCIÓN DEL SERVIDOR PARA TERMINAR ESTO
+        private void BuscarProducto(object sender, KeyEventArgs e)
         {
+            if (SearchBox.Text.Length > 0 && e.Key == Key.Return)
+            {
+                InstanceContext context = new InstanceContext(this);
+                BuscarProductoClient ServicioBuscar = new BuscarProductoClient(context);
 
+                try
+                {
+                    int idProducto = int.Parse(SearchBox.Text);
+                    ServicioBuscar.BuscarPorID(idProducto);
+                }
+                catch (FormatException)
+                {
+                    string nombreProducto = SearchBox.Text;
+                    ServicioBuscar.BuscarPorNombre(nombreProducto);
+                }
+                catch (Exception any)
+                {
+                    FuncionesComunes.MostrarMensajeDeError(any.Message + " " + any.GetType());
+                }
+            }
+        }
+
+        private void BuscarProducto(object sender, RoutedEventArgs e)
+        {
+            InstanceContext context = new InstanceContext(this);
+            BuscarProductoClient ServicioBuscar = new BuscarProductoClient(context);
+
+            try
+            {
+                int idProducto = int.Parse(SearchBox.Text);
+                ServicioBuscar.BuscarPorID(idProducto);
+            }
+            catch (FormatException)
+            {
+                string nombreProducto = SearchBox.Text;
+                ServicioBuscar.BuscarPorNombre(nombreProducto);
+            }
+            catch (Exception any)
+            {
+                FuncionesComunes.MostrarMensajeDeError(any.Message + " " + any.GetType());
+            }
         }
 
         private Boolean CamposVacios()
         {
-            if (nombreTxt.Text.Length > 0 && PrecioTxt.Text.Length > 0 && MinimoTxt.Text.Length > 0
-                && ActualTxt.Text.Length > 0 && UbicacionTxt.Text.Length > 0
-                && CodigoTxt.Text.Length > 0 && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
+            if (nombreTxt.Text.Length > 0 && precioTxt.Text.Length > 0
+                && categoriaCb.SelectedIndex != 0 && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
             {
                 return false;
             }
@@ -40,28 +81,86 @@ namespace ClienteItaliaPizza
             return true;
         }
 
+        private int CategoriaProducto(Producto producto)
+        {
+            int categoriaIndex = 0;
+
+            switch (producto.Categoria.categoria)
+            {
+                case "Ensaladas":
+                    categoriaIndex = 1;
+                    break;
+                case "Pizzas":
+                    categoriaIndex = 2;
+                    break;
+                case "Pastas":
+                    categoriaIndex = 3;
+                    break;
+                case "Postres":
+                    categoriaIndex = 4;
+                    break;
+                case "Bebidas":
+                    categoriaIndex = 5;
+                    break;
+            }
+
+            return categoriaIndex;
+        }
+
         private void DeshabilitarCampos()
         {
             ImagenBtn.Visibility = Visibility.Hidden;
             nombreTxt.IsEnabled = false;
-            PrecioTxt.IsEnabled = false;
-            MinimoTxt.IsEnabled = false;
-            ActualTxt.IsEnabled = false;
-            UbicacionTxt.IsEnabled = false;
-            CodigoTxt.IsEnabled = false;
+            precioTxt.IsEnabled = false;
+            estadoCb.IsEnabled = false;
+            categoriaCb.IsEnabled = false;
+            recetaCb.IsEditable = false;
             DescripcionTxt.IsEnabled = false;
             RestriccionesTxt.IsEnabled = false;
         }
 
-        private void HabilitarEdicion()
+        private void EditarInfoProducto()
+        {
+            MessageBoxResult opcion;
+
+            if (CamposVacios())
+            {
+                opcion = MessageBox.Show("No se puede dejar campos vacíos", "Información",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                opcion = MessageBox.Show("¿Guardar cambios en la información del producto?", "Guardar",
+                MessageBoxButton.OKCancel, MessageBoxImage.Information);
+
+                if (opcion == MessageBoxResult.OK)
+                {
+                    EditSaveBtn.Content = "Editar";
+                    DeshabilitarCampos();
+                }
+            }
+        }
+
+        private int EstaActivado(Producto producto)
+        {
+            int EstaActivo = 0;
+
+            if (producto.activado)
+            {
+                EstaActivo = 1;
+            }
+
+            return EstaActivo;
+        }
+
+        private void HabilitarCampos()
         {
             ImagenBtn.Visibility = Visibility.Visible;
             nombreTxt.IsEnabled = true;
-            PrecioTxt.IsEnabled = true;
-            MinimoTxt.IsEnabled = true;
-            ActualTxt.IsEnabled = true;
-            UbicacionTxt.IsEnabled = true;
-            CodigoTxt.IsEnabled = true;
+            precioTxt.IsEnabled = true;
+            estadoCb.IsEnabled = true;
+            categoriaCb.IsEnabled = true;
+            recetaCb.IsEditable = true;
             DescripcionTxt.IsEnabled = true;
             RestriccionesTxt.IsEnabled = true;
         }
@@ -86,42 +185,44 @@ namespace ClienteItaliaPizza
             if(EditSaveBtn.Content.ToString() == "Editar")
             {
                 EditSaveBtn.Content = "Guardar";
-                HabilitarEdicion();
+                HabilitarCampos();
             }
-            else
+            else if (EditSaveBtn.Content.ToString() == "Guardar")
             {
-                MessageBoxResult opcion;
-
-                if(CamposVacios())
-                {
-                    opcion = MessageBox.Show("No se puede dejar campos vacíos", "Información",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                } 
-                else
-                {
-                    opcion = MessageBox.Show("¿Guardar cambios en la información del producto?", "Guardar",
-                    MessageBoxButton.OKCancel, MessageBoxImage.Information);
-
-                    if(opcion == MessageBoxResult.OK)
-                    {
-                        EditSaveBtn.Content = "Editar";
-                        DeshabilitarCampos();
-                    }
-                }
-            }
-        }
-
-        private void SearchBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(SearchBox.Text.Length > 0 && e.Key == Key.Return)
-            {
-                BuscarProducto();
+                EditarInfoProducto();
+                EditSaveBtn.Content = "Editar";
             }
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             FuncionesComunes.CerrarSesion();
+        }
+
+        public void ProvicionDirecta(ProvisionDirecta provDir)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Provision(Producto prov)
+        {
+            codigoTxt.Text = prov.Id.ToString();
+            nombreTxt.Text = prov.nombre;
+            precioTxt.Text = prov.precioUnitario.ToString();
+            estadoCb.SelectedIndex = EstaActivado(prov);
+            categoriaCb.SelectedIndex = CategoriaProducto(prov);
+            recetaCb.SelectedItem = prov.Receta;
+            DescripcionTxt.Text = prov.descripcion;
+        }
+
+        public void ErrorAlRecuperarProducto(string mensajeError)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Provision(Provision prov)
+        {
+            throw new NotImplementedException();
         }
     }
 }

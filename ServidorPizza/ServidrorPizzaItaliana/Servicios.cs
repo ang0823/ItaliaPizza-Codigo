@@ -7,6 +7,7 @@ using System.Threading;
 using System.Data.Entity;
 using System.ComponentModel.Design;
 using System.Data.Entity.Validation;
+using System.Data.Entity.Migrations;
 
 namespace ServidrorPizzaItaliana
 {
@@ -22,37 +23,54 @@ namespace ServidrorPizzaItaliana
 
         }
 
-        public void BuscarPorNombre(string nombreProducto)
+        public void BuscarProductoInternoPorNombre(string nombreProducto)
         {
-
-            db.Configuration.ProxyCreationEnabled = false;
-
             try
             {
-                var provision = (from prod in db.ProvisionSet where prod.nombre == nombreProducto select prod).First();
-                Callback.Provision(provision);
+                db.Configuration.ProxyCreationEnabled = false;
+                var productoInterno = (from producto in db.ProductoSet where producto.nombre == nombreProducto select producto).FirstOrDefault();
+
+                if (productoInterno != null)
+                {
+                    Callback.ProductoInterno(productoInterno);
+                }
+                else
+                {
+                    Callback.ErrorAlRecuperarProducto("No hay algun producto con ese nombre");
+                }
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
-                Console.WriteLine(e.StackTrace);
-                Callback.ErrorAlRecuperarProducto("Ocurrio un error al recuperar producto");
+                Callback.ErrorAlRecuperarProducto("Ocurrio un error al recuperar el producto");
             }
         }
 
-        public void BuscarPorID(int idProducto)
+        public void BuscarProductoExternoPorNombre(string nombreProducto)
         {
-            db.Configuration.ProxyCreationEnabled = false;
-
             try
             {
-                var provisionDirecta = (from provi in db.ProvisionDirectaSet where provi.Provision.Id == idProducto select provi).First();
+                db.Configuration.ProxyCreationEnabled = false;
+                var provision = (from producto in db.ProvisionSet where producto.nombre == nombreProducto select producto).Include(x => x.ProvisionDirecta).FirstOrDefault();
 
-                Callback.ProvicionDirecta(provisionDirecta);
+                if (provision != null)
+                {
+                    Provision1 provisionDeProducto = new Provision1(provision.Id, provision.nombre, provision.noExistencias, provision.ubicacion, provision.stockMinimo, provision.costoUnitario, provision.unidadMedida);
+                    ProvisionDirecta1 provisionDirecta;
+
+                    foreach (ProvisionDirecta producto in provision.ProvisionDirecta)
+                    {
+                        provisionDirecta = new ProvisionDirecta1(producto.Id, producto.descripcion, producto.activado, producto.restricciones);
+                        Callback.ProductoExterno(provisionDeProducto, provisionDirecta);
+                    }
+                }
+                else
+                {
+                    Callback.ErrorAlRecuperarProducto("No hay algun producto con ese nombre");
+                }
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
-                Console.WriteLine(e.StackTrace);
-                Callback.ErrorAlRecuperarProducto("Ocurrio un error al recuperar producto");
+                Callback.ErrorAlRecuperarProducto("Ocurrio un error al recuperar el producto");
             }
         }
 
@@ -235,11 +253,11 @@ namespace ServidrorPizzaItaliana
                 string dbname = db.Database.Connection.Database;
                 string sqlCommand = @"BACKUP DATABASE [{0}] TO  DISK = N'{1}' WITH NOFORMAT, NOINIT,  NAME = N'MyAir-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
                 db.Database.ExecuteSqlCommand(System.Data.Entity.TransactionalBehavior.DoNotEnsureTransaction, string.Format(sqlCommand, dbname, nombreArchivo));
-                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("El respaldo se generó correctmente");
+                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("Se modificó correctamente");
             }
             catch(Exception)
             {
-                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("Error al generar el respaldo manual, intente más tarde");
+                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("Error al conectar con la base de datos");
             }
         }
     }
@@ -342,26 +360,35 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                List<Provision> provisionlista = new List<Provision>();
-               
+                List<Provision1> provisionlista = new List<Provision1>();
+                List<ProvisionDirecta1> pDirectalista = new List<ProvisionDirecta1>();
                 using (var ctx = new BDPizzaEntities())
                 {
                     var provisiones = from s in ctx.ProvisionSet
                                       select s;
-                   
+                    var pDirectas = from s in ctx.ProvisionDirectaSet
+                                    select s;
+
                     foreach (var valor in provisiones)
                     {
                         if (valor.activado == true)
                         {
-                            provisionlista.Add(new Provision(valor.Id, valor.nombre, valor.noExistencias, valor.ubicacion, valor.stockMinimo, valor.costoUnitario, valor.unidadMedida));
+                            provisionlista.Add(new Provision1(valor.Id, valor.nombre, valor.noExistencias, valor.ubicacion, valor.stockMinimo, valor.costoUnitario, valor.unidadMedida));
                         }
-                    }                   
+                    }
+                    foreach (var valor in pDirectas)
+                    {
+                        if (valor.activado == true)
+                        {
+                            pDirectalista.Add(new ProvisionDirecta1(valor.Id, valor.descripcion, valor.activado, valor.restricciones));
+                        }
+                    }
                 }
-                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().DevuelveInventario(provisionlista);
+                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().DevuelveInventario(provisionlista, pDirectalista);
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().RespuestaInventario("Error al consultar inventario, intente más tarde");
+                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().RespuestaCI("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
             }
         }
     }
@@ -475,30 +502,80 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IModificarProducto
     {
-        public void Modificar(Provision provision, ProvisionDirecta provDirecta)
+        public void ModificarProvisionDirectaDeProductoExterno(ProvisionDirecta provisionDirecta)
         {
             try
             {
-                Provision p = new Provision();
-                p = provision;
-
-                db.ProvisionSet.Attach(p);
-                db.Entry(p).State = EntityState.Modified;
-                db.SaveChanges();
-
-                ProvisionDirecta d = new ProvisionDirecta();
-                d = provDirecta;
-                db.ProvisionDirectaSet.Attach(d);
-                db.Entry(d).State = EntityState.Modified;
-                db.SaveChanges();
-
-                Callback2.RespuestaModificarProducto("Cambios Guardados");
+                if (provisionDirecta != null)
+                {
+                    ProvisionDirecta provisionDirectaDeProducto = new ProvisionDirecta();
+                    provisionDirectaDeProducto = provisionDirecta;
+                    db.ProvisionDirectaSet.AddOrUpdate(provisionDirectaDeProducto);
+                    db.SaveChanges();
+                    Callback2.RespuestaModificarProducto("Cambios Guardados");
+                }
+                else
+                {
+                    Callback2.RespuestaModificarProducto("Los campos de la provision directa no pueden ser nulos");
+                }
             }
             catch (InvalidOperationException)
             {
                 Callback2.RespuestaModificarProducto("Error al guardar cambios");
             }
 
+        }
+
+        public void ModificarProvisionDeProductoExterno(Provision provision)
+        {
+            try
+            {
+                if (provision != null)
+                {
+                    Provision provisionDeProducto = new Provision();
+                    provisionDeProducto = provision;
+
+                    db.ProvisionSet.AddOrUpdate(provisionDeProducto);
+                    db.SaveChanges();
+                    Callback2.RespuestaModificarProducto("Cambios Guardados");
+                }
+                else
+                {
+                    Callback2.RespuestaModificarProducto("Los campos de la provision no pueden ser nulos");
+                }
+
+            }
+
+
+            catch (InvalidOperationException)
+            {
+                Callback2.RespuestaModificarProducto("Ocurrio un error al modificar provision de producto");
+            }
+        }
+
+        public void ModificarProductoInterno(AccesoBD2.Producto producto)
+        {
+            try
+            {
+                if (producto != null)
+                {
+                    AccesoBD2.Producto productoInterno = new AccesoBD2.Producto();
+                    productoInterno = producto;
+
+                    db.ProductoSet.AddOrUpdate(productoInterno);
+                    db.SaveChanges();
+                    Callback2.RespuestaModificarProducto("Cambios Guardados");
+                }
+                else
+                {
+                    Callback2.RespuestaModificarProducto("El producto no puede ser nulo");
+                }
+
+            }
+            catch (InvalidOperationException)
+            {
+                Callback2.RespuestaModificarProducto("Ocurrio un error al modificar producto");
+            }
         }
 
         IModificarProductoCallback Callback2
