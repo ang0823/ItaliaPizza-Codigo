@@ -376,7 +376,7 @@ namespace ServidrorPizzaItaliana
 
                 if (rece != null)
                 {
-                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Ya existe una receta con el nombre");
                 }
                 else
                 {
