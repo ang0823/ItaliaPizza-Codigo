@@ -33,17 +33,16 @@
         <TextBlock x:Name="textBlockPorciones" HorizontalAlignment="Left" Margin="104,25,0,0" TextWrapping="Wrap" Text="Número de porciones" VerticalAlignment="Top" FontFamily="Palatino Linotype" Foreground="White" FontSize="24" FontWeight="Bold" Height="40" Grid.Column="1"/>
         <TextBox x:Name="textBoxPorciones" HorizontalAlignment="Left"  Height="39" Margin="100,69,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="259" BorderBrush="Black" Grid.Column="1" MaxLength="3" PreviewTextInput="TextBoxPorciones_PreviewTextInput" CommandManager.PreviewExecuted="DesabilitarCopy_Paste" ContextMenu="{x:Null}" />
 
-        <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="210" Margin="45,11,0,0" VerticalAlignment="Top" Width="895" BorderBrush="Black" Grid.Row="1" FontSize="20" Grid.ColumnSpan="2" Background="#FFBDB9B9" CanUserDeleteRows="True" >
+        <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="184" Margin="35,15,0,0" VerticalAlignment="Top" Width="915" BorderBrush="Black" FontSize="20"  Background="#FFBDB9B9" CanUserDeleteRows="True" CanUserAddRows="True" CanUserResizeColumns="False" AutoGenerateColumns="False" CellEditEnding="DataGridIngredientes_CellEditEnding" RowEditEnding="DataGridIngredientes_RowEditEnding" PreviewTextInput="DataGridIngredientes_PreviewTextInput" Grid.ColumnSpan="2" Grid.Row="1"  >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="200" IsReadOnly="False"/>
-                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100" IsReadOnly="False"/>
-                <DataGridTextColumn x:Name="ColumnPeso" Header="Peso" Width="100" IsReadOnly="False"/>
-                <DataGridTextColumn x:Name="ColumnVolumen" Header="Volumen" Width="150" IsReadOnly="False"/>
-                <DataGridTextColumn x:Name="ColumnCostoPorUnidad" Header="Costo por Unidad" Width="200" IsReadOnly="False"/>
-                <DataGridTextColumn x:Name="ColumnCosto" Header="Costo" Width="60" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="300" IsReadOnly="False" Binding="{Binding nombre}"/>
+                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100" IsReadOnly="False" Binding="{Binding cantidad}" />
+                <DataGridTextColumn x:Name="ColumnPeso" Header="Peso" Width="100" IsReadOnly="False" Binding="{Binding peso}"/>
+                <DataGridTextColumn x:Name="ColumnUnidad" Header="Unidad" Width="150" IsReadOnly="False" Binding="{Binding unidad}" />
+                <DataGridTextColumn x:Name="ColumnCostoPorUnidad" Header="Costo por Unidad" Width="200" IsReadOnly="False" Binding="{Binding costoPorUnidad}"/>
             </DataGrid.Columns>
         </DataGrid>
-        
+
         <TextBlock x:Name="textBlockProcedimiento" HorizontalAlignment="Left" Margin="45,231,0,0" TextWrapping="Wrap" Text="Procedimiento" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.484,-0.251" FontFamily="Palatino Linotype" FontSize="24" Grid.Row="1" Foreground="#FFE2E0D5"/>
         <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" Height="140" Margin="45,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="895" BorderBrush="#FF0C0C0C" Grid.Row="1" Grid.ColumnSpan="2" MaxLength="150" PreviewTextInput="TextBoxProcedimiento_PreviewTextInput" />
         <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="532,432,0,0" VerticalAlignment="Top" Width="176" Height="54" Grid.Row="1" Foreground="Black" Background="#FF71B970" FontSize="20" Grid.ColumnSpan="2" Click="ButtonAceptar_Click"/>
