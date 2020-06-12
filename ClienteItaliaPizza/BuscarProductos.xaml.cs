@@ -35,12 +35,12 @@ namespace ClienteItaliaPizza
                 try
                 {
                     int idProducto = int.Parse(SearchBox.Text);
-                    ServicioBuscar.BuscarPorID(idProducto);
+                  //  ServicioBuscar(idProducto);
                 }
                 catch (FormatException)
                 {
                     string nombreProducto = SearchBox.Text;
-                    ServicioBuscar.BuscarPorNombre(nombreProducto);
+                    ServicioBuscar.BuscarProductoInternoPorNombre(nombreProducto);
                 }
                 catch (Exception any)
                 {
@@ -57,12 +57,12 @@ namespace ClienteItaliaPizza
             try
             {
                 int idProducto = int.Parse(SearchBox.Text);
-                ServicioBuscar.BuscarPorID(idProducto);
+              //  ServicioBuscar.BuscarPorID(idProducto);
             }
             catch (FormatException)
             {
                 string nombreProducto = SearchBox.Text;
-                ServicioBuscar.BuscarPorNombre(nombreProducto);
+                ServicioBuscar.BuscarProductoExternoPorNombre(nombreProducto);
             }
             catch (Exception any)
             {
@@ -152,6 +152,17 @@ namespace ClienteItaliaPizza
 
             return EstaActivo;
         }
+        private int EstaActivadoProductoExterno(ProvisionDirecta1 provisionDirecta)
+        {
+            int EstaActivo = 0;
+
+            if (provisionDirecta.activado)
+            {
+                EstaActivo = 1;
+            }
+
+            return EstaActivo;
+        }
 
         private void HabilitarCampos()
         {
@@ -204,25 +215,31 @@ namespace ClienteItaliaPizza
             throw new NotImplementedException();
         }
 
-        public void Provision(Producto prov)
+        public void ProductoInterno(Producto productoInterno)
         {
-            codigoTxt.Text = prov.Id.ToString();
-            nombreTxt.Text = prov.nombre;
-            precioTxt.Text = prov.precioUnitario.ToString();
-            estadoCb.SelectedIndex = EstaActivado(prov);
-            categoriaCb.SelectedIndex = CategoriaProducto(prov);
-            recetaCb.SelectedItem = prov.Receta;
-            DescripcionTxt.Text = prov.descripcion;
+            codigoTxt.Text = productoInterno.Id.ToString();
+            nombreTxt.Text = productoInterno.nombre;
+            precioTxt.Text = productoInterno.precioUnitario.ToString();
+            estadoCb.SelectedIndex = EstaActivado(productoInterno);
+            categoriaCb.SelectedIndex = CategoriaProducto(productoInterno);
+            recetaCb.SelectedItem = productoInterno.Receta;
+            DescripcionTxt.Text = productoInterno.descripcion;
         }
 
         public void ErrorAlRecuperarProducto(string mensajeError)
         {
-            throw new NotImplementedException();
+            FuncionesComunes.MostrarMensajeDeError(mensajeError);
         }
 
-        public void Provision(Provision prov)
+        public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta)
         {
-            throw new NotImplementedException();
+            codigoTxt.Text = provision.id.ToString();
+            nombreTxt.Text = provision.nombre;
+            precioTxt.Text = provision.costoUnitario.ToString();
+            DescripcionTxt.Text = provisionDirecta.descripcion.ToString();
+            RestriccionesTxt.Text = provisionDirecta.restricciones;
+            estadoCb.SelectedIndex = EstaActivadoProductoExterno(provisionDirecta);
+            recetaCb.IsEnabled = false;          
         }
     }
 }

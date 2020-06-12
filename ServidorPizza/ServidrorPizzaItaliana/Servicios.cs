@@ -253,7 +253,7 @@ namespace ServidrorPizzaItaliana
                 string dbname = db.Database.Connection.Database;
                 string sqlCommand = @"BACKUP DATABASE [{0}] TO  DISK = N'{1}' WITH NOFORMAT, NOINIT,  NAME = N'MyAir-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
                 db.Database.ExecuteSqlCommand(System.Data.Entity.TransactionalBehavior.DoNotEnsureTransaction, string.Format(sqlCommand, dbname, nombreArchivo));
-                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("Se modificó correctamente");
+                OperationContext.Current.GetCallbackChannel<IGenerarRespaldoCallback>().RespuestaGR("Se realizó el respaldo correctamente");
             }
             catch(Exception)
             {
@@ -333,7 +333,7 @@ namespace ServidrorPizzaItaliana
 
                 if (rece != null)
                 {
-                    OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Ya existe un producto con ese nombre. Ingresa otro nombre");
                 }
                 else
                 {
@@ -360,8 +360,8 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                List<Provision1> provisionlista = new List<Provision1>();
-                List<ProvisionDirecta1> pDirectalista = new List<ProvisionDirecta1>();
+                List<Provision> provisionlista = new List<Provision>();
+              
                 using (var ctx = new BDPizzaEntities())
                 {
                     var provisiones = from s in ctx.ProvisionSet
@@ -373,18 +373,12 @@ namespace ServidrorPizzaItaliana
                     {
                         if (valor.activado == true)
                         {
-                            provisionlista.Add(new Provision1(valor.Id, valor.nombre, valor.noExistencias, valor.ubicacion, valor.stockMinimo, valor.costoUnitario, valor.unidadMedida));
+                            provisionlista.Add(new Provision(valor.Id, valor.nombre, valor.noExistencias, valor.ubicacion, valor.stockMinimo, valor.costoUnitario, valor.unidadMedida));
                         }
                     }
-                    foreach (var valor in pDirectas)
-                    {
-                        if (valor.activado == true)
-                        {
-                            pDirectalista.Add(new ProvisionDirecta1(valor.Id, valor.descripcion, valor.activado, valor.restricciones));
-                        }
-                    }
+                   
                 }
-                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().DevuelveInventario(provisionlista, pDirectalista);
+                OperationContext.Current.GetCallbackChannel<IConsultarInventarioCallback>().DevuelveInventario(provisionlista);
             }
             catch (InvalidOperationException)
             {

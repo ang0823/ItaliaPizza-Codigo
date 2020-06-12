@@ -125,7 +125,7 @@ namespace ClienteItaliaPizza
 
         }
 
-        public void RespuestaInventario(string mensaje)
+        public void RespuestaCI(string mensaje)
         {
             FuncionesComunes.MostrarMensajeDeError(mensaje);
         }

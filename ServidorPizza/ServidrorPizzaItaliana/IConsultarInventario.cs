@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using AccesoBD2;
 
 namespace ServidrorPizzaItaliana
 {
@@ -19,7 +20,7 @@ namespace ServidrorPizzaItaliana
     public interface IConsultarInventarioCallback
     {
         [OperationContract(IsOneWay = true)]
-        void DevuelveInventario(List<Provision1> cuentas, List<ProvisionDirecta1> empleados);
+        void DevuelveInventario(List<Provision> cuentas);
 
         [OperationContract(IsOneWay = true)]
         void RespuestaCI(string mensaje);
