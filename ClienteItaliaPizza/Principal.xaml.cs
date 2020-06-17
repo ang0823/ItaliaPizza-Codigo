@@ -119,7 +119,7 @@ namespace ClienteItaliaPizza
 
         private void ButtonGenerarInventario_Click(object sender, RoutedEventArgs e)
         {
-            Inventario ventanaInvventario = new Inventario(CuentaUsuario);
+            Inventario ventanaInvventario = new Inventario();
             ventanaInvventario.Show();
             this.Close();
         }

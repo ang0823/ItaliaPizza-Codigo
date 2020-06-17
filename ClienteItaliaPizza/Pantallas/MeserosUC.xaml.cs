@@ -107,7 +107,7 @@ namespace ClienteItaliaPizza.Pantallas
         private void ButtonNuevoPedidoLocal_Click(object sender, RoutedEventArgs e)
         {
             NuevoPedido ventanaNuevoPedido = new NuevoPedido("Local");
-            ventanaNuevoPedido.Show();                        
+            ventanaNuevoPedido.Show();                      
         }
 
         private void ButtonImprimir_Click(object sender, RoutedEventArgs e)
