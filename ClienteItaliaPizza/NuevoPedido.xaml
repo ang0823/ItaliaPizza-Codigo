@@ -43,7 +43,7 @@
             </TabItem>
             <TabItem x:Name="tanItemBebidas" Header="Bebidas">
                 <Grid x:Name="gridBebidas" Background="#FFE5E5E5" Margin="0,2,0,-2" IsVisibleChanged="GridBebidas_IsVisibleChanged">
-                   
+
                     <ListView x:Name="ListViewBebidas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" SelectionChanged="ListViewBebidas_SelectionChanged" >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -66,15 +66,15 @@
         <TextBlock x:Name="textBlockInstruccionesEspeciales" HorizontalAlignment="Left" Margin="64,456,0,0" TextWrapping="Wrap" Text="Instrucciones Especiales" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <TextBox x:Name="textBoxInstruccionesEspeciales" HorizontalAlignment="Left" Height="90" Margin="64,494,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="587" BorderBrush="Black" MaxLength="150" />
 
-        <DataGrid x:Name="dataGridOrden" HorizontalAlignment="Left" Height="230"  Margin="704,34,0,0" VerticalAlignment="Top" Width="265" CanUserResizeColumns="False" BorderBrush="Black" CanUserAddRows="True" SelectionUnit="Cell" >
+        <DataGrid x:Name="dataGridOrden" HorizontalAlignment="Left" Height="230"  Margin="704,34,0,0" VerticalAlignment="Top" Width="265" CanUserResizeColumns="False" BorderBrush="Black" AutoGenerateColumns="False" IsReadOnly="True" >
             <DataGrid.Background>
                 <SolidColorBrush Color="#FFF0F0F0" Opacity="0.5"/>
             </DataGrid.Background>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="60" Binding="{Binding cantidad}" />
-                <DataGridTextColumn x:Name="ColumnProducto" Header="Producto" Width="70" Binding="{Binding nombreProducto}" />
-                <DataGridTextColumn x:Name="ColumnPreciounitario" Header="P.U" Width="50" Binding="{Binding PrecioUnitario}" />
-                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="50" Binding="{Binding PrecioTotal}"/>
+                <DataGridTextColumn x:Name="ColumnProducto" Header="Producto" Width="90" Binding="{Binding nombreProducto}" />
+                <DataGridTextColumn x:Name="ColumnPreciounitario" Header="P.U" Width="60" Binding="{Binding PrecioUnitario}" />
+                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="60" Binding="{Binding PrecioTotal}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -83,12 +83,15 @@
 
         <TextBlock HorizontalAlignment="Left" Height="24" Margin="739,354,0,0" TextWrapping="Wrap" Text="SubTotal:" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="18"/>
         <TextBlock HorizontalAlignment="Left" Height="25" Margin="739,387,0,0" TextWrapping="Wrap" Text="IVA:" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="18"/>
-        <TextBlock HorizontalAlignment="Left" Height="26" Margin="739,420,0,0" TextWrapping="Wrap" Text="Descuento:" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="18"/>
-        <TextBlock HorizontalAlignment="Left" Height="26" Margin="739,454,0,0" TextWrapping="Wrap" Text="Total:" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="18"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="738,428,0,0" TextWrapping="Wrap" Text="Descuento:" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="18"/>
+        <TextBlock HorizontalAlignment="Left" Height="26" Margin="742,462,0,0" TextWrapping="Wrap" Text="Total:" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="18"/>
 
-        <Label x:Name="labelSubtotal" Content="$" HorizontalAlignment="Left" Margin="866,345,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="29" Foreground="White"/>
+        <Label x:Name="labelSigno1" Content="$" HorizontalAlignment="Left" Margin="848,344,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="29" Foreground="White"/>
+        <Label x:Name="labelSubtotal" Content="0" HorizontalAlignment="Left" Margin="864,347,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="78" Foreground="White"/>
         <Label x:Name="labelIVA" Content="16%" HorizontalAlignment="Left" Margin="851,378,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="38" Width="63"/>
-        <Label x:Name="labelTotal" Content="$" HorizontalAlignment="Left" Margin="851,454,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="58" Width="29"/>
+        <Label x:Name="labelSigno2" Content="$" HorizontalAlignment="Left" Margin="838,454,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="34" Width="28" RenderTransformOrigin="0.607,0.721"/>
+        <Label x:Name="labelTotal" Content="0" HorizontalAlignment="Left" Margin="862,454,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Width="60" Foreground="White"/>
+
         <TextBox x:Name="textBoxDescuento" HorizontalAlignment="Left" Height="31" Margin="851,423,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0.5,0.5" FontSize="18" Foreground="Black" MaxLength="3" PreviewTextInput="TextBoxDescuento_PreviewTextInput">
             <TextBox.RenderTransform>
                 <TransformGroup>

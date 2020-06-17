@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using System.ServiceModel;
 using ClienteItaliaPizza.Validacion;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ClienteItaliaPizza
 {
@@ -16,8 +17,9 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class NuevoPedido : Window, IRegistrarPedidoLocalCallback
     {
-        InstanceContext context;
         string mesaSeleccionada;
+        InstanceContext instanceContext;
+        RegistrarPedidoLocalClient cliente;
 
         //Listas de productos disponibles a elegir.
         private List<Producto> productosDisponibles = new List<Producto>();
@@ -33,36 +35,27 @@ namespace ClienteItaliaPizza
         //Constructor para registrar un nuevo Pedido (hacer uno para la edicion de pedido)
         public NuevoPedido(string tipoPedido)
         {
-            InitializeComponent();            
-
-            if (tipoPedido.Equals("Local"))
+            InitializeComponent();
+            dataGridOrden.ItemsSource = listaOrdenes;
+            try
             {
-                UC_NuevoPLocal.Visibility = Visibility.Visible;
-                //InstanceContext instanceContext = new InstanceContext(this);
-                //  RegistrarPedidoLocalClient cliente = new RegistrarPedidoLocalClient(instanceContext);
-                // cliente.ObtenerInformacionDeProductosYEstados(); 
-
-                //Lleno el datagrid temporalmente con datos ficticios para probar función de 
-                //obtener /insertar en una celda del DataGridOrden
-                Orden orden = new Orden();
-                orden.cantidad = "1";
-                orden.nombreProducto = "sopa";
-                orden.PrecioUnitario = "12.00";
-                orden.PrecioTotal = "12.00";
-                listaOrdenes.Add(orden);
-
-                Orden orden1 = new Orden();
-                orden1.cantidad = "1";
-                orden1.nombreProducto = "chesco";
-                orden1.PrecioUnitario = "14.00";
-                orden1.PrecioTotal = "14.00";
-                listaOrdenes.Add(orden1);
-                dataGridOrden.ItemsSource = listaOrdenes;
+                if (tipoPedido.Equals("Local"))
+                {
+                    UC_NuevoPLocal.Visibility = Visibility.Visible;
+                    instanceContext = new InstanceContext(this);
+                    cliente = new RegistrarPedidoLocalClient(instanceContext);
+                    cliente.ObtenerInformacionDeProductosYEstados();                     
+                }
+                if (tipoPedido.Equals("Domicilio"))
+                {
+                    UC_NuevoDomicilio.Visibility = Visibility.Visible;
+                }
             }
-            if (tipoPedido.Equals("Domicilio"))
+            catch (CommunicationException)
             {
-                UC_NuevoDomicilio.Visibility = Visibility.Visible;
+                FuncionesComunes.MostrarMensajeDeError("No se ha podido establecer comunicación con el servidor");
             }
+            
         }       
 
         //Llamará al registrar local, domicilio, editar local y editar domicilio
@@ -71,7 +64,14 @@ namespace ClienteItaliaPizza
             bool resultado = ValidarCamposLlenosPedidoLocal();
             if (resultado == true)
             {
-                RegistrarPedidoLocal();
+                try
+                {
+                    RegistrarPedidoLocal();
+                }catch(Exception ex)
+                {
+                    FuncionesComunes.MostrarMensajeDeError(ex.Message + ex.StackTrace);
+                }
+               
             }
             else
             {
@@ -81,21 +81,14 @@ namespace ClienteItaliaPizza
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
         {
-            // this.Close();
-
-            //Temporalmento pongo este funcionamiento para probar que obtiene el elemento seleccionado
-            //del datagridOrden.           
-            var seleccion = dataGridOrden.SelectedCells[0].Item as Orden;           
-           // var con = ColumnCantidad.GetCellContent(seleccion);
-            System.Windows.MessageBox.Show(seleccion.cantidad);
+            // this.Close();         
+            System.Windows.MessageBox.Show(textBoxDescuento.Text);
         }
 
         private void TextBoxDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {           
-            if (Validador.validarSoloNumeros(e.Text) == false == false)
-            {
-                e.Handled = true;
-            }
+            if (Validador.validarSoloNumeros(e.Text) == false)            
+                e.Handled = true;            
         }
 
         public void DatosRecuperados(ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones, EstadoDePedido[] estados, MesaLocal[] mesas)
@@ -182,20 +175,7 @@ namespace ClienteItaliaPizza
             new MovieData{Title="Movie 4", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
             new MovieData{Title="Movie 5", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
             new MovieData{Title="Movie 6", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")}
-            };          
-            /* Esto era para mostrar la imagen del producto
-             * 
-             * Image image = new Image();            
-             image.Height = 66;
-             image.Width = 78;
-             image.Margin = new Thickness(21, 17, 0, 0);
-             image.Stretch = Stretch.Fill;
-             image.Name = "imagen";
-             image.Opacity = 100;
-             Uri uri = new Uri("C:/Users/survi/Pictures/Granos Selectos (4).jpg");
-             image.Source = new BitmapImage(uri);
-
-             gridBebidas.Children.Add(image); */
+            };                     
         }
 
         // for this code image needs to be a project resource
@@ -210,6 +190,10 @@ namespace ClienteItaliaPizza
          */
         private void UC_NuevoPLocal_eventLlenarNoMesa(object sender, EventArgs e)
         {
+            for(int i=1; i<=5; i++)
+            {
+                UC_NuevoPLocal.EditarSeleccionComboBoxNoMesa = i.ToString();
+            }
         }
 
         private void UC_NuevoPLocal_eventLlenarNumEmpleado(object sender, EventArgs e)
@@ -284,8 +268,26 @@ namespace ClienteItaliaPizza
 
         public bool ValidarCamposLlenosPedidoLocal()
         {
-            if (UC_NuevoPLocal.comboBoxNumEmpleado.SelectedIndex != -1 && UC_NuevoPLocal.comboBoxNoMesa.SelectedIndex != -1 && textBoxDescuento.Text != null)
-            {          
+            if (UC_NuevoPLocal.comboBoxNumEmpleado.SelectedIndex != -1 && 
+                UC_NuevoPLocal.comboBoxNoMesa.SelectedIndex != -1 && 
+                textBoxDescuento.Text != null)
+            {
+                int descuento = FuncionesComunes.ParsearAEntero(textBoxDescuento.Text);
+                if (descuento >= 100) {
+                    FuncionesComunes.MostrarMensajeDeError("El límite del descuento es 100%"); return false; }
+                return true;
+            }
+            return false;
+        }
+
+        public bool ValidarCamposLlenosPedidoDomicilio()
+        {
+            if(UC_NuevoDomicilio.comboBoxClienteNombre.SelectedIndex != -1 && 
+                UC_NuevoDomicilio.comboBoxDireccion.SelectedIndex != -1 && 
+                UC_NuevoDomicilio.textBoxTelefono.Text != null && 
+                UC_NuevoDomicilio.comboBoxDireccion.SelectedIndex != -1 && 
+                textBoxDescuento.Text != null)
+            {
                 return true;
             }
             return false;
@@ -294,17 +296,41 @@ namespace ClienteItaliaPizza
         private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selecto = ListViewBebidas.SelectedItem as MovieData;
-            textBlockInstruccionesEspeciales.Text =  selecto.Title;         
+            var res = listaOrdenes.FirstOrDefault<Orden>(i => i.nombreProducto == selecto.Title);
+            if(res == null)
+            {
+                Orden orden = new Orden();
+                orden.cantidad = 1;
+                orden.nombreProducto = selecto.Title;
+                orden.PrecioUnitario = 10.00;
+                orden.PrecioTotal = 10.00;
+                listaOrdenes.Add(orden);
+
+                labelSubtotal.Content = orden.PrecioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
+                labelTotal.Content = orden.PrecioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());                
+            }
+            else
+            {
+                res.cantidad++;
+                res.PrecioTotal = res.PrecioUnitario * res.cantidad;
+                dataGridOrden.Items.Refresh();
+
+                labelTotal.Content = res.PrecioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+            }
+
+
         }
 
+        
         public void RegistrarPedidoLocal()
         {
-            context = new InstanceContext(this);
-            RegistrarPedidoLocalClient pedidoLocalClient = new RegistrarPedidoLocalClient(context);
-
+            try
+            {
             int numeroMesa = FuncionesComunes.ParsearAEntero(mesaSeleccionada);
             var seleccionEmpleado = UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado;
             var numeroEmpleado = FuncionesComunes.ParsearAEntero(seleccionEmpleado);
+
+            textBoxDescuento.Text = "." + textBoxDescuento.Text;
             var descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
             Mesa mesa = Listamesas.Find(x => x.numeroMesa == numeroMesa);
 
@@ -323,18 +349,23 @@ namespace ClienteItaliaPizza
             c.descuento = descuento;
             c.iva = 50;
             c.Id = GenerarIdPedidoLocal(1);
-
-            pedidoLocalClient.RegistrarPedidoLocal(pedidoLocalNuevo, c, 1, numeroEmpleado);
-        }
+            
+                cliente.RegistrarPedidoLocal(pedidoLocalNuevo, c, 1, numeroEmpleado);
+            }
+            catch (CommunicationException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("No se ha podido establecer comunicación con el servidor");
+            }
+        }        
     }
 
     //esta será una clase para probar el datagrid de ordenes
-    public class Orden
+    public class Orden 
     {
-        public string cantidad { get; set; }
+        public int cantidad { get; set; }
         public string nombreProducto { get; set; }
-        public string PrecioUnitario { get; set; }
-        public string PrecioTotal { get; set; }
+        public double PrecioUnitario { get; set; }
+        public double PrecioTotal { get; set; }
     }
 
     //esta es una clase temporal unicamente para provar el ListView
