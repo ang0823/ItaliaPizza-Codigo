@@ -68,8 +68,8 @@
     <Compile Include="IRecuperarProductos.cs" />
     <Compile Include="IRegistrarCuentaUsuario.cs" />
     <Compile Include="IRegistrarIngrediente.cs" />
-    <Compile Include="IRegistrarPedidoADomicilio.cs" />
-    <Compile Include="IRegistrarPedidoLocal.cs" />
+    <Compile Include="IAdministrarPedidosCallCenter.cs" />
+    <Compile Include="IAdministrarPedidosMeseros.cs" />
     <Compile Include="IRegistrarProducto.cs" />
     <Compile Include="IRegistrarReceta.cs" />
     <Compile Include="Servicios.cs" />

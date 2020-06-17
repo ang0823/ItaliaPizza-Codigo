@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.ComponentModel.Design;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Core.Objects;
 
 namespace ServidrorPizzaItaliana
 {
@@ -727,99 +728,51 @@ namespace ServidrorPizzaItaliana
         }
     }
 
-    public partial class Servicios : IRegistrarPedidoADomicilio
+    public partial class Servicios : IAdministrarPedidosCallCenter
     {
+        const string ESTADOFINAL = "Entregado";
 
         public void ObtenerDatos()
         {
-            List<ProductoDePedido> productos = new List<ProductoDePedido>();
-            List<ProvisionVentaDirecta> provisionesVentaDirectas = new List<ProvisionVentaDirecta>();
-            List<Cliente> clientes = new List<Cliente>();
-            List<DireccionCliente> di = new List<DireccionCliente>();
-            List<TelefonoCliente> telefonosDeCliente = new List<TelefonoCliente>();
-            List<EstadoDePedido> estados = new List<EstadoDePedido>();
-         
             try
             {
-                db.Configuration.ProxyCreationEnabled = false;
-                var productosRecuperados = db.ProductoSet.Include(x => x.Categoria).ToList();
-                var provisionesRecuperadas = db.ProvisionDirectaSet.Include(x => x.Provision).ToList();
-                var clientesRecuperados = db.ClienteSet.Include(x => x.Direccion).Include(b => b.Telefono).ToList();
-                var estadosRecuperados = db.EstadoSet.ToList();
-
-                foreach (AccesoBD2.Producto a in productosRecuperados)
-                {
-                    ProductoDePedido productoRecuperado = new ProductoDePedido(a.Id, a.nombre, a.descripcion, a.precioUnitario, a.restricciones, a.Categoria.categoria);
-                    productos.Add(productoRecuperado);
-                    Console.WriteLine(productoRecuperado.Categoria);
-                }
-
-                foreach (ProvisionDirecta a in provisionesRecuperadas)
-                {
-                    ProvisionVentaDirecta provisionRecuperada = new ProvisionVentaDirecta(a.Id, a.Provision.Id, a.Provision.nombre, a.Provision.costoUnitario, a.descripcion, a.restricciones);
-                    provisionesVentaDirectas.Add(provisionRecuperada);
-                    Console.WriteLine(provisionRecuperada.IdProvision.ToString());
-                }
-
-                foreach (AccesoBD2.Cliente a in clientesRecuperados)
-                {
-                    foreach (Direccion b in a.Direccion) {
-                        DireccionCliente dir = new DireccionCliente(b.calle, b.colonia, b.numeroExterior, b.numeroInterior);
-                        di.Add(dir);
-
-                        foreach (Telefono t in a.Telefono)
-                        {
-                            TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
-                            telefonosDeCliente.Add(tel);
-                        }
-                    }
-
-                    Cliente clienteRecuperado = new Cliente(a.Id, a.nombre, a.apellidoPaterno, a.apellidoMaterno, di, telefonosDeCliente);
-                    Console.WriteLine(clienteRecuperado.Id + clienteRecuperado.Nombre);
-                    clientes.Add(clienteRecuperado);    
-                }
-
-                foreach (Estado e in estadosRecuperados)
-                {
-                    EstadoDePedido estado = new EstadoDePedido(e.Id, e.estadoPedido);
-                    estados.Add(estado);
-                }
-
-                Callback7.Datos(clientes, productos, provisionesVentaDirectas, estados);
-        }
-            catch (Exception e){
-                Console.WriteLine(e.StackTrace);
-                Callback7.Mensaje("Mensaje de error");
+                Callback7.Datos(ObtenerClientes(), ObtenerProductosParaPedido(), ObtenerProvisionesParaPedido());
+            }
+            catch (Exception)
+            {
+                Callback7.Mensaje("Error al recuperar informacion");
             }
         }
 
-       public void RegistrarPedido(PedidoADomicilio pedido, Cuenta cuenta, int idEstado, int idEmpleado)
+        public void RegistrarPedidoADomicilio(PedidoADomicilio pedido)
         {
             try
             {
-                db.InsertarCuentaDePedido(cuenta.Id, cuenta.precioTotal, cuenta.subTotal, cuenta.iva, cuenta.descuento);
-                db.InsertarPedido(pedido.fecha, pedido.instruccionesEspeciales, idEmpleado, idEstado, cuenta.Id);
-                var pad = (from pe in db.PedidoSet where pe.Cuenta.Id == cuenta.Id select pe).First();
+                ObjectParameter idPedido = new ObjectParameter("IDPedido", typeof(int));
+
+                db.InsertarPedidoADomicilio(pedido.ClienteId, pedido.fecha, pedido.instruccionesEspeciales, pedido.Empleado.IdEmpleado, pedido.Estado.estadoPedido, pedido.Cuenta.Id, pedido.Cuenta.precioTotal, pedido.Cuenta.subTotal, pedido.Cuenta.iva, pedido.Cuenta.descuento, idPedido);
+
+                int idPedidoRegistrado = Convert.ToInt32(idPedido.Value);
+
+
+                Console.WriteLine("ID Pedido" + idPedidoRegistrado);
 
                 foreach (AccesoBD2.Producto p in pedido.Producto)
                 {
-                    db.LigarProductoConPedido(p.Id, pad.Id);
+                    db.LigarProductoConPedido(p.Id, idPedidoRegistrado);
                 }
 
                 foreach (ProvisionDirecta pd in pedido.ProvisionDirecta)
                 {
-                    db.LigarProvisionConPedido(pd.Id, pad.Id);
+                    db.LigarProvisionConPedido(pd.Id, idPedidoRegistrado);
                 }
 
-                db.InsertarPedioDomicilio(pedido.ClienteId, pad.Id);
-
-                Callback7.Mensaje("Exito al registrar pedido");
+                NotificarPedidoADomicilioRegistrado(pedido);
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
-                Console.WriteLine(e.StackTrace);
-                Callback7.Mensaje("Ocurrio un error");
-            } 
+                Callback7.Mensaje("Ocurrio un error al registrar pedido");
+            }
         }
 
         public void RegistrarCliente(AccesoBD2.Cliente cliente, Direccion direccionCliente, Telefono telefonoCliente)
@@ -834,155 +787,194 @@ namespace ServidrorPizzaItaliana
                 }
                 else
                 {
-                    db.RegistroDeClienteConDireccion(cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, direccionCliente.calle, direccionCliente.colonia, direccionCliente.numeroExterior, direccionCliente.numeroInterior, direccionCliente.codigoPostal);
-                    var clienteBD = (from p in db.ClienteSet where p.nombre == cliente.nombre && p.apellidoMaterno == cliente.apellidoMaterno && p.apellidoPaterno == cliente.apellidoPaterno select p).First();
-                    var direcionBD = (from d in db.DireccionSet where d.calle == direccionCliente.calle && d.numeroExterior == direccionCliente.numeroExterior && d.numeroInterior == direccionCliente.numeroInterior select d).First();
-                    
-                    db.LigarClienteADireccion(direcionBD.Id, clienteBD.Id);
-                    db.RegistrarTelefono(telefonoCliente.numeroTelefono, clienteBD.Id);
+                    db.RegistroDeClienteConDireccion(cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, direccionCliente.calle, direccionCliente.colonia, direccionCliente.numeroExterior, direccionCliente.numeroInterior, telefonoCliente.numeroTelefono);
+
                     Callback7.Mensaje("Exito al registrar cliente");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e.StackTrace);
-                Console.WriteLine(e.Message);
                 Callback7.Mensaje("Error al registrar cliente");
             }
         }
 
-        IRegistrarPedidoADomicilioCallback Callback7
+        public void ModificarPedidoADomicilio(PedidoADomicilio pedido)
+        {
+            if (ModififcarPedido(pedido))
+            {
+
+                if (pedido.Estado.estadoPedido.Equals(ESTADOFINAL))
+                {
+                    if (DisminuirExsistenciasDeProductoExterno(pedido.ProvisionDirecta.ToList()))
+                    {
+                        Callback7.Mensaje("Pedido Modificado");
+                    }
+                    else
+                    {
+                        Callback7.Mensaje("Error al disminuir stock de productos");
+                    }
+                }
+            }
+            else
+            {
+                Callback7.Mensaje("Error al modificar pedido");
+            }
+        }
+
+        public void RegistrarPedidoLocalCallCenter(PedidoLocal pedido)
+        {
+            if (ServicioRegistrarPedidoLocal(pedido))
+            {
+                NotificarATodosPedidoLocalRegistrado(pedido);
+            }
+            else
+            {
+                Callback8.MensajeAdministrarPedidosMeseros("Error al registrar pedido local");
+            }
+        }
+
+        public void ModificarPedidoLocalCallCenter(PedidoLocal pedido)
+        {
+            if (ModififcarPedido(pedido))
+            {
+                if (pedido.Estado.estadoPedido.Equals(ESTADOFINAL))
+                {
+                    if (DisminuirExsistenciasDeProductoExterno(pedido.ProvisionDirecta.ToList()))
+                    {
+                        Callback7.Mensaje("Pedido Modificado");
+                    }
+                    else
+                    {
+                        Callback7.Mensaje("Error al disminuir stock de productos");
+                    }
+                }
+            }
+            else
+            {
+                Callback7.Mensaje("Error al modificar pedido");
+            }
+        }
+
+        IAdministrarPedidosCallCenterCallback Callback7
         {
             get
             {
-                return OperationContext.Current.GetCallbackChannel<IRegistrarPedidoADomicilioCallback>();
+                return OperationContext.Current.GetCallbackChannel<IAdministrarPedidosCallCenterCallback>();
             }
         }
     }
 
-    public partial class Servicios : IRegistrarPedidoLocal
+    public partial class Servicios : IAdministrarPedidosMeseros
     {
-
-        public void ObtenerInformacionDeProductosYEstados()
-        {
-            List<ProductoDePedido> productos = new List<ProductoDePedido>();
-            List<ProvisionVentaDirecta> provisionesVentaDirectas = new List<ProvisionVentaDirecta>();
-            List<EstadoDePedido> estados = new List<EstadoDePedido>();
-            List<MesaLocal> mesas = new List<MesaLocal>();
-
-            try
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                var productosRecuperados = db.ProductoSet.Include(x => x.Categoria).ToList();
-                var provisionesRecuperadas = db.ProvisionDirectaSet.Include(x => x.Provision).ToList();
-                var estadosRecuperados = db.EstadoSet.ToList();
-                var mesasRecuperadas = db.MesaSet.ToList();
-
-                foreach (AccesoBD2.Producto a in productosRecuperados)
-                {
-                    ProductoDePedido productoRecuperado = new ProductoDePedido(a.Id, a.nombre, a.descripcion, a.precioUnitario, a.restricciones, a.Categoria.categoria);
-                    productos.Add(productoRecuperado);
-                    Console.WriteLine(productoRecuperado.Categoria);
-                }
-
-                foreach (ProvisionDirecta a in provisionesRecuperadas)
-                {
-                    ProvisionVentaDirecta provisionRecuperada = new ProvisionVentaDirecta(a.Id, a.Provision.Id, a.Provision.nombre, a.Provision.costoUnitario, a.descripcion, a.restricciones);
-                    provisionesVentaDirectas.Add(provisionRecuperada);
-                    Console.WriteLine(provisionRecuperada.IdProvision.ToString());
-                }
-
-                foreach (Estado e in estadosRecuperados)
-                {
-                    EstadoDePedido estado = new EstadoDePedido(e.Id, e.estadoPedido);
-                    estados.Add(estado);
-                }
-
-                foreach (Mesa m in mesasRecuperadas)
-                {
-                    MesaLocal mesa = new MesaLocal(m.Id, m.numeroMesa);
-                    mesas.Add(mesa);
-                }
-
-                Callback8.DatosRecuperados(productos, provisionesVentaDirectas, estados, mesas);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                Callback8.MensajeRegistrarPedidoLocal("Mensaje de error");
-            }
-        }
-
-        public void RegistrarPedidoLocal(PedidoLocal pedido, Cuenta cuenta, int idEstado, int idEmpleado)
+        public void ObtenerProductos()
         {
             try
             {
-                db.InsertarCuentaDePedido(cuenta.Id, cuenta.precioTotal, cuenta.subTotal, cuenta.iva, cuenta.descuento);
-                db.InsertarPedido(pedido.fecha, pedido.instruccionesEspeciales, idEmpleado, idEstado, cuenta.Id);
-                var pl = (from pe in db.PedidoSet where pe.Cuenta.Id == cuenta.Id select pe).First();
-
-                foreach (AccesoBD2.Producto p in pedido.Producto)
-                {
-                    db.LigarProductoConPedido(p.Id, pl.Id);
-                }
-
-                foreach (ProvisionDirecta pd in pedido.ProvisionDirecta)
-                {
-                    db.LigarProvisionConPedido(pd.Id, pl.Id);
-                }
-
-                db.InsertarPedidoLocal(pedido.MesaId, pl.Id);
-
-                Callback8.MensajeRegistrarPedidoLocal("Exito al registrar pedido");
+                Callback8.DatosRecuperados(ObtenerProductosParaPedido(), ObtenerProvisionesParaPedido());
             }
-            catch (InvalidOperationException e)
+            catch (Exception)
             {
-                Console.WriteLine(e.StackTrace);
-                Callback8.MensajeRegistrarPedidoLocal("Ocurrio un error");
+                Callback8.MensajeAdministrarPedidosMeseros("Mensaje de error");
             }
         }
 
-        IRegistrarPedidoLocalCallback Callback8
+        public void RegistrarPedidoLocal(PedidoLocal pedido)
+        {
+            if (ServicioRegistrarPedidoLocal(pedido))
+            {
+                NotificarATodosPedidoLocalRegistrado(pedido);
+            }
+            else
+            {
+                Callback8.MensajeAdministrarPedidosMeseros("Error al registrar pedido local");
+            }
+        }
+
+        public void ModificarPedidoLocal(PedidoLocal pedido)
+        {
+            if (ModififcarPedido(pedido))
+            {
+
+                Callback8.MensajeAdministrarPedidosMeseros("Pedido Modificado");
+            }
+            else
+            {
+                Callback8.MensajeAdministrarPedidosMeseros("Error al modificar pedido");
+            }
+        }
+
+        IAdministrarPedidosMeserosCallback Callback8
         {
             get
             {
-                return OperationContext.Current.GetCallbackChannel<IRegistrarPedidoLocalCallback>();
+                return OperationContext.Current.GetCallbackChannel<IAdministrarPedidosMeserosCallback>();
             }
         }
     }
 
     public partial class Servicios : INotificarPedido
     {
-        Dictionary<INotificarPedidoCallback, string> usuarios = new Dictionary<INotificarPedidoCallback, string>();
+        public Dictionary<INotificarPedidoCallback, string> usuarios = new Dictionary<INotificarPedidoCallback, string>();
 
         public void AgregarUsuario(string tipoUsuario)
         {
             usuarios[Callback9] = tipoUsuario;
         }
 
-        public void EnviarPedidoLocal(PedidoLocal pedido, string usuario)
+        public void NotificarPedidoADomicilioRegistrado(PedidoADomicilio pedido)
         {
+            const string NOESDESTINATARIO = "Mesero";
+
             foreach (var destinatario in usuarios)
             {
-                if (!destinatario.Value.Equals(usuario))
+                if (!destinatario.Value.Equals(NOESDESTINATARIO))
                 {
-                    if (destinatario.Key == Callback9)
-                        continue;
-                    destinatario.Key.RecibirPedidoLocal(pedido);
+                    destinatario.Key.RecibirPedidoDomicilio(pedido);
                 }
             }
         }
 
-        public void EnviarPedidoADomicilio(PedidoADomicilio pedido, string usuario)
+        public void NotificarPedidoLocalPreparado(PedidoLocal pedido, string usuario)
+        {
+            if (ModififcarPedido(pedido) && DisminuirExistenciasDeIngrediente(pedido.Producto.ToList()))
+            {
+                foreach (var destinatario in usuarios)
+                {
+                    if (!destinatario.Value.Equals(usuario))
+                    {
+                        destinatario.Key.RecibirPedidoLocal(pedido);
+                    }
+                }
+            }
+            else
+            {
+                Callback9.MensajeNotificarPedido("Error al notificar pedido");
+            }
+        }
+
+        public void NotificarATodosPedidoLocalRegistrado(PedidoLocal pedido)
         {
             foreach (var destinatario in usuarios)
             {
-                if (destinatario.Value.Equals(usuario))
+                destinatario.Key.RecibirPedidoLocal(pedido);
+            }
+        }
+
+        public void NotificarPedidoADomicilioPreparado(PedidoADomicilio pedido, string usuario)
+        {
+            if (ModififcarPedido(pedido) && DisminuirExistenciasDeIngrediente(pedido.Producto.ToList()))
+            {
+                foreach (var destinatario in usuarios)
                 {
-                    if (destinatario.Key == Callback9)
-                        continue;
-                    destinatario.Key.RecibirPedidoDomicilio(pedido);
+                    if (destinatario.Value.Equals(usuario))
+                    {
+                        destinatario.Key.RecibirPedidoDomicilio(pedido);
+                    }
                 }
+            }
+            else
+            {
+                Callback9.MensajeNotificarPedido("Error al notificar pedido");
             }
         }
 
@@ -991,6 +983,191 @@ namespace ServidrorPizzaItaliana
             get
             {
                 return OperationContext.Current.GetCallbackChannel<INotificarPedidoCallback>();
+            }
+        }
+    }
+
+    public partial class Servicios
+    {
+        public bool ServicioRegistrarPedidoLocal(PedidoLocal pedido)
+        {
+            bool exitoAlRegistrarPedido = false;
+
+            try
+            {
+                ObjectParameter IdPedido = new ObjectParameter("IDPedido", typeof(int));
+
+                db.InsertarPedidoLocal(pedido.Mesa.numeroMesa, pedido.fecha, pedido.instruccionesEspeciales, pedido.Empleado.IdEmpleado, pedido.Estado.estadoPedido, pedido.Cuenta.Id, pedido.Cuenta.precioTotal, pedido.Cuenta.subTotal, pedido.Cuenta.iva, pedido.Cuenta.descuento, IdPedido);
+
+                int idPedidoRegistrado = Convert.ToInt32(IdPedido.Value);
+
+                foreach (AccesoBD2.Producto p in pedido.Producto)
+                {
+                    db.LigarProductoConPedido(p.Id, idPedidoRegistrado);
+                }
+
+                foreach (ProvisionDirecta pd in pedido.ProvisionDirecta)
+                {
+                    db.LigarProvisionConPedido(pd.Id, idPedidoRegistrado);
+                }
+
+                return exitoAlRegistrarPedido = true;
+            }
+            catch (InvalidOperationException)
+            {
+                return exitoAlRegistrarPedido;
+            }
+        }
+
+        public List<ProductoDePedido> ObtenerProductosParaPedido()
+        {
+            List<ProductoDePedido> productos = new List<ProductoDePedido>();
+
+            try
+            {
+                var productosRecuperados = db.ProductoSet.Include(x => x.Categoria).ToList();
+
+                foreach (AccesoBD2.Producto a in productosRecuperados)
+                {
+                    ProductoDePedido productoRecuperado = new ProductoDePedido(a.Id, a.nombre, a.descripcion, a.precioUnitario, a.restricciones, a.Categoria.categoria, a.activado);
+                    productos.Add(productoRecuperado);
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return productos;
+        }
+
+        public List<ProvisionVentaDirecta> ObtenerProvisionesParaPedido()
+        {
+            List<ProvisionVentaDirecta> provisionesVentaDirectas = new List<ProvisionVentaDirecta>();
+
+            try
+            {
+                var provisionesRecuperadas = db.ProvisionDirectaSet.Where(a => a.activado == true).Include(x => x.Provision).ToList();
+                foreach (ProvisionDirecta a in provisionesRecuperadas)
+                {
+                    ProvisionVentaDirecta provisionRecuperada = new ProvisionVentaDirecta(a.Id, a.Provision.Id, a.Provision.nombre, a.Provision.costoUnitario, a.descripcion, a.restricciones, a.Provision.noExistencias, a.Provision.ubicacion, a.Provision.stockMinimo, a.Provision.unidadMedida);
+                    provisionesVentaDirectas.Add(provisionRecuperada);
+                    Console.WriteLine(a.Provision.nombre);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return provisionesVentaDirectas;
+        }
+
+        public List<Cliente> ObtenerClientes()
+        {
+            List<Cliente> clientes = new List<Cliente>();
+            List<DireccionCliente> di = new List<DireccionCliente>();
+            List<TelefonoCliente> telefonosDeCliente = new List<TelefonoCliente>();
+
+            try
+            {
+                var clientesRecuperados = db.ClienteSet.Include(x => x.Direccion).Include(b => b.Telefono).ToList();
+
+                foreach (AccesoBD2.Cliente a in clientesRecuperados)
+                {
+                    foreach (Direccion b in a.Direccion)
+                    {
+                        DireccionCliente dir = new DireccionCliente(b.calle, b.colonia, b.numeroExterior, b.numeroInterior);
+                        di.Add(dir);
+
+                        foreach (Telefono t in a.Telefono)
+                        {
+                            TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
+                            telefonosDeCliente.Add(tel);
+                        }
+                    }
+
+                    Cliente clienteRecuperado = new Cliente(a.Id, a.nombre, a.apellidoPaterno, a.apellidoMaterno, di, telefonosDeCliente);
+                    clientes.Add(clienteRecuperado);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return clientes;
+        }
+
+        public bool DisminuirExsistenciasDeProductoExterno(List<ProvisionDirecta> provisiones)
+        {
+            bool exitoAlDisminuir = false;
+            db.Configuration.ProxyCreationEnabled = false;
+
+            try
+            {
+                foreach (ProvisionDirecta provisionDirecta in provisiones)
+                {
+                    provisionDirecta.Provision.noExistencias -= 1;
+                    db.ProvisionSet.AddOrUpdate(provisionDirecta.Provision);
+                    db.SaveChanges();
+                }
+
+                return exitoAlDisminuir = true;
+            }
+            catch (InvalidOperationException)
+            {
+                return exitoAlDisminuir;
+            }
+        }
+
+        public bool DisminuirExistenciasDeIngrediente(List<AccesoBD2.Producto> productos)
+        {
+            bool exitoAlDisminuir = false;
+
+            try
+            {
+                foreach (AccesoBD2.Producto producto in productos)
+                {
+                    var receta = db.RecetaSet.Where(x => x.Producto.nombre == producto.nombre).Include(x => x.Ingrediente).FirstOrDefault();
+
+                    foreach (Ingrediente ingrediente in receta.Ingrediente)
+                    {
+                        var provision = db.ProvisionSet.Where(x => x.nombre == ingrediente.nombre).First();
+
+                        provision.noExistencias -= ingrediente.cantidad;
+
+                        db.ProvisionSet.AddOrUpdate(provision);
+                        db.SaveChanges();
+                    }
+                }
+
+                return exitoAlDisminuir = true;
+            }
+            catch (InvalidOperationException)
+            {
+                return exitoAlDisminuir;
+            }
+        }
+
+        public bool ModififcarPedido(Pedido pedido)
+        {
+            bool exitoAlModificar = false;
+
+            try
+            {
+                var pe = (from ped in db.PedidoSet where ped.Cuenta.Id == pedido.Cuenta.Id select ped).First();
+                var estadoRecuperado = (from estado in db.EstadoSet where estado.estadoPedido == pedido.Estado.estadoPedido select estado).FirstOrDefault();
+
+                pe.Estado = estadoRecuperado;
+                db.PedidoSet.AddOrUpdate(pe);
+                db.SaveChanges();
+
+                return exitoAlModificar = true;
+            }
+            catch (InvalidOperationException)
+            {
+                return exitoAlModificar;
             }
         }
     }
