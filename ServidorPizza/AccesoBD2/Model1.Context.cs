@@ -160,7 +160,48 @@ namespace AccesoBD2
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LigarProvisionConPedido", idProvisionParameter, idPedidoParameter);
         }
     
-        public virtual int RegistroDeClienteConDireccion(string nombre, string apellidoPaterno, string apellidoMaterno, string calle, string colonia, string numeroExterior, string numeroInterior, string numeroTelefonico)
+        public virtual int RegistrarPedidoYCuenta(Nullable<System.DateTime> fecha, string instruccionesEspeciales, Nullable<long> idEmpleado, string nombreEstado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subTotal, Nullable<double> iva, Nullable<double> descuento, ObjectParameter idPedido)
+        {
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("Fecha", fecha) :
+                new ObjectParameter("Fecha", typeof(System.DateTime));
+    
+            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
+                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
+                new ObjectParameter("InstruccionesEspeciales", typeof(string));
+    
+            var idEmpleadoParameter = idEmpleado.HasValue ?
+                new ObjectParameter("IdEmpleado", idEmpleado) :
+                new ObjectParameter("IdEmpleado", typeof(long));
+    
+            var nombreEstadoParameter = nombreEstado != null ?
+                new ObjectParameter("NombreEstado", nombreEstado) :
+                new ObjectParameter("NombreEstado", typeof(string));
+    
+            var idCuentaParameter = idCuenta != null ?
+                new ObjectParameter("IdCuenta", idCuenta) :
+                new ObjectParameter("IdCuenta", typeof(string));
+    
+            var precioTotalParameter = precioTotal.HasValue ?
+                new ObjectParameter("PrecioTotal", precioTotal) :
+                new ObjectParameter("PrecioTotal", typeof(double));
+    
+            var subTotalParameter = subTotal.HasValue ?
+                new ObjectParameter("SubTotal", subTotal) :
+                new ObjectParameter("SubTotal", typeof(double));
+    
+            var ivaParameter = iva.HasValue ?
+                new ObjectParameter("Iva", iva) :
+                new ObjectParameter("Iva", typeof(double));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarPedidoYCuenta", fechaParameter, instruccionesEspecialesParameter, idEmpleadoParameter, nombreEstadoParameter, idCuentaParameter, precioTotalParameter, subTotalParameter, ivaParameter, descuentoParameter, idPedido);
+        }
+    
+        public virtual int RegistroDeClienteConDireccion(string nombre, string apellidoPaterno, string apellidoMaterno, string calle, string colonia, string numeroExterior, string numeroInterior, string numeroTelefonico, string codigoPostal)
         {
             var nombreParameter = nombre != null ?
                 new ObjectParameter("Nombre", nombre) :
@@ -194,7 +235,11 @@ namespace AccesoBD2
                 new ObjectParameter("NumeroTelefonico", numeroTelefonico) :
                 new ObjectParameter("NumeroTelefonico", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistroDeClienteConDireccion", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, calleParameter, coloniaParameter, numeroExteriorParameter, numeroInteriorParameter, numeroTelefonicoParameter);
+            var codigoPostalParameter = codigoPostal != null ?
+                new ObjectParameter("CodigoPostal", codigoPostal) :
+                new ObjectParameter("CodigoPostal", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistroDeClienteConDireccion", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, calleParameter, coloniaParameter, numeroExteriorParameter, numeroInteriorParameter, numeroTelefonicoParameter, codigoPostalParameter);
         }
     }
 }

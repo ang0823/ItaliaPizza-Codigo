@@ -4,635 +4,704 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BDPizzaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="BDPizzaModelStoreContainer">
-    <EntitySet Name="CuentaUsuarioSet" EntityType="BDPizzaModel.Store.CuentaUsuarioSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EmpleadoSet" EntityType="BDPizzaModel.Store.EmpleadoSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="DireccionSet" EntityType="BDPizzaModel.Store.DireccionSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RolSet" EntityType="BDPizzaModel.Store.RolSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="PedidoSet" EntityType="BDPizzaModel.Store.PedidoSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ClienteSet" EntityType="BDPizzaModel.Store.ClienteSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MesaSet" EntityType="BDPizzaModel.Store.MesaSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EstadoSet" EntityType="BDPizzaModel.Store.EstadoSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CategoriaSet" EntityType="BDPizzaModel.Store.CategoriaSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProductoSet" EntityType="BDPizzaModel.Store.ProductoSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CuentaSet" EntityType="BDPizzaModel.Store.CuentaSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TelefonoSet" EntityType="BDPizzaModel.Store.TelefonoSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProvisionDirectaSet" EntityType="BDPizzaModel.Store.ProvisionDirectaSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RecetaSet" EntityType="BDPizzaModel.Store.RecetaSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProvisionSet" EntityType="BDPizzaModel.Store.ProvisionSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IngredienteSet" EntityType="BDPizzaModel.Store.IngredienteSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="PedidoSet_PedidoADomicilio" EntityType="BDPizzaModel.Store.PedidoSet_PedidoADomicilio" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="PedidoSet_PedidoLocal" EntityType="BDPizzaModel.Store.PedidoSet_PedidoLocal" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="DireccionCliente" EntityType="BDPizzaModel.Store.DireccionCliente" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProductoPedido" EntityType="BDPizzaModel.Store.ProductoPedido" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProvisionDirectaPedido" EntityType="BDPizzaModel.Store.ProvisionDirectaPedido" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RecetaProvision" EntityType="BDPizzaModel.Store.RecetaProvision" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IngredienteReceta" EntityType="BDPizzaModel.Store.IngredienteReceta" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="CuentaUsuarioEmpleado" Association="BDPizzaModel.Store.CuentaUsuarioEmpleado">
-      <End Role="CuentaUsuario" EntitySet="CuentaUsuarioSet" />
-      <End Role="Empleado" EntitySet="EmpleadoSet" />
-    </AssociationSet>
-    <AssociationSet Name="EmpleadoDireccion" Association="BDPizzaModel.Store.EmpleadoDireccion">
-      <End Role="Empleado" EntitySet="EmpleadoSet" />
-      <End Role="Direccion" EntitySet="DireccionSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_DireccionCliente_Direccion" Association="BDPizzaModel.Store.FK_DireccionCliente_Direccion">
-      <End Role="Direccion" EntitySet="DireccionSet" />
-      <End Role="DireccionCliente" EntitySet="DireccionCliente" />
-    </AssociationSet>
-    <AssociationSet Name="FK_DireccionCliente_Cliente" Association="BDPizzaModel.Store.FK_DireccionCliente_Cliente">
-      <End Role="Cliente" EntitySet="ClienteSet" />
-      <End Role="DireccionCliente" EntitySet="DireccionCliente" />
-    </AssociationSet>
-    <AssociationSet Name="EmpleadoRol" Association="BDPizzaModel.Store.EmpleadoRol">
-      <End Role="Empleado" EntitySet="EmpleadoSet" />
-      <End Role="Rol" EntitySet="RolSet" />
-    </AssociationSet>
-    <AssociationSet Name="EmpleadoPedido" Association="BDPizzaModel.Store.EmpleadoPedido">
-      <End Role="Empleado" EntitySet="EmpleadoSet" />
-      <End Role="Pedido" EntitySet="PedidoSet" />
-    </AssociationSet>
-    <AssociationSet Name="EstadoPedido" Association="BDPizzaModel.Store.EstadoPedido">
-      <End Role="Estado" EntitySet="EstadoSet" />
-      <End Role="Pedido" EntitySet="PedidoSet" />
-    </AssociationSet>
-    <AssociationSet Name="CuentaPedido" Association="BDPizzaModel.Store.CuentaPedido">
-      <End Role="Cuenta" EntitySet="CuentaSet" />
-      <End Role="Pedido" EntitySet="PedidoSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProductoPedido_Producto" Association="BDPizzaModel.Store.FK_ProductoPedido_Producto">
-      <End Role="Producto" EntitySet="ProductoSet" />
-      <End Role="ProductoPedido" EntitySet="ProductoPedido" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProductoPedido_Pedido" Association="BDPizzaModel.Store.FK_ProductoPedido_Pedido">
-      <End Role="Pedido" EntitySet="PedidoSet" />
-      <End Role="ProductoPedido" EntitySet="ProductoPedido" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProvisionDirectaPedido_ProvisionDirecta" Association="BDPizzaModel.Store.FK_ProvisionDirectaPedido_ProvisionDirecta">
-      <End Role="ProvisionDirecta" EntitySet="ProvisionDirectaSet" />
-      <End Role="ProvisionDirectaPedido" EntitySet="ProvisionDirectaPedido" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProvisionDirectaPedido_Pedido" Association="BDPizzaModel.Store.FK_ProvisionDirectaPedido_Pedido">
-      <End Role="Pedido" EntitySet="PedidoSet" />
-      <End Role="ProvisionDirectaPedido" EntitySet="ProvisionDirectaPedido" />
-    </AssociationSet>
-    <AssociationSet Name="ProductoCategoria" Association="BDPizzaModel.Store.ProductoCategoria">
-      <End Role="Producto" EntitySet="ProductoSet" />
-      <End Role="Categoria" EntitySet="CategoriaSet" />
-    </AssociationSet>
-    <AssociationSet Name="ClienteTelefono" Association="BDPizzaModel.Store.ClienteTelefono">
-      <End Role="Cliente" EntitySet="ClienteSet" />
-      <End Role="Telefono" EntitySet="TelefonoSet" />
-    </AssociationSet>
-    <AssociationSet Name="ProvisionDirectaProvision" Association="BDPizzaModel.Store.ProvisionDirectaProvision">
-      <End Role="ProvisionDirecta" EntitySet="ProvisionDirectaSet" />
-      <End Role="Provision" EntitySet="ProvisionSet" />
-    </AssociationSet>
-    <AssociationSet Name="ProductoReceta" Association="BDPizzaModel.Store.ProductoReceta">
-      <End Role="Producto" EntitySet="ProductoSet" />
-      <End Role="Receta" EntitySet="RecetaSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RecetaProvision_Receta" Association="BDPizzaModel.Store.FK_RecetaProvision_Receta">
-      <End Role="Receta" EntitySet="RecetaSet" />
-      <End Role="RecetaProvision" EntitySet="RecetaProvision" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RecetaProvision_Provision" Association="BDPizzaModel.Store.FK_RecetaProvision_Provision">
-      <End Role="Provision" EntitySet="ProvisionSet" />
-      <End Role="RecetaProvision" EntitySet="RecetaProvision" />
-    </AssociationSet>
-    <AssociationSet Name="ClientePedidoADomicilio" Association="BDPizzaModel.Store.ClientePedidoADomicilio">
-      <End Role="Cliente" EntitySet="ClienteSet" />
-      <End Role="PedidoADomicilio" EntitySet="PedidoSet_PedidoADomicilio" />
-    </AssociationSet>
-    <AssociationSet Name="MesaPedidoLocal" Association="BDPizzaModel.Store.MesaPedidoLocal">
-      <End Role="Mesa" EntitySet="MesaSet" />
-      <End Role="PedidoLocal" EntitySet="PedidoSet_PedidoLocal" />
-    </AssociationSet>
-    <AssociationSet Name="FK_IngredienteReceta_Ingrediente" Association="BDPizzaModel.Store.FK_IngredienteReceta_Ingrediente">
-      <End Role="Ingrediente" EntitySet="IngredienteSet" />
-      <End Role="IngredienteReceta" EntitySet="IngredienteReceta" />
-    </AssociationSet>
-    <AssociationSet Name="FK_IngredienteReceta_Receta" Association="BDPizzaModel.Store.FK_IngredienteReceta_Receta">
-      <End Role="Receta" EntitySet="RecetaSet" />
-      <End Role="IngredienteReceta" EntitySet="IngredienteReceta" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PedidoADomicilio_inherits_Pedido" Association="BDPizzaModel.Store.FK_PedidoADomicilio_inherits_Pedido">
-      <End Role="Pedido" EntitySet="PedidoSet" />
-      <End Role="PedidoADomicilio" EntitySet="PedidoSet_PedidoADomicilio" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PedidoLocal_inherits_Pedido" Association="BDPizzaModel.Store.FK_PedidoLocal_inherits_Pedido">
-      <End Role="Pedido" EntitySet="PedidoSet" />
-      <End Role="PedidoLocal" EntitySet="PedidoSet_PedidoLocal" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="CuentaUsuarioSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="nombreUsuario" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="contraseña" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Empleado_IdEmpleado" Type="bigint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EmpleadoSet">
-    <Key>
-      <PropertyRef Name="IdEmpleado" />
-    </Key>
-    <Property Name="IdEmpleado" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="apellidoPaterno" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="apellidoMaterno" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="telefono" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="correo" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="idEmpleadoGenerado" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="activado" Type="bit" Nullable="false" />
-    <Property Name="Direccion_Id" Type="int" Nullable="false" />
-    <Property Name="Rol_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="DireccionSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="calle" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="colonia" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="numeroExterior" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="numeroInterior" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="codigoPostal" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RolSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombreRol" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="PedidoSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="false" />
-    <Property Name="instruccionesEspeciales" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Empleado_IdEmpleado" Type="bigint" Nullable="false" />
-    <Property Name="Estado_Id" Type="int" Nullable="false" />
-    <Property Name="Cuenta_Id" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ClienteSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="apellidoPaterno" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="apellidoMaterno" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="MesaSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="numeroMesa" Type="smallint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EstadoSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="estadoPedido" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CategoriaSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="categoria" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ProductoSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="precioUnitario" Type="float" Nullable="false" />
-    <Property Name="imagen" Type="tinyint" Nullable="true" />
-    <Property Name="activado" Type="bit" Nullable="false" />
-    <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Categoria_Id" Type="int" Nullable="false" />
-    <Property Name="Receta_id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CuentaSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="precioTotal" Type="float" Nullable="false" />
-    <Property Name="subTotal" Type="float" Nullable="false" />
-    <Property Name="iva" Type="float" Nullable="false" />
-    <Property Name="descuento" Type="float" Nullable="true" />
-  </EntityType>
-  <EntityType Name="TelefonoSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="numeroTelefono" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Cliente_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ProvisionDirectaSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="imagen" Type="tinyint" Nullable="true" />
-    <Property Name="activado" Type="bit" Nullable="false" />
-    <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Provision_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RecetaSet">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="porciones" Type="float" Nullable="false" />
-    <Property Name="procedimiento" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="nombreReceta" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="activado" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ProvisionSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="noExistencias" Type="int" Nullable="false" />
-    <Property Name="ubicacion" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="stockMinimo" Type="int" Nullable="false" />
-    <Property Name="costoUnitario" Type="float" Nullable="false" />
-    <Property Name="unidadMedida" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="activado" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="IngredienteSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="cantidad" Type="int" Nullable="false" />
-    <Property Name="peso" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="costoPorUnidad" Type="float" Nullable="false" />
-    <Property Name="unidad" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="PedidoSet_PedidoADomicilio">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="ClienteId" Type="int" Nullable="false" />
-    <Property Name="Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="PedidoSet_PedidoLocal">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="MesaId" Type="int" Nullable="false" />
-    <Property Name="Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="DireccionCliente">
-    <Key>
-      <PropertyRef Name="Direccion_Id" />
-      <PropertyRef Name="Cliente_Id" />
-    </Key>
-    <Property Name="Direccion_Id" Type="int" Nullable="false" />
-    <Property Name="Cliente_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ProductoPedido">
-    <Key>
-      <PropertyRef Name="Producto_Id" />
-      <PropertyRef Name="Pedido_Id" />
-    </Key>
-    <Property Name="Producto_Id" Type="int" Nullable="false" />
-    <Property Name="Pedido_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ProvisionDirectaPedido">
-    <Key>
-      <PropertyRef Name="ProvisionDirecta_Id" />
-      <PropertyRef Name="Pedido_Id" />
-    </Key>
-    <Property Name="ProvisionDirecta_Id" Type="int" Nullable="false" />
-    <Property Name="Pedido_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RecetaProvision">
-    <Key>
-      <PropertyRef Name="Receta_id" />
-      <PropertyRef Name="Provision_Id" />
-    </Key>
-    <Property Name="Receta_id" Type="int" Nullable="false" />
-    <Property Name="Provision_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="IngredienteReceta">
-    <Key>
-      <PropertyRef Name="Ingrediente_Id" />
-      <PropertyRef Name="Receta_id" />
-    </Key>
-    <Property Name="Ingrediente_Id" Type="int" Nullable="false" />
-    <Property Name="Receta_id" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="CuentaUsuarioEmpleado">
-    <End Role="CuentaUsuario" Type="BDPizzaModel.Store.CuentaUsuarioSet" Multiplicity="*" />
-    <End Role="Empleado" Type="BDPizzaModel.Store.EmpleadoSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Empleado">
-        <PropertyRef Name="IdEmpleado" />
-      </Principal>
-      <Dependent Role="CuentaUsuario">
-        <PropertyRef Name="Empleado_IdEmpleado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EmpleadoDireccion">
-    <End Role="Empleado" Type="BDPizzaModel.Store.EmpleadoSet" Multiplicity="*" />
-    <End Role="Direccion" Type="BDPizzaModel.Store.DireccionSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Direccion">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Empleado">
-        <PropertyRef Name="Direccion_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EmpleadoRol">
-    <End Role="Empleado" Type="BDPizzaModel.Store.EmpleadoSet" Multiplicity="*" />
-    <End Role="Rol" Type="BDPizzaModel.Store.RolSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Rol">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Empleado">
-        <PropertyRef Name="Rol_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EmpleadoPedido">
-    <End Role="Empleado" Type="BDPizzaModel.Store.EmpleadoSet" Multiplicity="1" />
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Empleado">
-        <PropertyRef Name="IdEmpleado" />
-      </Principal>
-      <Dependent Role="Pedido">
-        <PropertyRef Name="Empleado_IdEmpleado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EstadoPedido">
-    <End Role="Estado" Type="BDPizzaModel.Store.EstadoSet" Multiplicity="1" />
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Estado">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Pedido">
-        <PropertyRef Name="Estado_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CuentaPedido">
-    <End Role="Cuenta" Type="BDPizzaModel.Store.CuentaSet" Multiplicity="1" />
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Cuenta">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Pedido">
-        <PropertyRef Name="Cuenta_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ProductoCategoria">
-    <End Role="Producto" Type="BDPizzaModel.Store.ProductoSet" Multiplicity="*" />
-    <End Role="Categoria" Type="BDPizzaModel.Store.CategoriaSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Categoria">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Producto">
-        <PropertyRef Name="Categoria_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ClienteTelefono">
-    <End Role="Cliente" Type="BDPizzaModel.Store.ClienteSet" Multiplicity="1" />
-    <End Role="Telefono" Type="BDPizzaModel.Store.TelefonoSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Cliente">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Telefono">
-        <PropertyRef Name="Cliente_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ProvisionDirectaProvision">
-    <End Role="ProvisionDirecta" Type="BDPizzaModel.Store.ProvisionDirectaSet" Multiplicity="*" />
-    <End Role="Provision" Type="BDPizzaModel.Store.ProvisionSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Provision">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProvisionDirecta">
-        <PropertyRef Name="Provision_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ProductoReceta">
-    <End Role="Producto" Type="BDPizzaModel.Store.ProductoSet" Multiplicity="*" />
-    <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Receta">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Producto">
-        <PropertyRef Name="Receta_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ClientePedidoADomicilio">
-    <End Role="Cliente" Type="BDPizzaModel.Store.ClienteSet" Multiplicity="1" />
-    <End Role="PedidoADomicilio" Type="BDPizzaModel.Store.PedidoSet_PedidoADomicilio" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Cliente">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PedidoADomicilio">
-        <PropertyRef Name="ClienteId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MesaPedidoLocal">
-    <End Role="Mesa" Type="BDPizzaModel.Store.MesaSet" Multiplicity="1" />
-    <End Role="PedidoLocal" Type="BDPizzaModel.Store.PedidoSet_PedidoLocal" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Mesa">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PedidoLocal">
-        <PropertyRef Name="MesaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_DireccionCliente_Direccion">
-    <End Role="Direccion" Type="BDPizzaModel.Store.DireccionSet" Multiplicity="1" />
-    <End Role="DireccionCliente" Type="BDPizzaModel.Store.DireccionCliente" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Direccion">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="DireccionCliente">
-        <PropertyRef Name="Direccion_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_DireccionCliente_Cliente">
-    <End Role="DireccionCliente" Type="BDPizzaModel.Store.DireccionCliente" Multiplicity="*" />
-    <End Role="Cliente" Type="BDPizzaModel.Store.ClienteSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Cliente">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="DireccionCliente">
-        <PropertyRef Name="Cliente_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProductoPedido_Producto">
-    <End Role="Producto" Type="BDPizzaModel.Store.ProductoSet" Multiplicity="1" />
-    <End Role="ProductoPedido" Type="BDPizzaModel.Store.ProductoPedido" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Producto">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProductoPedido">
-        <PropertyRef Name="Producto_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProductoPedido_Pedido">
-    <End Role="ProductoPedido" Type="BDPizzaModel.Store.ProductoPedido" Multiplicity="*" />
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Pedido">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProductoPedido">
-        <PropertyRef Name="Pedido_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProvisionDirectaPedido_ProvisionDirecta">
-    <End Role="ProvisionDirecta" Type="BDPizzaModel.Store.ProvisionDirectaSet" Multiplicity="1" />
-    <End Role="ProvisionDirectaPedido" Type="BDPizzaModel.Store.ProvisionDirectaPedido" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ProvisionDirecta">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProvisionDirectaPedido">
-        <PropertyRef Name="ProvisionDirecta_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProvisionDirectaPedido_Pedido">
-    <End Role="ProvisionDirectaPedido" Type="BDPizzaModel.Store.ProvisionDirectaPedido" Multiplicity="*" />
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Pedido">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProvisionDirectaPedido">
-        <PropertyRef Name="Pedido_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RecetaProvision_Receta">
-    <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="1" />
-    <End Role="RecetaProvision" Type="BDPizzaModel.Store.RecetaProvision" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Receta">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="RecetaProvision">
-        <PropertyRef Name="Receta_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RecetaProvision_Provision">
-    <End Role="RecetaProvision" Type="BDPizzaModel.Store.RecetaProvision" Multiplicity="*" />
-    <End Role="Provision" Type="BDPizzaModel.Store.ProvisionSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Provision">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="RecetaProvision">
-        <PropertyRef Name="Provision_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_IngredienteReceta_Ingrediente">
-    <End Role="Ingrediente" Type="BDPizzaModel.Store.IngredienteSet" Multiplicity="1" />
-    <End Role="IngredienteReceta" Type="BDPizzaModel.Store.IngredienteReceta" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Ingrediente">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="IngredienteReceta">
-        <PropertyRef Name="Ingrediente_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_IngredienteReceta_Receta">
-    <End Role="IngredienteReceta" Type="BDPizzaModel.Store.IngredienteReceta" Multiplicity="*" />
-    <End Role="Receta" Type="BDPizzaModel.Store.RecetaSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Receta">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="IngredienteReceta">
-        <PropertyRef Name="Receta_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PedidoADomicilio_inherits_Pedido">
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="PedidoADomicilio" Type="BDPizzaModel.Store.PedidoSet_PedidoADomicilio" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Pedido">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PedidoADomicilio">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PedidoLocal_inherits_Pedido">
-    <End Role="Pedido" Type="BDPizzaModel.Store.PedidoSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="PedidoLocal" Type="BDPizzaModel.Store.PedidoSet_PedidoLocal" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Pedido">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PedidoLocal">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="BDPizzaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CategoriaSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoria" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClienteSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="CuentaSet">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="precioTotal" Type="float" Nullable="false" />
+          <Property Name="subTotal" Type="float" Nullable="false" />
+          <Property Name="iva" Type="float" Nullable="false" />
+          <Property Name="descuento" Type="float" />
+        </EntityType>
+        <EntityType Name="CuentaUsuarioSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="nombreUsuario" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="contraseña" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Empleado_IdEmpleado" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DireccionCliente">
+          <Key>
+            <PropertyRef Name="Direccion_Id" />
+            <PropertyRef Name="Cliente_Id" />
+          </Key>
+          <Property Name="Direccion_Id" Type="int" Nullable="false" />
+          <Property Name="Cliente_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DireccionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="calle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="colonia" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="numeroExterior" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="numeroInterior" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="codigoPostal" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmpleadoSet">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="telefono" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="correo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="idEmpleadoGenerado" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="activado" Type="bit" Nullable="false" />
+          <Property Name="Direccion_Id" Type="int" Nullable="false" />
+          <Property Name="Rol_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstadoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estadoPedido" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IngredienteReceta">
+          <Key>
+            <PropertyRef Name="Ingrediente_Id" />
+            <PropertyRef Name="Receta_id" />
+          </Key>
+          <Property Name="Ingrediente_Id" Type="int" Nullable="false" />
+          <Property Name="Receta_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IngredienteSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="peso" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="costoPorUnidad" Type="float" Nullable="false" />
+          <Property Name="unidad" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MesaSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroMesa" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PedidoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="instruccionesEspeciales" Type="nvarchar(max)" />
+          <Property Name="Empleado_IdEmpleado" Type="bigint" Nullable="false" />
+          <Property Name="Estado_Id" Type="int" Nullable="false" />
+          <Property Name="Cuenta_Id" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PedidoSet_PedidoADomicilio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ClienteId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PedidoSet_PedidoLocal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="MesaId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductoPedido">
+          <Key>
+            <PropertyRef Name="Producto_Id" />
+            <PropertyRef Name="Pedido_Id" />
+          </Key>
+          <Property Name="Producto_Id" Type="int" Nullable="false" />
+          <Property Name="Pedido_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="precioUnitario" Type="float" Nullable="false" />
+          <Property Name="activado" Type="bit" Nullable="false" />
+          <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Receta_id" Type="int" Nullable="false" />
+          <Property Name="Categoria_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProvisionDirectaPedido">
+          <Key>
+            <PropertyRef Name="ProvisionDirecta_Id" />
+            <PropertyRef Name="Pedido_Id" />
+          </Key>
+          <Property Name="ProvisionDirecta_Id" Type="int" Nullable="false" />
+          <Property Name="Pedido_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProvisionDirectaSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="activado" Type="bit" Nullable="false" />
+          <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Provision_Id" Type="int" Nullable="false" />
+          <Property Name="Categoria_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProvisionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="noExistencias" Type="int" Nullable="false" />
+          <Property Name="ubicacion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="stockMinimo" Type="int" Nullable="false" />
+          <Property Name="costoUnitario" Type="float" Nullable="false" />
+          <Property Name="unidadMedida" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="activado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecetaProvision">
+          <Key>
+            <PropertyRef Name="Receta_id" />
+            <PropertyRef Name="Provision_Id" />
+          </Key>
+          <Property Name="Receta_id" Type="int" Nullable="false" />
+          <Property Name="Provision_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecetaSet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="porciones" Type="float" Nullable="false" />
+          <Property Name="procedimiento" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="nombreReceta" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="activado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RolSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreRol" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TelefonoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroTelefono" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cliente_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CategoriaProducto">
+          <End Role="CategoriaSet" Type="Self.CategoriaSet" Multiplicity="1" />
+          <End Role="ProductoSet" Type="Self.ProductoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductoSet">
+              <PropertyRef Name="Categoria_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoriaProvisionDirecta">
+          <End Role="CategoriaSet" Type="Self.CategoriaSet" Multiplicity="1" />
+          <End Role="ProvisionDirectaSet" Type="Self.ProvisionDirectaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProvisionDirectaSet">
+              <PropertyRef Name="Categoria_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientePedidoADomicilio">
+          <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="1" />
+          <End Role="PedidoSet_PedidoADomicilio" Type="Self.PedidoSet_PedidoADomicilio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoSet_PedidoADomicilio">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClienteTelefono">
+          <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="1" />
+          <End Role="TelefonoSet" Type="Self.TelefonoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TelefonoSet">
+              <PropertyRef Name="Cliente_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CuentaUsuarioEmpleado">
+          <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+          <End Role="CuentaUsuarioSet" Type="Self.CuentaUsuarioSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmpleadoSet">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="CuentaUsuarioSet">
+              <PropertyRef Name="Empleado_IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DireccionCliente_Cliente">
+          <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="1" />
+          <End Role="DireccionCliente" Type="Self.DireccionCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DireccionCliente">
+              <PropertyRef Name="Cliente_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DireccionCliente_Direccion">
+          <End Role="DireccionSet" Type="Self.DireccionSet" Multiplicity="1" />
+          <End Role="DireccionCliente" Type="Self.DireccionCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DireccionSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DireccionCliente">
+              <PropertyRef Name="Direccion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpleadoDireccion">
+          <End Role="DireccionSet" Type="Self.DireccionSet" Multiplicity="1" />
+          <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DireccionSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmpleadoSet">
+              <PropertyRef Name="Direccion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpleadoPedido">
+          <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmpleadoSet">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="PedidoSet">
+              <PropertyRef Name="Empleado_IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpleadoRol">
+          <End Role="RolSet" Type="Self.RolSet" Multiplicity="1" />
+          <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RolSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmpleadoSet">
+              <PropertyRef Name="Rol_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstadoPedido">
+          <End Role="EstadoSet" Type="Self.EstadoSet" Multiplicity="1" />
+          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoSet">
+              <PropertyRef Name="Estado_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IngredienteReceta_Ingrediente">
+          <End Role="IngredienteSet" Type="Self.IngredienteSet" Multiplicity="1" />
+          <End Role="IngredienteReceta" Type="Self.IngredienteReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IngredienteSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IngredienteReceta">
+              <PropertyRef Name="Ingrediente_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IngredienteReceta_Receta">
+          <End Role="RecetaSet" Type="Self.RecetaSet" Multiplicity="1" />
+          <End Role="IngredienteReceta" Type="Self.IngredienteReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecetaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IngredienteReceta">
+              <PropertyRef Name="Receta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesaPedidoLocal">
+          <End Role="MesaSet" Type="Self.MesaSet" Multiplicity="1" />
+          <End Role="PedidoSet_PedidoLocal" Type="Self.PedidoSet_PedidoLocal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MesaSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoSet_PedidoLocal">
+              <PropertyRef Name="MesaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoADomicilio_inherits_Pedido">
+          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PedidoSet_PedidoADomicilio" Type="Self.PedidoSet_PedidoADomicilio" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PedidoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoSet_PedidoADomicilio">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoLocal_inherits_Pedido">
+          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PedidoSet_PedidoLocal" Type="Self.PedidoSet_PedidoLocal" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PedidoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoSet_PedidoLocal">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPedido_Pedido">
+          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="1" />
+          <End Role="ProductoPedido" Type="Self.ProductoPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PedidoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductoPedido">
+              <PropertyRef Name="Pedido_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPedido_Producto">
+          <End Role="ProductoSet" Type="Self.ProductoSet" Multiplicity="1" />
+          <End Role="ProductoPedido" Type="Self.ProductoPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductoPedido">
+              <PropertyRef Name="Producto_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoReceta">
+          <End Role="RecetaSet" Type="Self.RecetaSet" Multiplicity="1" />
+          <End Role="ProductoSet" Type="Self.ProductoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecetaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductoSet">
+              <PropertyRef Name="Receta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvisionDirectaPedido_Pedido">
+          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="1" />
+          <End Role="ProvisionDirectaPedido" Type="Self.ProvisionDirectaPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PedidoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProvisionDirectaPedido">
+              <PropertyRef Name="Pedido_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvisionDirectaPedido_ProvisionDirecta">
+          <End Role="ProvisionDirectaSet" Type="Self.ProvisionDirectaSet" Multiplicity="1" />
+          <End Role="ProvisionDirectaPedido" Type="Self.ProvisionDirectaPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProvisionDirectaSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProvisionDirectaPedido">
+              <PropertyRef Name="ProvisionDirecta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvisionDirectaProvision">
+          <End Role="ProvisionSet" Type="Self.ProvisionSet" Multiplicity="1" />
+          <End Role="ProvisionDirectaSet" Type="Self.ProvisionDirectaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProvisionSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProvisionDirectaSet">
+              <PropertyRef Name="Provision_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecetaProvision_Provision">
+          <End Role="ProvisionSet" Type="Self.ProvisionSet" Multiplicity="1" />
+          <End Role="RecetaProvision" Type="Self.RecetaProvision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProvisionSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecetaProvision">
+              <PropertyRef Name="Provision_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecetaProvision_Receta">
+          <End Role="RecetaSet" Type="Self.RecetaSet" Multiplicity="1" />
+          <End Role="RecetaProvision" Type="Self.RecetaProvision" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecetaSet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RecetaProvision">
+              <PropertyRef Name="Receta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="InsertarPedidoADomicilio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="bigint" Mode="In" />
+          <Parameter Name="NombreEstado" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="PrecioTotal" Type="float" Mode="In" />
+          <Parameter Name="SubTotal" Type="float" Mode="In" />
+          <Parameter Name="Iva" Type="float" Mode="In" />
+          <Parameter Name="Descuento" Type="float" Mode="In" />
+          <Parameter Name="IDPedido" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="InsertarPedidoLocal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeroMesa" Type="smallint" Mode="In" />
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="bigint" Mode="In" />
+          <Parameter Name="NombreEstado" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="PrecioTotal" Type="float" Mode="In" />
+          <Parameter Name="SubTotal" Type="float" Mode="In" />
+          <Parameter Name="Iva" Type="float" Mode="In" />
+          <Parameter Name="Descuento" Type="float" Mode="In" />
+          <Parameter Name="IDPedido" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="LigarProductoConPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="IdPedido" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LigarProvisionConPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProvision" Type="int" Mode="In" />
+          <Parameter Name="IdPedido" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RegistrarPedidoYCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="bigint" Mode="In" />
+          <Parameter Name="NombreEstado" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="PrecioTotal" Type="float" Mode="In" />
+          <Parameter Name="SubTotal" Type="float" Mode="In" />
+          <Parameter Name="Iva" Type="float" Mode="In" />
+          <Parameter Name="Descuento" Type="float" Mode="In" />
+          <Parameter Name="IdPedido" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="RegistroDeClienteConDireccion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Calle" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Colonia" Type="varchar(max)" Mode="In" />
+          <Parameter Name="NumeroExterior" Type="varchar" Mode="In" />
+          <Parameter Name="NumeroInterior" Type="varchar" Mode="In" />
+          <Parameter Name="NumeroTelefonico" Type="varchar" Mode="In" />
+          <Parameter Name="CodigoPostal" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="BDPizzaModelStoreContainer">
+          <EntitySet Name="CategoriaSet" EntityType="Self.CategoriaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClienteSet" EntityType="Self.ClienteSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CuentaUsuarioSet" EntityType="Self.CuentaUsuarioSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DireccionCliente" EntityType="Self.DireccionCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DireccionSet" EntityType="Self.DireccionSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpleadoSet" EntityType="Self.EmpleadoSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoSet" EntityType="Self.EstadoSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IngredienteReceta" EntityType="Self.IngredienteReceta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IngredienteSet" EntityType="Self.IngredienteSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MesaSet" EntityType="Self.MesaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedidoSet" EntityType="Self.PedidoSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedidoSet_PedidoADomicilio" EntityType="Self.PedidoSet_PedidoADomicilio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedidoSet_PedidoLocal" EntityType="Self.PedidoSet_PedidoLocal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoPedido" EntityType="Self.ProductoPedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoSet" EntityType="Self.ProductoSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProvisionDirectaPedido" EntityType="Self.ProvisionDirectaPedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProvisionDirectaSet" EntityType="Self.ProvisionDirectaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProvisionSet" EntityType="Self.ProvisionSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecetaProvision" EntityType="Self.RecetaProvision" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecetaSet" EntityType="Self.RecetaSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolSet" EntityType="Self.RolSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TelefonoSet" EntityType="Self.TelefonoSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CuentaSet" EntityType="Self.CuentaSet" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CuentaSet].[Id] AS [Id], 
+    [CuentaSet].[precioTotal] AS [precioTotal], 
+    [CuentaSet].[subTotal] AS [subTotal], 
+    [CuentaSet].[iva] AS [iva], 
+    [CuentaSet].[descuento] AS [descuento]
+    FROM [dbo].[CuentaSet] AS [CuentaSet]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CategoriaProducto" Association="Self.FK_CategoriaProducto">
+            <End Role="CategoriaSet" EntitySet="CategoriaSet" />
+            <End Role="ProductoSet" EntitySet="ProductoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoriaProvisionDirecta" Association="Self.FK_CategoriaProvisionDirecta">
+            <End Role="CategoriaSet" EntitySet="CategoriaSet" />
+            <End Role="ProvisionDirectaSet" EntitySet="ProvisionDirectaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientePedidoADomicilio" Association="Self.FK_ClientePedidoADomicilio">
+            <End Role="ClienteSet" EntitySet="ClienteSet" />
+            <End Role="PedidoSet_PedidoADomicilio" EntitySet="PedidoSet_PedidoADomicilio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClienteTelefono" Association="Self.FK_ClienteTelefono">
+            <End Role="ClienteSet" EntitySet="ClienteSet" />
+            <End Role="TelefonoSet" EntitySet="TelefonoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CuentaUsuarioEmpleado" Association="Self.FK_CuentaUsuarioEmpleado">
+            <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+            <End Role="CuentaUsuarioSet" EntitySet="CuentaUsuarioSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DireccionCliente_Cliente" Association="Self.FK_DireccionCliente_Cliente">
+            <End Role="ClienteSet" EntitySet="ClienteSet" />
+            <End Role="DireccionCliente" EntitySet="DireccionCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DireccionCliente_Direccion" Association="Self.FK_DireccionCliente_Direccion">
+            <End Role="DireccionSet" EntitySet="DireccionSet" />
+            <End Role="DireccionCliente" EntitySet="DireccionCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpleadoDireccion" Association="Self.FK_EmpleadoDireccion">
+            <End Role="DireccionSet" EntitySet="DireccionSet" />
+            <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpleadoPedido" Association="Self.FK_EmpleadoPedido">
+            <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+            <End Role="PedidoSet" EntitySet="PedidoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpleadoRol" Association="Self.FK_EmpleadoRol">
+            <End Role="RolSet" EntitySet="RolSet" />
+            <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstadoPedido" Association="Self.FK_EstadoPedido">
+            <End Role="EstadoSet" EntitySet="EstadoSet" />
+            <End Role="PedidoSet" EntitySet="PedidoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IngredienteReceta_Ingrediente" Association="Self.FK_IngredienteReceta_Ingrediente">
+            <End Role="IngredienteSet" EntitySet="IngredienteSet" />
+            <End Role="IngredienteReceta" EntitySet="IngredienteReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IngredienteReceta_Receta" Association="Self.FK_IngredienteReceta_Receta">
+            <End Role="RecetaSet" EntitySet="RecetaSet" />
+            <End Role="IngredienteReceta" EntitySet="IngredienteReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesaPedidoLocal" Association="Self.FK_MesaPedidoLocal">
+            <End Role="MesaSet" EntitySet="MesaSet" />
+            <End Role="PedidoSet_PedidoLocal" EntitySet="PedidoSet_PedidoLocal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoADomicilio_inherits_Pedido" Association="Self.FK_PedidoADomicilio_inherits_Pedido">
+            <End Role="PedidoSet" EntitySet="PedidoSet" />
+            <End Role="PedidoSet_PedidoADomicilio" EntitySet="PedidoSet_PedidoADomicilio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoLocal_inherits_Pedido" Association="Self.FK_PedidoLocal_inherits_Pedido">
+            <End Role="PedidoSet" EntitySet="PedidoSet" />
+            <End Role="PedidoSet_PedidoLocal" EntitySet="PedidoSet_PedidoLocal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPedido_Pedido" Association="Self.FK_ProductoPedido_Pedido">
+            <End Role="PedidoSet" EntitySet="PedidoSet" />
+            <End Role="ProductoPedido" EntitySet="ProductoPedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPedido_Producto" Association="Self.FK_ProductoPedido_Producto">
+            <End Role="ProductoSet" EntitySet="ProductoSet" />
+            <End Role="ProductoPedido" EntitySet="ProductoPedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoReceta" Association="Self.FK_ProductoReceta">
+            <End Role="RecetaSet" EntitySet="RecetaSet" />
+            <End Role="ProductoSet" EntitySet="ProductoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvisionDirectaPedido_Pedido" Association="Self.FK_ProvisionDirectaPedido_Pedido">
+            <End Role="PedidoSet" EntitySet="PedidoSet" />
+            <End Role="ProvisionDirectaPedido" EntitySet="ProvisionDirectaPedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvisionDirectaPedido_ProvisionDirecta" Association="Self.FK_ProvisionDirectaPedido_ProvisionDirecta">
+            <End Role="ProvisionDirectaSet" EntitySet="ProvisionDirectaSet" />
+            <End Role="ProvisionDirectaPedido" EntitySet="ProvisionDirectaPedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvisionDirectaProvision" Association="Self.FK_ProvisionDirectaProvision">
+            <End Role="ProvisionSet" EntitySet="ProvisionSet" />
+            <End Role="ProvisionDirectaSet" EntitySet="ProvisionDirectaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecetaProvision_Provision" Association="Self.FK_RecetaProvision_Provision">
+            <End Role="ProvisionSet" EntitySet="ProvisionSet" />
+            <End Role="RecetaProvision" EntitySet="RecetaProvision" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecetaProvision_Receta" Association="Self.FK_RecetaProvision_Receta">
+            <End Role="RecetaSet" EntitySet="RecetaSet" />
+            <End Role="RecetaProvision" EntitySet="RecetaProvision" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BDPizzaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -688,10 +757,6 @@
             <End Role="ProvisionDirecta" EntitySet="ProvisionDirectaSet" />
             <End Role="Pedido" EntitySet="PedidoSet" />
           </AssociationSet>
-          <AssociationSet Name="ProductoCategoria" Association="BDPizzaModel.ProductoCategoria">
-            <End Role="Producto" EntitySet="ProductoSet" />
-            <End Role="Categoria" EntitySet="CategoriaSet" />
-          </AssociationSet>
           <AssociationSet Name="ClienteTelefono" Association="BDPizzaModel.ClienteTelefono">
             <End Role="Cliente" EntitySet="ClienteSet" />
             <End Role="Telefono" EntitySet="TelefonoSet" />
@@ -720,6 +785,14 @@
           <AssociationSet Name="IngredienteReceta" Association="BDPizzaModel.IngredienteReceta">
             <End Role="Ingrediente" EntitySet="IngredienteSet" />
             <End Role="Receta" EntitySet="RecetaSet" />
+          </AssociationSet>
+          <AssociationSet Name="CategoriaProducto" Association="BDPizzaModel.CategoriaProducto">
+            <End Role="Categoria" EntitySet="CategoriaSet" />
+            <End Role="Producto" EntitySet="ProductoSet" />
+          </AssociationSet>
+          <AssociationSet Name="CategoriaProvisionDirecta" Association="BDPizzaModel.CategoriaProvisionDirecta">
+            <End Role="Categoria" EntitySet="CategoriaSet" />
+            <End Role="ProvisionDirecta" EntitySet="ProvisionDirectaSet" />
           </AssociationSet>
           <FunctionImport Name="InsertarPedidoADomicilio">
             <Parameter Name="IdCliente" Mode="In" Type="Int32" />
@@ -755,6 +828,18 @@
             <Parameter Name="IdProvision" Mode="In" Type="Int32" />
             <Parameter Name="IdPedido" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="RegistrarPedidoYCuenta">
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int64" />
+            <Parameter Name="NombreEstado" Mode="In" Type="String" />
+            <Parameter Name="IdCuenta" Mode="In" Type="String" />
+            <Parameter Name="PrecioTotal" Mode="In" Type="Double" />
+            <Parameter Name="SubTotal" Mode="In" Type="Double" />
+            <Parameter Name="Iva" Mode="In" Type="Double" />
+            <Parameter Name="Descuento" Mode="In" Type="Double" />
+            <Parameter Name="IdPedido" Mode="InOut" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="RegistroDeClienteConDireccion">
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
@@ -764,6 +849,7 @@
             <Parameter Name="NumeroExterior" Mode="In" Type="String" />
             <Parameter Name="NumeroInterior" Mode="In" Type="String" />
             <Parameter Name="NumeroTelefonico" Mode="In" Type="String" />
+            <Parameter Name="CodigoPostal" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="CuentaUsuario">
@@ -860,7 +946,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="categoria" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Producto" Relationship="BDPizzaModel.ProductoCategoria" FromRole="Categoria" ToRole="Producto" />
+          <NavigationProperty Name="Producto" Relationship="BDPizzaModel.CategoriaProducto" FromRole="Categoria" ToRole="Producto" />
+          <NavigationProperty Name="ProvisionDirecta" Relationship="BDPizzaModel.CategoriaProvisionDirecta" FromRole="Categoria" ToRole="ProvisionDirecta" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -870,12 +957,11 @@
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="precioUnitario" Type="Double" Nullable="false" />
-          <Property Name="imagen" Type="Byte" Nullable="true" />
           <Property Name="activado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.ProductoPedido" FromRole="Producto" ToRole="Pedido" />
-          <NavigationProperty Name="Categoria" Relationship="BDPizzaModel.ProductoCategoria" FromRole="Producto" ToRole="Categoria" />
           <NavigationProperty Name="Receta" Relationship="BDPizzaModel.ProductoReceta" FromRole="Producto" ToRole="Receta" />
           <Property Name="restricciones" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Categoria" Relationship="BDPizzaModel.CategoriaProducto" FromRole="Producto" ToRole="Categoria" />
         </EntityType>
         <EntityType Name="Cuenta">
           <Key>
@@ -902,11 +988,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="imagen" Type="Byte" Nullable="true" />
           <Property Name="activado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.ProvisionDirectaPedido" FromRole="ProvisionDirecta" ToRole="Pedido" />
           <NavigationProperty Name="Provision" Relationship="BDPizzaModel.ProvisionDirectaProvision" FromRole="ProvisionDirecta" ToRole="Provision" />
           <Property Name="restricciones" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Categoria" Relationship="BDPizzaModel.CategoriaProvisionDirecta" FromRole="ProvisionDirecta" ToRole="Categoria" />
         </EntityType>
         <EntityType Name="Receta">
           <Key>
@@ -972,10 +1058,6 @@
           <End Type="BDPizzaModel.ProvisionDirecta" Role="ProvisionDirecta" Multiplicity="*" />
           <End Type="BDPizzaModel.Pedido" Role="Pedido" Multiplicity="*" />
         </Association>
-        <Association Name="ProductoCategoria">
-          <End Type="BDPizzaModel.Producto" Role="Producto" Multiplicity="1" />
-          <End Type="BDPizzaModel.Categoria" Role="Categoria" Multiplicity="1" />
-        </Association>
         <Association Name="ClienteTelefono">
           <End Type="BDPizzaModel.Cliente" Role="Cliente" Multiplicity="1" />
           <End Type="BDPizzaModel.Telefono" Role="Telefono" Multiplicity="*" />
@@ -1039,6 +1121,14 @@
         <Association Name="IngredienteReceta">
           <End Type="BDPizzaModel.Ingrediente" Role="Ingrediente" Multiplicity="*" />
           <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="*" />
+        </Association>
+        <Association Name="CategoriaProducto">
+          <End Type="BDPizzaModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="BDPizzaModel.Producto" Role="Producto" Multiplicity="*" />
+        </Association>
+        <Association Name="CategoriaProvisionDirecta">
+          <End Type="BDPizzaModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="BDPizzaModel.ProvisionDirecta" Role="ProvisionDirecta" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1151,7 +1241,6 @@
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
           <ScalarProperty Name="precioUnitario" ColumnName="precioUnitario" />
-          <ScalarProperty Name="imagen" ColumnName="imagen" />
           <ScalarProperty Name="activado" ColumnName="activado" />
           <ScalarProperty Name="restricciones" ColumnName="restricciones" />
         </MappingFragment>
@@ -1181,7 +1270,6 @@
         <MappingFragment StoreEntitySet="ProvisionDirectaSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="imagen" ColumnName="imagen" />
           <ScalarProperty Name="activado" ColumnName="activado" />
           <ScalarProperty Name="restricciones" ColumnName="restricciones" />
         </MappingFragment>
@@ -1296,14 +1384,6 @@
         <ScalarProperty Name="Id" ColumnName="Pedido_Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ProductoCategoria" TypeName="BDPizzaModel.ProductoCategoria" StoreEntitySet="ProductoSet">
-      <EndProperty Name="Categoria">
-        <ScalarProperty Name="Id" ColumnName="Categoria_Id" />
-      </EndProperty>
-      <EndProperty Name="Producto">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="ClienteTelefono" TypeName="BDPizzaModel.ClienteTelefono" StoreEntitySet="TelefonoSet">
       <EndProperty Name="Cliente">
         <ScalarProperty Name="Id" ColumnName="Cliente_Id" />
@@ -1344,6 +1424,28 @@
         <ScalarProperty Name="id" ColumnName="Receta_id" />
       </EndProperty>
     </AssociationSetMapping>
+    <AssociationSetMapping Name="CategoriaProducto" TypeName="BDPizzaModel.CategoriaProducto" StoreEntitySet="ProductoSet">
+      <EndProperty Name="Categoria">
+        <ScalarProperty Name="Id" ColumnName="Categoria_Id" />
+      </EndProperty>
+      <EndProperty Name="Producto">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CategoriaProvisionDirecta" TypeName="BDPizzaModel.CategoriaProvisionDirecta" StoreEntitySet="ProvisionDirectaSet">
+      <EndProperty Name="Categoria">
+        <ScalarProperty Name="Id" ColumnName="Categoria_Id" />
+      </EndProperty>
+      <EndProperty Name="ProvisionDirecta">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="InsertarPedidoADomicilio" FunctionName="BDPizzaModel.Store.InsertarPedidoADomicilio" />
+          <FunctionImportMapping FunctionImportName="InsertarPedidoLocal" FunctionName="BDPizzaModel.Store.InsertarPedidoLocal" />
+          <FunctionImportMapping FunctionImportName="LigarProductoConPedido" FunctionName="BDPizzaModel.Store.LigarProductoConPedido" />
+          <FunctionImportMapping FunctionImportName="LigarProvisionConPedido" FunctionName="BDPizzaModel.Store.LigarProvisionConPedido" />
+          <FunctionImportMapping FunctionImportName="RegistrarPedidoYCuenta" FunctionName="BDPizzaModel.Store.RegistrarPedidoYCuenta" />
+          <FunctionImportMapping FunctionImportName="RegistroDeClienteConDireccion" FunctionName="BDPizzaModel.Store.RegistroDeClienteConDireccion" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
