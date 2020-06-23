@@ -17,6 +17,7 @@ namespace ClienteItaliaPizza
         protected object recetaExistente; //creo esta clase temporalmente para VALIDAR si la ventna se llama con un objeto receta o no
         protected CuentaUsuario1 cuenta = new CuentaUsuario1();
         InstanceContext context;
+
         List<Ingrediente> Ingredientes = new List<Ingrediente>();
         
         public Receta(CuentaUsuario1 cuentaUsuario)
