@@ -73,6 +73,7 @@
   <xs:element name="ArrayOfProductoDePedido" nillable="true" type="tns:ArrayOfProductoDePedido" />
   <xs:complexType name="ProductoDePedido">
     <xs:sequence>
+      <xs:element minOccurs="0" name="activado" type="xs:boolean" />
       <xs:element minOccurs="0" name="categoria" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="descrpcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
@@ -90,28 +91,19 @@
   <xs:element name="ArrayOfProvisionVentaDirecta" nillable="true" type="tns:ArrayOfProvisionVentaDirecta" />
   <xs:complexType name="ProvisionVentaDirecta">
     <xs:sequence>
+      <xs:element minOccurs="0" name="cantidadExistencias" type="xs:int" />
       <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="idProvision" type="xs:int" />
       <xs:element minOccurs="0" name="idProvisionVentaDirecta" type="xs:int" />
       <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="precioUnitario" type="xs:double" />
       <xs:element minOccurs="0" name="restricciones" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="stock" type="xs:int" />
+      <xs:element minOccurs="0" name="ubicacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="unidadDeMedida" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvisionVentaDirecta" nillable="true" type="tns:ProvisionVentaDirecta" />
-  <xs:complexType name="ArrayOfEstadoDePedido">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="EstadoDePedido" nillable="true" type="tns:EstadoDePedido" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfEstadoDePedido" nillable="true" type="tns:ArrayOfEstadoDePedido" />
-  <xs:complexType name="EstadoDePedido">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="estado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="idEstado" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="EstadoDePedido" nillable="true" type="tns:EstadoDePedido" />
   <xs:complexType name="ArrayOfProducto">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Producto" nillable="true" type="tns:Producto" />
@@ -199,17 +191,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfReceta1" nillable="true" type="tns:ArrayOfReceta1" />
-  <xs:complexType name="ArrayOfMesaLocal">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="MesaLocal" nillable="true" type="tns:MesaLocal" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfMesaLocal" nillable="true" type="tns:ArrayOfMesaLocal" />
-  <xs:complexType name="MesaLocal">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idMesa" type="xs:int" />
-      <xs:element minOccurs="0" name="numeroMesa" type="xs:short" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="MesaLocal" nillable="true" type="tns:MesaLocal" />
 </xs:schema>

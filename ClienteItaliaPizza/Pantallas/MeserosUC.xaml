@@ -9,13 +9,14 @@
              Name="meserosUserControl">
 
     <Grid>
-        <TabControl x:Name="tabControlPedidos" HorizontalAlignment="Left" Height="377" Margin="56,209,0,0" VerticalAlignment="Top" Width="625">
+        <TabControl x:Name="tabControlPedidos" HorizontalAlignment="Left" Height="393" Margin="56,209,0,0" VerticalAlignment="Top" Width="643">
             <TabItem x:Name="tabPedidosEnEspera" Header="En espera">
-                <Grid Background="#FFE5E5E5" Margin="0,0,0,-23">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="237*"/>
                         <ColumnDefinition Width="317*"/>
                     </Grid.ColumnDefinitions>
+                    <ListBox x:Name="listBoxEnEspera" HorizontalAlignment="Left" Height="336" Margin="10,14,0,0" VerticalAlignment="Top" Width="618" Grid.ColumnSpan="2" Loaded="CargarPedidosEnEspera"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabPedidosPreparados" Header="Preparados">
@@ -47,7 +48,7 @@
         <local:CallCenterUC x:Name="UCCallCenter" Visibility="Collapsed" eventoComboBox2Seleccionado="UCCallCenter_eventoComboBox2Seleccionado" eventoEditarNombreClienteBusqueda="UCCallCenter_eventoEditarNombreClienteBusqueda" >
 
         </local:CallCenterUC>
-     
-        
+
+
     </Grid>
 </UserControl>

@@ -14,10 +14,11 @@ namespace ClienteItaliaPizza.Pantallas
     public partial class MeserosUC : UserControl
     {
         public string tipoDeUsuario;
+        public EventHandler AgregarNuevoPedidoALista;
         public MeserosUC(string tipoDeUsuario)
         {
             InitializeComponent();
-            this.tipoDeUsuario = tipoDeUsuario;         
+            this.tipoDeUsuario = tipoDeUsuario;
             comboBox3.Visibility = System.Windows.Visibility.Collapsed;
 
             if (tipoDeUsuario.Equals("CallCenter"))
@@ -29,18 +30,18 @@ namespace ClienteItaliaPizza.Pantallas
         private void ComboBox1_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             comboBox1.Items.Add("Pedidos");
-            comboBox1.Items.Add("Cuentas");         
+            comboBox1.Items.Add("Cuentas");
         }
 
         private void ComboBox3_CargarOpcionesLocales()
         {
             comboBox3.Items.Clear();
             comboBox3.Text = "No.Mesa";
-            
+
             for (int i = 1; i < 6; i++)
-                {
-                    comboBox3.Items.Add(i);
-                }      
+            {
+                comboBox3.Items.Add(i);
+            }
         }
 
         private void ComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,15 +54,15 @@ namespace ClienteItaliaPizza.Pantallas
                 comboBox3.Visibility = System.Windows.Visibility.Collapsed;
 
                 if (tipoDeUsuario.Equals("Mesero"))
-                {                    
-                    comboBox3.Visibility = System.Windows.Visibility.Visible;                   
+                {
+                    comboBox3.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                   UCCallCenter.comboBox2.Visibility = Visibility.Visible; // lo visivilizo temporalmente para probar la vista del call center
+                    UCCallCenter.comboBox2.Visibility = Visibility.Visible; // lo visivilizo temporalmente para probar la vista del call center
                 }
             }
-            if(comboBox1.SelectedItem.Equals("Cuentas"))
+            if (comboBox1.SelectedItem.Equals("Cuentas"))
             {
                 comboBox3.Visibility = System.Windows.Visibility.Visible;
                 comboBox3.Text = "Tipo de Cuenta";
@@ -75,7 +76,7 @@ namespace ClienteItaliaPizza.Pantallas
 
         private void ButtonEditar_Click(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace ClienteItaliaPizza.Pantallas
         /// <param name="e"></param>
         private void UCCallCenter_eventoComboBox2Seleccionado(object sender, EventArgs e)
         {
-            var seleccionComboBox2= UCCallCenter.RegresarSeleccionComboBox2;
+            var seleccionComboBox2 = UCCallCenter.RegresarSeleccionComboBox2;
 
             if (seleccionComboBox2.Equals("Locales"))
             {
@@ -101,13 +102,13 @@ namespace ClienteItaliaPizza.Pantallas
         private void UCCallCenter_eventoEditarNombreClienteBusqueda(object sender, EventArgs e)
         {
             var nombreClienteABuscar = UCCallCenter.EditarNombreClienteBusqueda;
-           // labelGenerarTicket.Content = nombreClienteABuscar;  //lo imprimo temporalmente en el label para comprobar su funcionamiento
+            // labelGenerarTicket.Content = nombreClienteABuscar;  //lo imprimo temporalmente en el label para comprobar su funcionamiento
         }
 
         private void ButtonNuevoPedidoLocal_Click(object sender, RoutedEventArgs e)
         {
             NuevoPedido ventanaNuevoPedido = new NuevoPedido("Local");
-            ventanaNuevoPedido.Show();                      
+            ventanaNuevoPedido.Show();
         }
 
         private void ButtonImprimir_Click(object sender, RoutedEventArgs e)
@@ -115,9 +116,9 @@ namespace ClienteItaliaPizza.Pantallas
         }
 
         private void ButtonPDF_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             string rutaTicketsPDF = "TicketsPDF";
-            var rootDirectory = System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + "../../"+ rutaTicketsPDF);
+            var rootDirectory = System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + "../../" + rutaTicketsPDF);
             if (Directory.Exists(@rootDirectory) == true)
             {
                 GenerarTicketPDF(@rootDirectory);
@@ -126,30 +127,41 @@ namespace ClienteItaliaPizza.Pantallas
             {
                 DirectoryInfo di = Directory.CreateDirectory(@rootDirectory);
                 GenerarTicketPDF(@rootDirectory);
-            }            
+            }
         }
 
         public void GenerarTicketPDF(string ruta)
         {
             int contadorTicketid = 0;
             contadorTicketid++;
-   
+
             Document doc = new Document();
-            PdfWriter.GetInstance(doc, new FileStream(@ruta + "/Ticket" +contadorTicketid +".pdf", FileMode.OpenOrCreate));
+            PdfWriter.GetInstance(doc, new FileStream(@ruta + "/Ticket" + contadorTicketid + ".pdf", FileMode.OpenOrCreate));
 
             doc.Open();
             Paragraph title = new Paragraph();
             title.Font = FontFactory.GetFont(FontFactory.TIMES, 18f, BaseColor.BLUE);
-            title.Add("Ticket"+ contadorTicketid);
+            title.Add("Ticket" + contadorTicketid);
             doc.Add(title);
-            
+
             doc.Add(new Paragraph("Formato de Ticket - Italia Pizza"));
-            doc.Add(new Paragraph("IdPedido: "+ contadorTicketid));
+            doc.Add(new Paragraph("IdPedido: " + contadorTicketid));
             doc.Add(new Paragraph("Costo total: "));
             doc.Close();
 
             VisorPDF visorPDF = new VisorPDF(@ruta + "/Ticket" + contadorTicketid + ".pdf");
             visorPDF.Show();
+        }
+
+        private void CargarPedidosEnEspera(object sender, RoutedEventArgs e)
+        {
+            AgregarNuevoPedidoALista?.Invoke(this, e);
+        }
+
+        public string AgregarOSeleccionarNuevoPedido
+        {
+            get { return listBoxEnEspera.SelectedItem.ToString(); }
+            set { listBoxEnEspera.Items.Add(value); }
         }
     }
 }
