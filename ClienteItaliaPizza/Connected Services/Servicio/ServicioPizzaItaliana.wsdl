@@ -107,7 +107,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarProducto_BuscarPorNombre_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarProducto_BuscarProductoInternoPorNombre_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -130,7 +130,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarProducto_BuscarPorID_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarProducto_BuscarProductoExternoPorNombre_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -153,7 +153,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarProducto_ProvicionDirecta_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarProducto_ProductoInterno_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -176,7 +176,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarProducto_Provision_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarProducto_ProductoExterno_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -1056,7 +1056,53 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_Modificar_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ModificarProvisionDirectaDeProductoExterno_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ModificarProvisionDeProductoExterno_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ModificarProductoInterno_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -3038,7 +3084,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IConsultarInventario_RespuestaInventario_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IConsultarInventario_RespuestaCI_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -3597,17 +3643,17 @@
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IBuscarProducto_BuscarPorNombre_InputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarPorNombre" />
+  <wsdl:message name="IBuscarProducto_BuscarProductoInternoPorNombre_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarProductoInternoPorNombre" />
   </wsdl:message>
-  <wsdl:message name="IBuscarProducto_BuscarPorID_InputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarPorID" />
+  <wsdl:message name="IBuscarProducto_BuscarProductoExternoPorNombre_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarProductoExternoPorNombre" />
   </wsdl:message>
-  <wsdl:message name="IBuscarProducto_ProvicionDirecta_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:ProvicionDirecta" />
+  <wsdl:message name="IBuscarProducto_ProductoInterno_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ProductoInterno" />
   </wsdl:message>
-  <wsdl:message name="IBuscarProducto_Provision_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:Provision" />
+  <wsdl:message name="IBuscarProducto_ProductoExterno_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ProductoExterno" />
   </wsdl:message>
   <wsdl:message name="IBuscarProducto_ErrorAlRecuperarProducto_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ErrorAlRecuperarProducto" />
@@ -3651,8 +3697,14 @@
   <wsdl:message name="IEditarIngrediente_RespuestaEditarIngrediente_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaEditarIngrediente" />
   </wsdl:message>
-  <wsdl:message name="IModificarProducto_Modificar_InputMessage">
-    <wsdl:part name="parameters" element="tns:Modificar" />
+  <wsdl:message name="IModificarProducto_ModificarProvisionDirectaDeProductoExterno_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarProvisionDirectaDeProductoExterno" />
+  </wsdl:message>
+  <wsdl:message name="IModificarProducto_ModificarProvisionDeProductoExterno_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarProvisionDeProductoExterno" />
+  </wsdl:message>
+  <wsdl:message name="IModificarProducto_ModificarProductoInterno_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarProductoInterno" />
   </wsdl:message>
   <wsdl:message name="IModificarProducto_RespuestaModificarProducto_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaModificarProducto" />
@@ -3756,8 +3808,8 @@
   <wsdl:message name="IConsultarInventario_DevuelveInventario_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:DevuelveInventario" />
   </wsdl:message>
-  <wsdl:message name="IConsultarInventario_RespuestaInventario_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:RespuestaInventario" />
+  <wsdl:message name="IConsultarInventario_RespuestaCI_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:RespuestaCI" />
   </wsdl:message>
   <wsdl:message name="IEditarReceta_EditarReceta_InputMessage">
     <wsdl:part name="parameters" element="tns:EditarReceta" />
@@ -3787,17 +3839,17 @@
     <wsdl:part name="parameters" element="tns:RecibirPedidoDomicilio" />
   </wsdl:message>
   <wsdl:portType name="IBuscarProducto">
-    <wsdl:operation name="BuscarPorNombre">
-      <wsdl:input wsam:Action="http://tempuri.org/IBuscarProducto/BuscarPorNombre" message="tns:IBuscarProducto_BuscarPorNombre_InputMessage" />
+    <wsdl:operation name="BuscarProductoInternoPorNombre">
+      <wsdl:input wsam:Action="http://tempuri.org/IBuscarProducto/BuscarProductoInternoPorNombre" message="tns:IBuscarProducto_BuscarProductoInternoPorNombre_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarPorID">
-      <wsdl:input wsam:Action="http://tempuri.org/IBuscarProducto/BuscarPorID" message="tns:IBuscarProducto_BuscarPorID_InputMessage" />
+    <wsdl:operation name="BuscarProductoExternoPorNombre">
+      <wsdl:input wsam:Action="http://tempuri.org/IBuscarProducto/BuscarProductoExternoPorNombre" message="tns:IBuscarProducto_BuscarProductoExternoPorNombre_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ProvicionDirecta">
-      <wsdl:output wsam:Action="http://tempuri.org/IBuscarProducto/ProvicionDirecta" message="tns:IBuscarProducto_ProvicionDirecta_OutputCallbackMessage" />
+    <wsdl:operation name="ProductoInterno">
+      <wsdl:output wsam:Action="http://tempuri.org/IBuscarProducto/ProductoInterno" message="tns:IBuscarProducto_ProductoInterno_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="Provision">
-      <wsdl:output wsam:Action="http://tempuri.org/IBuscarProducto/Provision" message="tns:IBuscarProducto_Provision_OutputCallbackMessage" />
+    <wsdl:operation name="ProductoExterno">
+      <wsdl:output wsam:Action="http://tempuri.org/IBuscarProducto/ProductoExterno" message="tns:IBuscarProducto_ProductoExterno_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="ErrorAlRecuperarProducto">
       <wsdl:output wsam:Action="http://tempuri.org/IBuscarProducto/ErrorAlRecuperarProducto" message="tns:IBuscarProducto_ErrorAlRecuperarProducto_OutputCallbackMessage" />
@@ -3851,8 +3903,14 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IModificarProducto">
-    <wsdl:operation name="Modificar">
-      <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/Modificar" message="tns:IModificarProducto_Modificar_InputMessage" />
+    <wsdl:operation name="ModificarProvisionDirectaDeProductoExterno">
+      <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProvisionDirectaDeProductoExterno" message="tns:IModificarProducto_ModificarProvisionDirectaDeProductoExterno_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificarProvisionDeProductoExterno">
+      <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProvisionDeProductoExterno" message="tns:IModificarProducto_ModificarProvisionDeProductoExterno_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificarProductoInterno">
+      <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProductoInterno" message="tns:IModificarProducto_ModificarProductoInterno_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RespuestaModificarProducto">
       <wsdl:output wsam:Action="http://tempuri.org/IModificarProducto/RespuestaModificarProducto" message="tns:IModificarProducto_RespuestaModificarProducto_OutputCallbackMessage" />
@@ -3978,8 +4036,8 @@
     <wsdl:operation name="DevuelveInventario">
       <wsdl:output wsam:Action="http://tempuri.org/IConsultarInventario/DevuelveInventario" message="tns:IConsultarInventario_DevuelveInventario_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RespuestaInventario">
-      <wsdl:output wsam:Action="http://tempuri.org/IConsultarInventario/RespuestaInventario" message="tns:IConsultarInventario_RespuestaInventario_OutputCallbackMessage" />
+    <wsdl:operation name="RespuestaCI">
+      <wsdl:output wsam:Action="http://tempuri.org/IConsultarInventario/RespuestaCI" message="tns:IConsultarInventario_RespuestaCI_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IEditarReceta">
@@ -4018,31 +4076,31 @@
   <wsdl:binding name="WSDualHttpBinding_IBuscarProducto" type="tns:IBuscarProducto">
     <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="BuscarPorNombre">
-      <soap12:operation soapAction="http://tempuri.org/IBuscarProducto/BuscarPorNombre" style="document" />
+    <wsdl:operation name="BuscarProductoInternoPorNombre">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarProducto/BuscarProductoInternoPorNombre" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_BuscarPorNombre_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_BuscarProductoInternoPorNombre_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="BuscarPorID">
-      <soap12:operation soapAction="http://tempuri.org/IBuscarProducto/BuscarPorID" style="document" />
+    <wsdl:operation name="BuscarProductoExternoPorNombre">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarProducto/BuscarProductoExternoPorNombre" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_BuscarPorID_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_BuscarProductoExternoPorNombre_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="ProvicionDirecta">
-      <soap12:operation soapAction="http://tempuri.org/IBuscarProducto/ProvicionDirecta" style="document" />
+    <wsdl:operation name="ProductoInterno">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarProducto/ProductoInterno" style="document" />
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_ProvicionDirecta_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_ProductoInterno_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Provision">
-      <soap12:operation soapAction="http://tempuri.org/IBuscarProducto/Provision" style="document" />
+    <wsdl:operation name="ProductoExterno">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarProducto/ProductoExterno" style="document" />
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_Provision_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarProducto_ProductoExterno_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -4164,10 +4222,24 @@
   <wsdl:binding name="WSDualHttpBinding_IModificarProducto" type="tns:IModificarProducto">
     <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="Modificar">
-      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/Modificar" style="document" />
+    <wsdl:operation name="ModificarProvisionDirectaDeProductoExterno">
+      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ModificarProvisionDirectaDeProductoExterno" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_Modificar_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ModificarProvisionDirectaDeProductoExterno_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarProvisionDeProductoExterno">
+      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ModificarProvisionDeProductoExterno" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ModificarProvisionDeProductoExterno_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarProductoInterno">
+      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ModificarProductoInterno" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ModificarProductoInterno_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
@@ -4453,10 +4525,10 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RespuestaInventario">
-      <soap12:operation soapAction="http://tempuri.org/IConsultarInventario/RespuestaInventario" style="document" />
+    <wsdl:operation name="RespuestaCI">
+      <soap12:operation soapAction="http://tempuri.org/IConsultarInventario/RespuestaCI" style="document" />
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IConsultarInventario_RespuestaInventario_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IConsultarInventario_RespuestaCI_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -4542,7 +4614,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4551,7 +4623,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4560,7 +4632,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4569,7 +4641,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4578,7 +4650,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4587,7 +4659,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4596,7 +4668,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4605,7 +4677,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4614,7 +4686,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4623,7 +4695,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4632,7 +4704,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4641,7 +4713,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4650,7 +4722,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4659,7 +4731,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4668,7 +4740,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4677,7 +4749,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4686,7 +4758,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4695,7 +4767,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4704,7 +4776,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -4713,7 +4785,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

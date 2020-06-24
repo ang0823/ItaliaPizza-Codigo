@@ -18,38 +18,16 @@ namespace ClienteItaliaPizza
             CuentaUsuario = cuenta;
             InitializeComponent();
 
+            tipoProducto.Items.Insert(0, "Produto interno");
+            tipoProducto.Items.Insert(1, "Produto externo");
+            tipoProducto.SelectedIndex = 0;
             UserLbl.Content = cuenta.nombreUsuario;
             ImagenBtn.Visibility = Visibility.Hidden;
             DeshabilitarCampos();
             //EditSaveBtn.IsEnabled = false;
         }
 
-        // FALTA LA CORRECCIÓN DEL SERVIDOR PARA TERMINAR ESTO
-        private void BuscarProducto(object sender, KeyEventArgs e)
-        {
-            if (SearchBox.Text.Length > 0 && e.Key == Key.Return)
-            {
-                InstanceContext context = new InstanceContext(this);
-                BuscarProductoClient ServicioBuscar = new BuscarProductoClient(context);
-
-                try
-                {
-                    int idProducto = int.Parse(SearchBox.Text);
-                    ServicioBuscar.BuscarPorID(idProducto);
-                }
-                catch (FormatException)
-                {
-                    string nombreProducto = SearchBox.Text;
-                    ServicioBuscar.BuscarPorNombre(nombreProducto);
-                }
-                catch (Exception any)
-                {
-                    FuncionesComunes.MostrarMensajeDeError(any.Message + " " + any.GetType());
-                }
-            }
-        }
-
-        private void BuscarProducto(object sender, RoutedEventArgs e)
+        private void BuscarProducto()
         {
             InstanceContext context = new InstanceContext(this);
             BuscarProductoClient ServicioBuscar = new BuscarProductoClient(context);
@@ -57,12 +35,10 @@ namespace ClienteItaliaPizza
             try
             {
                 int idProducto = int.Parse(SearchBox.Text);
-                ServicioBuscar.BuscarPorID(idProducto);
             }
-            catch (FormatException)
+            catch (EndpointNotFoundException)
             {
-                string nombreProducto = SearchBox.Text;
-                ServicioBuscar.BuscarPorNombre(nombreProducto);
+                FuncionesComunes.MostrarMensajeDeError("El servidor no está disponible en este momento. Por favor, intente más tarde.");
             }
             catch (Exception any)
             {
@@ -199,28 +175,23 @@ namespace ClienteItaliaPizza
             FuncionesComunes.CerrarSesion();
         }
 
-        public void ProvicionDirecta(ProvisionDirecta provDir)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Provision(Producto prov)
-        {
-            codigoTxt.Text = prov.Id.ToString();
-            nombreTxt.Text = prov.nombre;
-            precioTxt.Text = prov.precioUnitario.ToString();
-            estadoCb.SelectedIndex = EstaActivado(prov);
-            categoriaCb.SelectedIndex = CategoriaProducto(prov);
-            recetaCb.SelectedItem = prov.Receta;
-            DescripcionTxt.Text = prov.descripcion;
-        }
-
         public void ErrorAlRecuperarProducto(string mensajeError)
         {
             throw new NotImplementedException();
         }
 
-        public void Provision(Provision prov)
+        public void ProductoInterno(Producto productoInterno1)
+        {
+            codigoTxt.Text = productoInterno1.Id.ToString();
+            nombreTxt.Text = productoInterno1.nombre;
+            precioTxt.Text = productoInterno1.precioUnitario.ToString();
+            estadoCb.SelectedIndex = EstaActivado(productoInterno1);
+            categoriaCb.SelectedIndex = CategoriaProducto(productoInterno1);
+            recetaCb.SelectedItem = productoInterno1.Receta;
+            DescripcionTxt.Text = productoInterno1.descripcion;
+        }
+
+        public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta)
         {
             throw new NotImplementedException();
         }
