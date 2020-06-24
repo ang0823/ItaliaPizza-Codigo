@@ -14,9 +14,19 @@ namespace AccesoBD2
     
     public partial class Categoria
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Categoria()
+        {
+            this.Producto = new HashSet<Producto>();
+            this.ProvisionDirecta = new HashSet<ProvisionDirecta>();
+        }
+    
         public int Id { get; set; }
         public string categoria { get; set; }
     
-        public virtual Producto Producto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Producto> Producto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProvisionDirecta> ProvisionDirecta { get; set; }
     }
 }

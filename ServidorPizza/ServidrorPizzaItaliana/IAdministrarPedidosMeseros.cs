@@ -31,4 +31,19 @@ namespace ServidrorPizzaItaliana
         [OperationContract(IsOneWay = true)]
         void MensajeAdministrarPedidosMeseros(string mensaje);
     }
+
+    [DataContract]
+    public class EmpleadoPizzeria
+    {
+        [DataMember]
+        private long id;
+        [DataMember]
+        private string idGenerado;
+
+        public EmpleadoPizzeria(long id, string idGenerado)
+        {
+            this.id = id;
+            this.idGenerado = idGenerado;
+        }
+    }
 }
