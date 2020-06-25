@@ -8,62 +8,49 @@ using System.Windows.Media.Imaging;
 using System.ServiceModel;
 using ClienteItaliaPizza.Validacion;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ClienteItaliaPizza
 {
     /// <summary>
     /// Lógica de interacción para PedidoADomicilio.xaml
     /// </summary>
-    public partial class NuevoPedido : Window, IRegistrarPedidoLocalCallback
+    public partial class NuevoPedido : Window, IAdministrarPedidosMeserosCallback
     {
-        InstanceContext context;
         string mesaSeleccionada;
+        InstanceContext instanceContext;
+        AdministrarPedidosMeserosClient cliente;
 
-        //Listas de productos disponibles a elegir.
-        private List<Producto> productosDisponibles = new List<Producto>();
-        private List<ProvisionDirecta> provisionesDisponibles = new List<ProvisionDirecta>();
-        private List<Mesa> Listamesas = new List<Mesa>();
-        
         //listas de productos seleccionados para el NUEVO Pedido
         private List<Producto> productosSeleccionados = new List<Producto>();
         private List<ProvisionDirecta> provisionesSeleccionadas = new List<ProvisionDirecta>();
-        
-        ObservableCollection<Orden> listaOrdenes = new ObservableCollection<Orden>(); //lista observable temporal para prueba de datagrid
+
+        ObservableCollection<Orden> listaOrdenes = new ObservableCollection<Orden>(); 
 
         //Constructor para registrar un nuevo Pedido (hacer uno para la edicion de pedido)
         public NuevoPedido(string tipoPedido)
         {
-            InitializeComponent();            
-
-            if (tipoPedido.Equals("Local"))
+            InitializeComponent();
+            dataGridOrden.ItemsSource = listaOrdenes;
+            try
             {
-                UC_NuevoPLocal.Visibility = Visibility.Visible;
-                //InstanceContext instanceContext = new InstanceContext(this);
-                //  RegistrarPedidoLocalClient cliente = new RegistrarPedidoLocalClient(instanceContext);
-                // cliente.ObtenerInformacionDeProductosYEstados(); 
-
-                //Lleno el datagrid temporalmente con datos ficticios para probar función de 
-                //obtener /insertar en una celda del DataGridOrden
-                Orden orden = new Orden();
-                orden.cantidad = "1";
-                orden.nombreProducto = "sopa";
-                orden.PrecioUnitario = "12.00";
-                orden.PrecioTotal = "12.00";
-                listaOrdenes.Add(orden);
-
-                Orden orden1 = new Orden();
-                orden1.cantidad = "1";
-                orden1.nombreProducto = "chesco";
-                orden1.PrecioUnitario = "14.00";
-                orden1.PrecioTotal = "14.00";
-                listaOrdenes.Add(orden1);
-                dataGridOrden.ItemsSource = listaOrdenes;
+                if (tipoPedido.Equals("Local"))
+                {
+                    UC_NuevoPLocal.Visibility = Visibility.Visible;
+                    instanceContext = new InstanceContext(this);
+                    cliente = new AdministrarPedidosMeserosClient(instanceContext);
+                    cliente.ObtenerProductos();
+                }
+                if (tipoPedido.Equals("Domicilio"))
+                {
+                    UC_NuevoDomicilio.Visibility = Visibility.Visible;
+                }
             }
-            if (tipoPedido.Equals("Domicilio"))
+            catch (CommunicationException e)
             {
-                UC_NuevoDomicilio.Visibility = Visibility.Visible;
+                FuncionesComunes.MostrarMensajeDeError("No se ha podido establecer comunicación con el servidor\n"+e.Data.ToString());
             }
-        }       
+        }
 
         //Llamará al registrar local, domicilio, editar local y editar domicilio
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
@@ -71,7 +58,14 @@ namespace ClienteItaliaPizza
             bool resultado = ValidarCamposLlenosPedidoLocal();
             if (resultado == true)
             {
-                RegistrarPedidoLocal();
+                try
+                {
+                    RegistrarPedidoLocal();
+                }
+                catch (Exception ex)
+                {
+                    FuncionesComunes.MostrarMensajeDeError(ex.Message + ex.StackTrace);
+                }
             }
             else
             {
@@ -81,124 +75,21 @@ namespace ClienteItaliaPizza
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
         {
-            // this.Close();
-
-            //Temporalmento pongo este funcionamiento para probar que obtiene el elemento seleccionado
-            //del datagridOrden.           
-            var seleccion = dataGridOrden.SelectedCells[0].Item as Orden;           
-           // var con = ColumnCantidad.GetCellContent(seleccion);
-            System.Windows.MessageBox.Show(seleccion.cantidad);
-        }
-
-        private void TextBoxDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Validador Validacion = new Validador();
-            bool resultadoValidacion = Validacion.validarSoloNumeros(e.Text);
-            if (resultadoValidacion == false)
-            {
-                e.Handled = true;
-            }
-        }
-
-        public void DatosRecuperados(ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones, EstadoDePedido[] estados, MesaLocal[] mesas)
-        {
-           
-            mostrarProductos(productos);
-            mostrarProvisionesDirectas(provisiones);
-            //no entiendo porque recibe los estados de pedido
-            mostrarMesas(mesas);
-
-        }
-
-        public void MensajeRegistrarPedidoLocal(string mensaje)
-        {
-            FuncionesComunes.MostrarMensajeExitoso(mensaje);
-        }
-
-        public void mostrarProductos(ProductoDePedido[] productos)
-        {
-            //temporalmente lo pongo en un listbox
-            foreach (ProductoDePedido productoDePedido in productos)
-            {
-                Producto producto = new Producto();
-
-                producto.Id = productoDePedido.id;
-                producto.nombre = productoDePedido.nombre;
-                producto.Categoria = new Categoria();
-                producto.Categoria.categoria = productoDePedido.categoria;
-                producto.precioUnitario = productoDePedido.precioUnitario;
-                producto.descripcion = productoDePedido.descrpcion;
-                producto.restricciones = productoDePedido.restricciones;
-
-                productosDisponibles.Add(producto);
-                ListBoxEnsaladas.Items.Add(productoDePedido.nombre);
-            }
-        }
-
-        public void mostrarProvisionesDirectas(ProvisionVentaDirecta[] provisiones)
-        {
-            foreach (ProvisionVentaDirecta pr in provisiones)
-            {
-                ProvisionDirecta provisionDirecta = new ProvisionDirecta();
-
-                provisionDirecta.Id = pr.idProvisionVentaDirecta;
-                provisionDirecta.Provision = new Provision();
-                provisionDirecta.Provision.Id = pr.idProvision;
-                provisionDirecta.Provision.nombre = pr.nombre;
-
-                provisionesDisponibles.Add(provisionDirecta);
-                ListBoxEnsaladas.Items.Add(pr.nombre);
-            }
-        }
-
-        public void mostrarMesas(MesaLocal[] mesas)
-        {
-            foreach (MesaLocal numMesa in mesas)
-            {
-                Mesa mesa = new Mesa();
-                mesa.Id = numMesa.idMesa;
-                mesa.numeroMesa = numMesa.numeroMesa;
-
-                Listamesas.Add(mesa);
-
-                UC_NuevoPLocal.EditarSeleccionComboBoxNoMesa = mesa.numeroMesa.ToString();
-                // comboBoxNoMesa.Items.Add(numMesa.numeroMesa);
-            }
-        }
-
-        private void SeleccionaUnProducto(object sender, SelectionChangedEventArgs e)
-        {
-            var ProductoSeleccionado = ListBoxEnsaladas.SelectedItem.ToString();
-            var ProductoDelPedido = productosDisponibles.Find(p => p.nombre == ProductoSeleccionado);
-            productosSeleccionados.Add(ProductoDelPedido);
-            labelIVA.Content = ProductoDelPedido.nombre;
-        }
-
-
+            // this.Close();         
+            ListViewBebidas.UnselectAll();
+        }                               
+       
         private void GridBebidas_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
+        {                 
             //ImageList listaImagesBebidas = new ImageList();
-            ListViewBebidas.ItemsSource = new MovieData[] {
-            new MovieData{Title="Movie 1", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 2", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 3", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 4", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 5", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 6", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")}
-            };          
-            /* Esto era para mostrar la imagen del producto
-             * 
-             * Image image = new Image();            
-             image.Height = 66;
-             image.Width = 78;
-             image.Margin = new Thickness(21, 17, 0, 0);
-             image.Stretch = Stretch.Fill;
-             image.Name = "imagen";
-             image.Opacity = 100;
-             Uri uri = new Uri("C:/Users/survi/Pictures/Granos Selectos (4).jpg");
-             image.Source = new BitmapImage(uri);
-
-             gridBebidas.Children.Add(image); */
+            /* ListViewBebidas.ItemsSource = new MovieData[] {
+             new MovieData{Title="Movie 1", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 2", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 3", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 4", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 5", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 6", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")}
+             };  */
         }
 
         // for this code image needs to be a project resource
@@ -207,12 +98,209 @@ namespace ClienteItaliaPizza
             return new BitmapImage(new Uri(filename));
         }
 
+        public string GenerarIdPedidoLocal(int numeroMesa)
+        {
+            string id;
+            TimeSpan horaRealizacionDePedido = DateTime.Now.TimeOfDay;
+            id = "PL-" + numeroMesa + horaRealizacionDePedido;
+            return id;
+        }
+
+        public bool ValidarCamposLlenosPedidoLocal()
+        {
+            if (UC_NuevoPLocal.comboBoxNumEmpleado.SelectedIndex != -1 &&
+                UC_NuevoPLocal.comboBoxNoMesa.SelectedIndex != -1 &&
+                textBoxDescuento.Text != null && listaOrdenes != null)
+            {
+                int descuento = FuncionesComunes.ParsearAEntero(textBoxDescuento.Text);
+                if (descuento >= 100)
+                {
+                    FuncionesComunes.MostrarMensajeDeError("El límite del descuento es 100%"); return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool ValidarCamposLlenosPedidoDomicilio()
+        {
+            if (UC_NuevoDomicilio.comboBoxClienteNombre.SelectedIndex != -1 &&
+                UC_NuevoDomicilio.comboBoxDireccion.SelectedIndex != -1 &&
+                UC_NuevoDomicilio.textBoxTelefono.Text != null &&
+                UC_NuevoDomicilio.comboBoxDireccion.SelectedIndex != -1 &&
+                textBoxDescuento.Text != null && listaOrdenes.Count != 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var provisionSeleccionada = ListViewBebidas.SelectedItem as ProvisionVentaDirecta;
+            var ordenExistente = listaOrdenes.FirstOrDefault<Orden>(i => i.nombreProducto == provisionSeleccionada.nombre);
+            if (ordenExistente == null)
+            {
+                Orden orden = new Orden();
+                orden.cantidad = 1;
+                orden.nombreProducto = provisionSeleccionada.nombre;
+                orden.precioUnitario = provisionSeleccionada.precioUnitario;
+                orden.precioTotal = provisionSeleccionada.precioUnitario;
+                listaOrdenes.Add(orden);
+
+                ProvisionDirecta provision = ConvertidorDeObjetos.ProvisionVentaDirecta_A_ProvisionDirecta(provisionSeleccionada);
+                provisionesSeleccionadas.Add(provision);
+                labelSubtotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
+                labelTotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+            }
+            else
+            {
+                ordenExistente.cantidad++;
+                ordenExistente.precioTotal = ordenExistente.precioUnitario * ordenExistente.cantidad;
+                dataGridOrden.Items.Refresh();
+                labelTotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+            }
+        }       
+
+        public void RegistrarPedidoLocal()
+        {
+            try
+            {
+                int numeroMesa = FuncionesComunes.ParsearAEntero(mesaSeleccionada);          
+                var numeroEmpleado = FuncionesComunes.ParsearAEntero(UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado);
+
+                textBoxDescuento.Text = "." + textBoxDescuento.Text;
+                var descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
+                // Mesa mesa = Listamesas.Find(x => x.numeroMesa == numeroMesa);
+
+                PedidoLocal pedidoLocalNuevo = new PedidoLocal
+                {
+                    fecha = DateTime.Now,
+                    instruccionesEspeciales = textBoxInstruccionesEspeciales.Text,
+                    Mesa = new Mesa
+                    {
+                        numeroMesa = (short)numeroMesa
+                    },
+                    Empleado = new Empleado
+                    {
+                        IdEmpleado = numeroEmpleado
+                    },
+                    Estado = new Estado
+                    {
+                        estadoPedido = "En Espera"
+                    },
+                    Cuenta = new Cuenta
+                    {
+                        Id = GenerarIdPedidoLocal(numeroMesa),
+                        subTotal = (double)labelSubtotal.Content,
+                        iva = 0.16,
+                        descuento = descuento,
+                        precioTotal = (double)labelTotal.Content,
+                    }                    
+                };
+
+                pedidoLocalNuevo.Producto = new Producto[productosSeleccionados.Count];
+                productosSeleccionados.CopyTo(pedidoLocalNuevo.Producto);
+                pedidoLocalNuevo.ProvisionDirecta = new ProvisionDirecta[provisionesSeleccionadas.Count];
+                provisionesSeleccionadas.CopyTo(pedidoLocalNuevo.ProvisionDirecta);               
+
+                cliente.RegistrarPedidoLocal(pedidoLocalNuevo);
+            }
+            catch (CommunicationException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("No se ha podido establecer comunicación con el servidor");
+            }
+        }
+
+        public void DatosRecuperados(ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones)
+        {
+            foreach (var producto in productos)
+            {
+                if (producto.categoria == "Ensaladas")
+                    ListViewEnsaladas.Items.Add(producto);
+                if (producto.categoria == "Pizzas")
+                    ListViewPizzas.Items.Add(producto);
+                if (producto.categoria == "Pastas")
+                    ListViewPastas.Items.Add(producto);
+                if (producto.categoria == "Postres")
+                    ListViewPostres.Items.Add(producto);
+            }
+            ListViewBebidas.ItemsSource = provisiones;
+        }
+
+        public void MensajeAdministrarPedidosMeseros(string mensaje)
+        {
+            MessageBox.Show(mensaje); 
+        }
+
+        private void ListViewPostres_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {           
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPostres);            
+        }
+        private void ListViewEnsaladas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewEnsaladas);
+        }
+
+        private void ListViewPizzas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPizzas);
+        }
+
+        private void ListViewPastas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPastas);
+        }
+
+        /// <summary>
+        /// Obtiene el producto seleccionado de los ListView que exponen productos y los agrega a la lista de ordenes del pedido
+        /// </summary>
+        /// <typeparam name="T"> T es un tipo de dato System.Windows.Controls.ListView  </typeparam>
+        /// <param name="t"> Es el ListView que expone los productos </param>
+        private void ObtenerProductoSeleccionado<T>(System.Windows.Controls.ListView t) where T : System.Windows.Controls.ListView
+        {
+            var productoSeleccionado = t.SelectedItem as ProductoDePedido;
+            var ordenExistente = listaOrdenes.FirstOrDefault(i => i.nombreProducto == productoSeleccionado.nombre);
+            if (ordenExistente == null)
+            {
+                Orden orden = new Orden
+                {
+                    cantidad = 1,
+                    nombreProducto = productoSeleccionado.nombre,
+                    precioUnitario = productoSeleccionado.precioUnitario,
+                    precioTotal = productoSeleccionado.precioUnitario
+                };
+                listaOrdenes.Add(orden);
+
+                Producto producto = ConvertidorDeObjetos.ProductoDePedido_A_Producto(productoSeleccionado);
+                productosSeleccionados.Add(producto);
+                labelSubtotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
+                labelTotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+            }
+            else
+            {
+                ordenExistente.cantidad++;
+                ordenExistente.precioTotal = ordenExistente.precioUnitario * ordenExistente.cantidad;
+                dataGridOrden.Items.Refresh();
+                labelTotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+            }
+        }
+
+        private void TextBoxDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Validador.validarSoloNumeros(e.Text) == false)
+                e.Handled = true;
+        }
 
         /**
          * Métodos Correspondientes al UserControl Local
          */
         private void UC_NuevoPLocal_eventLlenarNoMesa(object sender, EventArgs e)
         {
+            for (int i = 1; i <= 5; i++)
+            {
+                UC_NuevoPLocal.EditarSeleccionComboBoxNoMesa = i.ToString();
+            }
         }
 
         private void UC_NuevoPLocal_eventLlenarNumEmpleado(object sender, EventArgs e)
@@ -234,8 +322,6 @@ namespace ClienteItaliaPizza
         {
             var opcionSeleccionada = UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado.ToString();
         }
-
-
 
         /**
          * Métodos Correspondientes al UserControl de Nuevo Pedido A Domicilio 
@@ -276,85 +362,15 @@ namespace ClienteItaliaPizza
         {
             var NumeroTelefono = UC_NuevoDomicilio.EditartextBoxTelefono;
         }
+       
 
-        public string GenerarIdPedidoLocal(int numeroMesa)
+        //esta será una clase para probar el datagrid de ordenes
+        public class Orden
         {
-            string id;
-            TimeSpan horaRealizacionDePedido = DateTime.Now.TimeOfDay;
-            id = "PL-" + numeroMesa + horaRealizacionDePedido;
-            return id;
-        }
-
-        public bool ValidarCamposLlenosPedidoLocal()
-        {
-            if (UC_NuevoPLocal.comboBoxNumEmpleado.SelectedIndex != -1 && UC_NuevoPLocal.comboBoxNoMesa.SelectedIndex != -1 && textBoxDescuento.Text != null)
-            {          
-                return true;
-            }
-            return false;
-        }
-
-        private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selecto = ListViewBebidas.SelectedItem as MovieData;
-            textBlockInstruccionesEspeciales.Text =  selecto.Title;         
-        }
-
-        public void RegistrarPedidoLocal()
-        {
-            context = new InstanceContext(this);
-            RegistrarPedidoLocalClient pedidoLocalClient = new RegistrarPedidoLocalClient(context);
-
-            int numeroMesa = FuncionesComunes.ParsearAEntero(mesaSeleccionada);
-            var seleccionEmpleado = UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado;
-            var numeroEmpleado = FuncionesComunes.ParsearAEntero(seleccionEmpleado);
-            var descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
-            Mesa mesa = Listamesas.Find(x => x.numeroMesa == numeroMesa);
-
-            PedidoLocal pedidoLocalNuevo = new PedidoLocal();
-            pedidoLocalNuevo.fecha = DateTime.Now;
-            pedidoLocalNuevo.instruccionesEspeciales = textBoxInstruccionesEspeciales.Text;
-            pedidoLocalNuevo.MesaId = mesa.Id;
-            pedidoLocalNuevo.Producto = new Producto[1];
-            productosDisponibles.CopyTo(pedidoLocalNuevo.Producto);
-            pedidoLocalNuevo.ProvisionDirecta = new ProvisionDirecta[1];
-            provisionesDisponibles.CopyTo(pedidoLocalNuevo.ProvisionDirecta);
-
-            Cuenta c = new Cuenta();
-            c.precioTotal = 50;
-            c.subTotal = 50;
-            c.descuento = descuento;
-            c.iva = 50;
-            c.Id = GenerarIdPedidoLocal(1);
-
-            pedidoLocalClient.RegistrarPedidoLocal(pedidoLocalNuevo, c, 1, numeroEmpleado);
-        }
-    }
-
-    //esta será una clase para probar el datagrid de ordenes
-    public class Orden
-    {
-        public string cantidad { get; set; }
-        public string nombreProducto { get; set; }
-        public string PrecioUnitario { get; set; }
-        public string PrecioTotal { get; set; }
-    }
-
-    //esta es una clase temporal unicamente para provar el ListView
-    public class MovieData
-    {
-        private string _Title;
-        public string Title
-        {
-            get { return this._Title; }
-            set { this._Title = value; }
-        }
-
-        private BitmapImage _ImageData;
-        public BitmapImage ImageData
-        {
-            get { return this._ImageData; }
-            set { this._ImageData = value; }
-        }
+            public int cantidad { get; set; }
+            public string nombreProducto { get; set; }
+            public double precioUnitario { get; set; }
+            public double precioTotal { get; set; }
+        }       
     }
 }

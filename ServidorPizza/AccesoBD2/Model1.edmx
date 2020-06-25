@@ -153,11 +153,10 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
           <Property Name="precioUnitario" Type="float" Nullable="false" />
-          <Property Name="imagen" Type="tinyint" />
           <Property Name="activado" Type="bit" Nullable="false" />
           <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Categoria_Id" Type="int" Nullable="false" />
           <Property Name="Receta_id" Type="int" Nullable="false" />
+          <Property Name="Categoria_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ProvisionDirectaPedido">
           <Key>
@@ -173,10 +172,10 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="imagen" Type="tinyint" />
           <Property Name="activado" Type="bit" Nullable="false" />
           <Property Name="restricciones" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Provision_Id" Type="int" Nullable="false" />
+          <Property Name="Categoria_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ProvisionSet">
           <Key>
@@ -224,6 +223,30 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <Property Name="numeroTelefono" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Cliente_Id" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_CategoriaProducto">
+          <End Role="CategoriaSet" Type="Self.CategoriaSet" Multiplicity="1" />
+          <End Role="ProductoSet" Type="Self.ProductoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductoSet">
+              <PropertyRef Name="Categoria_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoriaProvisionDirecta">
+          <End Role="CategoriaSet" Type="Self.CategoriaSet" Multiplicity="1" />
+          <End Role="ProvisionDirectaSet" Type="Self.ProvisionDirectaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProvisionDirectaSet">
+              <PropertyRef Name="Categoria_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ClientePedidoADomicilio">
           <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="1" />
           <End Role="PedidoSet_PedidoADomicilio" Type="Self.PedidoSet_PedidoADomicilio" Multiplicity="*" />
@@ -396,18 +419,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductoCategoria">
-          <End Role="CategoriaSet" Type="Self.CategoriaSet" Multiplicity="1" />
-          <End Role="ProductoSet" Type="Self.ProductoSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CategoriaSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductoSet">
-              <PropertyRef Name="Categoria_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductoPedido_Pedido">
           <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="1" />
           <End Role="ProductoPedido" Type="Self.ProductoPedido" Multiplicity="*" />
@@ -504,31 +515,31 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="InsertarCuentaDePedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Id" Type="varchar(max)" Mode="In" />
+        <Function Name="InsertarPedidoADomicilio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="bigint" Mode="In" />
+          <Parameter Name="NombreEstado" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
           <Parameter Name="PrecioTotal" Type="float" Mode="In" />
           <Parameter Name="SubTotal" Type="float" Mode="In" />
           <Parameter Name="Iva" Type="float" Mode="In" />
           <Parameter Name="Descuento" Type="float" Mode="In" />
-        </Function>
-        <Function Name="InsertarPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Fecha" Type="datetime" Mode="In" />
-          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
-          <Parameter Name="IdEmpleado" Type="int" Mode="In" />
-          <Parameter Name="IdEstado" Type="int" Mode="In" />
-          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IDPedido" Type="int" Mode="InOut" />
         </Function>
         <Function Name="InsertarPedidoLocal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdMesa" Type="int" Mode="In" />
-          <Parameter Name="IdPedido" Type="int" Mode="In" />
-        </Function>
-        <Function Name="InsertarPedioDomicilio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdCliente" Type="int" Mode="In" />
-          <Parameter Name="IdPedido" Type="int" Mode="In" />
-        </Function>
-        <Function Name="LigarClienteADireccion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdDireccion" Type="int" Mode="In" />
-          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="NumeroMesa" Type="smallint" Mode="In" />
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="bigint" Mode="In" />
+          <Parameter Name="NombreEstado" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="PrecioTotal" Type="float" Mode="In" />
+          <Parameter Name="SubTotal" Type="float" Mode="In" />
+          <Parameter Name="Iva" Type="float" Mode="In" />
+          <Parameter Name="Descuento" Type="float" Mode="In" />
+          <Parameter Name="IDPedido" Type="int" Mode="InOut" />
         </Function>
         <Function Name="LigarProductoConPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdProducto" Type="int" Mode="In" />
@@ -538,9 +549,17 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <Parameter Name="IdProvision" Type="int" Mode="In" />
           <Parameter Name="IdPedido" Type="int" Mode="In" />
         </Function>
-        <Function Name="RegistrarTelefono" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Telefono" Type="varchar(max)" Mode="In" />
-          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        <Function Name="RegistrarPedidoYCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="bigint" Mode="In" />
+          <Parameter Name="NombreEstado" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="PrecioTotal" Type="float" Mode="In" />
+          <Parameter Name="SubTotal" Type="float" Mode="In" />
+          <Parameter Name="Iva" Type="float" Mode="In" />
+          <Parameter Name="Descuento" Type="float" Mode="In" />
+          <Parameter Name="IdPedido" Type="int" Mode="InOut" />
         </Function>
         <Function Name="RegistroDeClienteConDireccion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="varchar(max)" Mode="In" />
@@ -550,7 +569,8 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <Parameter Name="Colonia" Type="varchar(max)" Mode="In" />
           <Parameter Name="NumeroExterior" Type="varchar" Mode="In" />
           <Parameter Name="NumeroInterior" Type="varchar" Mode="In" />
-          <Parameter Name="codigoPostal" Type="varchar" Mode="In" />
+          <Parameter Name="NumeroTelefonico" Type="varchar" Mode="In" />
+          <Parameter Name="CodigoPostal" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="BDPizzaModelStoreContainer">
           <EntitySet Name="CategoriaSet" EntityType="Self.CategoriaSet" Schema="dbo" store:Type="Tables" />
@@ -584,6 +604,14 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
     [CuentaSet].[descuento] AS [descuento]
     FROM [dbo].[CuentaSet] AS [CuentaSet]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_CategoriaProducto" Association="Self.FK_CategoriaProducto">
+            <End Role="CategoriaSet" EntitySet="CategoriaSet" />
+            <End Role="ProductoSet" EntitySet="ProductoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoriaProvisionDirecta" Association="Self.FK_CategoriaProvisionDirecta">
+            <End Role="CategoriaSet" EntitySet="CategoriaSet" />
+            <End Role="ProvisionDirectaSet" EntitySet="ProvisionDirectaSet" />
+          </AssociationSet>
           <AssociationSet Name="FK_ClientePedidoADomicilio" Association="Self.FK_ClientePedidoADomicilio">
             <End Role="ClienteSet" EntitySet="ClienteSet" />
             <End Role="PedidoSet_PedidoADomicilio" EntitySet="PedidoSet_PedidoADomicilio" />
@@ -639,10 +667,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <AssociationSet Name="FK_PedidoLocal_inherits_Pedido" Association="Self.FK_PedidoLocal_inherits_Pedido">
             <End Role="PedidoSet" EntitySet="PedidoSet" />
             <End Role="PedidoSet_PedidoLocal" EntitySet="PedidoSet_PedidoLocal" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductoCategoria" Association="Self.FK_ProductoCategoria">
-            <End Role="CategoriaSet" EntitySet="CategoriaSet" />
-            <End Role="ProductoSet" EntitySet="ProductoSet" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductoPedido_Pedido" Association="Self.FK_ProductoPedido_Pedido">
             <End Role="PedidoSet" EntitySet="PedidoSet" />
@@ -733,10 +757,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             <End Role="ProvisionDirecta" EntitySet="ProvisionDirectaSet" />
             <End Role="Pedido" EntitySet="PedidoSet" />
           </AssociationSet>
-          <AssociationSet Name="ProductoCategoria" Association="BDPizzaModel.ProductoCategoria">
-            <End Role="Producto" EntitySet="ProductoSet" />
-            <End Role="Categoria" EntitySet="CategoriaSet" />
-          </AssociationSet>
           <AssociationSet Name="ClienteTelefono" Association="BDPizzaModel.ClienteTelefono">
             <End Role="Cliente" EntitySet="ClienteSet" />
             <End Role="Telefono" EntitySet="TelefonoSet" />
@@ -766,31 +786,39 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             <End Role="Ingrediente" EntitySet="IngredienteSet" />
             <End Role="Receta" EntitySet="RecetaSet" />
           </AssociationSet>
-          <FunctionImport Name="InsertarCuentaDePedido">
-            <Parameter Name="Id" Mode="In" Type="String" />
+          <AssociationSet Name="CategoriaProducto" Association="BDPizzaModel.CategoriaProducto">
+            <End Role="Categoria" EntitySet="CategoriaSet" />
+            <End Role="Producto" EntitySet="ProductoSet" />
+          </AssociationSet>
+          <AssociationSet Name="CategoriaProvisionDirecta" Association="BDPizzaModel.CategoriaProvisionDirecta">
+            <End Role="Categoria" EntitySet="CategoriaSet" />
+            <End Role="ProvisionDirecta" EntitySet="ProvisionDirectaSet" />
+          </AssociationSet>
+          <FunctionImport Name="InsertarPedidoADomicilio">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int64" />
+            <Parameter Name="NombreEstado" Mode="In" Type="String" />
+            <Parameter Name="IdCuenta" Mode="In" Type="String" />
             <Parameter Name="PrecioTotal" Mode="In" Type="Double" />
             <Parameter Name="SubTotal" Mode="In" Type="Double" />
             <Parameter Name="Iva" Mode="In" Type="Double" />
             <Parameter Name="Descuento" Mode="In" Type="Double" />
-          </FunctionImport>
-          <FunctionImport Name="InsertarPedido">
-            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
-            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
-            <Parameter Name="IdEmpleado" Mode="In" Type="Int32" />
-            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
-            <Parameter Name="IdCuenta" Mode="In" Type="String" />
+            <Parameter Name="IDPedido" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertarPedidoLocal">
-            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
-            <Parameter Name="IdPedido" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="InsertarPedioDomicilio">
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
-            <Parameter Name="IdPedido" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="LigarClienteADireccion">
-            <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="NumeroMesa" Mode="In" Type="Int16" />
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int64" />
+            <Parameter Name="NombreEstado" Mode="In" Type="String" />
+            <Parameter Name="IdCuenta" Mode="In" Type="String" />
+            <Parameter Name="PrecioTotal" Mode="In" Type="Double" />
+            <Parameter Name="SubTotal" Mode="In" Type="Double" />
+            <Parameter Name="Iva" Mode="In" Type="Double" />
+            <Parameter Name="Descuento" Mode="In" Type="Double" />
+            <Parameter Name="IDPedido" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="LigarProductoConPedido">
             <Parameter Name="IdProducto" Mode="In" Type="Int32" />
@@ -800,9 +828,17 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             <Parameter Name="IdProvision" Mode="In" Type="Int32" />
             <Parameter Name="IdPedido" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="RegistrarTelefono">
-            <Parameter Name="Telefono" Mode="In" Type="String" />
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          <FunctionImport Name="RegistrarPedidoYCuenta">
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int64" />
+            <Parameter Name="NombreEstado" Mode="In" Type="String" />
+            <Parameter Name="IdCuenta" Mode="In" Type="String" />
+            <Parameter Name="PrecioTotal" Mode="In" Type="Double" />
+            <Parameter Name="SubTotal" Mode="In" Type="Double" />
+            <Parameter Name="Iva" Mode="In" Type="Double" />
+            <Parameter Name="Descuento" Mode="In" Type="Double" />
+            <Parameter Name="IdPedido" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RegistroDeClienteConDireccion">
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -812,7 +848,8 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             <Parameter Name="Colonia" Mode="In" Type="String" />
             <Parameter Name="NumeroExterior" Mode="In" Type="String" />
             <Parameter Name="NumeroInterior" Mode="In" Type="String" />
-            <Parameter Name="codigoPostal" Mode="In" Type="String" />
+            <Parameter Name="NumeroTelefonico" Mode="In" Type="String" />
+            <Parameter Name="CodigoPostal" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="CuentaUsuario">
@@ -840,7 +877,7 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.EmpleadoPedido" FromRole="Empleado" ToRole="Pedido" />
           <Property Name="idEmpleadoGenerado" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="activado" Type="Boolean" Nullable="false" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Direccion">
           <Key>
             <PropertyRef Name="Id" />
@@ -909,7 +946,8 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="categoria" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Producto" Relationship="BDPizzaModel.ProductoCategoria" FromRole="Categoria" ToRole="Producto" />
+          <NavigationProperty Name="Producto" Relationship="BDPizzaModel.CategoriaProducto" FromRole="Categoria" ToRole="Producto" />
+          <NavigationProperty Name="ProvisionDirecta" Relationship="BDPizzaModel.CategoriaProvisionDirecta" FromRole="Categoria" ToRole="ProvisionDirecta" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -919,12 +957,11 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="precioUnitario" Type="Double" Nullable="false" />
-          <Property Name="imagen" Type="Byte" Nullable="true" />
           <Property Name="activado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.ProductoPedido" FromRole="Producto" ToRole="Pedido" />
-          <NavigationProperty Name="Categoria" Relationship="BDPizzaModel.ProductoCategoria" FromRole="Producto" ToRole="Categoria" />
           <NavigationProperty Name="Receta" Relationship="BDPizzaModel.ProductoReceta" FromRole="Producto" ToRole="Receta" />
           <Property Name="restricciones" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Categoria" Relationship="BDPizzaModel.CategoriaProducto" FromRole="Producto" ToRole="Categoria" />
         </EntityType>
         <EntityType Name="Cuenta">
           <Key>
@@ -951,11 +988,11 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="imagen" Type="Byte" Nullable="true" />
           <Property Name="activado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Pedido" Relationship="BDPizzaModel.ProvisionDirectaPedido" FromRole="ProvisionDirecta" ToRole="Pedido" />
           <NavigationProperty Name="Provision" Relationship="BDPizzaModel.ProvisionDirectaProvision" FromRole="ProvisionDirecta" ToRole="Provision" />
           <Property Name="restricciones" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Categoria" Relationship="BDPizzaModel.CategoriaProvisionDirecta" FromRole="ProvisionDirecta" ToRole="Categoria" />
         </EntityType>
         <EntityType Name="Receta">
           <Key>
@@ -1021,10 +1058,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <End Type="BDPizzaModel.ProvisionDirecta" Role="ProvisionDirecta" Multiplicity="*" />
           <End Type="BDPizzaModel.Pedido" Role="Pedido" Multiplicity="*" />
         </Association>
-        <Association Name="ProductoCategoria">
-          <End Type="BDPizzaModel.Producto" Role="Producto" Multiplicity="1" />
-          <End Type="BDPizzaModel.Categoria" Role="Categoria" Multiplicity="1" />
-        </Association>
         <Association Name="ClienteTelefono">
           <End Type="BDPizzaModel.Cliente" Role="Cliente" Multiplicity="1" />
           <End Type="BDPizzaModel.Telefono" Role="Telefono" Multiplicity="*" />
@@ -1088,6 +1121,14 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
         <Association Name="IngredienteReceta">
           <End Type="BDPizzaModel.Ingrediente" Role="Ingrediente" Multiplicity="*" />
           <End Type="BDPizzaModel.Receta" Role="Receta" Multiplicity="*" />
+        </Association>
+        <Association Name="CategoriaProducto">
+          <End Type="BDPizzaModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="BDPizzaModel.Producto" Role="Producto" Multiplicity="*" />
+        </Association>
+        <Association Name="CategoriaProvisionDirecta">
+          <End Type="BDPizzaModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="BDPizzaModel.ProvisionDirecta" Role="ProvisionDirecta" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1200,7 +1241,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
           <ScalarProperty Name="precioUnitario" ColumnName="precioUnitario" />
-          <ScalarProperty Name="imagen" ColumnName="imagen" />
           <ScalarProperty Name="activado" ColumnName="activado" />
           <ScalarProperty Name="restricciones" ColumnName="restricciones" />
         </MappingFragment>
@@ -1230,7 +1270,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
         <MappingFragment StoreEntitySet="ProvisionDirectaSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="imagen" ColumnName="imagen" />
           <ScalarProperty Name="activado" ColumnName="activado" />
           <ScalarProperty Name="restricciones" ColumnName="restricciones" />
         </MappingFragment>
@@ -1345,14 +1384,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
         <ScalarProperty Name="Id" ColumnName="Pedido_Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ProductoCategoria" TypeName="BDPizzaModel.ProductoCategoria" StoreEntitySet="ProductoSet">
-      <EndProperty Name="Categoria">
-        <ScalarProperty Name="Id" ColumnName="Categoria_Id" />
-      </EndProperty>
-      <EndProperty Name="Producto">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="ClienteTelefono" TypeName="BDPizzaModel.ClienteTelefono" StoreEntitySet="TelefonoSet">
       <EndProperty Name="Cliente">
         <ScalarProperty Name="Id" ColumnName="Cliente_Id" />
@@ -1393,16 +1424,28 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
         <ScalarProperty Name="id" ColumnName="Receta_id" />
       </EndProperty>
     </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="InsertarCuentaDePedido" FunctionName="BDPizzaModel.Store.InsertarCuentaDePedido" />
-          <FunctionImportMapping FunctionImportName="InsertarPedido" FunctionName="BDPizzaModel.Store.InsertarPedido" />
+    <AssociationSetMapping Name="CategoriaProducto" TypeName="BDPizzaModel.CategoriaProducto" StoreEntitySet="ProductoSet">
+      <EndProperty Name="Categoria">
+        <ScalarProperty Name="Id" ColumnName="Categoria_Id" />
+      </EndProperty>
+      <EndProperty Name="Producto">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CategoriaProvisionDirecta" TypeName="BDPizzaModel.CategoriaProvisionDirecta" StoreEntitySet="ProvisionDirectaSet">
+      <EndProperty Name="Categoria">
+        <ScalarProperty Name="Id" ColumnName="Categoria_Id" />
+      </EndProperty>
+      <EndProperty Name="ProvisionDirecta">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="InsertarPedidoADomicilio" FunctionName="BDPizzaModel.Store.InsertarPedidoADomicilio" />
           <FunctionImportMapping FunctionImportName="InsertarPedidoLocal" FunctionName="BDPizzaModel.Store.InsertarPedidoLocal" />
-          <FunctionImportMapping FunctionImportName="InsertarPedioDomicilio" FunctionName="BDPizzaModel.Store.InsertarPedioDomicilio" />
-          <FunctionImportMapping FunctionImportName="LigarClienteADireccion" FunctionName="BDPizzaModel.Store.LigarClienteADireccion" />
           <FunctionImportMapping FunctionImportName="LigarProductoConPedido" FunctionName="BDPizzaModel.Store.LigarProductoConPedido" />
           <FunctionImportMapping FunctionImportName="LigarProvisionConPedido" FunctionName="BDPizzaModel.Store.LigarProvisionConPedido" />
-          <FunctionImportMapping FunctionImportName="RegistrarTelefono" FunctionName="BDPizzaModel.Store.RegistrarTelefono" />
+          <FunctionImportMapping FunctionImportName="RegistrarPedidoYCuenta" FunctionName="BDPizzaModel.Store.RegistrarPedidoYCuenta" />
           <FunctionImportMapping FunctionImportName="RegistroDeClienteConDireccion" FunctionName="BDPizzaModel.Store.RegistroDeClienteConDireccion" />
-   <!--AQUI ESTABAN LOS SP-->
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

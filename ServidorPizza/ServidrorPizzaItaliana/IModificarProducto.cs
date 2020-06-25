@@ -6,14 +6,12 @@ namespace ServidrorPizzaItaliana
     [ServiceContract(CallbackContract = typeof(IModificarProductoCallback))]
     public interface IModificarProducto
     {
-        [OperationContract(IsOneWay = true)]
-        void ModificarProvisionDirectaDeProductoExterno(ProvisionDirecta provisionDirecta);
 
         [OperationContract(IsOneWay = true)]
-        void ModificarProvisionDeProductoExterno(Provision provision);
+        void ModificarProductoExterno(ProvisionDirecta producto, Provision provision, byte[] imagen, bool modificarImagen);
 
         [OperationContract(IsOneWay = true)]
-        void ModificarProductoInterno(AccesoBD2.Producto producto);
+        void ModificarProductoInterno(AccesoBD2.Producto producto, byte[] imagen, bool modificarImagen);
     }
 
     [ServiceContract]

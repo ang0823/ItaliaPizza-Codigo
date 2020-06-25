@@ -2,11 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/31/2020 02:13:59
--- Generated from EDMX file: C:\Users\javie\Desktop\Nueva carpeta (2)\ItaliaPizza-Codigo-master\ServidorPizza\AccesoBD2\Model1.edmx
+-- Date Created: 06/20/2020 14:32:28
+-- Generated from EDMX file: C:\Users\BETO\Documents\GitHub\ItaliaPizza-Codigo\ServidorPizza\AccesoBD2\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
+GO
+USE [PizzaItaliana];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -51,9 +53,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ProvisionDirectaPedido_Pedido]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProvisionDirectaPedido] DROP CONSTRAINT [FK_ProvisionDirectaPedido_Pedido];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ProductoCategoria]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProductoSet] DROP CONSTRAINT [FK_ProductoCategoria];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ClienteTelefono]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TelefonoSet] DROP CONSTRAINT [FK_ClienteTelefono];
 GO
@@ -61,7 +60,7 @@ IF OBJECT_ID(N'[dbo].[FK_ProvisionDirectaProvision]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProvisionDirectaSet] DROP CONSTRAINT [FK_ProvisionDirectaProvision];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProductoReceta]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RecetaSet] DROP CONSTRAINT [FK_ProductoReceta];
+    ALTER TABLE [dbo].[ProductoSet] DROP CONSTRAINT [FK_ProductoReceta];
 GO
 IF OBJECT_ID(N'[dbo].[FK_RecetaProvision_Receta]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RecetaProvision] DROP CONSTRAINT [FK_RecetaProvision_Receta];
@@ -80,6 +79,12 @@ IF OBJECT_ID(N'[dbo].[FK_IngredienteReceta_Ingrediente]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_IngredienteReceta_Receta]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[IngredienteReceta] DROP CONSTRAINT [FK_IngredienteReceta_Receta];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CategoriaProducto]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductoSet] DROP CONSTRAINT [FK_CategoriaProducto];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CategoriaProvisionDirecta]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProvisionDirectaSet] DROP CONSTRAINT [FK_CategoriaProvisionDirecta];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PedidoADomicilio_inherits_Pedido]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PedidoSet_PedidoADomicilio] DROP CONSTRAINT [FK_PedidoADomicilio_inherits_Pedido];
@@ -255,11 +260,10 @@ CREATE TABLE [dbo].[ProductoSet] (
     [nombre] nvarchar(max)  NOT NULL,
     [descripcion] nvarchar(max)  NOT NULL,
     [precioUnitario] float  NOT NULL,
-    [imagen] tinyint  NULL,
     [activado] bit  NOT NULL,
     [restricciones] nvarchar(max)  NOT NULL,
-    [Categoria_Id] int  NOT NULL,
-    [Receta_id] int  NOT NULL
+    [Receta_id] int  NOT NULL,
+    [Categoria_Id] int  NOT NULL
 );
 GO
 
@@ -285,10 +289,10 @@ GO
 CREATE TABLE [dbo].[ProvisionDirectaSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [descripcion] nvarchar(max)  NOT NULL,
-    [imagen] tinyint  NULL,
     [activado] bit  NOT NULL,
     [restricciones] nvarchar(max)  NOT NULL,
-    [Provision_Id] int  NOT NULL
+    [Provision_Id] int  NOT NULL,
+    [Categoria_Id] int  NOT NULL
 );
 GO
 
@@ -683,21 +687,6 @@ ON [dbo].[ProvisionDirectaPedido]
     ([Pedido_Id]);
 GO
 
--- Creating foreign key on [Categoria_Id] in table 'ProductoSet'
-ALTER TABLE [dbo].[ProductoSet]
-ADD CONSTRAINT [FK_ProductoCategoria]
-    FOREIGN KEY ([Categoria_Id])
-    REFERENCES [dbo].[CategoriaSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProductoCategoria'
-CREATE INDEX [IX_FK_ProductoCategoria]
-ON [dbo].[ProductoSet]
-    ([Categoria_Id]);
-GO
-
 -- Creating foreign key on [Cliente_Id] in table 'TelefonoSet'
 ALTER TABLE [dbo].[TelefonoSet]
 ADD CONSTRAINT [FK_ClienteTelefono]
@@ -819,6 +808,36 @@ GO
 CREATE INDEX [IX_FK_IngredienteReceta_Receta]
 ON [dbo].[IngredienteReceta]
     ([Receta_id]);
+GO
+
+-- Creating foreign key on [Categoria_Id] in table 'ProductoSet'
+ALTER TABLE [dbo].[ProductoSet]
+ADD CONSTRAINT [FK_CategoriaProducto]
+    FOREIGN KEY ([Categoria_Id])
+    REFERENCES [dbo].[CategoriaSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CategoriaProducto'
+CREATE INDEX [IX_FK_CategoriaProducto]
+ON [dbo].[ProductoSet]
+    ([Categoria_Id]);
+GO
+
+-- Creating foreign key on [Categoria_Id] in table 'ProvisionDirectaSet'
+ALTER TABLE [dbo].[ProvisionDirectaSet]
+ADD CONSTRAINT [FK_CategoriaProvisionDirecta]
+    FOREIGN KEY ([Categoria_Id])
+    REFERENCES [dbo].[CategoriaSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CategoriaProvisionDirecta'
+CREATE INDEX [IX_FK_CategoriaProvisionDirecta]
+ON [dbo].[ProvisionDirectaSet]
+    ([Categoria_Id]);
 GO
 
 -- Creating foreign key on [Id] in table 'PedidoSet_PedidoADomicilio'

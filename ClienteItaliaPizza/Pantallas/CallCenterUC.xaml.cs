@@ -84,17 +84,15 @@ namespace ClienteItaliaPizza.Pantallas
 
         private void TextBoxNombreCliente_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Validador Validacion = new Validador();
-            bool resultadoValidacion = Validacion.validarSoloLetrasConAcentos(e.Text);
-            if (resultadoValidacion == false)
+            if (Validador.validarSoloLetrasConAcentos(e.Text) == false)
             {
                 e.Handled = true;
             }
         }
         private void ButtonNuevoPedidoDomicilio_Click(object sender, RoutedEventArgs e)
         {
-            NuevoPedido ventanaNuevoPedidoADomicilio = new NuevoPedido("Domicilio");
-            ventanaNuevoPedidoADomicilio.Show();
+         /*   NuevoPedido ventanaNuevoPedidoADomicilio = new NuevoPedido("Domicilio");
+            ventanaNuevoPedidoADomicilio.Show();*/
         }
     }
 }

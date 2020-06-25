@@ -47,6 +47,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -55,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBuscarIngrediente.cs" />
+    <Compile Include="IBuscarPedidos.cs" />
     <Compile Include="IConsultarInventario.cs" />
     <Compile Include="IEditarIngrediente.cs" />
     <Compile Include="IEditarReceta.cs" />
@@ -68,8 +70,8 @@
     <Compile Include="IRecuperarProductos.cs" />
     <Compile Include="IRegistrarCuentaUsuario.cs" />
     <Compile Include="IRegistrarIngrediente.cs" />
-    <Compile Include="IRegistrarPedidoADomicilio.cs" />
-    <Compile Include="IRegistrarPedidoLocal.cs" />
+    <Compile Include="IAdministrarPedidosCallCenter.cs" />
+    <Compile Include="IAdministrarPedidosMeseros.cs" />
     <Compile Include="IRegistrarProducto.cs" />
     <Compile Include="IRegistrarReceta.cs" />
     <Compile Include="Servicios.cs" />

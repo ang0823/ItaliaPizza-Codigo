@@ -22,12 +22,12 @@ namespace AccesoBD2
     
         public int Id { get; set; }
         public string descripcion { get; set; }
-        public Nullable<byte> imagen { get; set; }
         public bool activado { get; set; }
         public string restricciones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }
         public virtual Provision Provision { get; set; }
+        public virtual Categoria Categoria { get; set; }
     }
 }

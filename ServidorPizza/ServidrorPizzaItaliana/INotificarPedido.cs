@@ -16,10 +16,10 @@ namespace ServidrorPizzaItaliana
         void AgregarUsuario(string tipoUsuario);
 
         [OperationContract(IsOneWay = true)]
-        void EnviarPedidoLocal(PedidoLocal pedido, string usuario);
+        void NotificarPedidoLocalPreparado(PedidoLocal pedido, string usuario);
 
         [OperationContract(IsOneWay = true)]
-        void EnviarPedidoADomicilio(PedidoADomicilio pedido, string usuario);
+        void NotificarPedidoADomicilioPreparado(PedidoADomicilio pedido, string usuario);
     }
 
     [ServiceContract]
@@ -30,5 +30,8 @@ namespace ServidrorPizzaItaliana
 
         [OperationContract(IsOneWay = true)]
         void RecibirPedidoDomicilio(PedidoADomicilio pedido);
+
+        [OperationContract(IsOneWay = true)]
+        void MensajeNotificarPedido(string mensaje);
     }
 }

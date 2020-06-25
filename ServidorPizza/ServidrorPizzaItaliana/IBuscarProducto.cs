@@ -21,10 +21,10 @@ namespace ServidrorPizzaItaliana
     public interface IBuscarProductoCallback
     {
         [OperationContract(IsOneWay = true)]
-        void ProductoInterno(AccesoBD2.Producto productoInterno);
+        void ProductoInterno(AccesoBD2.Producto productoInterno, byte[] imagen);
 
         [OperationContract(IsOneWay = true)]
-        void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta);
+        void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta, byte[] imagen);
 
         [OperationContract(IsOneWay = true)]
         void ErrorAlRecuperarProducto(string mensajeError);

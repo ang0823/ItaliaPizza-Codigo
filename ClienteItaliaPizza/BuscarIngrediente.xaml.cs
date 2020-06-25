@@ -13,7 +13,7 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Interfaz gráfica del cliente para buscar y ediar un ingrediente guardado en el servidor.
     /// </summary>
-    public partial class BuscarIngrediente : Window, IBuscarProductoCallback, IEditarIngredienteCallback
+    public partial class BuscarIngrediente : Window, IBuscarIngredienteCallback, IEditarIngredienteCallback 
     {
         CuentaUsuario1 CuentaUsuario;
         Provision ingrediente = new Provision();
@@ -76,14 +76,14 @@ namespace ClienteItaliaPizza
         private void BuscarInformacionDeProducto()
         {
             InstanceContext context = new InstanceContext(this);
-            BuscarProductoClient ServicioIngrediente = new BuscarProductoClient(context);
+            BuscarIngredienteClient ServicioIngrediente = new BuscarIngredienteClient(context);
             string NombreIngrediente = SearchBox.Text;
             DeshabilitarCampos();
             UnidadMedidaCb.SelectedIndex = 0;
 
             try
             {
-                ServicioIngrediente.BuscarPorNombre(NombreIngrediente);
+                ServicioIngrediente.BuscarIngredientePorNombre(NombreIngrediente);
             }
             catch (FormatException error)
             {
@@ -309,7 +309,7 @@ namespace ClienteItaliaPizza
             throw new NotImplementedException();
         }
 
-        public void Provision(Provision prov)
+        public void Ingrediente(Provision prov)
         {
             Dispatcher.Invoke(() =>
             {
@@ -319,7 +319,7 @@ namespace ClienteItaliaPizza
             });
         }
 
-        public void ErrorAlRecuperarProducto(string mensajeError)
+        public void ErrorAlRecuperarIngrediente(string mensajeError)
         {
             FuncionesComunes.MostrarMensajeDeError(mensajeError);
         }

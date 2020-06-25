@@ -24,10 +24,10 @@ namespace ClienteItaliaPizza
         CuentaUsuario1 cuenta = new CuentaUsuario1();
         InstanceContext contexto;
 
-        public Inventario(CuentaUsuario1 cuentaUsuario)
+        public Inventario()
         {
             InitializeComponent();
-            cuenta = cuentaUsuario;
+            //cuenta = cuentaUsuario;
             try
             {
                 contexto = new InstanceContext(this);
@@ -51,47 +51,24 @@ namespace ClienteItaliaPizza
         }
 
         private void ButtonImprimir_Click(object sender, RoutedEventArgs e)
-        {
-            // generar un Document con el inventario datagridInventario y mandarlo a imprimir
+        {           
+            PrintDialog dialogoImprimir = new PrintDialog();                                
+            var respuesta = dialogoImprimir.ShowDialog();
 
-
-            PrintDialog dialogoImprimir = new PrintDialog();
-            var a = dialogoImprimir.ShowDialog();
-            if (a == true)
+            if (respuesta == true)
             {
-                XpsDocument xpsDocument = new XpsDocument("C:\\FixedDocumentSequence.xps", FileAccess.ReadWrite);
-                FixedDocumentSequence fixedDocSeq = xpsDocument.GetFixedDocumentSequence();
-                dialogoImprimir.PrintDocument(fixedDocSeq.DocumentPaginator, "Test print job");
-            }
-            //  dialogoImprimir.PrintVisual(this.dataGridInventario, "Imprimiendo_WPF"); //Objeto visual a imprimir y descripción de la impresión
-            //var list = dataGridInventario.ItemsSource as Provision[];
-
-
-
-            /* PrintDocument printDocument = new PrintDocument();
-                 ProcessStartInfo info = new ProcessStartInfo();
-                 info.Verb = "print";                          // Seleccionar el programa para imprimir PDF por defecto
-                 info.FileName = @"C:\Users\survi\Downloads\ProyectoPizzeria.pdf";         // Ruta hacia el fichero que quieres imprimir
-                 info.CreateNoWindow = true;                   // Hacerlo sin mostrar ventana
-                 info.WindowStyle = ProcessWindowStyle.Hidden; // Y de forma oculta
-
-                 Process p = new Process();
-                 p.StartInfo = info;
-                 p.Start();  // Lanza el proceso
-
-                 p.WaitForInputIdle();
-                 System.Threading.Thread.Sleep(3000);          // Espera 3 segundos
-                 if (false == p.CloseMainWindow())
-                     p.Kill();                                  // Y cierra el programa de imprimir PDF's
-
-              var seleccion = dataGridInventario.SelectedCells[0].Item as Provision;
+                //dialogoImprimir.PrintVisual(this.dataGridInventario, "Imprimiendo_WPF"); //Objeto visual a imprimir y descripción de la impresión               
+                 XpsDocument xpsDocument = new XpsDocument("C://FixedDocumentSequence.xps", FileAccess.ReadWrite);
+                 FixedDocumentSequence fixedDocSeq = xpsDocument.GetFixedDocumentSequence();
+                 dialogoImprimir.PrintDocument(fixedDocSeq.DocumentPaginator, "Test print job");
+            }          
+             /* var seleccion = dataGridInventario.SelectedCells[0].Item as Provision;
               var Original = seleccion.noExistencias;
 
               var cellInfo = dataGridInventario.SelectedCells[6];
               var content = (cellInfo.Column.GetCellContent(cellInfo.Item) as TextBlock).Text;
 
               MessageBox.Show("Original: " + Original + " Nuevo: " + content);*/
-
         }
 
         private void DataGridInventario_CellEditEnding(object sender, System.Windows.Controls.DataGridCellEditEndingEventArgs e)
@@ -125,16 +102,14 @@ namespace ClienteItaliaPizza
 
         }
 
-        public void RespuestaInventario(string mensaje)
+        public void RespuestaCI(string mensaje)
         {
             FuncionesComunes.MostrarMensajeDeError(mensaje);
         }
 
         private void DataGridInventario_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Validador Validacion = new Validador();
-            bool resultadoValidacion = Validacion.validarSoloNumeros(e.Text);
-            if (resultadoValidacion == false)
+        {            
+            if (Validador.validarSoloNumeros(e.Text) == false)
             {
                 e.Handled = true;
             }
