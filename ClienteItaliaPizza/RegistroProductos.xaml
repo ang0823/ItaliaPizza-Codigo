@@ -6,40 +6,42 @@
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
         Title="Registro de productos - Italia Pizza" Height="721" Width="1202" WindowStartupLocation="CenterScreen" Icon="/RecursosGUI/WindowIcon.jpg">
-    <Window.Background>
-        <ImageBrush ImageSource="/RecursosGUI/productosFondo.jpg"/>
-    </Window.Background>
     <Grid>
         <Grid VerticalAlignment="Top" Height="100" Margin="30,0">
-        <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="RecursosGUI/logo.png"/>
-            <Label Content="Formato de registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" FontFamily="Arial" Foreground="White"/>
-            <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" BorderThickness="0" Background="LightGray" Click="LogoutBtn_Click">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="RecursosGUI/logo.png"/>
+            <Label Content="Formato de registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" FontFamily="Arial" Foreground="Black"/>
+            <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" BorderThickness="0" Background="White" Click="LogoutBtn_Click">
                 <Image Source="RecursosGUI/logout.png"/>
             </Button>
-            <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" FontFamily="Arial" FontSize="14" Foreground="White"/>
+            <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" FontFamily="Arial" FontSize="14" Foreground="Black"/>
         </Grid>
         <Grid Height="600" Width="1100" Margin="41,45,53,45">
-            <Label Content="Código:" HorizontalAlignment="Left" Margin="41,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <TextBox x:Name="CodigoTxt" HorizontalAlignment="Left" Height="32" Margin="41,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="nombreTxt_TextChanged"/>
-            <Label Content="Nombre:" HorizontalAlignment="Left" Margin="295,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <TextBox x:Name="NombreTxt" HorizontalAlignment="Left" Height="32" Margin="295,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="PrecioTxt_TextChanged"/>
-            <Label Content="Precio:" HorizontalAlignment="Left" Margin="555,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <TextBox x:Name="PrecioTxt" HorizontalAlignment="Left" Height="32" Margin="555,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" TextChanged="MinimoTxt_TextChanged"/>
-            <Label Content="Estado:" HorizontalAlignment="Left" Margin="41,185,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <ComboBox x:Name="EstadoCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="39" Margin="41,221,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
-            <Label Content="Categoría:" HorizontalAlignment="Left" Margin="295,185,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <ComboBox x:Name="CategoriaCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="39" Margin="295,221,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" SelectionChanged="CategoriaTxt_SelectionChanged"/>
-            <Label Content="Receta:" HorizontalAlignment="Left" Margin="555,185,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <ComboBox x:Name="RecetaCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="39" Margin="555,221,0,0" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" />
-            <Label x:Name="DescripcionLbl" Content="Descripción" HorizontalAlignment="Left" Margin="41,288,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <TextBox x:Name="DescripcionTxt" HorizontalAlignment="Left" Height="110" Margin="41,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23" TextChanged="DescripcionTxt_TextChanged"/>
-            <Label x:Name="RestriccionesLbl" Content="Restricciones:" HorizontalAlignment="Left" Margin="41,444,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
-            <TextBox x:Name="RestriccionesTxt" HorizontalAlignment="Left" Height="110" Margin="41,480,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23" TextChanged="RestriccionesTxt_TextChanged"/>
-            <Image x:Name="ProductoImg" HorizontalAlignment="Left" Height="243" Margin="847,96,0,0" VerticalAlignment="Top" Width="243" Stretch="Fill" OpacityMask="Black"/>
-            <Button x:Name="GuardarBtn" Content="Guardar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,480,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="GuardarBtn_Click"/>
-            <Button x:Name="CancelarBtn" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,560,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="CancelarBtn_Click"/>
-            <Button x:Name="VaciarBtn" Content="Vaciar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,520,0,0" Click="VaciarBtn_Click" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
-            <Button x:Name="ImagenBtn" Content="Buscar foto" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,348,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="ImagenBtn_Click"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="131*"/>
+                <RowDefinition Height="180*"/>
+                <RowDefinition Height="290*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Código:" HorizontalAlignment="Left" Margin="41,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
+            <TextBox x:Name="CodigoTxt" HorizontalAlignment="Left" Height="32" Margin="41,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="nombreTxt_TextChanged" Grid.RowSpan="2" BorderBrush="Black"/>
+            <Label Content="Nombre:" HorizontalAlignment="Left" Margin="295,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
+            <TextBox x:Name="NombreTxt" HorizontalAlignment="Left" Height="32" Margin="295,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="PrecioTxt_TextChanged" Grid.RowSpan="2" BorderBrush="Black"/>
+            <Label Content="Precio:" HorizontalAlignment="Left" Margin="555,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
+            <TextBox x:Name="PrecioTxt" HorizontalAlignment="Left" Height="32" Margin="555,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" TextChanged="MinimoTxt_TextChanged" Grid.RowSpan="2" BorderBrush="Black"/>
+            <Label Content="Estado:" HorizontalAlignment="Left" Margin="41,55,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold" Grid.Row="1"/>
+            <ComboBox x:Name="EstadoCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="38" Margin="41,91,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" Grid.Row="1"/>
+            <Label Content="Categoría:" HorizontalAlignment="Left" Margin="295,55,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold" Grid.Row="1"/>
+            <ComboBox x:Name="CategoriaCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="38" Margin="295,91,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" SelectionChanged="CategoriaTxt_SelectionChanged" Grid.Row="1"/>
+            <Label Content="Receta:" HorizontalAlignment="Left" Margin="555,55,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold" Grid.Row="1"/>
+            <ComboBox x:Name="RecetaCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="38" Margin="555,91,0,0" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" Grid.Row="1" />
+            <Label x:Name="DescripcionLbl" Content="Descripción" HorizontalAlignment="Left" Margin="41,157,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold" Grid.Row="1" Grid.RowSpan="2"/>
+            <TextBox x:Name="DescripcionTxt" HorizontalAlignment="Left" Height="110" Margin="41,13.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23" TextChanged="DescripcionTxt_TextChanged" Grid.Row="2" BorderBrush="Black"/>
+            <Label x:Name="RestriccionesLbl" Content="Restricciones:" HorizontalAlignment="Left" Margin="41,133.5,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold" Grid.Row="2"/>
+            <TextBox x:Name="RestriccionesTxt" HorizontalAlignment="Left" Height="110" Margin="41,169.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23" TextChanged="RestriccionesTxt_TextChanged" Grid.Row="2" BorderBrush="Black"/>
+            <Image x:Name="ProductoImg" HorizontalAlignment="Left" Height="243" Margin="847,96,0,0" VerticalAlignment="Top" Width="243" Stretch="Fill" OpacityMask="Black" Grid.RowSpan="3"/>
+            <Button x:Name="GuardarBtn" Content="Guardar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,169.5,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="GuardarBtn_Click" Grid.Row="2" Background="#FF008050" BorderBrush="#FF008050" Foreground="White"/>
+            <Button x:Name="CancelarBtn" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,249.5,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="CancelarBtn_Click" Grid.Row="2" Foreground="White" Background="#FFB51223" BorderBrush="#FFB51223"/>
+            <Button x:Name="VaciarBtn" Content="Vaciar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,209.5,0,0" Click="VaciarBtn_Click" FontFamily="Arial" FontSize="16" FontWeight="Bold" Grid.Row="2"/>
+            <Button x:Name="ImagenBtn" Content="Buscar foto" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,37.5,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="ImagenBtn_Click" Grid.Row="2" Background="White" BorderBrush="Black" Foreground="Black"/>
         </Grid>
     </Grid>
 </Window>
