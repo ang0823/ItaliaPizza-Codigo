@@ -8,7 +8,6 @@
       <xs:element minOccurs="0" name="Receta" nillable="true" type="tns:Receta" />
       <xs:element minOccurs="0" name="activado" type="xs:boolean" />
       <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="imagen" nillable="true" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="precioUnitario" type="xs:double" />
       <xs:element minOccurs="0" name="restricciones" nillable="true" type="xs:string" />
@@ -18,11 +17,36 @@
   <xs:complexType name="Categoria">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Producto" nillable="true" type="tns:Producto" />
+      <xs:element minOccurs="0" name="Producto" nillable="true" type="tns:ArrayOfProducto" />
+      <xs:element minOccurs="0" name="ProvisionDirecta" nillable="true" type="tns:ArrayOfProvisionDirecta" />
       <xs:element minOccurs="0" name="categoria" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Categoria" nillable="true" type="tns:Categoria" />
+  <xs:complexType name="ArrayOfProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Producto" nillable="true" type="tns:Producto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProducto" nillable="true" type="tns:ArrayOfProducto" />
+  <xs:complexType name="ArrayOfProvisionDirecta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProvisionDirecta" nillable="true" type="tns:ProvisionDirecta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProvisionDirecta" nillable="true" type="tns:ArrayOfProvisionDirecta" />
+  <xs:complexType name="ProvisionDirecta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="tns:Categoria" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:ArrayOfPedido" />
+      <xs:element minOccurs="0" name="Provision" nillable="true" type="tns:Provision" />
+      <xs:element minOccurs="0" name="activado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="restricciones" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProvisionDirecta" nillable="true" type="tns:ProvisionDirecta" />
   <xs:complexType name="ArrayOfPedido">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Pedido" nillable="true" type="tns:Pedido" />
@@ -169,30 +193,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Estado" nillable="true" type="tns:Estado" />
-  <xs:complexType name="ArrayOfProducto">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Producto" nillable="true" type="tns:Producto" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfProducto" nillable="true" type="tns:ArrayOfProducto" />
-  <xs:complexType name="ArrayOfProvisionDirecta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProvisionDirecta" nillable="true" type="tns:ProvisionDirecta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfProvisionDirecta" nillable="true" type="tns:ArrayOfProvisionDirecta" />
-  <xs:complexType name="ProvisionDirecta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:ArrayOfPedido" />
-      <xs:element minOccurs="0" name="Provision" nillable="true" type="tns:Provision" />
-      <xs:element minOccurs="0" name="activado" type="xs:boolean" />
-      <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="imagen" nillable="true" type="xs:unsignedByte" />
-      <xs:element minOccurs="0" name="restricciones" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ProvisionDirecta" nillable="true" type="tns:ProvisionDirecta" />
   <xs:complexType name="Provision">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />

@@ -1,6 +1,7 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,12 +31,55 @@ namespace ClienteItaliaPizza
             IniciarComboBoxes();
 
             UsuarioLbl.Content = cuenta.nombreUsuario;
+            recetaExistenciasLbl.Content = "Receta:";
+            tipoProductoCb.SelectedIndex = 0;
             EstadoCb.SelectedIndex = 1;
             CategoriaCb.SelectedIndex = 0;
             RecetaCb.SelectedIndex = 0;
             GuardarBtn.IsEnabled = false;
             VaciarBtn.IsEnabled = false;
-            CodigoTxt.IsEnabled = false;
+            tipoProductoCb.IsEnabled = true;
+        }
+
+        private void GenerarIdProducto()
+        {
+            Random aleatorio = new Random();
+            int PrimerPar = aleatorio.Next(10, 99);
+            int SegundoPar = aleatorio.Next(10, 99);
+
+            // CodigoTxt.Text = PrimerPar.ToString() + SegundoPar.ToString();
+        }
+
+        private void CargarRecetas()
+        {
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                ObtenerRecetasClient ServicioRecetas = new ObtenerRecetasClient(context);
+
+                ServicioRecetas.ObtenerRecetas();
+            }
+            catch (Exception exc)
+            {
+                FuncionesComunes.MostrarMensajeDeError(exc.Message);
+            }
+        }
+        private void IniciarComboBoxes()
+        {
+            tipoProductoCb.Items.Add("Interno");
+            tipoProductoCb.Items.Add("Externo");
+
+            RecetaCb.Items.Insert(0, "Seleccionar");
+
+            EstadoCb.Items.Insert(0, "Desactivado");
+            EstadoCb.Items.Insert(1, "Activado");
+
+            CategoriaCb.Items.Insert(0, "Seleccionar:");
+            CategoriaCb.Items.Insert(1, "Ensaladas");
+            CategoriaCb.Items.Insert(2, "Pizzas");
+            CategoriaCb.Items.Insert(3, "Pastas");
+            CategoriaCb.Items.Insert(4, "Postres");
+            CategoriaCb.Items.Insert(5, "Bebidas");
         }
 
         private Boolean AlgunCampoLleno()
@@ -62,55 +106,9 @@ namespace ClienteItaliaPizza
             return false;
         }
 
-        private void CargarRecetas()
+        private void GuardarBtn_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                InstanceContext context = new InstanceContext(this);
-                ObtenerRecetasClient ServicioRecetas = new ObtenerRecetasClient(context);
-
-                ServicioRecetas.ObtenerRecetas();
-            }
-            catch(Exception exc)
-            {
-                FuncionesComunes.MostrarMensajeDeError(exc.Message);
-            }
-        }
-
-        public bool ProductoActivado()
-        {
-            bool EstaActivado = false;
-
-            if (EstadoCb.SelectedIndex == 1)
-            {
-                EstaActivado = true;
-            }
-
-            return EstaActivado;
-        }
-
-        private void GenerarIdProducto()
-        {
-            Random aleatorio = new Random();
-            int PrimerPar = aleatorio.Next(10, 99);
-            int SegundoPar = aleatorio.Next(10, 99);
-
-            CodigoTxt.Text = PrimerPar.ToString() + SegundoPar.ToString();
-        }
-
-        private void IniciarComboBoxes()
-        {
-            RecetaCb.Items.Insert(0, "Seleccionar");
-
-            EstadoCb.Items.Insert(0, "Desactivado");
-            EstadoCb.Items.Insert(1, "Activado");
-
-            CategoriaCb.Items.Insert(0, "Seleccionar:");
-            CategoriaCb.Items.Insert(1, "Ensaladas");
-            CategoriaCb.Items.Insert(2, "Pizzas");
-            CategoriaCb.Items.Insert(3, "Pastas");
-            CategoriaCb.Items.Insert(4, "Postres");
-            CategoriaCb.Items.Insert(5, "Bebidas");
+            RegistrarProducto();
         }
 
         private void RegistrarProducto()
@@ -125,23 +123,68 @@ namespace ClienteItaliaPizza
                 InstanceContext context = new InstanceContext(this);
                 RegistrarProductoClient ServicioRegistro = new RegistrarProductoClient(context);
 
-                producto.nombre = NombreTxt.Text.Trim(); //
-                producto.precioUnitario = double.Parse(PrecioTxt.Text.Trim()); //
-                // producto.imagen = byte.Parse(imagen.ToString());
-                producto.activado = ProductoActivado(); //
-                producto.descripcion = DescripcionTxt.Text; //
-                producto.restricciones = RestriccionesTxt.Text; //
-                
-                categoria.Id = CategoriaCb.SelectedIndex;
-                categoria.categoria = CategoriaCb.SelectedItem.ToString();
+                InicialzarProdcuto(ref producto);
+                InicializarCategoria(ref categoria);
 
                 ServicioRegistro.RegistrarProducto(producto, categoria, indiceReceta);
             }
-            catch (Exception e)
+            catch (EndpointNotFoundException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("No se pudo establecer conexión con el servidor");
+            }
+            catch(Exception e)
             {
                 FuncionesComunes.MostrarMensajeDeError(e.Message + " " + e.GetType());
             }
+        }
 
+        private void InicialzarProdcuto(ref Producto producto)
+        {
+            try
+            {
+                producto.nombre = NombreTxt.Text.Trim(); //
+                producto.precioUnitario = double.Parse(PrecioTxt.Text.Trim()); //
+                // producto.imagen = ImagenAByteArray();
+                producto.activado = ProductoActivado(); //
+                producto.descripcion = DescripcionTxt.Text; //
+                producto.restricciones = RestriccionesTxt.Text; //
+            } 
+            catch(ArgumentNullException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("se necesita un precio para registrar");
+            }
+            catch(FormatException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("El precio ingresado no es valido");
+            } 
+            catch (OverflowException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("El precio ingresado es demasiado grande");
+            }
+        }
+
+        // Falta el lado del servidor para saber como convertirla
+        /*private byte[] ImagenAByteArray()
+        {
+            var almacenarImagen = new MemoryStream();
+        }*/
+
+        private void InicializarCategoria(ref Categoria categoria)
+        {
+            categoria.Id = CategoriaCb.SelectedIndex;
+            categoria.categoria = CategoriaCb.SelectedItem.ToString();
+        }
+
+        public bool ProductoActivado()
+        {
+            bool EstaActivado = false;
+
+            if (EstadoCb.SelectedIndex == 1)
+            {
+                EstaActivado = true;
+            }
+
+            return EstaActivado;
         }
 
         private void VaciarCampos()
@@ -417,11 +460,6 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void GuardarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            RegistrarProducto();
-        }
-
         public void RespuestaIOR(string mensaje)
         {
             throw new NotImplementedException();
@@ -442,6 +480,22 @@ namespace ClienteItaliaPizza
                     RecetaCb.Items.Add(receta.nombreReceta);
                 }
             });
+        }
+
+        private void tipoProductoCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(tipoProductoCb.SelectedIndex == 0)
+            {
+                recetaExistenciasLbl.Content = "Receta:";
+                ExistenciasTxt.Visibility = Visibility.Hidden;
+                RecetaCb.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                recetaExistenciasLbl.Content = "Existencias actuales:";
+                ExistenciasTxt.Visibility = Visibility.Visible;
+                RecetaCb.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

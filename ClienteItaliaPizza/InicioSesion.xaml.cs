@@ -74,7 +74,7 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-               // CuentaUsuario = cuenta;
+               CuentaUsuario = cuenta;
 
                 var rolCopia = rol.rol;
                 if (rol.rol == "Call center")

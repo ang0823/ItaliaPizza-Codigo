@@ -38,7 +38,7 @@ namespace ClienteItaliaPizza
                 try
                 {
                     int idProducto = int.Parse(SearchBox.Text);
-                  //  ServicioBuscar(idProducto);
+                    // ServicioBuscar(idProducto);
                 }
                 catch (FormatException)
                 {
@@ -222,7 +222,6 @@ namespace ClienteItaliaPizza
             categoriaCb.SelectedIndex = CategoriaProducto(productoInterno1);
             recetaCb.SelectedItem = productoInterno1.Receta;
             DescripcionTxt.Text = productoInterno1.descripcion;
-
         }
 
         public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta, byte[] imagen)
