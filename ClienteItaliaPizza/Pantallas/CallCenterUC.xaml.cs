@@ -49,6 +49,7 @@ namespace ClienteItaliaPizza.Pantallas
         /// </summary>
         public event EventHandler eventoEditarNombreClienteBusqueda;
 
+        public event EventHandler eventoAbrirPedidoADomicilio;
         public CallCenterUC()
         {
             InitializeComponent();
@@ -91,8 +92,7 @@ namespace ClienteItaliaPizza.Pantallas
         }
         private void ButtonNuevoPedidoDomicilio_Click(object sender, RoutedEventArgs e)
         {
-         /*   NuevoPedido ventanaNuevoPedidoADomicilio = new NuevoPedido("Domicilio");
-            ventanaNuevoPedidoADomicilio.Show();*/
+            this.eventoAbrirPedidoADomicilio?.Invoke(this, e);          
         }
     }
 }
