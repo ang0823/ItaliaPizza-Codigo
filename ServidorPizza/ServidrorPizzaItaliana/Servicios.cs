@@ -1035,7 +1035,7 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public bool ObtenerPedidosAaDomicilio()
+        public bool ObtenerPedidosADomicilio()
         {
             bool exitoAlObtenerPedidos = false;
 
@@ -1054,12 +1054,12 @@ namespace ServidrorPizzaItaliana
                     {
                         DireccionCliente dir = new DireccionCliente(b.calle, b.colonia, b.numeroExterior, b.numeroInterior, b.codigoPostal);
                         di.Add(dir);
+                    }
 
-                        foreach (Telefono t in cliente.Telefono)
-                        {
-                            TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
-                            telefonosDeCliente.Add(tel);
-                        }
+                    foreach (Telefono t in cliente.Telefono)
+                    {
+                        TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
+                        telefonosDeCliente.Add(tel);
                     }
 
                     Cliente clienteRecuperado = new Cliente(cliente.Id, cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, di, telefonosDeCliente);
@@ -1264,8 +1264,8 @@ namespace ServidrorPizzaItaliana
         public List<Cliente> ObtenerClientes()
         {
             List<Cliente> clientes = new List<Cliente>();
-            List<DireccionCliente> di = new List<DireccionCliente>();
-            List<TelefonoCliente> telefonosDeCliente = new List<TelefonoCliente>();
+            List<DireccionCliente> di;
+            List<TelefonoCliente> telefonosDeCliente;
 
             try
             {
@@ -1273,16 +1273,19 @@ namespace ServidrorPizzaItaliana
 
                 foreach (AccesoBD2.Cliente a in clientesRecuperados)
                 {
+                    di = new List<DireccionCliente>();
+                    telefonosDeCliente = new List<TelefonoCliente>();
+
                     foreach (Direccion b in a.Direccion)
                     {
                         DireccionCliente dir = new DireccionCliente(b.calle, b.colonia, b.numeroExterior, b.numeroInterior, b.codigoPostal);
                         di.Add(dir);
+                    }
 
-                        foreach (Telefono t in a.Telefono)
-                        {
-                            TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
-                            telefonosDeCliente.Add(tel);
-                        }
+                    foreach (Telefono t in a.Telefono)
+                    {
+                        TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
+                        telefonosDeCliente.Add(tel);
                     }
 
                     Cliente clienteRecuperado = new Cliente(a.Id, a.nombre, a.apellidoPaterno, a.apellidoMaterno, di, telefonosDeCliente);
