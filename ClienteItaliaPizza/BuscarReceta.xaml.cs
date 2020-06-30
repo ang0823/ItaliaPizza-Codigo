@@ -53,6 +53,19 @@ namespace ClienteItaliaPizza
         {
 
         }
-       
+
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcion;
+
+            opcion = MessageBox.Show("¿Seguro que deseas cerrar la sesión?", "Cerrar sesión",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (opcion == MessageBoxResult.OK)
+            {
+                FuncionesComunes.CerrarSesion();
+                this.Close();
+            }
+        }
     }
 }

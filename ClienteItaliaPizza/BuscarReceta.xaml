@@ -5,19 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
-        Title="BuscarReceta" Height="650" Width="1000">
-    <Window.Background>
-        <ImageBrush ImageSource="RecursosGUI/fondoPrincipal.jpg"/>
-    </Window.Background>
+        Title="BuscarReceta" Height="721" Width="1202" Background="White" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="dataGridRecetas" HorizontalAlignment="Left" Height="409"  Margin="43,158,0,0" VerticalAlignment="Top" Width="884">
+        <Grid VerticalAlignment="Top" Height="100" Margin="30, 0">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
+            <Grid HorizontalAlignment="Center" Width="500">
+                <TextBox x:Name="SearchBox" Tag="Ingresar nombre de receta" HorizontalAlignment="Left" Style="{DynamicResource placeHolderSearchBox}" Width="350" Background="White" BorderBrush="Black"/>
+                <Button x:Name="SearchBtn" Content="Buscar" VerticalAlignment="Center" HorizontalAlignment="Right" Height="35" Width="120" Background="LightGray"/>
+            </Grid>
+            <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="White" BorderThickness="0" Click="LogoutBtn_Click">
+                <Image Source="RecursosGUI/logout.png"/>
+            </Button>
+            <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black"/>
+        </Grid>
+        <DataGrid x:Name="dataGridRecetas" HorizontalAlignment="Left" Height="500" Margin="43,0,0,50" VerticalAlignment="Bottom" Width="894">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ColumnNombreReceta" Header="Nombre de la Receta"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="ButtonEditar" Content="Editar" HorizontalAlignment="Left" Margin="426,102,0,0" VerticalAlignment="Top" Width="155" Height="30" Click="ButtonEditar_Click"/>
-        <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="772,102,0,0" VerticalAlignment="Top" Width="155" Height="30" Click="ButtonEliminar_Click"/>
-        <Button x:Name="ButtonRegresar" Content="Regresar" HorizontalAlignment="Left" Margin="22,33,0,0" VerticalAlignment="Top" Width="75" Click="ButtonRegresar_Click"/>
+        <Button x:Name="ButtonEditar" Content="Editar" HorizontalAlignment="Right" Margin="0,0,45,130" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonEditar_Click" Background="#FF305825" BorderBrush="#FF305825" Foreground="White"/>
+        <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Right" Margin="0,0,45,90" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonEliminar_Click" BorderBrush="#FF740005" Background="White" Foreground="#FF740005"/>
+        <Button x:Name="ButtonRegresar" Content="Cancelar" HorizontalAlignment="Right" Margin="0,0,45,50" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonRegresar_Click" Foreground="White" Background="#FF740005" BorderBrush="#FF740005"/>
 
     </Grid>
 </Window>
