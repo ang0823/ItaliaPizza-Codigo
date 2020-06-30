@@ -15,8 +15,11 @@ namespace ServidrorPizzaItaliana
         [OperationContract(IsOneWay = true)]
         void ObtenerProductos();
 
-        [OperationContract(IsOneWay = true)]
-        void RegistrarPedidoLocal(PedidoLocal pedido);
+        [OperationContract]
+        List<EmpleadoPizzeria> ObtenerMeseros();
+
+        [OperationContract]
+        bool RegistrarPedidoLocal(PedidoLocal pedido);
 
         [OperationContract(IsOneWay = true)]
         void ModificarPedidoLocal(PedidoLocal pedido);

@@ -40,6 +40,9 @@ namespace ServidrorPizzaItaliana
 
         [OperationContract(IsOneWay = true)]
         void Mensaje(string mensaje);
+
+        [OperationContract(IsOneWay = true)]
+        void NotificacionClienteDePedido(string mensaje, Cliente cliente);
     }
 
        [DataContract]
