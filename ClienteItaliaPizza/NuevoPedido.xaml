@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
         mc:Ignorable="d"
-        Title="Pedido" Height="650" Width="1000">
+        Title="Pedido" Height="650" Width="1000" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush ImageSource="RecursosGUI/fondoNuevoPedido.jpg">
             <ImageBrush.RelativeTransform>
@@ -23,28 +23,11 @@
         <TabControl x:Name="tabControlProductos" HorizontalAlignment="Left" Height="202" Margin="58,234,0,0" VerticalAlignment="Top" Width="601" BorderBrush="#FF060606">
             <TabItem x:Name="tabItemEnsaladas" Header="Ensaladas">
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
-                    <ListBox x:Name="ListBoxEnsaladas" HorizontalAlignment="Left" Height="139" Margin="18,19,0,0" VerticalAlignment="Top" Width="554" SelectionChanged="SeleccionaUnProducto" />
-                </Grid>
-            </TabItem>
-            <TabItem x:Name="tabItemPizzas" Header="Pizzas">
-                <Grid Background="#FFE5E5E5" Margin="0,0,-8,-18">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="328*"/>
-                        <ColumnDefinition Width="88*"/>
-                        <ColumnDefinition Width="179*"/>
+                        <ColumnDefinition Width="223*"/>
+                        <ColumnDefinition Width="372*"/>
                     </Grid.ColumnDefinitions>
-                </Grid>
-            </TabItem>
-            <TabItem x:Name="tanItemPastas" Header="Pastas">
-                <Grid Background="#FFE5E5E5" Margin="0,2,0,-2"/>
-            </TabItem>
-            <TabItem x:Name="tanItemPostres" Header="Postres">
-                <Grid Background="#FFE5E5E5" Margin="0,2,0,-2"/>
-            </TabItem>
-            <TabItem x:Name="tanItemBebidas" Header="Bebidas">
-                <Grid x:Name="gridBebidas" Background="#FFE5E5E5" Margin="0,2,0,-2" IsVisibleChanged="GridBebidas_IsVisibleChanged">
-
-                    <ListView x:Name="ListViewBebidas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" SelectionChanged="ListViewBebidas_SelectionChanged" >
+                    <ListView x:Name="ListViewEnsaladas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" SelectionChanged="ListViewEnsaladas_SelectionChanged" >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -54,7 +37,92 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
-                                    <TextBlock Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            
+            <TabItem x:Name="tabItemPizzas" Header="Pizzas">
+                <Grid Background="#FFE5E5E5" Margin="0,0,-8,-18">
+                    <ListView x:Name="ListViewPizzas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" SelectionChanged="ListViewPizzas_SelectionChanged" >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            
+            <TabItem x:Name="tanItemPastas" Header="Pastas">
+                <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
+                    <ListView x:Name="ListViewPastas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" SelectionChanged="ListViewPastas_SelectionChanged" >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            
+            <TabItem x:Name="tanItemPostres" Header="Postres">
+                <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
+                    <ListView x:Name="ListViewPostres" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" SelectionChanged="ListViewPostres_SelectionChanged"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            
+            <TabItem x:Name="tabItemBebidas" Header="Bebidas">
+                <Grid x:Name="gridBebidas" Background="#FFE5E5E5" Margin="0,2,0,-2" IsVisibleChanged="GridBebidas_IsVisibleChanged" >
+                    <ListView x:Name="ListViewBebidas"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" SelectionChanged="ListViewBebidas_SelectionChanged"  Grid.ColumnSpan="2" Focusable="False"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -73,8 +141,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="60" Binding="{Binding cantidad}" />
                 <DataGridTextColumn x:Name="ColumnProducto" Header="Producto" Width="90" Binding="{Binding nombreProducto}" />
-                <DataGridTextColumn x:Name="ColumnPreciounitario" Header="P.U" Width="60" Binding="{Binding PrecioUnitario}" />
-                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="60" Binding="{Binding PrecioTotal}"/>
+                <DataGridTextColumn x:Name="ColumnPreciounitario" Header="P.U" Width="60" Binding="{Binding precioUnitario}" />
+                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="60" Binding="{Binding precioTotal}"/>
             </DataGrid.Columns>
         </DataGrid>
 

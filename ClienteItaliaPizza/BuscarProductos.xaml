@@ -13,7 +13,7 @@
         <Grid VerticalAlignment="top" Height="100" Margin="30,0">
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
             <TextBox x:Name="SearchBox" Tag="Nombre o código de producto" Style="{DynamicResource placeHolderSearchBox}" Margin="514,31,378,34" Width="Auto" KeyDown="BuscarProducto"/>
-            <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="AliceBlue" Click="BuscarProducto">
+            <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="AliceBlue">
                 <Image Source="RecursosGUI/search.png" Stretch="Fill"/>
             </Button>
             <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click">
@@ -43,7 +43,7 @@
             <Button x:Name="CancelarBtn" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,10" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="CancelarBtn_Click"/>
             <Button x:Name="EditSaveBtn" Content="Editar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,59" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="EditSaveBtn_Click"/>
             <Button x:Name="ImagenBtn" Content="Buscar foto" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,348,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
-            <ComboBox x:Name="recetaCb_Copy" HorizontalAlignment="Left" Height="40" Margin="350,-66,0,0" VerticalAlignment="Top" Width="132" FontFamily="Arial" FontSize="23"/>
+            <ComboBox x:Name="tipoProducto" HorizontalAlignment="Left" Height="40" Margin="350,-66,0,0" VerticalAlignment="Top" Width="132" FontFamily="Arial" FontSize="23"/>
         </Grid>
     </Grid>
 </Window>

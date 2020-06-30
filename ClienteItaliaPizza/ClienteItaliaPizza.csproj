@@ -163,6 +163,7 @@
     <Compile Include="RegistroProductos.xaml.cs">
       <DependentUpon>RegistroProductos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FuncionesReutilizables\ConvertidorDeObjetos.cs" />
     <Compile Include="VisorPDF.xaml.cs">
       <DependentUpon>VisorPDF.xaml</DependentUpon>
     </Compile>
@@ -265,7 +266,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Validacion\Validador.cs" />
+    <Compile Include="FuncionesReutilizables\Validador.cs" />
     <Compile Include="VentanaCocina.xaml.cs">
       <DependentUpon>VentanaCocina.xaml</DependentUpon>
     </Compile>

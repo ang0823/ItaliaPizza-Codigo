@@ -517,8 +517,8 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-                VaciarCampos(); 
-
+                VaciarCampos();
+                this.empleado.IdEmpleado = empleado.idEmpleado;
                 this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
                 this.empleado.nombre = empleado.nombre;
                 this.empleado.apellidoPaterno = empleado.apellidoPaterno;
@@ -526,6 +526,7 @@ namespace ClienteItaliaPizza
                 this.empleado.correo = empleado.correo;
                 this.empleado.telefono = empleado.telefono;
                 this.empleado.activado = empleado.activado;
+                this.direccion.Id = direccion.id;
                 this.direccion.calle = direccion.calle;
                 this.direccion.numeroExterior = direccion.numeroExterior;
                 this.direccion.numeroInterior = direccion.numeroInterior;

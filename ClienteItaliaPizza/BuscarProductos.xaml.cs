@@ -18,6 +18,9 @@ namespace ClienteItaliaPizza
             CuentaUsuario = cuenta;
             InitializeComponent();
 
+            tipoProducto.Items.Insert(0, "Produto interno");
+            tipoProducto.Items.Insert(1, "Produto externo");
+            tipoProducto.SelectedIndex = 0;
             UserLbl.Content = cuenta.nombreUsuario;
             ImagenBtn.Visibility = Visibility.Hidden;
             DeshabilitarCampos();
@@ -35,7 +38,7 @@ namespace ClienteItaliaPizza
                 try
                 {
                     int idProducto = int.Parse(SearchBox.Text);
-                  //  ServicioBuscar(idProducto);
+                    // ServicioBuscar(idProducto);
                 }
                 catch (FormatException)
                 {
@@ -59,7 +62,7 @@ namespace ClienteItaliaPizza
                 int idProducto = int.Parse(SearchBox.Text);
               //  ServicioBuscar.BuscarPorID(idProducto);
             }
-            catch (FormatException)
+            catch (EndpointNotFoundException)
             {
                 string nombreProducto = SearchBox.Text;
                 ServicioBuscar.BuscarProductoExternoPorNombre(nombreProducto);
@@ -210,11 +213,28 @@ namespace ClienteItaliaPizza
             FuncionesComunes.CerrarSesion();
         }
 
-        public void ProvicionDirecta(ProvisionDirecta provDir)
+        public void ProductoInterno([MessageParameter(Name = "productoInterno")] Producto productoInterno1, byte[] imagen)
+        {
+            codigoTxt.Text = productoInterno1.Id.ToString();
+            nombreTxt.Text = productoInterno1.nombre;
+            precioTxt.Text = productoInterno1.precioUnitario.ToString();
+            estadoCb.SelectedIndex = EstaActivado(productoInterno1);
+            categoriaCb.SelectedIndex = CategoriaProducto(productoInterno1);
+            recetaCb.SelectedItem = productoInterno1.Receta;
+            DescripcionTxt.Text = productoInterno1.descripcion;
+        }
+
+        public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta, byte[] imagen)
         {
             throw new NotImplementedException();
         }
 
+        public void ErrorAlRecuperarProducto(string mensajeError)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*
         public void ProductoInterno(Producto productoInterno)
         {
             codigoTxt.Text = productoInterno.Id.ToString();
@@ -240,6 +260,6 @@ namespace ClienteItaliaPizza
             RestriccionesTxt.Text = provisionDirecta.restricciones;
             estadoCb.SelectedIndex = EstaActivadoProductoExterno(provisionDirecta);
             recetaCb.IsEnabled = false;          
-        }
+        }*/
     }
 }

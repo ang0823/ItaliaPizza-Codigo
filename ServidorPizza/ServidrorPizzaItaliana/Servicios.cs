@@ -190,21 +190,24 @@ namespace ServidrorPizzaItaliana
                 CuentaUsuario c = new CuentaUsuario();
                 c = cuenta;
 
-                db.CuentaUsuarioSet.Attach(c);
-                db.Entry(c).State = EntityState.Modified;
+                // db.CuentaUsuarioSet.Attach(c);
+                // db.Entry(c).State = EntityState.Modified;
+                db.CuentaUsuarioSet.AddOrUpdate(c);
                 db.SaveChanges();
                 var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
                 Empleado e = new Empleado();
                 e = empleado;
                 e.Rol = rol;
-                db.EmpleadoSet.Attach(e);
-                db.Entry(e).State = EntityState.Modified;
+                // db.EmpleadoSet.Attach(e);
+                // db.Entry(e).State = EntityState.Modified;
+                db.EmpleadoSet.AddOrUpdate(e);
                 db.SaveChanges();
 
                 Direccion d = new Direccion();
                 d = direccion;
-                db.DireccionSet.Attach(d);
-                db.Entry(d).State = EntityState.Modified;
+                // db.DireccionSet.Attach(d);
+                // db.Entry(d).State = EntityState.Modified;
+                db.DireccionSet.AddOrUpdate(d);
                 db.SaveChanges();
 
 
@@ -223,17 +226,19 @@ namespace ServidrorPizzaItaliana
             try
             {
                 var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
-                Empleado e = new Empleado();
-                e = empleado;
-                e.Rol = rol;
-                db.EmpleadoSet.Attach(e);
-                db.Entry(e).State = EntityState.Modified;
+                //Empleado e = new Empleado();
+                //e = empleado;
+                empleado.Rol = rol;
+                //db.EmpleadoSet.Attach(e);
+                //db.Entry(e).State = EntityState.Modified;
+                db.EmpleadoSet.AddOrUpdate(empleado);
                 db.SaveChanges();
 
-                Direccion d = new Direccion();
-                d = direccion;
-                db.DireccionSet.Attach(d);
-                db.Entry(d).State = EntityState.Modified;
+                //Direccion d = new Direccion();
+                //d = direccion;
+                //db.DireccionSet.Attach(d);
+                //db.Entry(d).State = EntityState.Modified;
+                db.DireccionSet.AddOrUpdate(direccion);
                 db.SaveChanges();
 
 
@@ -663,11 +668,12 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                Provision p = new Provision();
-                p = provision;
+                // Provision p = new Provision();
+                // p = provision;
 
-                db.ProvisionSet.Attach(p);
-                db.Entry(p).State = EntityState.Modified;
+                // db.ProvisionSet.Attach(p);
+                // db.Entry(p).State = EntityState.Modified;
+                db.ProvisionSet.AddOrUpdate(provision);
                 db.SaveChanges();
 
                 Callback5.RespuestaEditarIngrediente("Cambios Guardados");
