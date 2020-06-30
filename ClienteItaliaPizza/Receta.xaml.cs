@@ -1,5 +1,6 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using ClienteItaliaPizza.Validacion;
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Windows;
@@ -115,7 +116,15 @@ namespace ClienteItaliaPizza
 
         private void DataGridIngredientes_RowEditEnding(object sender, System.Windows.Controls.DataGridRowEditEndingEventArgs e)
         {
-          
+            // AGREADO POR ÁNGEL
+            if (CamposEstanLlenos())
+            {
+                ButtonAceptar.IsEnabled = true;
+            }
+            else
+            {
+                ButtonAceptar.IsEnabled = false;
+            }
         }
 
         private void DataGridIngredientes_CellEditEnding(object sender, System.Windows.Controls.DataGridCellEditEndingEventArgs e)
@@ -202,6 +211,51 @@ namespace ClienteItaliaPizza
             {
                 if (Validador.validarSoloNumerosConPunto(e.Text) == false)
                     e.Handled = true;                
+            }
+        }
+
+        // ---------------------------AGREADO POR ÁNGEL-----------------------------------------------------------
+        private bool CamposEstanLlenos()
+        {
+            if(textBoxNombreReceta.Text.Length > 0 && textBoxPorciones.Text.Length > 0
+                && dataGridIngredientes.Items.Count > 0 && textBoxProcedimiento.Text.Length > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void ActivardesactivarBtnAceptar(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if (CamposEstanLlenos())
+                {
+                    ButtonAceptar.IsEnabled = true;
+                }
+                else
+                {
+                    ButtonAceptar.IsEnabled = false;
+                }
+            }
+            catch(Exception)
+            {
+
+            }
+        }
+
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcion;
+
+            opcion = MessageBox.Show("¿Seguro que deseas cerrar la sesión?", "Cerrar sesión",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (opcion == MessageBoxResult.OK)
+            {
+                FuncionesComunes.CerrarSesion();
+                this.Close();
             }
         }
     }
