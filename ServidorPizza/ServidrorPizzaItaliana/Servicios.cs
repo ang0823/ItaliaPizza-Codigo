@@ -1385,7 +1385,7 @@ namespace ServidrorPizzaItaliana
         {
             byte[] imagen;
 
-            Stream archivo = new FileStream("C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
+            Stream archivo = new FileStream("C:/Users/angel/OneDrive/Documentos/desarrollo_software/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
 
             using (MemoryStream ms = new MemoryStream())
             {
