@@ -13,27 +13,7 @@
 
     <ScrollViewer x:Name="bar" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="grid">
-            <Border x:Name="borderPedido" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="147" Margin="45,78,0,0" VerticalAlignment="Top" Width="915" CornerRadius="10" Loaded="BorderPedido_Loaded" >
-                <Border.Background>
-                    <SolidColorBrush Color="#FFCCCCCC" Opacity="0.75"/>
-                </Border.Background>
-
-                <DataGrid x:Name="DataGridPlatillos"  Margin="24,42,524,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True"  >
-
-                    <!--Encabezados de la tabla -->
-                    <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="90" MinWidth="120" Foreground="#FF0F0F11" Binding="{Binding nombreplatillo}"  />
-                        <DataGridCheckBoxColumn x:Name="ColumnCasillaCheckBox" Header="Preparado" Width="80" MinWidth="120" Binding="{Binding preparado}"/>
-                    </DataGrid.Columns>
-
-                </DataGrid>
-
-            </Border>
             <Label Content="Pedidos en Espera" HorizontalAlignment="Center" Height="60" Margin="265,0,257,0" VerticalAlignment="Top" Width="270" Foreground="White" FontSize="30" FontFamily="Palatino Linotype"/>
-            <Label x:Name="labelIDPedido" Content="IDPedido" HorizontalAlignment="Left" Margin="360,75,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBD0000" FontSize="16" FontFamily="Palatino Linotype"/>
-            <Label x:Name="labelTipoPedido" Content="TipoPedido" HorizontalAlignment="Left" Margin="530,84,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBD0000" FontSize="16"/>
-            <Label x:Name="labelNumMesa" Content="No.Mesa" HorizontalAlignment="Left" Margin="665,75,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBD0000" FontSize="16"/>
-            <Button x:Name="ButtonPedidoDomicilioListo" Content="Listo" HorizontalAlignment="Left" Margin="800,125,0,0" VerticalAlignment="Top" Width="140" Background="#FFF39C27" FontWeight="Bold" Height="50" FontSize="18" Click="ButtonPedidoDomicilioListo_Click"/>
             <Button x:Name="ButtonRegresar" HorizontalAlignment="Left" Height="43" Margin="5,5,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.222,0.556" Click="ButtonRegresarClick">
                 <Button.Background>
                     <SolidColorBrush Color="White" Opacity="0.5"/>
@@ -43,6 +23,7 @@
 
             <local:CocinaPedidoLocal x:Name="UC_PedidoLocal" Visibility="Collapsed" ></local:CocinaPedidoLocal>
             <local:CocinaPedidoDomicilio x:Name="UC_PedidoDomicilio" Visibility="Collapsed"></local:CocinaPedidoDomicilio>
+            <Image HorizontalAlignment="Left" Height="412" Margin="270,137,0,0" VerticalAlignment="Top" Width="440" Source="RecursosGUI/logo.png"/>
         </Grid>
 
     </ScrollViewer>
