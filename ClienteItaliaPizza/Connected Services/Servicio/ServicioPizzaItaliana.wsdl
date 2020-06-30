@@ -513,6 +513,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosCallCenter_NotificacionClienteDePedido_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IRegistrarIngrediente_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1125,30 +1148,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ModificarProvisionDirectaDeProductoExterno_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ModificarProvisionDeProductoExterno_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ModificarProductoExterno_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -2931,7 +2931,76 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosMeseros_ObtenerMeseros_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosMeseros_ObtenerMeseros_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosMeseros_RegistrarPedidoLocal_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosMeseros_RegistrarPedidoLocal_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -3750,6 +3819,182 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarPedidos_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+          <wsrm:InactivityTimeout Milliseconds="600000" />
+          <wsrm:AcknowledgementInterval Milliseconds="200" />
+        </wsrm:RMAssertion>
+        <sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:ProtectionToken>
+              <wsp:Policy>
+                <sp:SecureConversationToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                    <sp:RequireDerivedKeys />
+                    <sp:BootstrapPolicy>
+                      <wsp:Policy>
+                        <sp:SignedParts>
+                          <sp:Body />
+                          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+                          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+                          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+                          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+                        </sp:SignedParts>
+                        <sp:EncryptedParts>
+                          <sp:Body />
+                        </sp:EncryptedParts>
+                        <sp:SymmetricBinding>
+                          <wsp:Policy>
+                            <sp:ProtectionToken>
+                              <wsp:Policy>
+                                <sp:SpnegoContextToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                                  <wsp:Policy>
+                                    <sp:RequireDerivedKeys />
+                                  </wsp:Policy>
+                                </sp:SpnegoContextToken>
+                              </wsp:Policy>
+                            </sp:ProtectionToken>
+                            <sp:AlgorithmSuite>
+                              <wsp:Policy>
+                                <sp:Basic256 />
+                              </wsp:Policy>
+                            </sp:AlgorithmSuite>
+                            <sp:Layout>
+                              <wsp:Policy>
+                                <sp:Strict />
+                              </wsp:Policy>
+                            </sp:Layout>
+                            <sp:IncludeTimestamp />
+                            <sp:EncryptSignature />
+                            <sp:OnlySignEntireHeadersAndBody />
+                          </wsp:Policy>
+                        </sp:SymmetricBinding>
+                        <sp:Wss11>
+                          <wsp:Policy />
+                        </sp:Wss11>
+                        <sp:Trust10>
+                          <wsp:Policy>
+                            <sp:MustSupportIssuedTokens />
+                            <sp:RequireClientEntropy />
+                            <sp:RequireServerEntropy />
+                          </wsp:Policy>
+                        </sp:Trust10>
+                      </wsp:Policy>
+                    </sp:BootstrapPolicy>
+                  </wsp:Policy>
+                </sp:SecureConversationToken>
+              </wsp:Policy>
+            </sp:ProtectionToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+            <sp:EncryptSignature />
+            <sp:OnlySignEntireHeadersAndBody />
+          </wsp:Policy>
+        </sp:SymmetricBinding>
+        <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy />
+        </sp:Wss11>
+        <sp:Trust10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:MustSupportIssuedTokens />
+            <sp:RequireClientEntropy />
+            <sp:RequireServerEntropy />
+          </wsp:Policy>
+        </sp:Trust10>
+        <cdp:CompositeDuplex xmlns:cdp="http://schemas.microsoft.com/net/2006/06/duplex" />
+        <ow:OneWay xmlns:ow="http://schemas.microsoft.com/ws/2005/05/routing/policy" />
+        <wsam:Addressing>
+          <wsp:Policy>
+            <wsam:NonAnonymousResponses />
+          </wsp:Policy>
+        </wsam:Addressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarPedidos_BuscarPedidos_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarPedidos_Pedidos_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarPedidos_MensajeErrorBuscarPedidos_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -3797,6 +4042,9 @@
   <wsdl:message name="IAdministrarPedidosCallCenter_Mensaje_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:Mensaje" />
   </wsdl:message>
+  <wsdl:message name="IAdministrarPedidosCallCenter_NotificacionClienteDePedido_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotificacionClienteDePedido" />
+  </wsdl:message>
   <wsdl:message name="IRegistrarIngrediente_RegistrarIngrediente_InputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarIngrediente" />
   </wsdl:message>
@@ -3821,11 +4069,8 @@
   <wsdl:message name="IEditarIngrediente_RespuestaEditarIngrediente_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaEditarIngrediente" />
   </wsdl:message>
-  <wsdl:message name="IModificarProducto_ModificarProvisionDirectaDeProductoExterno_InputMessage">
-    <wsdl:part name="parameters" element="tns:ModificarProvisionDirectaDeProductoExterno" />
-  </wsdl:message>
-  <wsdl:message name="IModificarProducto_ModificarProvisionDeProductoExterno_InputMessage">
-    <wsdl:part name="parameters" element="tns:ModificarProvisionDeProductoExterno" />
+  <wsdl:message name="IModificarProducto_ModificarProductoExterno_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarProductoExterno" />
   </wsdl:message>
   <wsdl:message name="IModificarProducto_ModificarProductoInterno_InputMessage">
     <wsdl:part name="parameters" element="tns:ModificarProductoInterno" />
@@ -3917,8 +4162,17 @@
   <wsdl:message name="IAdministrarPedidosMeseros_ObtenerProductos_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerProductos" />
   </wsdl:message>
+  <wsdl:message name="IAdministrarPedidosMeseros_ObtenerMeseros_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerMeseros" />
+  </wsdl:message>
+  <wsdl:message name="IAdministrarPedidosMeseros_ObtenerMeseros_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerMeserosResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdministrarPedidosMeseros_RegistrarPedidoLocal_InputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarPedidoLocal" />
+  </wsdl:message>
+  <wsdl:message name="IAdministrarPedidosMeseros_RegistrarPedidoLocal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPedidoLocalResponse" />
   </wsdl:message>
   <wsdl:message name="IAdministrarPedidosMeseros_ModificarPedidoLocal_InputMessage">
     <wsdl:part name="parameters" element="tns:ModificarPedidoLocal" />
@@ -3968,6 +4222,15 @@
   <wsdl:message name="INotificarPedido_MensajeNotificarPedido_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:MensajeNotificarPedido" />
   </wsdl:message>
+  <wsdl:message name="IBuscarPedidos_BuscarPedidos_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarPedidos" />
+  </wsdl:message>
+  <wsdl:message name="IBuscarPedidos_Pedidos_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Pedidos" />
+  </wsdl:message>
+  <wsdl:message name="IBuscarPedidos_MensajeErrorBuscarPedidos_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:MensajeErrorBuscarPedidos" />
+  </wsdl:message>
   <wsdl:portType name="IBuscarProducto">
     <wsdl:operation name="BuscarProductoInternoPorNombre">
       <wsdl:input wsam:Action="http://tempuri.org/IBuscarProducto/BuscarProductoInternoPorNombre" message="tns:IBuscarProducto_BuscarProductoInternoPorNombre_InputMessage" />
@@ -4010,6 +4273,9 @@
     <wsdl:operation name="Mensaje">
       <wsdl:output wsam:Action="http://tempuri.org/IAdministrarPedidosCallCenter/Mensaje" message="tns:IAdministrarPedidosCallCenter_Mensaje_OutputCallbackMessage" />
     </wsdl:operation>
+    <wsdl:operation name="NotificacionClienteDePedido">
+      <wsdl:output wsam:Action="http://tempuri.org/IAdministrarPedidosCallCenter/NotificacionClienteDePedido" message="tns:IAdministrarPedidosCallCenter_NotificacionClienteDePedido_OutputCallbackMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IRegistrarIngrediente">
     <wsdl:operation name="RegistrarIngrediente">
@@ -4042,11 +4308,8 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IModificarProducto">
-    <wsdl:operation name="ModificarProvisionDirectaDeProductoExterno">
-      <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProvisionDirectaDeProductoExterno" message="tns:IModificarProducto_ModificarProvisionDirectaDeProductoExterno_InputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ModificarProvisionDeProductoExterno">
-      <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProvisionDeProductoExterno" message="tns:IModificarProducto_ModificarProvisionDeProductoExterno_InputMessage" />
+    <wsdl:operation name="ModificarProductoExterno">
+      <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProductoExterno" message="tns:IModificarProducto_ModificarProductoExterno_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ModificarProductoInterno">
       <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProductoInterno" message="tns:IModificarProducto_ModificarProductoInterno_InputMessage" />
@@ -4158,8 +4421,13 @@
     <wsdl:operation name="ObtenerProductos">
       <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/ObtenerProductos" message="tns:IAdministrarPedidosMeseros_ObtenerProductos_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerMeseros">
+      <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/ObtenerMeseros" message="tns:IAdministrarPedidosMeseros_ObtenerMeseros_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/ObtenerMeserosResponse" message="tns:IAdministrarPedidosMeseros_ObtenerMeseros_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RegistrarPedidoLocal">
       <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/RegistrarPedidoLocal" message="tns:IAdministrarPedidosMeseros_RegistrarPedidoLocal_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/RegistrarPedidoLocalResponse" message="tns:IAdministrarPedidosMeseros_RegistrarPedidoLocal_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ModificarPedidoLocal">
       <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/ModificarPedidoLocal" message="tns:IAdministrarPedidosMeseros_ModificarPedidoLocal_InputMessage" />
@@ -4216,6 +4484,17 @@
     </wsdl:operation>
     <wsdl:operation name="MensajeNotificarPedido">
       <wsdl:output wsam:Action="http://tempuri.org/INotificarPedido/MensajeNotificarPedido" message="tns:INotificarPedido_MensajeNotificarPedido_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IBuscarPedidos">
+    <wsdl:operation name="BuscarPedidos">
+      <wsdl:input wsam:Action="http://tempuri.org/IBuscarPedidos/BuscarPedidos" message="tns:IBuscarPedidos_BuscarPedidos_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Pedidos">
+      <wsdl:output wsam:Action="http://tempuri.org/IBuscarPedidos/Pedidos" message="tns:IBuscarPedidos_Pedidos_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MensajeErrorBuscarPedidos">
+      <wsdl:output wsam:Action="http://tempuri.org/IBuscarPedidos/MensajeErrorBuscarPedidos" message="tns:IBuscarPedidos_MensajeErrorBuscarPedidos_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSDualHttpBinding_IBuscarProducto" type="tns:IBuscarProducto">
@@ -4316,6 +4595,13 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="NotificacionClienteDePedido">
+      <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosCallCenter/NotificacionClienteDePedido" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosCallCenter_NotificacionClienteDePedido_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSDualHttpBinding_IRegistrarIngrediente" type="tns:IRegistrarIngrediente">
     <wsp:PolicyReference URI="#WSDualHttpBinding_IRegistrarIngrediente_policy" />
@@ -4388,17 +4674,10 @@
   <wsdl:binding name="WSDualHttpBinding_IModificarProducto" type="tns:IModificarProducto">
     <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="ModificarProvisionDirectaDeProductoExterno">
-      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ModificarProvisionDirectaDeProductoExterno" style="document" />
+    <wsdl:operation name="ModificarProductoExterno">
+      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ModificarProductoExterno" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ModificarProvisionDirectaDeProductoExterno_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-    </wsdl:operation>
-    <wsdl:operation name="ModificarProvisionDeProductoExterno">
-      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ModificarProvisionDeProductoExterno" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ModificarProvisionDeProductoExterno_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ModificarProductoExterno_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
@@ -4652,12 +4931,27 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerMeseros">
+      <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosMeseros/ObtenerMeseros" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosMeseros_ObtenerMeseros_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosMeseros_ObtenerMeseros_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RegistrarPedidoLocal">
       <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosMeseros/RegistrarPedidoLocal" style="document" />
       <wsdl:input>
         <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosMeseros_RegistrarPedidoLocal_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosMeseros_RegistrarPedidoLocal_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ModificarPedidoLocal">
       <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosMeseros/ModificarPedidoLocal" style="document" />
@@ -4784,6 +5078,31 @@
       <soap12:operation soapAction="http://tempuri.org/INotificarPedido/MensajeNotificarPedido" style="document" />
       <wsdl:output>
         <wsp:PolicyReference URI="#WSDualHttpBinding_INotificarPedido_MensajeNotificarPedido_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSDualHttpBinding_IBuscarPedidos" type="tns:IBuscarPedidos">
+    <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarPedidos">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarPedidos/BuscarPedidos" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_BuscarPedidos_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="Pedidos">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarPedidos/Pedidos" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_Pedidos_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MensajeErrorBuscarPedidos">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarPedidos/MensajeErrorBuscarPedidos" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_MensajeErrorBuscarPedidos_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -4961,6 +5280,15 @@
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="WSDualHttpBinding_INotificarPedido" binding="tns:WSDualHttpBinding_INotificarPedido">
+      <soap12:address location="http://localhost:8080/CalculatorService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="WSDualHttpBinding_IBuscarPedidos" binding="tns:WSDualHttpBinding_IBuscarPedidos">
       <soap12:address location="http://localhost:8080/CalculatorService" />
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>

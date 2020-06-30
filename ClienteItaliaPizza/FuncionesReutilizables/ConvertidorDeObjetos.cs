@@ -29,7 +29,7 @@ namespace ClienteItaliaPizza.Validacion
                 nombre = productoDePedido.nombre,
                 descripcion = productoDePedido.descrpcion,
                 precioUnitario = productoDePedido.precioUnitario,
-                activado = productoDePedido.activado,
+                //activado = productoDePedido.activado,
                 restricciones = productoDePedido.restricciones,                
                 Categoria = new Categoria {
                     categoria = productoDePedido.categoria
