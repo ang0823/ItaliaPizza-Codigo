@@ -76,10 +76,10 @@ namespace ClienteItaliaPizza
             {
                CuentaUsuario = cuenta;
 
-                var rolCopia = rol.rol;
-                if (rol.rol == "Call center")
-                {
-                    VentanaPedidos ventanaPedidos = new VentanaPedidos("CallCenter");
+                var rolCopia = rol.rol;                
+                if (rol.rol == "Call Center")
+                { 
+                    VentanaPedidos ventanaPedidos = new VentanaPedidos(empleado.idEmpleado, empleado.idEmpleadoGenerado);
                     ventanaPedidos.Show();
                     this.Close();
                 }
@@ -101,9 +101,8 @@ namespace ClienteItaliaPizza
 
         private void ButtonVentanaMeseros_Click_1(object sender, RoutedEventArgs e)
         {
-            VentanaPedidos ventanaPedidos = new VentanaPedidos("Mesero");
+            VentanaPedidos ventanaPedidos = new VentanaPedidos();
             ventanaPedidos.Show();
-
             this.Close();
         }
 

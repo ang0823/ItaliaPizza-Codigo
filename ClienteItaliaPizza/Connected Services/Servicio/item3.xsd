@@ -195,6 +195,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfReceta1" nillable="true" type="tns:ArrayOfReceta1" />
+  <xs:complexType name="ArrayOfEmpleadoPizzeria">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmpleadoPizzeria" nillable="true" type="tns:EmpleadoPizzeria" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmpleadoPizzeria" nillable="true" type="tns:ArrayOfEmpleadoPizzeria" />
+  <xs:complexType name="EmpleadoPizzeria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="idGenerado" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmpleadoPizzeria" nillable="true" type="tns:EmpleadoPizzeria" />
   <xs:complexType name="ArrayOfPedidoADomicilioDeServidor">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PedidoADomicilioDeServidor" nillable="true" type="tns:PedidoADomicilioDeServidor" />

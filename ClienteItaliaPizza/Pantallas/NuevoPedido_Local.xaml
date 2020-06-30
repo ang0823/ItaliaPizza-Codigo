@@ -8,9 +8,9 @@
              Name="NuevoPedidoLocalUserControl">
     <Grid x:Name="gridNuevoPedidoLocal" Margin="0,0,555,382">
         <Label x:Name="labelNumEmpleado" Content="Número de empleado" HorizontalAlignment="Left" Margin="60,44,0,0" VerticalAlignment="Top" Foreground="#FFFFF2F2" FontFamily="Palatino Linotype" FontSize="18"/>
-        <ComboBox x:Name="comboBoxNumEmpleado" HorizontalAlignment="Left" Margin="256,44,0,0" VerticalAlignment="Top" Width="132" IsEditable="True" IsReadOnly="True" Loaded="ComboBoxNumEmpleado_Loaded" Height="30" SelectionChanged="ComboBoxNumEmpleado_SelectionChanged"  />
-        <Label x:Name="labelNoMesa" Content="No.Mesa" HorizontalAlignment="Left" Margin="64,141,0,0" VerticalAlignment="Top" Foreground="#FFF9F9F9" FontFamily="Palatino Linotype" FontSize="18"/>
-        <ComboBox x:Name="comboBoxNoMesa" HorizontalAlignment="Left" Margin="170,137,0,0" VerticalAlignment="Top" Width="120" Height="31" IsEditable="True" IsReadOnly="True" Loaded="ComboBoxNoMesa_Loaded" SelectionChanged="ComboBoxNoMesa_SelectionChanged"/>
+        <ComboBox x:Name="comboBoxNumEmpleado" HorizontalAlignment="Left" Margin="256,44,0,0" VerticalAlignment="Top" Width="132" IsEditable="True" IsReadOnly="True" Text="No.Empleado"  Loaded="ComboBoxNumEmpleado_Loaded" Height="30" SelectionChanged="ComboBoxNumEmpleado_SelectionChanged"  />
+        <Label x:Name="labelNoMesa" Content="No.Mesa" HorizontalAlignment="Left" Margin="59,127,0,0" VerticalAlignment="Top" Foreground="#FFF9F9F9" FontFamily="Palatino Linotype" FontSize="18"/>
+        <ComboBox x:Name="comboBoxNoMesa" HorizontalAlignment="Left" Margin="170,131,0,0" VerticalAlignment="Top" Width="120" Height="31" IsEditable="True" IsReadOnly="True" Text="No.Mesa" Loaded="ComboBoxNoMesa_Loaded" SelectionChanged="ComboBoxNoMesa_SelectionChanged"/>
 
     </Grid>
 </UserControl>

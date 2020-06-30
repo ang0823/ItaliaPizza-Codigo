@@ -64,6 +64,7 @@ namespace ClienteItaliaPizza
                 FuncionesComunes.MostrarMensajeDeError(exc.Message);
             }
         }
+
         private void IniciarComboBoxes()
         {
             tipoProductoCb.Items.Add("Interno");

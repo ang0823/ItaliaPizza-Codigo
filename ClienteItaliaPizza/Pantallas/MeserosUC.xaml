@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="1000"
-             Name="meserosUserControl">
+             Name="meserosUserControl" >
 
     <Grid>
         <TabControl x:Name="tabControlPedidos" HorizontalAlignment="Left" Height="393" Margin="56,209,0,0" VerticalAlignment="Top" Width="643">
@@ -16,7 +16,16 @@
                         <ColumnDefinition Width="237*"/>
                         <ColumnDefinition Width="317*"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="listBoxEnEspera" HorizontalAlignment="Left" Height="336" Margin="10,14,0,0" VerticalAlignment="Top" Width="618" Grid.ColumnSpan="2" Loaded="CargarPedidosEnEspera"/>
+                    <DataGrid x:Name="dataGridPedidosEnEspera" HorizontalAlignment="Left" Height="339" Margin="21,7,0,0" AutoGenerateColumns="False" VerticalAlignment="Top" Width="601" Grid.ColumnSpan="2" Loaded="CargarPedidosEnEspera" Background="#FFB4AFAF" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="ColumnEmpleado" Header="Empleado" Width="110" Foreground="#FF0A0A0A" Binding="{Binding Empleado}" />
+                            <DataGridTextColumn x:Name="ColumnIdPedido" Header="IdPedido" Width="80"  Foreground="#FF040404" Binding="{Binding IdPedido}"/>
+                            <DataGridTextColumn x:Name="ColumnTipoPedido" Header="Tipo" Width="100" Foreground="Black" Binding="{Binding Tipo}"/>
+                            <DataGridTextColumn x:Name="ColumnMesaOCliente" Header="Mesa/Cliente" IsReadOnly="True" Foreground="Black"  Binding="{Binding MesaOCliente}"/>
+                            <DataGridTextColumn x:Name="ColumnInstruccionesEspeciales" Header="Instrucciones Especials" Width="190" Binding="{Binding InstruccionesEspeciales}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabPedidosPreparados" Header="Preparados">
@@ -45,7 +54,7 @@
         <Button x:Name="buttonImprimir" Content="Imprimir" HorizontalAlignment="Left" Margin="774,468,0,0" VerticalAlignment="Top" Width="80" Height="40" Background="#FFEE9106" FontFamily="Palatino Linotype" Foreground="White" FontSize="14" Click="ButtonImprimir_Click"/>
         <Button x:Name="buttonPDF" Content="PDF" HorizontalAlignment="Left" Margin="865,468,0,0" VerticalAlignment="Top" Width="80" Height="40" Background="#FFEE9106" FontFamily="Palatino Linotype" Foreground="White" FontSize="14" Click="ButtonPDF_Click"/>
 
-        <local:CallCenterUC x:Name="UCCallCenter" Visibility="Collapsed" eventoComboBox2Seleccionado="UCCallCenter_eventoComboBox2Seleccionado" eventoEditarNombreClienteBusqueda="UCCallCenter_eventoEditarNombreClienteBusqueda" >
+        <local:CallCenterUC x:Name="UCCallCenter" Visibility="Collapsed" eventoComboBox2Seleccionado="UCCallCenter_eventoComboBox2Seleccionado" eventoEditarNombreClienteBusqueda="UCCallCenter_eventoEditarNombreClienteBusqueda"  >
 
         </local:CallCenterUC>
 

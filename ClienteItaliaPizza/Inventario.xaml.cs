@@ -13,6 +13,7 @@ using System.Drawing.Imaging;
 using System.Windows.Xps.Packaging;
 using System.Windows.Documents;
 using System.IO;
+using DevExpress.XtraExport.Helpers;
 
 namespace ClienteItaliaPizza
 {
@@ -57,10 +58,10 @@ namespace ClienteItaliaPizza
 
             if (respuesta == true)
             {
-                //dialogoImprimir.PrintVisual(this.dataGridInventario, "Imprimiendo_WPF"); //Objeto visual a imprimir y descripción de la impresión               
-                 XpsDocument xpsDocument = new XpsDocument("C://FixedDocumentSequence.xps", FileAccess.ReadWrite);
+                dialogoImprimir.PrintVisual(this.dataGridInventario, "Imprimiendo_WPF"); //Objeto visual a imprimir y descripción de la impresión               
+                 /*XpsDocument xpsDocument = new XpsDocument("C://FixedDocumentSequence.xps", FileAccess.ReadWrite);
                  FixedDocumentSequence fixedDocSeq = xpsDocument.GetFixedDocumentSequence();
-                 dialogoImprimir.PrintDocument(fixedDocSeq.DocumentPaginator, "Test print job");
+                 dialogoImprimir.PrintDocument(fixedDocSeq.DocumentPaginator, "Test print job");*/
             }          
              /* var seleccion = dataGridInventario.SelectedCells[0].Item as Provision;
               var Original = seleccion.noExistencias;
@@ -125,6 +126,7 @@ namespace ClienteItaliaPizza
             else
             {
                 FuncionesComunes.MostrarMensajeDeError(mensajeError);
+                dataGridInventario.Items.Refresh();
             }
         }
 
@@ -133,6 +135,7 @@ namespace ClienteItaliaPizza
             if (provisiones.Length != 0)
             {
                 dataGridInventario.ItemsSource = provisiones;
+                ButtonImprimir.Visibility = Visibility.Visible;
             }
             else
             {

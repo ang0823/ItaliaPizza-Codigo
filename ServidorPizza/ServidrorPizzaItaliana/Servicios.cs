@@ -379,7 +379,7 @@ namespace ServidrorPizzaItaliana
                     {
                         if (valor.activado == true)
                         {
-                            //provisionlista.Add(new Provision(valor.Id, valor.nombre, valor.noExistencias, valor.ubicacion, valor.stockMinimo, valor.costoUnitario, valor.unidadMedida));
+                            provisionlista.Add(new Provision(valor.Id, valor.nombre, valor.noExistencias, valor.ubicacion, valor.stockMinimo, valor.costoUnitario, valor.unidadMedida));
                         }
                     }
                    
@@ -775,7 +775,7 @@ namespace ServidrorPizzaItaliana
                 {
                     db.LigarProvisionConPedido(pd.Id, idPedidoRegistrado);
                 }
-
+                pedido.Id = idPedidoRegistrado;
                 NotificarPedidoADomicilio(pedido);
             }
             catch (InvalidOperationException)
@@ -798,7 +798,18 @@ namespace ServidrorPizzaItaliana
                 {
                     db.RegistroDeClienteConDireccion(cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, direccionCliente.calle, direccionCliente.colonia, direccionCliente.numeroExterior, direccionCliente.numeroInterior, telefonoCliente.numeroTelefono, direccionCliente.codigoPostal);
 
-                    Callback7.Mensaje("Exito al registrar cliente");
+                    List<DireccionCliente> direcciones = new List<DireccionCliente>();
+                    List<TelefonoCliente> telefonos = new List<TelefonoCliente>();
+                    
+                    DireccionCliente dir = new DireccionCliente(direccionCliente.calle, direccionCliente.colonia, direccionCliente.numeroExterior, direccionCliente.numeroInterior, direccionCliente.codigoPostal);
+                    direcciones.Add(dir);
+                    
+                    TelefonoCliente tel = new TelefonoCliente(telefonoCliente.numeroTelefono);
+                    telefonos.Add(tel);
+                    
+                    Cliente clienteRegistrado = new Cliente(cliente.Id, cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, direcciones, telefonos);
+
+                    Callback7.NotificacionClienteDePedido("Exito al registrar cliente", clienteRegistrado);
                 }
             }
             catch (Exception)
@@ -895,15 +906,17 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public void RegistrarPedidoLocal(PedidoLocal pedido)
+        public bool RegistrarPedidoLocal(PedidoLocal pedido)
         {
             if (ServicioRegistrarPedidoLocal(pedido))
             {
                 NotificarATodosPedidoLocal(pedido);
+                return true;
             }
             else
-            {
+            {                
                 Callback8.MensajeAdministrarPedidosMeseros("Error al registrar pedido local");
+                return false;
             }
         }
 
@@ -949,6 +962,7 @@ namespace ServidrorPizzaItaliana
         public void AgregarUsuario(string tipoUsuario)
         {
             usuarios[Callback9] = tipoUsuario;
+            Console.WriteLine($"{tipoUsuario} conectado. \n {usuarios.Count} usuarios connectados.");
         }
 
         public void NotificarPedidoADomicilio(PedidoADomicilio pedido)
@@ -1176,6 +1190,16 @@ namespace ServidrorPizzaItaliana
             try
             {
                 ObjectParameter IdPedido = new ObjectParameter("IDPedido", typeof(int));
+                var mesa = (from m in db.MesaSet where m.numeroMesa == pedido.Mesa.numeroMesa select m).FirstOrDefault();
+
+                if (mesa == null)
+                {
+                    db.MesaSet.Add(new Mesa
+                    {
+                        numeroMesa = pedido.Mesa.numeroMesa
+                    });
+                    if (db.SaveChanges() == 0) return exitoAlRegistrarPedido;
+                }                
 
                 db.InsertarPedidoLocal(pedido.Mesa.numeroMesa, pedido.fecha, pedido.instruccionesEspeciales, pedido.Empleado.IdEmpleado, pedido.Estado.estadoPedido, pedido.Cuenta.Id, pedido.Cuenta.precioTotal, pedido.Cuenta.subTotal, pedido.Cuenta.iva, pedido.Cuenta.descuento, IdPedido);
 
@@ -1190,7 +1214,7 @@ namespace ServidrorPizzaItaliana
                 {
                     db.LigarProvisionConPedido(pd.Id, idPedidoRegistrado);
                 }
-
+                pedido.Id = idPedidoRegistrado;
                 return exitoAlRegistrarPedido = true;
             }
             catch (InvalidOperationException)
@@ -1206,7 +1230,7 @@ namespace ServidrorPizzaItaliana
 
             try
             {
-                var meserosObtenidos = db.EmpleadoSet.Where(x => x.activado == true).Where(x => x.Rol.nombreRol == ROL_DE_EMPLEADO).ToList();
+                var meserosObtenidos = db.EmpleadoSet.Where(x => x.Rol.nombreRol == ROL_DE_EMPLEADO).ToList();
 
                 foreach (Empleado mesero in meserosObtenidos)
                 {
@@ -1215,9 +1239,9 @@ namespace ServidrorPizzaItaliana
                 }
 
             }
-            catch (Exception)
+            catch (Exception excepcion)
             {
-
+                Console.WriteLine(excepcion.Message);
             }
 
             return meseros;
@@ -1289,22 +1313,20 @@ namespace ServidrorPizzaItaliana
                     foreach (Direccion b in a.Direccion)
                     {
                         DireccionCliente dir = new DireccionCliente(b.calle, b.colonia, b.numeroExterior, b.numeroInterior, b.codigoPostal);
-                        di.Add(dir);
+                        di.Add(dir);                        
                     }
-
                     foreach (Telefono t in a.Telefono)
                     {
                         TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
                         telefonosDeCliente.Add(tel);
                     }
-
                     Cliente clienteRecuperado = new Cliente(a.Id, a.nombre, a.apellidoPaterno, a.apellidoMaterno, di, telefonosDeCliente);
                     clientes.Add(clienteRecuperado);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
             return clientes;
         }
@@ -1398,7 +1420,7 @@ namespace ServidrorPizzaItaliana
         {
             byte[] imagen;
 
-            Stream archivo = new FileStream("C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
+            Stream archivo = new FileStream("C:/Users/angel/OneDrive/Documentos/desarrollo_software/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
 
             using (MemoryStream ms = new MemoryStream())
             {

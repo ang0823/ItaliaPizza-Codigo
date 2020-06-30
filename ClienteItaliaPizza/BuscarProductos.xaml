@@ -5,45 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
-        Title="Buscar productos - Italia pizza" Height="721" Width="1202" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Icon="RecursosGUI/WindowIcon.jpg">
-    <Window.Background>
-        <ImageBrush ImageSource="/RecursosGUI/productosFondo.jpg"/>
-    </Window.Background>
+        Title="Buscar productos - Italia pizza" Height="721" Width="1202" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Icon="RecursosGUI/WindowIcon.jpg" Background="White">
     <Grid>
         <Grid VerticalAlignment="top" Height="100" Margin="30,0">
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
-            <TextBox x:Name="SearchBox" Tag="Nombre o código de producto" Style="{DynamicResource placeHolderSearchBox}" Margin="514,31,378,34" Width="Auto" KeyDown="BuscarProducto"/>
-            <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="AliceBlue">
+            <TextBox x:Name="SearchBox" Tag="Nombre del producto" Style="{DynamicResource placeHolderSearchBox}" VerticalContentAlignment="Center" Margin="513,34,379,34" Width="Auto" KeyDown="BuscarProducto" BorderBrush="Black" Background="White" Height="32" MaxLines="1"/>
+            <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="LightGray" Click="SearchBtn_Click">
                 <Image Source="RecursosGUI/search.png" Stretch="Fill"/>
             </Button>
-            <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click">
+            <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" Background="White" BorderThickness="0" Click="LogoutBtn_Click">
                 <Image Source="RecursosGUI/logout.png"/>
             </Button>
-            <Label x:Name="UserLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White"/>
+            <Label x:Name="UserLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black"/>
+            <ComboBox x:Name="criterioCb" HorizontalAlignment="Left" Height="32" Margin="293,34,0,0" VerticalAlignment="Top" Width="200" FontFamily="Arial" FontSize="23"/>
         </Grid>
         <Grid Width="1100" Margin="41,95,53,36">
-            <Label Content="Información del producto" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Background="Transparent" BorderBrush="White" Foreground="White"/>
-            <Label Content="Código:" HorizontalAlignment="Left" Margin="41,53,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
-            <TextBox x:Name="codigoTxt" HorizontalAlignment="Left" Height="32" Margin="41,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
-            <Label Content="Nombre:" HorizontalAlignment="Left" Margin="295,53,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
-            <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Height="32" Margin="295,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
-            <Label Content="Precio:" HorizontalAlignment="Left" Margin="555,53,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
-            <TextBox x:Name="precioTxt" HorizontalAlignment="Left" Height="32" Margin="555,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23"/>
-            <Label Content="Estado:" HorizontalAlignment="Left" Margin="41,147,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
+            <Label Content="Información del producto" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Background="Transparent" BorderBrush="White" Foreground="Black"/>
+            <Label Content="Tipo de producto:" HorizontalAlignment="Left" Margin="41,53,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black"/>
+            <TextBox x:Name="existenciasTxt" HorizontalAlignment="Left" Height="39" Margin="555,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" BorderBrush="Black"/>
+            <Label Content="Nombre:" HorizontalAlignment="Left" Margin="295,53,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black"/>
+            <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Height="32" Margin="295,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" BorderBrush="Black" MaxLines="1"/>
+            <Label Content="Precio:" HorizontalAlignment="Left" Margin="555,53,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black"/>
+            <TextBox x:Name="precioTxt" HorizontalAlignment="Left" Height="32" Margin="555,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" BorderBrush="Black" MaxLines="1"/>
+            <Label Content="Estado:" HorizontalAlignment="Left" Margin="41,147,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black"/>
             <ComboBox x:Name="estadoCb" HorizontalAlignment="Left" Height="39" Margin="41,183,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
-            <Label Content="Categoría:" HorizontalAlignment="Left" Margin="295,147,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
-            <ComboBox x:Name="categoriaCb" HorizontalAlignment="Left" Height="39" Margin="295,183,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
-            <Label Content="Receta:" HorizontalAlignment="Left" Margin="555,147,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
+            <Label Content="Categoría:" HorizontalAlignment="Left" Margin="295,147,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black"/>
+            <ComboBox x:Name="CategoriaCb" HorizontalAlignment="Left" Height="39" Margin="295,183,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
+            <Label x:Name="recetaExistenciasLbl" Content="Receta/Existencias" HorizontalAlignment="Left" Margin="555,147,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black"/>
             <ComboBox x:Name="recetaCb" HorizontalAlignment="Left" Height="39" Margin="555,183,0,0" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23"/>
-            <Label x:Name="DescripcionLbl" Content="Descripción" HorizontalAlignment="Left" Margin="41,250,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
-            <TextBox x:Name="DescripcionTxt" HorizontalAlignment="Left" Height="110" Margin="41,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23"/>
-            <Label x:Name="RestriccionesLbl" Content="Restricciones:" HorizontalAlignment="Left" Margin="41,406,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="White"/>
-            <TextBox x:Name="RestriccionesTxt" HorizontalAlignment="Left" Height="110" Margin="41,442,0,-52" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23"/>
+            <Label x:Name="DescripcionLbl" Content="Descripción" HorizontalAlignment="Left" Margin="41,250,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black"/>
+            <TextBox x:Name="DescripcionTxt" HorizontalAlignment="Left" Height="110" Margin="41,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23" BorderBrush="Black"/>
+            <Label x:Name="RestriccionesLbl" Content="Restricciones:" HorizontalAlignment="Left" Margin="41,406,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black"/>
+            <TextBox x:Name="RestriccionesTxt" HorizontalAlignment="Left" Height="110" Margin="41,442,0,-52" TextWrapping="Wrap" VerticalAlignment="Top" Width="791" FontFamily="Arial" FontSize="23" BorderBrush="Black"/>
             <Image x:Name="ProductoImg" HorizontalAlignment="Left" Height="243" Margin="847,58,0,0" VerticalAlignment="Top" Width="243" Stretch="Fill" OpacityMask="Black"/>
-            <Button x:Name="CancelarBtn" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,10" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="CancelarBtn_Click"/>
-            <Button x:Name="EditSaveBtn" Content="Editar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,59" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="EditSaveBtn_Click"/>
-            <Button x:Name="ImagenBtn" Content="Buscar foto" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,348,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
-            <ComboBox x:Name="tipoProducto" HorizontalAlignment="Left" Height="40" Margin="350,-66,0,0" VerticalAlignment="Top" Width="132" FontFamily="Arial" FontSize="23"/>
+            <Button x:Name="CancelarBtn" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,10" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="CancelarBtn_Click" Foreground="White" Background="#FFB51223" BorderBrush="#FFB51223"/>
+            <Button x:Name="EditSaveBtn" Content="Editar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="217" Height="30" Margin="0,0,26,59" FontFamily="Arial" FontSize="16" FontWeight="Bold" Click="EditSaveBtn_Click" Background="#FF008050" Foreground="White" BorderBrush="#FF008050"/>
+            <Button x:Name="ImagenBtn" Content="Buscar foto" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Height="30" Margin="857,348,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="White" BorderBrush="Black"/>
+            <ComboBox x:Name="tipoProductoCb" HorizontalAlignment="Left" Height="32" Margin="41,89,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" SelectionChanged="tipoProductoCb_SelectionChanged"/>
         </Grid>
     </Grid>
 </Window>

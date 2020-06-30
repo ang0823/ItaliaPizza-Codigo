@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
+using System.Collections.Generic;
 
 namespace ClienteItaliaPizza.Pantallas
 {
@@ -14,17 +15,27 @@ namespace ClienteItaliaPizza.Pantallas
     public partial class MeserosUC : UserControl
     {
         public string tipoDeUsuario;
-        public EventHandler AgregarNuevoPedidoALista;
+        public ObservableCollection<PedidoEnDataGrid> pedidosEnEspera = new ObservableCollection<PedidoEnDataGrid>();
+        public EventHandler eventoAgregarNuevoPedidoALista;
+        public EventHandler eventoAbrirVentanaLocal;
+        public EventHandler eventoAbrirVentanaADomicilio;
         public MeserosUC(string tipoDeUsuario)
         {
             InitializeComponent();
             this.tipoDeUsuario = tipoDeUsuario;
             comboBox3.Visibility = System.Windows.Visibility.Collapsed;
+            dataGridPedidosEnEspera.ItemsSource = pedidosEnEspera;
 
             if (tipoDeUsuario.Equals("CallCenter"))
             {
                 UCCallCenter.Visibility = Visibility.Visible;
+                UCCallCenter.eventoAbrirPedidoADomicilio += UCCallCenter_AbrirPedidoDomicilio;
             }
+        }
+
+        private void UCCallCenter_AbrirPedidoDomicilio(object sender, EventArgs e)
+        {
+            this.eventoAbrirVentanaADomicilio?.Invoke(this, e);
         }
 
         private void ComboBox1_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -107,8 +118,7 @@ namespace ClienteItaliaPizza.Pantallas
 
         private void ButtonNuevoPedidoLocal_Click(object sender, RoutedEventArgs e)
         {
-            NuevoPedido ventanaNuevoPedido = new NuevoPedido("Local");
-            ventanaNuevoPedido.Show();
+            eventoAbrirVentanaLocal?.Invoke(this, e);
         }
 
         private void ButtonImprimir_Click(object sender, RoutedEventArgs e)
@@ -155,13 +165,13 @@ namespace ClienteItaliaPizza.Pantallas
 
         private void CargarPedidosEnEspera(object sender, RoutedEventArgs e)
         {
-            AgregarNuevoPedidoALista?.Invoke(this, e);
+            eventoAgregarNuevoPedidoALista?.Invoke(this, e);
         }
 
-        public string AgregarOSeleccionarNuevoPedido
+        public PedidoEnDataGrid AgregarOSeleccionarNuevoPedido
         {
-            get { return listBoxEnEspera.SelectedItem.ToString(); }
-            set { listBoxEnEspera.Items.Add(value); }
+            get { return dataGridPedidosEnEspera.SelectedItem as PedidoEnDataGrid; }
+            set { pedidosEnEspera.Add(value); }
         }
     }
 }
