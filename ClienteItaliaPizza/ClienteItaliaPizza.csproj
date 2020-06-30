@@ -161,6 +161,9 @@
     <Compile Include="RegistroProductos.xaml.cs">
       <DependentUpon>RegistroProductos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReporteDelDia.xaml.cs">
+      <DependentUpon>ReporteDelDia.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisorPDF.xaml.cs">
       <DependentUpon>VisorPDF.xaml</DependentUpon>
     </Compile>
@@ -234,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RegistroIngredientes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReporteDelDia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

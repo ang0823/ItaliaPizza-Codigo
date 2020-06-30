@@ -6,12 +6,13 @@ using ClienteItaliaPizza.Servicio;
 using ClienteItaliaPizza.Pantallas;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace ClienteItaliaPizza
 {
     [CallbackBehavior(UseSynchronizationContext = false)]
 
-    public partial class MainWindow : Window, ILoginCallback
+    public partial class MainWindow : Window, ILoginCallback ,IGenerarReporteDelDiaCallback
     {
         CuentaUsuario CuentaUsuario;
 
@@ -19,8 +20,21 @@ namespace ClienteItaliaPizza
         {
             InitializeComponent();
             textBoxNombreUsuario.Focus();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
         }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (DateTime.Now.ToLongTimeString().Equals("09:00:00 p. m."))
+            {
+                InstanceContext instanceContext = new InstanceContext(this);
+                GenerarRespaldoClient client = new GenerarRespaldoClient(instanceContext);
+                client.GenerarRespaldo("Respaldo");
+            }
+        }
         private void IniciarSesion()
         {
             string Mensaje;
@@ -70,6 +84,7 @@ namespace ClienteItaliaPizza
             return datosValidos;
         }
 
+        /*
         public void DevuelveCuenta(CuentaCliente cuenta)
         {
             Dispatcher.Invoke(() =>
@@ -91,7 +106,7 @@ namespace ClienteItaliaPizza
                 }                
             });
         }
-
+        */
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             VentanaCocina ventanaCocina = new VentanaCocina();
@@ -135,6 +150,21 @@ namespace ClienteItaliaPizza
         {
             PasswordBox pb = sender as PasswordBox;
             pb.Tag = (!string.IsNullOrEmpty(pb.Password)).ToString();
+        }
+
+        public void DevuelveCuenta(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DevuelveReporte(Reporte[] reportes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RespuestaReporteDelDia(string mensaje)
+        {
+            throw new NotImplementedException();
         }
     }
 }

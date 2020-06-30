@@ -177,6 +177,32 @@ namespace ServidrorPizzaItaliana
         }
     }
 
+    public partial class Servicios : IGenerarReporteDelDia
+    {
+        public void ObtenerReporteDelDia()
+        {
+            try
+            {
+                List<Reporte> reporte = new List<Reporte>();
+                var reportes = (from s in db.PedidoSet
+                                select s).Include(x => x.Cuenta);
+
+                foreach (var valor in reportes)
+                {
+                    reporte.Add(new Reporte(valor.Id, valor.fecha, valor.Cuenta.precioTotal));
+                }
+
+                OperationContext.Current.GetCallbackChannel<IGenerarReporteDelDiaCallback>().DevuelveReporte(reporte);
+                Console.WriteLine("Ha devuelto el reporte");
+            }
+            catch (InvalidOperationException)
+            {
+                OperationContext.Current.GetCallbackChannel<IGenerarReporteDelDiaCallback>().RespuestaReporteDelDia("Ocurrió un error en la base de datos por favor intentelo más tarde");
+            }
+
+        }
+    }
+
     public partial class Servicios : IModificarCuentaUsuario
     {
         public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int idrol)

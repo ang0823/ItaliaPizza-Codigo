@@ -10,6 +10,7 @@ namespace ClienteItaliaPizza
     public partial class Principal : Window
     {
         CuentaUsuario CuentaUsuario;
+        private CuentaUsuario1 cuentaUsuario;
 
         public Principal(CuentaCliente cuenta)
         {
@@ -26,6 +27,11 @@ namespace ClienteItaliaPizza
             InitializeComponent();
             CuentaUsuario = new CuentaUsuario();
             CuentaUsuario.nombreUsuario = cuenta.nombreUsuario;           
+        }
+
+        public Principal(CuentaUsuario1 cuentaUsuario)
+        {
+            this.cuentaUsuario = cuentaUsuario;
         }
 
         private void MostrarBuscarEmpledosGui()
