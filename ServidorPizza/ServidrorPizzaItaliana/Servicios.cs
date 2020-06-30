@@ -190,21 +190,24 @@ namespace ServidrorPizzaItaliana
                 CuentaUsuario c = new CuentaUsuario();
                 c = cuenta;
 
-                db.CuentaUsuarioSet.Attach(c);
-                db.Entry(c).State = EntityState.Modified;
+                // db.CuentaUsuarioSet.Attach(c);
+                // db.Entry(c).State = EntityState.Modified;
+                db.CuentaUsuarioSet.AddOrUpdate(c);
                 db.SaveChanges();
                 var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
                 Empleado e = new Empleado();
                 e = empleado;
                 e.Rol = rol;
-                db.EmpleadoSet.Attach(e);
-                db.Entry(e).State = EntityState.Modified;
+                // db.EmpleadoSet.Attach(e);
+                // db.Entry(e).State = EntityState.Modified;
+                db.EmpleadoSet.AddOrUpdate(e);
                 db.SaveChanges();
 
                 Direccion d = new Direccion();
                 d = direccion;
-                db.DireccionSet.Attach(d);
-                db.Entry(d).State = EntityState.Modified;
+                // db.DireccionSet.Attach(d);
+                // db.Entry(d).State = EntityState.Modified;
+                db.DireccionSet.AddOrUpdate(d);
                 db.SaveChanges();
 
 
@@ -223,17 +226,19 @@ namespace ServidrorPizzaItaliana
             try
             {
                 var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
-                Empleado e = new Empleado();
-                e = empleado;
-                e.Rol = rol;
-                db.EmpleadoSet.Attach(e);
-                db.Entry(e).State = EntityState.Modified;
+                //Empleado e = new Empleado();
+                //e = empleado;
+                empleado.Rol = rol;
+                //db.EmpleadoSet.Attach(e);
+                //db.Entry(e).State = EntityState.Modified;
+                db.EmpleadoSet.AddOrUpdate(empleado);
                 db.SaveChanges();
 
-                Direccion d = new Direccion();
-                d = direccion;
-                db.DireccionSet.Attach(d);
-                db.Entry(d).State = EntityState.Modified;
+                //Direccion d = new Direccion();
+                //d = direccion;
+                //db.DireccionSet.Attach(d);
+                //db.Entry(d).State = EntityState.Modified;
+                db.DireccionSet.AddOrUpdate(direccion);
                 db.SaveChanges();
 
 
@@ -663,12 +668,12 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                Provision p = new Provision();
-                p = provision;
+                // Provision p = new Provision();
+                // p = provision;
 
-                ///db.ProvisionSet.Attach(p);
-                db.ProvisionSet.AddOrUpdate(p);
-                //db.Entry(p).State = EntityState.Modified;
+                // db.ProvisionSet.Attach(p);
+                // db.Entry(p).State = EntityState.Modified;
+                db.ProvisionSet.AddOrUpdate(provision);
                 db.SaveChanges();
 
                 Callback5.RespuestaEditarIngrediente("Cambios Guardados");
@@ -1044,7 +1049,7 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public bool ObtenerPedidosAaDomicilio()
+        public bool ObtenerPedidosADomicilio()
         {
             bool exitoAlObtenerPedidos = false;
 
@@ -1063,12 +1068,12 @@ namespace ServidrorPizzaItaliana
                     {
                         DireccionCliente dir = new DireccionCliente(b.calle, b.colonia, b.numeroExterior, b.numeroInterior, b.codigoPostal);
                         di.Add(dir);
+                    }
 
-                        foreach (Telefono t in cliente.Telefono)
-                        {
-                            TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
-                            telefonosDeCliente.Add(tel);
-                        }
+                    foreach (Telefono t in cliente.Telefono)
+                    {
+                        TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
+                        telefonosDeCliente.Add(tel);
                     }
 
                     Cliente clienteRecuperado = new Cliente(cliente.Id, cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, di, telefonosDeCliente);
@@ -1405,7 +1410,7 @@ namespace ServidrorPizzaItaliana
         {
             byte[] imagen;
 
-            Stream archivo = new FileStream("C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
+            Stream archivo = new FileStream("C:/Users/angel/OneDrive/Documentos/desarrollo_software/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
 
             using (MemoryStream ms = new MemoryStream())
             {

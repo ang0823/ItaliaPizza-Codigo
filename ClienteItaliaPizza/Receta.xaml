@@ -6,47 +6,48 @@
      
         xmlns:local="clr-namespace:ClienteItaliaPizza.Validacion"
         mc:Ignorable="d"
-        Title="Receta" Height="650" Width="1000">
-    <Window.Background>
-        <ImageBrush ImageSource="RecursosGUI/fondoReceta.jpg">
-            <ImageBrush.RelativeTransform>
-                <TransformGroup>
-                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </ImageBrush.RelativeTransform>
-        </ImageBrush>
-    </Window.Background>
+        Title="Receta" Height="721" Width="1202" WindowStartupLocation="CenterScreen" Background="White">
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="145*"/>
-            <ColumnDefinition Width="103*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="110*"/>
-            <RowDefinition Height="509*"/>
-        </Grid.RowDefinitions>
-        <TextBlock x:Name="textBlockNombreReceta" HorizontalAlignment="Left" Margin="51,26,0,0" TextWrapping="Wrap" Text="Nombre de la Receta" VerticalAlignment="Top" Height="35" Width="360" FontFamily="Palatino Linotype" FontSize="24" FontWeight="Bold" Foreground="White" OpacityMask="#FFD1B8B8"/>
-        <TextBox x:Name="textBoxNombreReceta" HorizontalAlignment="Left" Height="39" Margin="43,63,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="473" BorderBrush="#FF080808"  MaxLength="35" PreviewTextInput="TextBoxNombreReceta_PreviewTextInput" CommandManager.PreviewExecuted="DesabilitarCopy_Paste" ContextMenu="{x:Null}" />
-        <TextBlock x:Name="textBlockPorciones" HorizontalAlignment="Left" Margin="104,25,0,0" TextWrapping="Wrap" Text="Número de porciones" VerticalAlignment="Top" FontFamily="Palatino Linotype" Foreground="White" FontSize="24" FontWeight="Bold" Height="40" Grid.Column="1"/>
-        <TextBox x:Name="textBoxPorciones" HorizontalAlignment="Left"  Height="39" Margin="100,69,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="259" BorderBrush="Black" Grid.Column="1" MaxLength="3" PreviewTextInput="TextBoxPorciones_PreviewTextInput" CommandManager.PreviewExecuted="DesabilitarCopy_Paste" ContextMenu="{x:Null}" />
+        <Grid VerticalAlignment="Top" Height="100" Margin="30, 0">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
+            <Label Content="F O R M A T O   D E   R E G I S T R O" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="30" FontWeight="Bold" Foreground="Black"/>
+            <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="White" BorderThickness="0" Click="LogoutBtn_Click">
+                <Image Source="RecursosGUI/logout.png"/>
+            </Button>
+            <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black"/>            
+        </Grid>
 
-        <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="184" Margin="35,15,0,0" VerticalAlignment="Top" Width="915" BorderBrush="Black" FontSize="20"  Background="#FFBDB9B9" CanUserDeleteRows="True" CanUserAddRows="True" CanUserResizeColumns="False" AutoGenerateColumns="False" CellEditEnding="DataGridIngredientes_CellEditEnding" RowEditEnding="DataGridIngredientes_RowEditEnding" PreviewTextInput="DataGridIngredientes_PreviewTextInput" Grid.ColumnSpan="2" Grid.Row="1"  >
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="300" IsReadOnly="False" Binding="{Binding nombre}"/>
-                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100" IsReadOnly="False" Binding="{Binding cantidad}" />
-                <DataGridTextColumn x:Name="ColumnPeso" Header="Peso" Width="100" IsReadOnly="False" Binding="{Binding peso}"/>
-                <DataGridTextColumn x:Name="ColumnUnidad" Header="Unidad" Width="150" IsReadOnly="False" Binding="{Binding unidad}" />
-                <DataGridTextColumn x:Name="ColumnCostoPorUnidad" Header="Costo por Unidad" Width="200" IsReadOnly="False" Binding="{Binding costoPorUnidad}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid VerticalAlignment="Bottom" Margin="30, 30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="145*"/>
+                <ColumnDefinition Width="103*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110*"/>
+                <RowDefinition Height="509*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="textBlockNombreReceta" HorizontalAlignment="Left" Margin="51,26,0,0" TextWrapping="Wrap" Text="Nombre de la Receta" VerticalAlignment="Top" Height="35" Width="360" FontFamily="Arial" FontSize="23" FontWeight="Bold" Foreground="Black" OpacityMask="#FFD1B8B8"/>
+            <TextBox x:Name="textBoxNombreReceta" HorizontalAlignment="Left" Height="39" Margin="43,63,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="473" BorderBrush="#FF080808"  MaxLength="35" PreviewTextInput="TextBoxNombreReceta_PreviewTextInput" CommandManager.PreviewExecuted="DesabilitarCopy_Paste" ContextMenu="{x:Null}" TextChanged="ActivardesactivarBtnAceptar" FontFamily="Arial" FontSize="23" />
+            <TextBlock x:Name="textBlockPorciones" HorizontalAlignment="Left" Margin="104,25,0,0" TextWrapping="Wrap" Text="Número de porciones" VerticalAlignment="Top" FontFamily="Arial" Foreground="Black" FontSize="23" FontWeight="Bold" Height="40" Grid.Column="1"/>
+            <TextBox x:Name="textBoxPorciones" HorizontalAlignment="Left"  Height="39" Margin="100,69,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="259" BorderBrush="Black" Grid.Column="1" MaxLength="3" PreviewTextInput="TextBoxPorciones_PreviewTextInput" CommandManager.PreviewExecuted="DesabilitarCopy_Paste" ContextMenu="{x:Null}" TextChanged="ActivardesactivarBtnAceptar" FontFamily="Arial" FontSize="23" />
 
-        <TextBlock x:Name="textBlockProcedimiento" HorizontalAlignment="Left" Margin="45,231,0,0" TextWrapping="Wrap" Text="Procedimiento" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.484,-0.251" FontFamily="Palatino Linotype" FontSize="24" Grid.Row="1" Foreground="#FFE2E0D5"/>
-        <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" Height="140" Margin="45,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="895" BorderBrush="#FF0C0C0C" Grid.Row="1" Grid.ColumnSpan="2" MaxLength="150" PreviewTextInput="TextBoxProcedimiento_PreviewTextInput" />
-        <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="532,432,0,0" VerticalAlignment="Top" Width="176" Height="54" Grid.Row="1" Foreground="Black" Background="#FF71B970" FontSize="20" Grid.ColumnSpan="2" Click="ButtonAceptar_Click"/>
-        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="184,432,0,0" VerticalAlignment="Top" Width="176" Height="54" Grid.Row="1" Background="#FF887B4E" FontSize="20" RenderTransformOrigin="0.093,0.315" Grid.Column="1" Foreground="Black" Click="ButtonCancelar_Click"/>
+            <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="184" Margin="35,15,0,0" VerticalAlignment="Top" Width="915" BorderBrush="Black" FontSize="20"  Background="#FFBDB9B9" CanUserDeleteRows="True" CanUserAddRows="True" CanUserResizeColumns="False" AutoGenerateColumns="False" CellEditEnding="DataGridIngredientes_CellEditEnding" RowEditEnding="DataGridIngredientes_RowEditEnding" PreviewTextInput="DataGridIngredientes_PreviewTextInput" Grid.ColumnSpan="2" Grid.Row="1" Foreground="Black"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="300" IsReadOnly="False" Binding="{Binding nombre}"/>
+                    <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100" IsReadOnly="False" Binding="{Binding cantidad}" />
+                    <DataGridTextColumn x:Name="ColumnPeso" Header="Peso" Width="100" IsReadOnly="False" Binding="{Binding peso}"/>
+                    <DataGridTextColumn x:Name="ColumnUnidad" Header="Unidad" Width="150" IsReadOnly="False" Binding="{Binding unidad}" />
+                    <DataGridTextColumn x:Name="ColumnCostoPorUnidad" Header="Costo por Unidad" Width="*" IsReadOnly="False" Binding="{Binding costoPorUnidad}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid>
 
+            </Grid>
+            <TextBlock x:Name="textBlockProcedimiento" HorizontalAlignment="Left" Margin="45,231,0,0" TextWrapping="Wrap" Text="Procedimiento" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.484,-0.251" FontFamily="Arial" FontSize="23" Grid.Row="1" Foreground="Black"/>
+            <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="140" Margin="0,0,0,0" TextWrapping="Wrap" Text="" Width="895" BorderBrush="#FF0C0C0C" Grid.Row="1" Grid.ColumnSpan="2" MaxLength="150" PreviewTextInput="TextBoxProcedimiento_PreviewTextInput" TextChanged="ActivardesactivarBtnAceptar" FontFamily="Arial" FontSize="23" />
+            <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Right" Margin="0,300,0,0" VerticalAlignment="Top" Width="155" Height="30" Grid.Row="1" Foreground="White" Background="#FF305825" FontSize="20" Grid.ColumnSpan="2" Click="ButtonAceptar_Click" BorderBrush="#FF305825"/>
+            <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="184,432,0,0" Width="155" Height="30" Grid.Row="1" Background="#FF740005" FontSize="20" RenderTransformOrigin="0.093,0.315" Grid.Column="1" Foreground="White" Click="ButtonCancelar_Click" BorderBrush="#FF740005"/>
+        </Grid>
     </Grid>
 </Window>

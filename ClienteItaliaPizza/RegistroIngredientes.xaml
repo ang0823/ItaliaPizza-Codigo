@@ -6,38 +6,35 @@
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
         Title="Registro de ingredientes - Italia pizza" Height="721" Width="1202" Icon="/RecursosGUI/WindowIcon.jpg" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <ImageBrush ImageSource="RecursosGUI/fondoIngrediente.jpg"/>
-    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="322*"/>
             <ColumnDefinition Width="275*"/>
         </Grid.ColumnDefinitions>
         <Grid VerticalAlignment="Top" Height="100" Margin="30, 0" Grid.ColumnSpan="2">
-            <Label Content="Formato de registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="50" Foreground="White"/>
+            <Label Content="Formato de registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="50" Foreground="Black"/>
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="RecursosGUI/logo.png"/>
-            <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click">
+            <Button x:Name="LogoutBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Height="60" Width="50" Background="White" BorderThickness="0" Click="LogoutBtn_Click">
                 <Image Source="RecursosGui/logout.png"/>
             </Button>
-            <Label x:Name="UserLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White" />
+            <Label x:Name="UserLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black" />
         </Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="486" Width="827" Margin="185,120,182,84" Grid.ColumnSpan="2">
-            <Label Content="Nombre de ingrediente" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,16,0,0" Foreground="White"/>
-            <TextBox x:Name="IngredienteNombre" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="250" Margin="0,47,10,0" TextChanged="IngredienteNombre_TextChanged" FontFamily="Arial" FontSize="22" KeyDown="IngredienteNombre_KeyDown"/>
-            <Label Content="Precio unitario $" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,16,0,0" Foreground="White"/>
-            <TextBox x:Name="IngredientePrecio" HorizontalAlignment="Right" VerticalAlignment="Top" Height="32" Width="250" Margin="0,47,10,0" TextChanged="IngredientePrecio_TextChanged" FontFamily="Arial" FontSize="22"/>
-            <Label Content="Ubicación" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,146,0,0" Foreground="White"/>
-            <TextBox x:Name="IngredienteUbicacion" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="250" Margin="10,177,0,0" TextChanged="IngredienteUbicacion_TextChanged" FontFamily="Arial" FontSize="22"/>
-            <Label Content="Cantidad disponible" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,146,0,0" Foreground="White"/>
-            <TextBox x:Name="IngredienteExistencias" HorizontalAlignment="Right" VerticalAlignment="Top" Height="32" Width="250" Margin="0,177,10,0" FontFamily="Arial" FontSize="22" TextChanged="IngredienteExistencias_TextChanged"/>
-            <Label Content="Stock mínimo:" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,288,0,0" Foreground="White"/>
-            <TextBox x:Name="StockMinimo" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="250" Margin="10,319,0,0" TextChanged="StockMinimo_TextChanged" FontFamily="Arial" FontSize="22"/>
-            <Label Content="Unidad de medida" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,288,0,0" Foreground="White"/>
+            <Label Content="Nombre de ingrediente" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,16,0,0" Foreground="Black"/>
+            <TextBox x:Name="IngredienteNombre" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="250" Margin="0,47,10,0" TextChanged="IngredienteNombre_TextChanged" FontFamily="Arial" FontSize="22" KeyDown="IngredienteNombre_KeyDown" BorderBrush="Black"/>
+            <Label Content="Precio unitario $" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,16,0,0" Foreground="Black"/>
+            <TextBox x:Name="IngredientePrecio" HorizontalAlignment="Right" VerticalAlignment="Top" Height="32" Width="250" Margin="0,47,10,0" TextChanged="IngredientePrecio_TextChanged" FontFamily="Arial" FontSize="22" BorderBrush="Black"/>
+            <Label Content="Ubicación" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,146,0,0" Foreground="Black"/>
+            <TextBox x:Name="IngredienteUbicacion" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="250" Margin="10,177,0,0" TextChanged="IngredienteUbicacion_TextChanged" FontFamily="Arial" FontSize="22" BorderBrush="Black"/>
+            <Label Content="Cantidad disponible" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,146,0,0" Foreground="Black"/>
+            <TextBox x:Name="IngredienteExistencias" HorizontalAlignment="Right" VerticalAlignment="Top" Height="32" Width="250" Margin="0,177,10,0" FontFamily="Arial" FontSize="22" TextChanged="IngredienteExistencias_TextChanged" BorderBrush="Black"/>
+            <Label Content="Stock mínimo:" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,288,0,0" Foreground="Black"/>
+            <TextBox x:Name="StockMinimo" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="250" Margin="10,319,0,0" TextChanged="StockMinimo_TextChanged" FontFamily="Arial" FontSize="22" BorderBrush="Black"/>
+            <Label Content="Unidad de medida" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16" Width="250" Margin="0,288,0,0" Foreground="Black"/>
             <ComboBox x:Name="UnidadMedidaCb" HorizontalAlignment="Right" VerticalAlignment="Top" Height="32" Width="250" Margin="0,321,10,0" SelectionChanged="UnidadMedidaCb_SelectionChanged" FontFamily="Arial" FontSize="22"/>
-            <Button x:Name="VaciarBtn" Content="Vaciar" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="200" Margin="10, 0, 0, 10" FontFamily="Arial" FontSize="18" FontWeight="Bold" Click="VaciarBtn_Click"/>
+            <Button x:Name="VaciarBtn" Content="Vaciar" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="200" Margin="10, 0, 0, 10" FontFamily="Arial" FontSize="18" FontWeight="Bold" Click="VaciarBtn_Click" Background="#FF008050" Foreground="White"/>
             <Button x:Name="GuardarBtn" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="200" Margin="0,0,0,10" FontFamily="Arial" FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2" Click="GuardarBtn_Click"/>
-            <Button x:Name="CancelarBtn" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="200" Margin="0,0,10,10" FontFamily="Arial" FontSize="18" FontWeight="Bold" Grid.Column="1" Click="CancelarBtn_Click"/>
+            <Button x:Name="CancelarBtn" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="200" Margin="0,0,10,10" FontFamily="Arial" FontSize="18" FontWeight="Bold" Grid.Column="1" Click="CancelarBtn_Click" Background="#FFB51223" Foreground="White"/>
         </Grid>
     </Grid>
 </Window>
