@@ -45,9 +45,9 @@
 
             </Grid>
             <TextBlock x:Name="textBlockProcedimiento" HorizontalAlignment="Left" Margin="45,231,0,0" TextWrapping="Wrap" Text="Procedimiento" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.484,-0.251" FontFamily="Arial" FontSize="23" Grid.Row="1" Foreground="Black"/>
-            <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" Height="140" Margin="45,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="895" BorderBrush="#FF0C0C0C" Grid.Row="1" Grid.ColumnSpan="2" MaxLength="150" PreviewTextInput="TextBoxProcedimiento_PreviewTextInput" TextChanged="ActivardesactivarBtnAceptar" FontFamily="Arial" FontSize="23" />
-            <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="532,432,0,0" VerticalAlignment="Top" Width="155" Height="30" Grid.Row="1" Foreground="White" Background="#FF305825" FontSize="20" Grid.ColumnSpan="2" Click="ButtonAceptar_Click" BorderBrush="#FF305825"/>
-            <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="184,432,0,0" VerticalAlignment="Top" Width="155" Height="30" Grid.Row="1" Background="#FF740005" FontSize="20" RenderTransformOrigin="0.093,0.315" Grid.Column="1" Foreground="White" Click="ButtonCancelar_Click" BorderBrush="#FF740005"/>
+            <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="140" Margin="0,0,0,0" TextWrapping="Wrap" Text="" Width="895" BorderBrush="#FF0C0C0C" Grid.Row="1" Grid.ColumnSpan="2" MaxLength="150" PreviewTextInput="TextBoxProcedimiento_PreviewTextInput" TextChanged="ActivardesactivarBtnAceptar" FontFamily="Arial" FontSize="23" />
+            <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Right" Margin="0,300,0,0" VerticalAlignment="Top" Width="155" Height="30" Grid.Row="1" Foreground="White" Background="#FF305825" FontSize="20" Grid.ColumnSpan="2" Click="ButtonAceptar_Click" BorderBrush="#FF305825"/>
+            <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="184,432,0,0" Width="155" Height="30" Grid.Row="1" Background="#FF740005" FontSize="20" RenderTransformOrigin="0.093,0.315" Grid.Column="1" Foreground="White" Click="ButtonCancelar_Click" BorderBrush="#FF740005"/>
         </Grid>
     </Grid>
 </Window>

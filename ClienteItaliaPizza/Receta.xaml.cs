@@ -26,6 +26,7 @@ namespace ClienteItaliaPizza
             InitializeComponent();
             dataGridIngredientes.ItemsSource = Ingredientes;
             cuenta = cuentaUsuario;
+            ButtonAceptar.IsEnabled = false;
         }
 
         public Receta(CuentaUsuario1 cuentausuario, object recetaexistente)
