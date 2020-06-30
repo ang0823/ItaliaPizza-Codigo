@@ -12,6 +12,7 @@ using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 
 namespace ServidrorPizzaItaliana
 {
@@ -30,13 +31,11 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                db.Configuration.ProxyCreationEnabled = false;
-                var productoInterno = (from producto in db.ProductoSet where producto.nombre == nombreProducto select producto).FirstOrDefault();
+                var productoInterno = db.ProductoSet.Where(x => x.nombre == nombreProducto).Include(x => x.Receta).Include(x => x.Categoria).FirstOrDefault();
 
                 if (productoInterno != null)
                 {
-                    
-                    Callback.ProductoInterno(productoInterno, ObtenerImagen(nombreProducto));
+                    Callback.ProductoInterno(productoInterno, ObtenerImagen(nombreProducto), productoInterno.Receta.nombreReceta, productoInterno.Categoria.categoria);
                 }
                 else
                 {
@@ -54,18 +53,16 @@ namespace ServidrorPizzaItaliana
             try
             {
                 db.Configuration.ProxyCreationEnabled = false;
-                var provision = (from producto in db.ProvisionSet where producto.nombre == nombreProducto select producto).Include(x => x.ProvisionDirecta).FirstOrDefault();
+                var provision = db.ProvisionDirectaSet.Where(x => x.Provision.nombre == nombreProducto).Include(x => x.Categoria).Include(x => x.Provision).FirstOrDefault();
 
                 if (provision != null)
                 {
-                    Provision1 provisionDeProducto = new Provision1(provision.Id, provision.nombre, provision.noExistencias, provision.ubicacion, provision.stockMinimo, provision.costoUnitario, provision.unidadMedida);
-                    ProvisionDirecta1 provisionDirecta;
-
-                    foreach (ProvisionDirecta producto in provision.ProvisionDirecta)
+                    ProvisionVentaDirecta productoExterno = new ProvisionVentaDirecta(provision.Id, provision.Provision.Id, provision.Provision.nombre, provision.Provision.noExistencias, provision.Provision.ubicacion, provision.Provision.stockMinimo, provision.Provision.costoUnitario, provision.Provision.unidadMedida, provision.activado, provision.descripcion, provision.restricciones, provision.Categoria.categoria)
                     {
-                        provisionDirecta = new ProvisionDirecta1(producto.Id, producto.descripcion, producto.activado, producto.restricciones);
-                        Callback.ProductoExterno(provisionDeProducto, provisionDirecta, ObtenerImagen(nombreProducto));
-                    }
+                        Imagen = ObtenerImagen(nombreProducto)
+                    };
+
+                    Callback.ProductoExterno(productoExterno);
                 }
                 else
                 {
@@ -506,16 +503,17 @@ namespace ServidrorPizzaItaliana
     public partial class Servicios : IModificarProducto
     {
 
-        public void ModificarProductoInterno(AccesoBD2.Producto producto, byte[] imagen, bool modificarImagen)
+        public void ModificarProductoInterno(AccesoBD2.Producto producto, bool modificarImagen, string nombreReceta, byte[] imagen)
         {
             try
             {
                 if (producto != null)
                 {
-                    AccesoBD2.Producto productoInterno = new AccesoBD2.Producto();
-                    productoInterno = producto;
+                    var receta = db.RecetaSet.Where(x => x.nombreReceta == nombreReceta).FirstOrDefault();
 
-                    db.ProductoSet.AddOrUpdate(productoInterno);
+                    producto.Receta = receta;
+
+                    db.ProductoSet.AddOrUpdate(producto);
                     db.SaveChanges();
 
                     if (modificarImagen == true)
@@ -538,26 +536,40 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public void ModificarProductoExterno(ProvisionDirecta producto, Provision provision, byte[] imagen, bool modificarImagen)
+        public void ModificarProductoExterno(ProvisionVentaDirecta productoExterno, bool modificarImagen)
         {
             try
             {
-                if (producto != null && provision != null)
+                if (productoExterno != null)
                 {
-                    ProvisionDirecta provisionDirectaDeProducto = new ProvisionDirecta();
-                    provisionDirectaDeProducto = producto;
-                    db.ProvisionDirectaSet.AddOrUpdate(provisionDirectaDeProducto);
+                    ProvisionDirecta provisionDirecta = new ProvisionDirecta()
+                    {
+                        Id = productoExterno.IdProvisionVentaDirecta,
+                        descripcion = productoExterno.Descripcion,
+                        activado = productoExterno.Activado,
+                        restricciones = productoExterno.Restricciones
+                    };
 
-                    Provision provisionDeProducto = new Provision();
-                    provisionDeProducto = provision;
+                    Provision provision = new Provision()
+                    {
+                        Id = productoExterno.IdProvision,
+                        nombre = productoExterno.Nombre,
+                        noExistencias = productoExterno.CantidadExistencias,
+                        ubicacion = productoExterno.Ubicacion,
+                        stockMinimo = productoExterno.Stock,
+                        costoUnitario = productoExterno.PrecioUnitario,
+                        unidadMedida = productoExterno.UnidadDeMedida,
+                        activado = productoExterno.Activado
+                    };
 
-                    db.ProvisionSet.AddOrUpdate(provisionDeProducto);
+                    db.ProvisionDirectaSet.AddOrUpdate(provisionDirecta);
+                    db.ProvisionSet.AddOrUpdate(provision);
                     db.SaveChanges();
 
-                    if(modificarImagen == true)
+                    if (modificarImagen == true)
                     {
                         EliminarImagen(provision.nombre);
-                        GuardarImagen(imagen, provision.nombre);
+                        GuardarImagen(productoExterno.Imagen, provision.nombre);
                     }
 
                     Callback2.RespuestaModificarProducto("Cambios Guardados");
@@ -571,6 +583,13 @@ namespace ServidrorPizzaItaliana
             {
                 Callback2.RespuestaModificarProducto("Error al guardar cambios");
             }
+        }
+
+        public void ObtenerNombresDeRecetas()
+        {
+            var recetas = db.RecetaSet.Where(x => x.Producto == null).Select(x => x.nombreReceta).ToList();
+
+            Callback2.ListaDeRecetas(recetas);
         }
 
         IModificarProductoCallback Callback2
@@ -626,25 +645,16 @@ namespace ServidrorPizzaItaliana
 
             try
             {
-                var ingrediente = (from prod in db.ProvisionSet where prod.nombre == nombreProducto select prod).First();
-                Callback4.Ingrediente(ingrediente);
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine(e.StackTrace);
-                Callback4.ErrorAlRecuperarIngrediente("Ocurrio un error al recuperar ingrediente");
-            }
-        }
+                var ingrediente = (from prod in db.ProvisionSet where prod.nombre == nombreProducto select prod).FirstOrDefault();
 
-        public void BuscarIngredientePorID(int idProducto)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-
-            try
-            {
-                var ingrediente = (from provi in db.ProvisionSet where provi.Id == idProducto select provi).First();
-
-                Callback4.Ingrediente(ingrediente);
+                if(ingrediente != null)
+                {
+                    Callback4.Ingrediente(ingrediente);
+                }
+                else
+                {
+                    Callback4.ErrorAlRecuperarIngrediente("No hay algun ingrediente con ese nombre");
+                } 
             }
             catch (InvalidOperationException e)
             {
@@ -1018,7 +1028,7 @@ namespace ServidrorPizzaItaliana
 
         public void BuscarPedidos()
         {
-            if(ObtenerPedidosAaDomicilio() && ObtenerPedidosLocales())
+            if(ObtenerPedidosADomicilio() && ObtenerPedidosLocales())
             {
                 if(pedidosADomicilio.Count > 0 || pedidosLocalesDeServidor.Count > 0)
                 {
@@ -1400,84 +1410,5 @@ namespace ServidrorPizzaItaliana
 
             return imagen;
         }
-
-        /*public void ObtenerPedidos()
-        {
-            DateTime fecha = DateTime.Now;
-            string fechaDelDia = fecha.ToString("dd/MM/yyyy");
-            const string IDPEDIDOLOCAL = "PL";
-            const string IDPEDIDOADOMICILIO = "PD";
-
-            //var pedidosLocales = db.PedidoSet.Where(x => x.Cuenta.Id.Contains(IDPEDIDOLOCAL)).Where(x => x.Cuenta.Id.Contains(fechaDelDia)).Include(x => x.Empleado).Include(x => x.Producto.Select(j => j.Categoria)).Include(x => x.ProvisionDirecta.Select(j => j.Provision)).Include(x => x.Estado).Include(x => x.Cuenta).ToList();
-            var pedidosDomicilio = db.PedidoSet.Where(x => x.Cuenta.Id.Contains(IDPEDIDOADOMICILIO)).Where(x => x.Cuenta.Id.Contains(fechaDelDia)).Include(x => x.Empleado).Include(x => x.Producto.Select(j => j.Categoria)).Include(x => x.ProvisionDirecta.Select(j => j.Provision)).Include(x => x.Estado).Include(x => x.Cuenta).ToList();
-
-            /*foreach (Pedido pedido in pedidosLocales)
-            {  
-                var mesa = db.MesaSet.Where(x => x.PedidoLocal.Any(j => j.Id == pedido.Id)).FirstOrDefault();
-                PedidoLocalDeServidor pedidoLocal = new PedidoLocalDeServidor(mesa.Id, mesa.numeroMesa);
-                pedidoLocal.Estado = pedido.Estado.estadoPedido;
-                pedidoLocal.Cuenta = pedido.Cuenta;
-                pedidoLocal.Id = pedido.Id;
-                pedidoLocal.Fecha = pedido.fecha;
-                pedidoLocal.InstruccionesDePedido = pedido.instruccionesEspeciales;
-                pedidoLocal.IdEmpleado = pedido.Empleado.IdEmpleado;
-                pedidoLocal.IdGeneradoDeEmpleado = pedido.Empleado.idEmpleadoGenerado;
-
-                foreach(AccesoBD2.Producto producto in pedido.Producto)
-                {
-                    ProductoDePedido productoLocal = new ProductoDePedido(producto.Id, producto.nombre, producto.descripcion, producto.precioUnitario, producto.restricciones, producto.Categoria.categoria);
-                    pedidoLocal.ProductosLocales.Add(productoLocal);
-                }
-
-                foreach(ProvisionDirecta a in pedido.ProvisionDirecta)
-                {
-                    ProvisionVentaDirecta productoExterno = new ProvisionVentaDirecta(a.Id, a.Provision.Id, a.Provision.nombre, a.Provision.noExistencias, a.Provision.ubicacion, a.Provision.stockMinimo, a.Provision.costoUnitario, a.Provision.unidadMedida, a.Provision.activado, a.descripcion, a.restricciones, a.Categoria.categoria);
-                    pedidoLocal.ProductosExternos.Add(productoExterno);
-                }
-            }
-
-            foreach (Pedido pedido in pedidosDomicilio)
-            {
-                List<DireccionCliente> di = new List<DireccionCliente>();
-                List<TelefonoCliente> telefonosDeCliente = new List<TelefonoCliente>();
-                
-                var cliente = db.ClienteSet.Where(x => x.PedidoADomicilio.Any(j => j.Id == pedido.Id)).Include(x => x.Direccion).Include(x => x.Telefono).FirstOrDefault();
-
-                foreach (Direccion b in cliente.Direccion)
-                {
-                    DireccionCliente dir = new DireccionCliente(b.calle, b.colonia, b.numeroExterior, b.numeroInterior, b.codigoPostal);
-                    di.Add(dir);
-
-                    foreach (Telefono t in cliente.Telefono)
-                    {
-                        TelefonoCliente tel = new TelefonoCliente(t.numeroTelefono);
-                        telefonosDeCliente.Add(tel);
-                    }
-                }
-
-                Cliente clienteRecuperado = new Cliente(cliente.Id, cliente.nombre, cliente.apellidoPaterno, cliente.apellidoMaterno, di, telefonosDeCliente);
-                PedidoADomicilioDeServidor pedidoADomicilio = new PedidoADomicilioDeServidor(clienteRecuperado);
-
-                pedidoADomicilio.Estado = pedido.Estado.estadoPedido;
-                pedidoADomicilio.Cuenta = pedido.Cuenta;
-                pedidoADomicilio.Id = pedido.Id;
-                pedidoADomicilio.Fecha = pedido.fecha;
-                pedidoADomicilio.InstruccionesDePedido = pedido.instruccionesEspeciales;
-                pedidoADomicilio.IdEmpleado = pedido.Empleado.IdEmpleado;
-                pedidoADomicilio.IdGeneradoDeEmpleado = pedido.Empleado.idEmpleadoGenerado;
-
-                foreach (AccesoBD2.Producto producto in pedido.Producto)
-                {
-                    ProductoDePedido productoLocal = new ProductoDePedido(producto.Id, producto.nombre, producto.descripcion, producto.precioUnitario, producto.restricciones, producto.Categoria.categoria);
-                    pedidoADomicilio.ProductosLocales.Add(productoLocal);
-                }
-
-                foreach (ProvisionDirecta a in pedido.ProvisionDirecta)
-                {
-                    ProvisionVentaDirecta productoExterno = new ProvisionVentaDirecta(a.Id, a.Provision.Id, a.Provision.nombre, a.Provision.noExistencias, a.Provision.ubicacion, a.Provision.stockMinimo, a.Provision.costoUnitario, a.Provision.unidadMedida, a.Provision.activado, a.descripcion, a.restricciones, a.Categoria.categoria);
-                    pedidoADomicilio.ProductosExternos.Add(productoExterno);
-                }
-            }
-        }*/
     }
 }
