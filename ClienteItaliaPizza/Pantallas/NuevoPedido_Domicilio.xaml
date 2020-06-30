@@ -8,16 +8,29 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
-        <Grid HorizontalAlignment="Left" Height="94" Margin="60,40,0,0" VerticalAlignment="Top" Width="581" Background="#FFF1F1F1" />
+        <StackPanel x:Name="panelCliente"  HorizontalAlignment="Left" Height="146" Margin="60,40,0,0" VerticalAlignment="Top" Width="600" Background="#FFF1F1F1" />
 
-        <ComboBox x:Name="comboBoxClienteNombre" HorizontalAlignment="Left" Margin="143,53,0,0" IsEditable="True"  VerticalAlignment="Top" Width="195" BorderBrush="Blue"  Background="#FF8B8484" Height="27"  Loaded="ComboBoxClienteNombre_Loaded" SelectionChanged="ComboBoxClienteNombre_SelectionChanged" PreviewTextInput="ComboBoxClienteNombre_PreviewTextInput"/>
-        <Label x:Name="labelDireccion" Content="Dirección" HorizontalAlignment="Left" Margin="81,94,0,0" VerticalAlignment="Top" Width="70" Height="31"/>
-        <Label x:Name="labelTelefono" Content="Teléfono" HorizontalAlignment="Left" Margin="403,56,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="labelCliente" Content="Cliente" HorizontalAlignment="Left" Margin="79,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.404,-1.038" Width="55" Height="31"/>
-        <TextBox x:Name="textBoxTelefono" HorizontalAlignment="Left" Height="25" Margin="460,56,0,0" TextWrapping="Wrap" Text="" MaxLength="30" VerticalAlignment="Top" Width="160" TextChanged="TextBoxTelefono_TextChanged" PreviewTextInput="TextBoxTelefono_PreviewTextInput"/>
-        <ComboBox x:Name="comboBoxDireccion" HorizontalAlignment="Left" Margin="145,95,0,0" VerticalAlignment="Top" Width="335" Height="27" IsEditable="True" Loaded="ComboBoxDireccion_Loaded" SelectionChanged="ComboBoxDireccion_SelectionChanged" PreviewTextInput="ComboBoxDireccion_PreviewTextInput" />
-        <Button x:Name="ButtonAgregarCliente" HorizontalAlignment="Left" Height="29" Margin="343,53,0,0" VerticalAlignment="Top" Width="38" RenderTransformOrigin="0.222,0.556" Background="Transparent" Click="ButtonAgregarCliente_Click" BorderBrush="#FFBBB9B9">
-            <Image Height="22" Width="29" Source="/ClienteItaliaPizza;component/RecursosGUI/Plus_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
+        <ComboBox x:Name="comboBoxClienteNombre" HorizontalAlignment="Left" Margin="123,65,0,0" Text="Seleccione un cliente"  VerticalAlignment="Top" Width="300" BorderBrush="Blue"  Background="#FF8B8484" Height="27"  Loaded="ComboBoxClienteNombre_Loaded" SelectionChanged="ComboBoxClienteNombre_SelectionChanged" PreviewTextInput="ComboBoxClienteNombre_PreviewTextInput" FontSize="16" FontFamily="Arial"/>
+        <Label x:Name="labelDireccion" Content="Dirección" HorizontalAlignment="Left" Margin="62,112,0,0" VerticalAlignment="Top" Width="83" Height="28" FontFamily="Arial" FontWeight="Bold" FontSize="16"/>
+        <Label x:Name="labelTelefono" Content="Teléfono" HorizontalAlignment="Left" Margin="454,66,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" FontSize="16"/>
+        <Label x:Name="labelCliente" Content="Cliente" HorizontalAlignment="Left" Margin="61,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.404,-1.038" Width="64" Height="31" FontFamily="Arial" FontWeight="Bold" FontSize="16"/>
+        <ComboBox x:Name="comboBoxTelefono" HorizontalAlignment="Left" Height="25" Margin="529,67,0,0" VerticalAlignment="Top" Width="127" Loaded="comboBoxTelefono_Loaded" SelectionChanged="comboBoxTelefono_SelectionChanged" PreviewTextInput="comboBoxTelefono_PreviewTextInput" FontFamily="Arial" FontSize="16"/>
+        <ComboBox x:Name="comboBoxDireccion" HorizontalAlignment="Left" Margin="148,113,0,0" VerticalAlignment="Top" Width="416" Height="27" Loaded="ComboBoxDireccion_Loaded" SelectionChanged="ComboBoxDireccion_SelectionChanged" FontFamily="Arial" FontSize="16"/>
+        <Button x:Name="ButtonAgregarCliente" HorizontalAlignment="Left" Height="36" Margin="600,147,0,0" VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.222,0.556" Background="Transparent" Click="ButtonAgregarCliente_Click" BorderBrush="#FFBBB9B9" ToolTip="Agregar nuevo cliente">
+            <Image x:Name="imageAgregarCliente" Height="26" Width="35" Source="/ClienteItaliaPizza;component/RecursosGUI/Plus_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
+        </Button>
+        <TextBox x:Name="textBoxCalle" HorizontalAlignment="Left" Height="25" Margin="149,114,0,0" TextWrapping="Wrap" Text="Calle" VerticalAlignment="Top" Width="100" MaxLength="30" Visibility="Collapsed" PreviewTextInput="ComboBoxClienteNombre_PreviewTextInput" TextChanged="TextChanged_Direccion" FontFamily="Arial" FontSize="16"/>
+        <TextBox x:Name="textBoxColonia" HorizontalAlignment="Left" Height="25" Margin="270,114,0,0" TextWrapping="Wrap" Text="Colonia" VerticalAlignment="Top" Width="110" MaxLength="30" Visibility="Collapsed" PreviewTextInput="ComboBoxClienteNombre_PreviewTextInput" TextChanged="TextChanged_Direccion" FontFamily="Arial" FontSize="16"/>
+        <TextBox x:Name="textBoxCodigoPostal" HorizontalAlignment="Left" Height="25" Margin="397,114,0,0" TextWrapping="Wrap" Text="Código Postal" VerticalAlignment="Top" Width="108" MaxLength="4" Visibility="Collapsed" PreviewTextInput="comboBoxTelefono_PreviewTextInput" FontFamily="Arial" FontSize="16"/>
+        <TextBox x:Name="textBoxNoInterior" HorizontalAlignment="Left" Height="25" Margin="528,114,0,0" TextWrapping="Wrap" Text="No.Int" VerticalAlignment="Top" Width="52" MaxLength="5" Visibility="Collapsed" PreviewTextInput="comboBoxTelefono_PreviewTextInput" FontFamily="Arial" FontSize="16"/>
+        <TextBox x:Name="textBoxNoExterior" HorizontalAlignment="Left" Height="25" Margin="593,115,0,0" TextWrapping="Wrap" Text="No.Ext" VerticalAlignment="Top" Width="55" MaxLength="5" Visibility="Collapsed" PreviewTextInput="comboBoxTelefono_PreviewTextInput" FontFamily="Arial" FontSize="16"/>
+
+        <TextBox x:Name="textBoxNombre" HorizontalAlignment="Left" Height="25" Margin="123,67,0,0" TextWrapping="Wrap" Text="Nombre" VerticalAlignment="Top" Width="100" MaxLength="30" Visibility="Collapsed" PreviewTextInput="ComboBoxClienteNombre_PreviewTextInput" TextChanged="TextChanged_Direccion" FontFamily="Arial" FontSize="16"/>
+        <TextBox x:Name="textBoxApellidoPaterno" HorizontalAlignment="Left" Height="25" Margin="238,66,0,0" TextWrapping="Wrap" Text="Ap.Paterno" VerticalAlignment="Top" Width="101" MaxLength="30" Visibility="Collapsed" PreviewTextInput="ComboBoxClienteNombre_PreviewTextInput" TextChanged="TextChanged_Direccion" FontFamily="Arial" FontSize="16"/>
+        <TextBox x:Name="textBoxApellidoMaterno" HorizontalAlignment="Left" Height="25" Margin="353,67,0,0" TextWrapping="Wrap" Text="Ap.Materno" VerticalAlignment="Top" Width="100" MaxLength="30" Visibility="Collapsed" PreviewTextInput="ComboBoxClienteNombre_PreviewTextInput" TextChanged="TextChanged_Direccion" FontFamily="Arial" FontSize="16"/>
+
+        <Button x:Name="ButtonCancelAgregarCliente" HorizontalAlignment="Left" Height="36" Margin="532,148,0,0" VerticalAlignment="Top" Width="53" RenderTransformOrigin="0.222,0.556" Background="Transparent" Click="ButtonCancelAgregarCliente_Click" BorderBrush="#FFBBB9B9" Visibility="Collapsed" ToolTip="Cancelar">
+            <Image x:Name="imageCancelarAgregarCliente" Height="27" Width="35" Source="/ClienteItaliaPizza;component/RecursosGUI/cancel_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
         </Button>
 
     </Grid>
