@@ -124,7 +124,7 @@ namespace ClienteItaliaPizza
                 InstanceContext context = new InstanceContext(this);
                 RegistrarProductoClient ServicioRegistro = new RegistrarProductoClient(context);
 
-                InicialzarProdcuto(ref producto);
+                InicialzarProdcutoInterno(ref producto);
                 InicializarCategoria(ref categoria);
 
                 ServicioRegistro.RegistrarProducto(producto, categoria, indiceReceta);
@@ -139,7 +139,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void InicialzarProdcuto(ref Producto producto)
+        private void InicialzarProdcutoInterno(ref Producto producto)
         {
             try
             {

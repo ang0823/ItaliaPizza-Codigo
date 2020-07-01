@@ -75,19 +75,25 @@ namespace ClienteItaliaPizza
             Dispatcher.Invoke(() =>
             {
                CuentaUsuario = cuenta;
-
-                var rolCopia = rol.rol;                
+                
+                var rolCopia = rol.rol;
                 if (rol.rol == "Call Center")
-                { 
+                {
                     VentanaPedidos ventanaPedidos = new VentanaPedidos(empleado.idEmpleado, empleado.idEmpleadoGenerado);
                     ventanaPedidos.Show();
                     this.Close();
                 }
-                else
+                else if (rol.rol == "Gerente" || rol.rol == "Contador")
                 {
                     Principal ventana = new Principal(cuenta);
                     ventana.Show();
                     this.Close();
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError("No cuentas con permisos para iniciar sesión");
+                    textBoxNombreUsuario.Text = "";
+                    passwordBoxContraseña.Password = "";
                 }                
             });
         }

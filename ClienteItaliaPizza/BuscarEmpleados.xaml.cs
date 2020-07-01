@@ -20,6 +20,7 @@ namespace ClienteItaliaPizza
         Direccion direccion = new Direccion();
         CuentaUsuario cuenta = new CuentaUsuario();
         int idPuesto;
+        bool enEdicion = false;
 
         public BuscarEmpleados(CuentaUsuario1 cuenta)
         {
@@ -43,8 +44,7 @@ namespace ClienteItaliaPizza
                 && correoElectronicoTxt.Text.Length > 0 && telefonoTxt.Text.Length > 0
                 && calleTxt.Text.Length > 0 && coloniaTxt.Text.Length > 0
                 && codigoPostalTxt.Text.Length > 0 && (puestosCB.SelectedIndex == 1
-                || puestosCB.SelectedIndex == 2) && usuarioTxt.Text.Length == 0
-                && contrasenaTxt.Password.Length == 0 && NoExteriorTxt.Text.Length > 0)
+                || puestosCB.SelectedIndex == 2) && NoExteriorTxt.Text.Length > 0)
             {
                 return true;
             }
@@ -116,8 +116,8 @@ namespace ClienteItaliaPizza
 
                     if (EsAdministrativo())
                     {
-                        usuarioTxt.Text = cuenta.nombreUsuario;
-                        contrasenaTxt.Password = cuenta.contraseña;
+                        cuenta.nombreUsuario = usuarioTxt.Text;
+                        cuenta.contraseña = contrasenaTxt.Password;
                         ServicioModificar.ModificarCuentaUsuario(cuenta, empleado, direccion, idPuesto);
                         EstablecerInformacion();
                     }
@@ -272,6 +272,12 @@ namespace ClienteItaliaPizza
 
                 if (SearchBox.Text.Length > 0)
                 {
+                    if (enEdicion)
+                    {
+                        DeshabilitarCampos();
+                        EditarGuardarBtn.Content = "Editar";
+                    }
+
                     // Se realiza un parse para corroborar que el ID son números
                     int.Parse(idEmpleado);
                     ServicioBusqueda.ObtenerCuentas(idEmpleado);
@@ -308,7 +314,8 @@ namespace ClienteItaliaPizza
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-                ObtenerEmpleado();
+            DeshabilitarCampos();
+            ObtenerEmpleado();
         }
 
         private void cancelarBtn_Click(object sender, RoutedEventArgs e)
@@ -348,8 +355,16 @@ namespace ClienteItaliaPizza
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
-            FuncionesComunes.CerrarSesion();
-            this.Close();
+            MessageBoxResult opcion;
+
+            opcion = MessageBox.Show("¿Seguro que deseas cerrar la sesión?", "Cerrar sesión",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (opcion == MessageBoxResult.OK)
+            {
+                FuncionesComunes.CerrarSesion();
+                this.Close();
+            }
         }
 
         private void puestosCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -382,10 +397,10 @@ namespace ClienteItaliaPizza
         }
         private void EditarGuardarBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Recuerda el método Trim() para eliminar espacios
 
             if (EditarGuardarBtn.Content.ToString() == "Editar")
             {
+                enEdicion = true;
                 EditarGuardarBtn.Content = "Guardar";
                 HabilitarCampos();
             }
@@ -393,6 +408,7 @@ namespace ClienteItaliaPizza
             {
                 if (EsCorreoElectronicoValido())
                 {
+                    enEdicion = false;
                     EditarInformacion();
                     EditarGuardarBtn.Content = "Editar";
                 }
@@ -491,7 +507,6 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-                this.empleado.IdEmpleado = empleado.idEmpleado;
                 this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
                 this.empleado.nombre = empleado.nombre;
                 this.empleado.apellidoPaterno = empleado.apellidoPaterno;
@@ -499,14 +514,12 @@ namespace ClienteItaliaPizza
                 this.empleado.correo = empleado.correo;
                 this.empleado.telefono = empleado.telefono;
                 this.empleado.activado = empleado.activado;
-                this.direccion.Id = direccion.id;
                 this.direccion.calle = direccion.calle;
                 this.direccion.numeroExterior = direccion.numeroExterior;
                 this.direccion.numeroInterior = direccion.numeroInterior;
                 this.direccion.colonia = direccion.colonia;
                 this.direccion.codigoPostal = direccion.codigoPostal;
                 idPuesto = rol.id;
-                this.cuenta.Id = cuenta.id;
                 this.cuenta.nombreUsuario = cuenta.nombreUsuario;
                 this.cuenta.contraseña = cuenta.contraseña;
                 EstablecerInformacion();
@@ -518,7 +531,6 @@ namespace ClienteItaliaPizza
             Dispatcher.Invoke(() =>
             {
                 VaciarCampos();
-                this.empleado.IdEmpleado = empleado.idEmpleado;
                 this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
                 this.empleado.nombre = empleado.nombre;
                 this.empleado.apellidoPaterno = empleado.apellidoPaterno;
@@ -526,7 +538,6 @@ namespace ClienteItaliaPizza
                 this.empleado.correo = empleado.correo;
                 this.empleado.telefono = empleado.telefono;
                 this.empleado.activado = empleado.activado;
-                this.direccion.Id = direccion.id;
                 this.direccion.calle = direccion.calle;
                 this.direccion.numeroExterior = direccion.numeroExterior;
                 this.direccion.numeroInterior = direccion.numeroInterior;

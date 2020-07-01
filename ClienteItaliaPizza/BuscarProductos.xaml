@@ -9,7 +9,7 @@
     <Grid>
         <Grid VerticalAlignment="top" Height="100" Margin="30,0">
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
-            <TextBox x:Name="SearchBox" Tag="Nombre del producto" Style="{DynamicResource placeHolderSearchBox}" VerticalContentAlignment="Center" Margin="513,34,379,34" Width="Auto" KeyDown="BuscarProducto" BorderBrush="Black" Background="White" Height="32" MaxLines="1"/>
+            <TextBox x:Name="SearchBox" Tag="Nombre del producto" Style="{DynamicResource placeHolderSearchBox}" VerticalContentAlignment="Center" Margin="513,34,379,34" Width="Auto" BorderBrush="Black" Background="White" Height="32" MaxLines="1" KeyDown="SearchBox_KeyDown"/>
             <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="LightGray" Click="SearchBtn_Click">
                 <Image Source="RecursosGUI/search.png" Stretch="Fill"/>
             </Button>

@@ -138,7 +138,7 @@ namespace ClienteItaliaPizza
             puestosCB.Items.Insert(0, "Seleccionar rol");
             puestosCB.Items.Insert(1, "Mesero");
             puestosCB.Items.Insert(2, "Cocinero");
-            puestosCB.Items.Insert(3, "Call center");
+            puestosCB.Items.Insert(3, "Call Center");
             puestosCB.Items.Insert(4, "Contador");
             puestosCB.Items.Insert(5, "Gerente");
             puestosCB.SelectedIndex = 0;
