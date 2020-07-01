@@ -119,7 +119,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private int ProductoExternoAcitvado(ProvisionDirecta1 provisionDirecta)
+        /*private int ProductoExternoAcitvado(ProvisionDirecta1 provisionDirecta)
         {
             int EstaActivo = 0;
 
@@ -129,7 +129,7 @@ namespace ClienteItaliaPizza
             }
 
             return EstaActivo;
-        }
+        }*/
 
         private void HabilitarCampos()
         {
@@ -197,10 +197,10 @@ namespace ClienteItaliaPizza
             }
         }
 
-        public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta, byte[] imagen)
+        /*public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta, byte[] imagen)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public void ErrorAlRecuperarProducto(string mensajeError)
         {
@@ -327,7 +327,17 @@ namespace ClienteItaliaPizza
             //existenciasTxt.Text = productoInterno1.Id.ToString();
 
         }
-        
+
+        public void ProductoInterno([MessageParameter(Name = "productoInterno")] Producto productoInterno1, byte[] imagen, string nombreReceta, string categoria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ProductoExterno([MessageParameter(Name = "productoExterno")] ProvisionVentaDirecta productoExterno1)
+        {
+            throw new NotImplementedException();
+        }
+
         /*
         public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta)
         {

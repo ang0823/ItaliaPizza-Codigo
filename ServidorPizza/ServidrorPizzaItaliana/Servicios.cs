@@ -31,11 +31,14 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                var productoInterno = db.ProductoSet.Where(x => x.nombre == nombreProducto).Include(x => x.Receta).Include(x => x.Categoria).FirstOrDefault();
+                db.Configuration.ProxyCreationEnabled = false;
+                var productoInterno = db.ProductoSet.Where(x => x.nombre == nombreProducto).FirstOrDefault();
+                var receta = db.RecetaSet.Where(x => x.Producto.nombre == nombreProducto).Select(x => x.nombreReceta).FirstOrDefault();
+                var categoria = db.CategoriaSet.Where(x => x.Producto.FirstOrDefault().nombre == nombreProducto).Select(x => x.categoria).FirstOrDefault();
 
                 if (productoInterno != null)
                 {
-                    Callback.ProductoInterno(productoInterno, ObtenerImagen(nombreProducto), productoInterno.Receta.nombreReceta, productoInterno.Categoria.categoria);
+                    Callback.ProductoInterno(productoInterno, ObtenerImagen(nombreProducto), receta, categoria);
                 }
                 else
                 {
@@ -1420,7 +1423,7 @@ namespace ServidrorPizzaItaliana
         {
             byte[] imagen;
 
-            Stream archivo = new FileStream("C:/Users/angel/OneDrive/Documentos/desarrollo_software/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
+            Stream archivo = new FileStream("C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
 
             using (MemoryStream ms = new MemoryStream())
             {
