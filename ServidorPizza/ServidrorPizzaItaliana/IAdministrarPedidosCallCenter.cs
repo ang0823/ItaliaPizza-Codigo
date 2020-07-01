@@ -89,18 +89,30 @@ namespace ServidrorPizzaItaliana
         private string categoria;
         [DataMember]
         private byte[] imagen;
+        [DataMember]
+        private string nombreReceta;
+        [DataMember]
+        private bool activado;
 
         public ProductoDePedido(int id, string nombre, string descrpcion, double precioUnitario, string restricciones, string categoria)
         {
-            this.id = id;
-            this.nombre = nombre;
-            this.descrpcion = descrpcion;
-            this.precioUnitario = precioUnitario;
-            this.restricciones = restricciones;
-            this.categoria = categoria;
+            this.Id = id;
+            this.Nombre = nombre;
+            this.Descrpcion = descrpcion;
+            this.PrecioUnitario = precioUnitario;
+            this.Restricciones = restricciones;
+            this.Categoria = categoria;
         }
 
         public byte[] Imagen { get => imagen; set => imagen = value; }
+        public string NombreReceta { get => nombreReceta; set => nombreReceta = value; }
+        public bool Activado { get => activado; set => activado = value; }
+        public int Id { get => id; set => id = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public string Descrpcion { get => descrpcion; set => descrpcion = value; }
+        public double PrecioUnitario { get => precioUnitario; set => precioUnitario = value; }
+        public string Restricciones { get => restricciones; set => restricciones = value; }
+        public string Categoria { get => categoria; set => categoria = value; }
     }
 
 
@@ -136,21 +148,33 @@ namespace ServidrorPizzaItaliana
 
         public ProvisionVentaDirecta(int idProvisionVentaDirecta, int idProvision, string nombre, int cantidadExistencias, string ubicacion, int stock, double precioUnitario, string unidadDeMedida, bool activado, string descripcion, string restricciones, string categoria)
         {
-            this.idProvisionVentaDirecta = idProvisionVentaDirecta;
-            this.idProvision = idProvision;
-            this.nombre = nombre;
-            this.cantidadExistencias = cantidadExistencias;
-            this.ubicacion = ubicacion;
-            this.stock = stock;
-            this.precioUnitario = precioUnitario;
-            this.unidadDeMedida = unidadDeMedida;
-            this.activado = activado;
-            this.descripcion = descripcion;
-            this.restricciones = restricciones;
-            this.categoria = categoria;
+            this.IdProvisionVentaDirecta = idProvisionVentaDirecta;
+            this.IdProvision = idProvision;
+            this.Nombre = nombre;
+            this.CantidadExistencias = cantidadExistencias;
+            this.Ubicacion = ubicacion;
+            this.Stock = stock;
+            this.PrecioUnitario = precioUnitario;
+            this.UnidadDeMedida = unidadDeMedida;
+            this.Activado = activado;
+            this.Descripcion = descripcion;
+            this.Restricciones = restricciones;
+            this.Categoria = categoria;
         }
 
         public byte[] Imagen { get => imagen; set => imagen = value; }
+        public int IdProvisionVentaDirecta { get => idProvisionVentaDirecta; set => idProvisionVentaDirecta = value; }
+        public int IdProvision { get => idProvision; set => idProvision = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public int CantidadExistencias { get => cantidadExistencias; set => cantidadExistencias = value; }
+        public string Ubicacion { get => ubicacion; set => ubicacion = value; }
+        public int Stock { get => stock; set => stock = value; }
+        public double PrecioUnitario { get => precioUnitario; set => precioUnitario = value; }
+        public string UnidadDeMedida { get => unidadDeMedida; set => unidadDeMedida = value; }
+        public bool Activado { get => activado; set => activado = value; }
+        public string Descripcion { get => descripcion; set => descripcion = value; }
+        public string Restricciones { get => restricciones; set => restricciones = value; }
+        public string Categoria { get => categoria; set => categoria = value; }
     }
 
     [DataContract]

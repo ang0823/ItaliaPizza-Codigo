@@ -1,4 +1,5 @@
 ﻿using AccesoBD2;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace ServidrorPizzaItaliana
@@ -8,17 +9,22 @@ namespace ServidrorPizzaItaliana
     {
 
         [OperationContract(IsOneWay = true)]
-        void ModificarProductoExterno(ProvisionDirecta producto, Provision provision, byte[] imagen, bool modificarImagen);
+        void ObtenerNombresDeRecetas();
 
         [OperationContract(IsOneWay = true)]
-        void ModificarProductoInterno(AccesoBD2.Producto producto, byte[] imagen, bool modificarImagen);
+        void ModificarProductoExterno(ProvisionVentaDirecta productoExterno, bool modificarImagen);
+
+        [OperationContract(IsOneWay = true)]
+        void ModificarProductoInterno(AccesoBD2.Producto producto, bool modificarImagen, string nombreReceta, byte[] imagen);
     }
 
     [ServiceContract]
     public interface IModificarProductoCallback
     {
         [OperationContract(IsOneWay = true)]
-        void RespuestaModificarProducto(string mensajeError);
+        void ListaDeRecetas(List<string> nombreDeRecetas);
 
+        [OperationContract(IsOneWay = true)]
+        void RespuestaModificarProducto(string mensajeError);
     }
 }
