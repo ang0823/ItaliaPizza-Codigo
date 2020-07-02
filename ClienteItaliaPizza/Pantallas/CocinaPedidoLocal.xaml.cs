@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ClienteItaliaPizza.Pantallas
 {
@@ -21,18 +12,48 @@ namespace ClienteItaliaPizza.Pantallas
     public partial class CocinaPedidoLocal : UserControl
     {
         public List<platillo> llenarDataGrid
-        {          
+        {
             set { DataGridPlatillos.ItemsSource = value; }
         }
+
+        public string EditarLabelIDPedido
+        {
+            get { return labelIDpedido.Content.ToString(); }
+            set { labelIDpedido.Content = value; }
+        }
+
+        public string EditarLabelTipo
+        {
+            get { return labelTipo.Content.ToString(); }
+            set { labelTipo.Content = value; }
+        }
+
+        public string EditarLabelInstrucciones
+        {
+            get { return labelInstrucciones.Content.ToString(); }
+            set { labelInstrucciones.Content = value; }
+        }
+
         public CocinaPedidoLocal()
         {
             InitializeComponent();
         }
 
         public event EventHandler eventoDataGridPlatillos;
+        public event EventHandler eventoNotificarPedidoPreparado;
         private void StackPanelPedidoLocal_Loaded(object sender, RoutedEventArgs e)
         {
             eventoDataGridPlatillos?.Invoke(this, e);
+        }
+
+        private void CellChanged_VerificarPlatillosPreparados(object sender, EventArgs e)
+        {
+            var listaPlatillos = DataGridPlatillos.ItemsSource as List<platillo>;
+            if (listaPlatillos.TrueForAll(p => p.preparado == true))
+            {
+                eventoNotificarPedidoPreparado?.Invoke(this, e);
+                FuncionesComunes.MostrarMensajeExitoso("Preparado Listo");
+            }            
         }
     }
 }

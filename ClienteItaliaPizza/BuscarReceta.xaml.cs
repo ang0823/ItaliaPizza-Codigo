@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,8 +21,8 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class BuscarReceta : Window
     {
-        CuentaUsuario cuenta = new CuentaUsuario(); 
-        public BuscarReceta(CuentaUsuario cuentaUsuario)
+        CuentaUsuario1 cuenta = new CuentaUsuario1(); 
+        public BuscarReceta(CuentaUsuario1 cuentaUsuario)
         {
             InitializeComponent();
             cuenta = cuentaUsuario;
@@ -53,6 +54,40 @@ namespace ClienteItaliaPizza
         {
 
         }
-       
+
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcion;
+
+            opcion = MessageBox.Show("¿Seguro que deseas cerrar la sesión?", "Cerrar sesión",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (opcion == MessageBoxResult.OK)
+            {
+                FuncionesComunes.CerrarSesion();
+                this.Close();
+            }
+        }
+
+        // -----------------------------------AGREGADO POR ANGEL---------------------------------
+        private void CargarRecetas()
+        {
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                ObtenerRecetasClient ServicioRecetas = new ObtenerRecetasClient(context);
+
+                ServicioRecetas.ObtenerRecetas();
+            }
+            catch (Exception exc)
+            {
+                FuncionesComunes.MostrarMensajeDeError(exc.Message);
+            }
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

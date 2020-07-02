@@ -7,40 +7,35 @@ using System.Threading.Tasks;
 using ClienteItaliaPizza.Servicio;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Controls;
 using ClienteItaliaPizza.Pantallas;
+using System.ServiceModel;
 
 namespace ClienteItaliaPizza
 {
     /// <summary>
     /// Lógica de interacción para VentanaCocina.xaml
     /// </summary>
-    public partial class VentanaCocina : Window
+    public partial class VentanaCocina : Window, INotificarPedidoCallback
     {
+        InstanceContext context;
+        NotificarPedidoClient server;
+        List<PedidoLocal> pedidosLocales = new List<PedidoLocal>();
         int ejeY = 40; // eje Y de nuestra ventana
-        int conteo = 0; //contador para nuestros controles dinámicos
-      
-
-        public Pedido pedido
-        {
-            get { return (Pedido)GetValue(MyPropertyProperty); }
-            set { SetValue(MyPropertyProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MyPropertyProperty =
-            DependencyProperty.Register("MyProperty", typeof(int), typeof(VentanaCocina), new PropertyMetadata(0));
-
+        int conteo = 0; //contador para nuestros controles dinámicos            
 
         public VentanaCocina()
         {
             InitializeComponent();
+            try
+            {
+                context = new InstanceContext(this);
+                server = new NotificarPedidoClient(context);
+                server.AgregarUsuario("Cocinero");
+            }
+            catch(CommunicationException e)
+            {
+                FuncionesComunes.MostrarMensajeDeError(e.Message);
+            }
         }
     
 
@@ -89,7 +84,7 @@ namespace ClienteItaliaPizza
           grid.Children.Add(panel); */
             // panelPrincipal.Children.Add(panel);
 
-            CocinaPedidoLocal cocinaPedidoLocal = new CocinaPedidoLocal();
+            /*CocinaPedidoLocal cocinaPedidoLocal = new CocinaPedidoLocal();
             cocinaPedidoLocal.Name = "local_" + conteo.ToString();
             cocinaPedidoLocal.Margin = new Thickness(50, ejeY, 0, 0);
             cocinaPedidoLocal.Visibility = Visibility.Visible;
@@ -105,7 +100,7 @@ namespace ClienteItaliaPizza
             ejeY += 300;
             conteo++;
 
-            grid.Children.Add(cocinaPedidoLocal);
+            grid.Children.Add(cocinaPedidoLocal);*/
         }
 
         private void ButtonRegresarClick(object sender, RoutedEventArgs e)
@@ -126,10 +121,79 @@ namespace ClienteItaliaPizza
            /* foreach (var platillo in platillos)
             {
                 DataGridPlatillos.Items.Add(platillo);
-            }*/
+            }
             DataGridPlatillos.ItemsSource = platillos;
             var n = DataGridPlatillos.ItemsSource;
-            
+            */
+        }
+
+        public void RecibirPedidoLocal(PedidoLocal pedido)
+        {
+            CocinaPedidoLocal cocinaPedidoLocal = new CocinaPedidoLocal();
+            cocinaPedidoLocal.Name = "local_" + conteo.ToString();
+            cocinaPedidoLocal.Margin = new Thickness(50, ejeY, 0, 0);
+            cocinaPedidoLocal.Visibility = Visibility.Visible;
+            cocinaPedidoLocal.eventoNotificarPedidoPreparado += EnviarPedidoLocalPreparado;
+
+            cocinaPedidoLocal.EditarLabelIDPedido = pedido.Id.ToString();
+            cocinaPedidoLocal.EditarLabelTipo = "Local";
+            cocinaPedidoLocal.EditarLabelInstrucciones = pedido.instruccionesEspeciales;
+
+            List<platillo> platillos = new List<platillo>();
+
+            foreach (var producto in pedido.Producto)
+            {
+                platillos.Add(new platillo (producto.nombre, false));
+            }
+                       
+            cocinaPedidoLocal.llenarDataGrid = platillos;
+
+            ejeY += 300;
+            conteo++;
+
+            grid.Children.Add(cocinaPedidoLocal);
+            pedidosLocales.Add(pedido);
+        }
+
+        private void EnviarPedidoLocalPreparado(object sender, EventArgs e)
+        {
+            var local = sender as CocinaPedidoLocal;
+            var idPedido = local.EditarLabelIDPedido;
+            var pedidoEncontrado = pedidosLocales.Find(p => p.Id == FuncionesComunes.ParsearAEntero(idPedido));
+            pedidoEncontrado.Estado = new Estado
+            {
+                estadoPedido = "Preparado"
+            };
+
+            if (pedidoEncontrado!= null){
+                server.NotificarPedidoLocalPreparado(pedidoEncontrado, "Cocinero");
+            }            
+        }
+
+        public void RecibirPedidoDomicilio(PedidoADomicilio pedido)
+        {
+            CocinaPedidoDomicilio cocinaPedidoDomicilio = new CocinaPedidoDomicilio();
+            cocinaPedidoDomicilio.Name = "domicilio_" + conteo.ToString();
+            cocinaPedidoDomicilio.Margin = new Thickness(50, ejeY, 0, 0);
+            cocinaPedidoDomicilio.Visibility = Visibility.Visible;
+
+            cocinaPedidoDomicilio.EditarLabelIDPedido = pedido.Id.ToString();
+            cocinaPedidoDomicilio.EditarLabelTipo = "Domicilio";
+            cocinaPedidoDomicilio.EditarLabelInstrucciones = pedido.instruccionesEspeciales;
+
+            List<platillo> platillos = new List<platillo>();
+
+            cocinaPedidoDomicilio.llenarDatagridDomicilio = pedido.Producto;
+
+            ejeY += 300;
+            conteo++;
+
+            grid.Children.Add(cocinaPedidoDomicilio);
+        }
+
+        public void MensajeNotificarPedido(string mensaje)
+        {
+            MessageBox.Show(mensaje);
         }
     }
 
@@ -146,14 +210,8 @@ namespace ClienteItaliaPizza
             this.nombreplatillo = nombre;
             this.preparado = preparado;
         }
-    }
-    public class Pedido
-    {
-        private int idPedido { get; set; }
-        public string tipo { get; set; }
-        public string instruccionesEspeciles { get; set;}
-        public List<platillo> platillosEnEspera;
-    }
+        
+    }   
 
     /**
      * metodo callback qe recibira para obtener el nuevo pedido a preparar

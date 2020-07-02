@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -14,12 +15,12 @@ namespace ServidrorPizzaItaliana
     {
         [OperationContract(IsOneWay = true)]
         void RegistrarProducto(AccesoBD2.Producto producto, Categoria categoria, int receta);
+
     }
 
     [ServiceContract]
     public interface IRegistrarProductoCallback
     {
-
         [OperationContract(IsOneWay = true)]
         void RespuestaRP(string mensaje);
     }

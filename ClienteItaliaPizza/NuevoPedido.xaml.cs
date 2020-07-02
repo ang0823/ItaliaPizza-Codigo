@@ -4,274 +4,313 @@ using ClienteItaliaPizza.Servicio;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.ServiceModel;
 using ClienteItaliaPizza.Validacion;
-using System.Windows.Forms;
+using System.Collections.ObjectModel;
+using System.Linq;
+using ClienteItaliaPizza.Pantallas;
 
 namespace ClienteItaliaPizza
 {
     /// <summary>
     /// Lógica de interacción para PedidoADomicilio.xaml
+    /// Autor: Caicero Franco Elsa Irasema
     /// </summary>
-    public partial class NuevoPedido : Window, IRegistrarPedidoLocalCallback
+    public partial class NuevoPedido : UserControl, IAdministrarPedidosMeserosCallback , IAdministrarPedidosCallCenterCallback
     {
-        InstanceContext context;
-        private List<Producto> productosDisponibles = new List<Producto>();
-        private List<ProvisionDirecta> provisionesDisponibles = new List<ProvisionDirecta>();
-        private List<Mesa> Listamesas = new List<Mesa>();
+        string tipoDePedido;
         string mesaSeleccionada;
-
+        InstanceContext instanceContext;
+        //AdministrarPedidosMeserosClient meserosClient;
+        AdministrarPedidosCallCenterClient callCenterClient;
+        //listas de productos seleccionados para el NUEVO Pedido
         private List<Producto> productosSeleccionados = new List<Producto>();
         private List<ProvisionDirecta> provisionesSeleccionadas = new List<ProvisionDirecta>();
+        ObservableCollection<Orden> listaOrdenes = new ObservableCollection<Orden>();
+        EmpleadoPizzeria[] Meseros;
+        IAdministrarPedidosMeseros serverMeseros;
+        public event EventHandler eventCancelar;
 
+        //Constructor para registrar un nuevo Pedido (hacer uno para la edicion de pedido)
         public NuevoPedido(string tipoPedido)
         {
-            InitializeComponent();            
+            InitializeComponent();
+            dataGridOrden.ItemsSource = listaOrdenes;
+            tipoDePedido = tipoPedido;
+            try
+            {
+                if (tipoPedido.Equals("Local"))
+                {
+                    UC_NuevoPLocal.Visibility = Visibility.Visible;
+                    instanceContext = new InstanceContext(this);
+                    //meserosClient = new AdministrarPedidosMeserosClient(instanceContext);
+                    var canal  = new DuplexChannelFactory<IAdministrarPedidosMeseros>(instanceContext, "*");
+                    serverMeseros = canal.CreateChannel();
 
-            if (tipoPedido.Equals("Local"))
-            {
-                UC_NuevoPLocal.Visibility = Visibility.Visible;
-                //InstanceContext instanceContext = new InstanceContext(this);
-              //  RegistrarPedidoLocalClient cliente = new RegistrarPedidoLocalClient(instanceContext);
-               // cliente.ObtenerInformacionDeProductosYEstados();
+                    Meseros = serverMeseros.ObtenerMeseros();
+                    foreach (var mesero in Meseros)
+                        UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado = mesero.idGenerado;
+
+                    serverMeseros.ObtenerProductos();                    
+                }
+                if (tipoPedido.Equals("Domicilio"))
+                {
+                    UC_NuevoDomicilio.Visibility = Visibility.Visible;
+                    instanceContext = new InstanceContext(this);
+                    callCenterClient = new AdministrarPedidosCallCenterClient(instanceContext);
+                    callCenterClient.ObtenerDatos();
+                }
             }
-            if (tipoPedido.Equals("Domicilio"))
+            catch (CommunicationException e)
             {
-                UC_NuevoDomicilio.Visibility = Visibility.Visible;
+                FuncionesComunes.MostrarMensajeDeError("No se ha podido establecer comunicación con el servidor\n"+e.Data.ToString());
             }
         }       
-
-        private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
-        {
-            bool resultado = ValidarCamposLlenosPedidoLocal();
-            if (resultado == true)
-            {               
-                context = new InstanceContext(this);
-
-                //esto irá encapsulado en un método cuando comparemos si es local o a domicilio
-                RegistrarPedidoLocalClient pedidoLocalClient = new RegistrarPedidoLocalClient(context);
-                int numeroMesa = FuncionesComunes.ParsearAEntero(mesaSeleccionada);
-                var seleccionEmpleado = UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado;
-                var numeroEmpleado = FuncionesComunes.ParsearAEntero(seleccionEmpleado);
-                var descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
-                Mesa mesa = Listamesas.Find(x => x.numeroMesa == numeroMesa);
-
-                PedidoLocal pedidoLocalNuevo = new PedidoLocal();
-                pedidoLocalNuevo.fecha = DateTime.Now;
-                pedidoLocalNuevo.instruccionesEspeciales = textBoxInstruccionesEspeciales.Text;
-                pedidoLocalNuevo.MesaId = mesa.Id;
-                pedidoLocalNuevo.Producto = new Producto[1];
-                productosDisponibles.CopyTo(pedidoLocalNuevo.Producto);
-                pedidoLocalNuevo.ProvisionDirecta = new ProvisionDirecta[1];
-                provisionesDisponibles.CopyTo(pedidoLocalNuevo.ProvisionDirecta);
-
-                Cuenta c = new Cuenta();
-                c.precioTotal = 50;
-                c.subTotal = 50;
-                c.descuento = descuento;
-                c.iva = 50;
-                c.Id = GenerarIdPedidoLocal(1);
-
-                pedidoLocalClient.RegistrarPedidoLocal(pedidoLocalNuevo, c, 1, numeroEmpleado);
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("No se han ingresado todos los datos");
-            }
-        }
-
-        private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void TextBoxDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Validador Validacion = new Validador();
-            bool resultadoValidacion = Validacion.validarSoloNumeros(e.Text);
-            if (resultadoValidacion == false)
-            {
-                e.Handled = true;
-            }
-        }
-
-        public void DatosRecuperados(ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones, EstadoDePedido[] estados, MesaLocal[] mesas)
-        {
-           
-            mostrarProductos(productos);
-            mostrarProvisionesDirectas(provisiones);
-            //no entiendo porque recibe los estados de pedido
-            mostrarMesas(mesas);
-
-        }
-
-        public void MensajeRegistrarPedidoLocal(string mensaje)
-        {
-            FuncionesComunes.MostrarMensajeExitoso(mensaje);
-        }
-
-        public void mostrarProductos(ProductoDePedido[] productos)
-        {
-            //temporalmente lo pongo en un listbox
-            foreach (ProductoDePedido productoDePedido in productos)
-            {
-                Producto producto = new Producto();
-
-                producto.Id = productoDePedido.id;
-                producto.nombre = productoDePedido.nombre;
-                producto.Categoria = new Categoria();
-                producto.Categoria.categoria = productoDePedido.categoria;
-                producto.precioUnitario = productoDePedido.precioUnitario;
-                producto.descripcion = productoDePedido.descrpcion;
-                producto.restricciones = productoDePedido.restricciones;
-
-                productosDisponibles.Add(producto);
-                ListBoxEnsaladas.Items.Add(productoDePedido.nombre);
-            }
-        }
-
-        public void mostrarProvisionesDirectas(ProvisionVentaDirecta[] provisiones)
-        {
-            foreach (ProvisionVentaDirecta pr in provisiones)
-            {
-                ProvisionDirecta provisionDirecta = new ProvisionDirecta();
-
-                provisionDirecta.Id = pr.idProvisionVentaDirecta;
-                provisionDirecta.Provision = new Provision();
-                provisionDirecta.Provision.Id = pr.idProvision;
-                provisionDirecta.Provision.nombre = pr.nombre;
-
-                provisionesDisponibles.Add(provisionDirecta);
-                ListBoxEnsaladas.Items.Add(pr.nombre);
-            }
-        }
-
-        public void mostrarMesas(MesaLocal[] mesas)
-        {
-            foreach (MesaLocal numMesa in mesas)
-            {
-                Mesa mesa = new Mesa();
-                mesa.Id = numMesa.idMesa;
-                mesa.numeroMesa = numMesa.numeroMesa;
-
-                Listamesas.Add(mesa);
-
-                UC_NuevoPLocal.EditarSeleccionComboBoxNoMesa = mesa.numeroMesa.ToString();
-                // comboBoxNoMesa.Items.Add(numMesa.numeroMesa);
-            }
-        }
-
-        private void SeleccionaUnProducto(object sender, SelectionChangedEventArgs e)
-        {
-            var ProductoSeleccionado = ListBoxEnsaladas.SelectedItem.ToString();
-            var ProductoDelPedido = productosDisponibles.Find(p => p.nombre == ProductoSeleccionado);
-            productosSeleccionados.Add(ProductoDelPedido);
-            labelIVA.Content = ProductoDelPedido.nombre;
-        }
-
+       
 
         private void GridBebidas_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
+        {                 
             //ImageList listaImagesBebidas = new ImageList();
-            ListViewBebidas.ItemsSource = new MovieData[] {
-            new MovieData{Title="Movie 1", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 2", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 3", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 4", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 5", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
-            new MovieData{Title="Movie 6", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")}
-            };          
-            /* Esto era para mostrar la imagen del producto
-             * 
-             * Image image = new Image();            
-             image.Height = 66;
-             image.Width = 78;
-             image.Margin = new Thickness(21, 17, 0, 0);
-             image.Stretch = Stretch.Fill;
-             image.Name = "imagen";
-             image.Opacity = 100;
-             Uri uri = new Uri("C:/Users/survi/Pictures/Granos Selectos (4).jpg");
-             image.Source = new BitmapImage(uri);
-
-             gridBebidas.Children.Add(image); */
+            /* ListViewBebidas.ItemsSource = new MovieData[] {
+             new MovieData{Title="Movie 1", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 2", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 3", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 4", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 5", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
+             new MovieData{Title="Movie 6", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")}
+             };  */
         }
 
-        // for this code image needs to be a project resource
         private BitmapImage LoadImage(string filename)
         {
             return new BitmapImage(new Uri(filename));
         }
 
-
-        /**
-         * Métodos Correspondientes al UserControl Local
-         */
-        private void UC_NuevoPLocal_eventLlenarNoMesa(object sender, EventArgs e)
+        private void TextBoxDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            if (Validador.validarSoloNumeros(e.Text) == false)
+                e.Handled = true;
         }
 
-        private void UC_NuevoPLocal_eventLlenarNumEmpleado(object sender, EventArgs e)
+
+
+
+        //      SELECCIÓN DE PRODUCTOS  **************************************************+
+        private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<String> lista = new List<string>();
-            lista.Add("1");
-            foreach (string empleado in lista)
+            var provisionSeleccionada = ListViewBebidas.SelectedItem as ProvisionVentaDirecta;
+            var ordenExistente = listaOrdenes.FirstOrDefault<Orden>(i => i.nombreProducto == provisionSeleccionada.nombre);
+            if (ordenExistente == null)
             {
-                UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado = empleado;
+                Orden orden = new Orden();
+                orden.cantidad = 1;
+                orden.nombreProducto = provisionSeleccionada.nombre;
+                orden.precioUnitario = provisionSeleccionada.precioUnitario;
+                orden.precioTotal = provisionSeleccionada.precioUnitario;
+                listaOrdenes.Add(orden);
+
+                ProvisionDirecta provision = ConvertidorDeObjetos.ProvisionVentaDirecta_A_ProvisionDirecta(provisionSeleccionada);
+                provisionesSeleccionadas.Add(provision);
+                labelSubtotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
+                labelTotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+            }
+            else
+            {                
+                ordenExistente.cantidad++;
+                ordenExistente.precioTotal = ordenExistente.precioUnitario * ordenExistente.cantidad;
+                dataGridOrden.Items.Refresh();
+                labelTotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
             }
         }
 
-        private void UC_NuevoPLocal_eventSeleccionarNoMesa(object sender, EventArgs e)
+        private void ListViewPostres_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            mesaSeleccionada = UC_NuevoPLocal.EditarSeleccionComboBoxNoMesa.ToString();
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPostres);
+        }
+        private void ListViewEnsaladas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewEnsaladas);
         }
 
-        private void UC_NuevoPLocal_eventSeleccionarNumEmpleado(object sender, EventArgs e)
+        private void ListViewPizzas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var opcionSeleccionada = UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado.ToString();
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPizzas);
         }
 
-
-
-        /**
-         * Métodos Correspondientes al UserControl de Nuevo Pedido A Domicilio 
-         */
-        private void UC_NuevoDomicilio_eventLlenarComboBoxClienteNombre(object sender, EventArgs e)
+        private void ListViewPastas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<String> lista = new List<string>();
-            lista.Add("fulano");
-            lista.Add("sutano");
-            foreach (string nombre in lista)
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPastas);
+        }
+
+        /// <summary>
+        /// Obtiene el producto seleccionado de los ListView que exponen PRODUCTOS y los agrega a la lista de ordenes del pedido
+        /// </summary>
+        /// <typeparam name="T"> T es un tipo de dato System.Windows.Controls.ListView  </typeparam>
+        /// <param name="t"> Es el ListView que expone los productos </param>
+        private void ObtenerProductoSeleccionado<T>(System.Windows.Controls.ListView t) where T : System.Windows.Controls.ListView
+        {
+            var productoSeleccionado = t.SelectedItem as ProductoDePedido;
+            var ordenExistente = listaOrdenes.FirstOrDefault(i => i.nombreProducto == productoSeleccionado.nombre);
+            if (ordenExistente == null)
             {
-                UC_NuevoDomicilio.EditarComboBoxClienteNombre = nombre;
+                Orden orden = new Orden
+                {
+                    cantidad = 1,
+                    nombreProducto = productoSeleccionado.nombre,
+                    precioUnitario = productoSeleccionado.precioUnitario,
+                    precioTotal = productoSeleccionado.precioUnitario
+                };
+                listaOrdenes.Add(orden);
+
+                Producto producto = ConvertidorDeObjetos.ProductoDePedido_A_Producto(productoSeleccionado);
+                productosSeleccionados.Add(producto);
+                labelSubtotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
+                labelTotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+            }
+            else
+            {
+                ordenExistente.cantidad++;
+                ordenExistente.precioTotal = ordenExistente.precioUnitario * ordenExistente.cantidad;
+                dataGridOrden.Items.Refresh();
+                labelTotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
             }
         }
+        //      SELECCIÓN DE PRODUCTOS  **************************************************
 
-        private void UC_NuevoDomicilio_eventSeleccionarCliente(object sender, EventArgs e)
+
+
+
+        //      BOTONES **************************************************************************
+        private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
         {
-            var opcionSeleccionada = UC_NuevoDomicilio.EditarComboBoxClienteNombre.ToString();
+            this.Visibility = Visibility.Collapsed;
+            this.eventCancelar?.Invoke(this, e);
         }
 
-        private void UC_NuevoDomicilio_eventLlenarComboBoxDireccion(object sender, EventArgs e)
+        //Llamará al registrar local, domicilio, editar local y editar domicilio
+        private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
-            List<String> lista = new List<string>();
-            lista.Add("av.juan chochito #2");
-            lista.Add("av.njksnd #1");
-            foreach (string direccion in lista)
+            if (tipoDePedido == "Local")
             {
-                UC_NuevoDomicilio.EditarComboBoxDireccion = direccion;
+                if (ValidarCamposLlenosPedidoLocal())
+                {
+                    try
+                    {
+                        if (RegistrarPedidoLocal()) VaciarCamposPedidoLocal();
+                        else
+                        {
+                            var canal = new DuplexChannelFactory<IAdministrarPedidosMeseros>(instanceContext, "*");
+                            serverMeseros = canal.CreateChannel();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        FuncionesComunes.MostrarMensajeDeError(ex.Message + ex.StackTrace);
+                    }
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError("Existen campos vacíos");
+                }
+            }
+            else
+            {
+                if (ValidarCamposLlenosPedidoDomicilio())
+                {
+                    try
+                    {
+                        RegistrarPedidoADomicilio();
+                    }
+                    catch (Exception ex)
+                    {
+                        FuncionesComunes.MostrarMensajeDeError(ex.Message + "\n" + ex.StackTrace);
+                    }
+                }
             }
         }
+        //      BOTONES **************************************************************************
 
-        private void UC_NuevoDomicilio_eventSeleccionarDirección(object sender, EventArgs e)
+
+
+        //      MÉTODOS ESPECÍFICOS DEL PEDIDO LOCAL **************************************************
+        public bool ValidarCamposLlenosPedidoLocal()
         {
-            var opcionSeleccionada = UC_NuevoDomicilio.EditarComboBoxDireccion.ToString();
+            if (UC_NuevoPLocal.comboBoxNumEmpleado.SelectedIndex != -1 &&
+                UC_NuevoPLocal.comboBoxNoMesa.SelectedIndex != -1 &&
+                textBoxDescuento.Text != null && listaOrdenes != null)
+            {
+                int descuento = FuncionesComunes.ParsearAEntero(textBoxDescuento.Text);
+                if (descuento >= 100)
+                {
+                    FuncionesComunes.MostrarMensajeDeError("El límite del descuento es 100%"); return false;
+                }
+                return true;
+            }
+            return false;
         }
 
-        private void UC_NuevoDomicilio_eventEditarTelefono(object sender, EventArgs e)
+        public void VaciarCamposPedidoLocal()
+        {            
+            listaOrdenes.Clear();
+            dataGridOrden.ItemsSource = listaOrdenes;
+            textBoxInstruccionesEspeciales.Text = "";
+            textBoxDescuento.Text = "0";
+            labelSubtotal.Content = 0;
+            labelTotal.Content = 0;
+        }
+
+        public bool RegistrarPedidoLocal()
         {
-            var NumeroTelefono = UC_NuevoDomicilio.EditartextBoxTelefono;
+            try
+            {
+                int numeroMesa = FuncionesComunes.ParsearAEntero(mesaSeleccionada);
+
+                var mesero = Meseros.FirstOrDefault<EmpleadoPizzeria>(e => e.idGenerado == UC_NuevoPLocal.EditarSeleccionComboBoxNumEmpleado);
+
+                textBoxDescuento.Text = "." + textBoxDescuento.Text;
+                var descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
+
+                PedidoLocal pedidoLocalNuevo = new PedidoLocal
+                {
+                    fecha = DateTime.Now,                     
+                    instruccionesEspeciales = textBoxInstruccionesEspeciales.Text,
+                    Mesa = new Mesa
+                    {
+                        numeroMesa = (short)numeroMesa
+                    },
+                    Empleado = new Empleado
+                    {
+                        IdEmpleado = mesero.id,
+                        idEmpleadoGenerado = mesero.idGenerado                        
+                    },
+                    Estado = new Estado
+                    {
+                       
+                        estadoPedido = "En Espera"
+                    },
+                    Cuenta = new Cuenta
+                    {
+                        Id = GenerarIdPedidoLocal(numeroMesa),
+                        subTotal = (double)labelSubtotal.Content,
+                        iva = 0.16,
+                        descuento = descuento,
+                        precioTotal = (double)labelTotal.Content,
+                    }                    
+                };
+
+                pedidoLocalNuevo.Producto = new Producto[productosSeleccionados.Count];
+                productosSeleccionados.CopyTo(pedidoLocalNuevo.Producto);
+                pedidoLocalNuevo.ProvisionDirecta = new ProvisionDirecta[provisionesSeleccionadas.Count];
+                provisionesSeleccionadas.CopyTo(pedidoLocalNuevo.ProvisionDirecta);
+
+                return serverMeseros.RegistrarPedidoLocal(pedidoLocalNuevo);
+            }
+            catch (CommunicationException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("No se ha podido establecer comunicación con el servidor");
+                return false;
+            }
         }
 
         public string GenerarIdPedidoLocal(int numeroMesa)
@@ -281,37 +320,264 @@ namespace ClienteItaliaPizza
             id = "PL-" + numeroMesa + horaRealizacionDePedido;
             return id;
         }
+        //      MÉTODOS ESPECÍFICOS DEL PEDIDO LOCAL **************************************************
 
-        public bool ValidarCamposLlenosPedidoLocal()
+
+
+
+        //      MÉTODOS ESPECÍFICOS DEL PEDIDO A DOMICILIO ****************************************************
+        public bool ValidarCamposLlenosPedidoDomicilio()
         {
-            if (UC_NuevoPLocal.comboBoxNumEmpleado.SelectedIndex != -1 && UC_NuevoPLocal.comboBoxNoMesa.SelectedIndex != -1 && textBoxDescuento.Text != null)
-            {          
+            if (textBoxDescuento.Text != null && listaOrdenes.Count != 0)
+            {
                 return true;
             }
             return false;
         }
 
-        private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public bool ValidarCamposVacios_AgregarCliente_ADomicilio()
         {
-            var selecto = ListViewBebidas.SelectedItem.ToString();
-            textBlockInstruccionesEspeciales.Text =  selecto;
+            if (UC_NuevoDomicilio.textBoxNombre.Text.Length > 0 &&
+                UC_NuevoDomicilio.textBoxApellidoPaterno.Text.Length > 0 &&
+                UC_NuevoDomicilio.textBoxApellidoMaterno.Text.Length > 0 &&               
+                UC_NuevoDomicilio.ObtenerTexto_ComboBoxTelefono != null &&
+                UC_NuevoDomicilio.textBoxCalle.Text.Length > 0 &&
+                UC_NuevoDomicilio.textBoxColonia.Text.Length > 0 &&
+                UC_NuevoDomicilio.textBoxCodigoPostal.Text.Length > 0 &&
+                UC_NuevoDomicilio.textBoxNoInterior.Text.Length > 0 &&
+                UC_NuevoDomicilio.textBoxNoExterior.Text.Length > 0) return true;
+            return false;
         }
-    }
+       
 
-    public class MovieData
-    {
-        private string _Title;
-        public string Title
+        public void RegistrarPedidoADomicilio()
         {
-            get { return this._Title; }
-            set { this._Title = value; }
+            Cliente1 clienteEnLista = new Cliente1();
+            var nombreCompleto = UC_NuevoDomicilio.EditarComboBoxClienteNombre.ToString();
+
+            foreach(var cliente in UC_NuevoDomicilio.clientes)
+            {
+                if (nombreCompleto.Contains(cliente.nombre + " " +cliente.apellidoPaterno + " " + cliente.apellidoMaterno))
+                {
+                    clienteEnLista = cliente;
+                    break;
+                }                
+            }
+
+            PedidoADomicilio pedidoADomicilio = new PedidoADomicilio
+            {
+                Cliente = new Cliente
+                {
+                    Id = clienteEnLista.id,
+                    nombre = clienteEnLista.nombre,
+                    apellidoPaterno = clienteEnLista.apellidoPaterno,
+                    apellidoMaterno = clienteEnLista.apellidoMaterno
+                },
+                ClienteId = clienteEnLista.id,
+                fecha = DateTime.Now,
+                instruccionesEspeciales = textBoxInstruccionesEspeciales.Text,
+                Empleado = new Empleado
+                {
+                    IdEmpleado = VentanaPedidos.idEmpleadoCallCenter,
+                    idEmpleadoGenerado = VentanaPedidos.idEmpleadoGeneradoCallCenter
+                    },
+                    Estado = new Estado { estadoPedido = "En Espera" },
+                    Cuenta = new Cuenta
+                    {
+                        Id = GenerarIdPedidoADomicilio(clienteEnLista.id),
+                        subTotal = (double)labelSubtotal.Content,
+                        iva = 0.16,
+                        descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text),
+                        precioTotal = (double)labelTotal.Content
+                    }
+                };
+
+            pedidoADomicilio.Producto = new Producto[productosSeleccionados.Count];
+            productosSeleccionados.CopyTo(pedidoADomicilio.Producto);
+            pedidoADomicilio.ProvisionDirecta = new ProvisionDirecta[provisionesSeleccionadas.Count];
+            provisionesSeleccionadas.CopyTo(pedidoADomicilio.ProvisionDirecta);
+
+            callCenterClient.RegistrarPedidoADomicilio(pedidoADomicilio);            
         }
 
-        private BitmapImage _ImageData;
-        public BitmapImage ImageData
+        public string GenerarIdPedidoADomicilio(int idCliente)
         {
-            get { return this._ImageData; }
-            set { this._ImageData = value; }
+            string id;
+            TimeSpan horaRealizacionDePedido = DateTime.Now.TimeOfDay;
+            id = "PD-" + idCliente + horaRealizacionDePedido;
+            return id;
         }
+        //      MÉTODOS ESPECÍFICOS DEL PEDIDO A DOMICILIO ****************************************************
+
+
+
+
+        //      CALLBACKS DE LOS MESEROS *******************************
+        public void DatosRecuperados(ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones)
+        {
+            foreach (var producto in productos)
+            {
+                if (producto.categoria == "Ensaladas")
+                    ListViewEnsaladas.Items.Add(producto);
+                if (producto.categoria == "Pizzas")
+                    ListViewPizzas.Items.Add(producto);
+                if (producto.categoria == "Pastas")
+                    ListViewPastas.Items.Add(producto);
+                if (producto.categoria == "Postres")
+                    ListViewPostres.Items.Add(producto);
+            }
+            ListViewBebidas.ItemsSource = provisiones;
+        }
+
+        public void MensajeAdministrarPedidosMeseros(string mensaje)
+        {
+            MessageBox.Show(mensaje); 
+        }
+        //      CALLBACKS DE LOS MESEROS *******************************
+
+
+
+
+
+        //      CALLBACKS DEL CALL CENTER ******************************
+        public void Datos(Cliente1[] clientes, ProductoDePedido[] productos, ProvisionVentaDirecta[] provisiones)
+        {
+            foreach (var cliente in clientes) 
+            {
+                UC_NuevoDomicilio.clientes.Add(cliente); 
+
+                UC_NuevoDomicilio.EditarComboBoxClienteNombre = cliente.nombre + " " + cliente.apellidoPaterno+" " + cliente.apellidoMaterno;
+            }
+
+            foreach (var producto in productos)
+            {
+                if (producto.categoria == "Ensaladas")
+                    ListViewEnsaladas.Items.Add(producto);
+                if (producto.categoria == "Pizzas")
+                    ListViewPizzas.Items.Add(producto);
+                if (producto.categoria == "Pastas")
+                    ListViewPastas.Items.Add(producto);
+                if (producto.categoria == "Postres")
+                    ListViewPostres.Items.Add(producto);
+            }
+            ListViewBebidas.ItemsSource = provisiones;
+        }
+
+        public void Mensaje([MessageParameter(Name = "mensaje")] string mensaje1)
+        {
+            MessageBox.Show(mensaje1);         
+        }
+
+        public void NotificacionClienteDePedido(string mensaje, Cliente1 cliente)
+        {
+            UC_NuevoDomicilio.clientes.Add(cliente); FuncionesComunes.MostrarMensajeExitoso(mensaje);
+            UC_NuevoDomicilio.EditarComboBoxClienteNombre = cliente.nombre + " " + cliente.apellidoPaterno + " " + cliente.apellidoMaterno;
+            UC_NuevoDomicilio.MostrarSoloComboBox();
+        }
+
+        //      CALLBACKS DEL CALL CENTER ******************************
+
+
+
+        /**
+         * MÉTODOS CORRESPONDIENTES AL USER CONTROL DEL PEDIDO LOCAL
+         */
+        private void UC_NuevoPLocal_eventLlenarNoMesa(object sender, EventArgs e)
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                UC_NuevoPLocal.EditarSeleccionComboBoxNoMesa = i.ToString();
+            }
+        }
+
+        private void UC_NuevoPLocal_eventLlenarNumEmpleado(object sender, EventArgs e)
+        {          
+        }
+
+        private void UC_NuevoPLocal_eventSeleccionarNoMesa(object sender, EventArgs e)
+        {
+            mesaSeleccionada = UC_NuevoPLocal.EditarSeleccionComboBoxNoMesa.ToString();
+        }
+
+        private void UC_NuevoPLocal_eventSeleccionarNumEmpleado(object sender, EventArgs e)
+        {           
+        }
+
+
+
+
+        /**
+         * MÉTODOS CORRESPONIDENTES AL USER CONTROL DEL PEDIDO A DOMICILIO
+         */
+        private void UC_NuevoDomicilio_eventLlenarComboBoxClienteNombre(object sender, EventArgs e)
+        {
+        }
+
+        private void UC_NuevoDomicilio_eventSeleccionarCliente(object sender, EventArgs e)
+        {            
+        }
+
+        private void UC_NuevoDomicilio_eventLlenarComboBoxDireccion(object sender, EventArgs e)
+        {           
+        }
+
+        private void UC_NuevoDomicilio_eventSeleccionarDirección(object sender, EventArgs e)
+        {            
+        }
+
+        private void UC_NuevoDomicilio_eventEditarTelefono(object sender, EventArgs e)
+        {           
+        }
+
+        private void UC_NuevoDomicilio_eventEditarTextBoxDireccion(object sender, EventArgs e)
+        {
+        }
+
+        private void UC_NuevoDomicilio_eventAgregarNuevoCliente(object sender, EventArgs e)
+        {
+            if(ValidarCamposVacios_AgregarCliente_ADomicilio())
+            {
+                Cliente cliente = new Cliente
+                {
+                    nombre = UC_NuevoDomicilio.textBoxNombre.Text,
+                    apellidoPaterno = UC_NuevoDomicilio.textBoxApellidoPaterno.Text,
+                    apellidoMaterno = UC_NuevoDomicilio.textBoxApellidoMaterno.Text
+                };
+
+                Direccion direccion = new Direccion
+                {
+                    calle = UC_NuevoDomicilio.textBoxCalle.Text,
+                    colonia = UC_NuevoDomicilio.textBoxColonia.Text,
+                    codigoPostal = UC_NuevoDomicilio.textBoxCodigoPostal.Text,
+                    numeroInterior = UC_NuevoDomicilio.textBoxNoInterior.Text,
+                    numeroExterior = UC_NuevoDomicilio.textBoxNoExterior.Text
+                };
+   
+                Telefono telefono = new Telefono
+                {
+                     numeroTelefono = UC_NuevoDomicilio.ObtenerTexto_ComboBoxTelefono
+                };
+
+                callCenterClient.RegistrarCliente(cliente, direccion, telefono);
+            }
+            else
+            {
+                FuncionesComunes.MostrarMensajeDeError("Existen campos vacíos");
+            }
+        }
+
+        
+
+        /// <summary>
+        /// Clase que servirá de apoyo para guardar los productos elegidos para el Pedido y calcular los costos.
+        /// Es utilizada en el DataGrid de Ordenes. 
+        /// </summary>
+        public class Orden
+        {
+            public int cantidad { get; set; }
+            public string nombreProducto { get; set; }
+            public double precioUnitario { get; set; }
+            public double precioTotal { get; set; }
+        }      
     }
 }

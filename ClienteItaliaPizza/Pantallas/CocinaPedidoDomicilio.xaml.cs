@@ -1,17 +1,9 @@
-﻿using System;
+﻿using ClienteItaliaPizza.Servicio;
+using iTextSharp.text;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ClienteItaliaPizza.Pantallas
 {
@@ -20,6 +12,29 @@ namespace ClienteItaliaPizza.Pantallas
     /// </summary>
     public partial class CocinaPedidoDomicilio : UserControl
     {
+        public Producto[] llenarDatagridDomicilio
+        {
+            set { DataGridPlatillos.ItemsSource = value; }
+        }
+
+        public string EditarLabelIDPedido
+        {
+            get { return labelIDPedido.Content.ToString(); }
+            set { labelIDPedido.Content = value;  }
+        }
+
+        public string EditarLabelTipo
+        {
+            get { return labelTipo.Content.ToString(); }
+            set { labelTipo.Content = value; }
+        }
+
+        public string EditarLabelInstrucciones
+        {
+            get { return labelInstrucciones.Content.ToString(); }
+            set { labelInstrucciones.Content = value; }
+        }
+
         public CocinaPedidoDomicilio()
         {
             InitializeComponent();

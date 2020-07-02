@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using AccesoBD2;
 
 namespace ServidrorPizzaItaliana
 {
@@ -19,7 +20,7 @@ namespace ServidrorPizzaItaliana
     public interface IConsultarInventarioCallback
     {
         [OperationContract(IsOneWay = true)]
-        void DevuelveInventario(List<Provision1> cuentas, List<ProvisionDirecta1> empleados);
+        void DevuelveInventario(List<Provision> cuentas);
 
         [OperationContract(IsOneWay = true)]
         void RespuestaCI(string mensaje);
@@ -46,14 +47,22 @@ namespace ServidrorPizzaItaliana
 
         public Provision1(int id, string nombre, int noExistencias, string ubicacion, int stockMinimo, double costoUnitario, string unidadMedida)
         {
-            this.id = id;
-            this.nombre = nombre;
-            this.noExistencias = noExistencias;
-            this.ubicacion = ubicacion;
-            this.stockMinimo = stockMinimo;
-            this.costoUnitario = costoUnitario;
-            this.unidadMedida = unidadMedida;
+            this.Id = id;
+            this.Nombre = nombre;
+            this.NoExistencias = noExistencias;
+            this.Ubicacion = ubicacion;
+            this.StockMinimo = stockMinimo;
+            this.CostoUnitario = costoUnitario;
+            this.UnidadMedida = unidadMedida;
         }
+
+        public int Id { get => id; set => id = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public int NoExistencias { get => noExistencias; set => noExistencias = value; }
+        public string Ubicacion { get => ubicacion; set => ubicacion = value; }
+        public int StockMinimo { get => stockMinimo; set => stockMinimo = value; }
+        public double CostoUnitario { get => costoUnitario; set => costoUnitario = value; }
+        public string UnidadMedida { get => unidadMedida; set => unidadMedida = value; }
     }
 
     [DataContract]
@@ -71,10 +80,15 @@ namespace ServidrorPizzaItaliana
 
         public ProvisionDirecta1(int id, string descripcion, Boolean activado, string restricciones)
         {
-            this.id = id;
-            this.descripcion = descripcion;
-            this.activado = activado;
-            this.restricciones = restricciones;
+            this.Id = id;
+            this.Descripcion = descripcion;
+            this.Activado = activado;
+            this.Restricciones = restricciones;
         }
+
+        public int Id { get => id; set => id = value; }
+        public string Descripcion { get => descripcion; set => descripcion = value; }
+        public bool Activado { get => activado; set => activado = value; }
+        public string Restricciones { get => restricciones; set => restricciones = value; }
     }
 }

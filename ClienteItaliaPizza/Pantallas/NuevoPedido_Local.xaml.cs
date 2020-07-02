@@ -13,9 +13,14 @@ namespace ClienteItaliaPizza.Pantallas
         /// Método en el que accederá la ventana NuevoPedido a este componente
         /// </summary>
         public string EditarSeleccionComboBoxNumEmpleado
-        {
+        {           
             get { return comboBoxNumEmpleado.SelectedItem.ToString(); }
-            set { comboBoxNumEmpleado.Items.Add(value); }
+            set { comboBoxNumEmpleado.Items.Add(value); }            
+        }
+
+        public string RecargarComboBoxNumEmpleado
+        {
+            set{ comboBoxNumEmpleado.Text = value; }
         }
 
         /// <summary>
@@ -25,6 +30,11 @@ namespace ClienteItaliaPizza.Pantallas
         {
             get { return comboBoxNoMesa.SelectedItem.ToString(); }
             set { comboBoxNoMesa.Items.Add(value); }
+        }
+
+        public string RecargarComboBoxNoMesa
+        {
+            set { comboBoxNumEmpleado.Text = value; }
         }
 
         /// <summary>

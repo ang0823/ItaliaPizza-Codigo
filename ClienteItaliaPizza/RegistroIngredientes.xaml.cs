@@ -15,10 +15,10 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class RegistroIngredientes : Window, Servicio.IRegistrarIngredienteCallback
     {
-        CuentaUsuario CuentaUsuario;
+        CuentaUsuario1 CuentaUsuario;
         Provision ingrediente = new Provision();
 
-        public RegistroIngredientes(CuentaUsuario cuenta)
+        public RegistroIngredientes(CuentaUsuario1 cuenta)
         {
            // this.CuentaUsuario = cuenta;
             InitializeComponent();
@@ -67,6 +67,7 @@ namespace ClienteItaliaPizza
             ingrediente.stockMinimo = int.Parse(StockMinimo.Text.Trim());
             ingrediente.costoUnitario = precio;
             ingrediente.unidadMedida = UnidadMedidaCb.SelectedItem.ToString();
+            ingrediente.activado = true;
             }
             catch (FormatException error)
             {

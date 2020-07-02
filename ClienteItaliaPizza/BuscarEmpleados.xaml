@@ -6,47 +6,51 @@
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
         Title="BuscarEmpleados" Height="721" Width="1202" WindowStartupLocation="CenterScreen" Icon="RecursosGUI/WindowIcon.jpg">
-    <Window.Background>
-        <ImageBrush ImageSource="RecursosGUI/fondoPrincipal.jpg"/>
-    </Window.Background>
-    <Grid>
+    <Grid Height="690" VerticalAlignment="Top">
         <Grid VerticalAlignment="Top" Height="100" Margin="30, 0">
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
-            <TextBox x:Name="SearchBox" Tag="Ingresar ID de empleado" Style="{DynamicResource placeHolderSearchBox}" Margin="410,32,372,34" Width="Auto" TextChanged="SearchBox_TextChanged"/>
-            <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="AliceBlue" Click="SearchBtn_Click">
+            <TextBox x:Name="SearchBox" Tag="Ingresar ID de empleado" Style="{DynamicResource placeHolderSearchBox}" Margin="410,32,372,34" Width="Auto" TextChanged="SearchBox_TextChanged" KeyDown="SearchBox_KeyDown" Background="White" BorderBrush="Black"/>
+            <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="White" Click="SearchBtn_Click">
                 <Image Source="RecursosGUI/search.png" Stretch="Fill"/>
             </Button>
-            <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="LightGray" BorderThickness="0" Click="LogoutBtn_Click_1">
+            <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="White" BorderThickness="0" Click="LogoutBtn_Click">
                 <Image Source="RecursosGUI/logout.png"/>
             </Button>
-            <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White"/>
+            <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black"/>
         </Grid>
-        <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Height="32" Margin="188,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22"/>
-        <TextBox x:Name="aPaternoTxt" HorizontalAlignment="Left" Height="32" Margin="485,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" />
-        <TextBox x:Name="aMaternoTxt" HorizontalAlignment="Left" Height="32" Margin="779,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" />
-        <TextBox x:Name="calleTxt" HorizontalAlignment="Left" Height="32" Margin="188,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontFamily="Arial" FontSize="22" />
-        <TextBox x:Name="coloniaTxt" HorizontalAlignment="Left" Height="32" Margin="549,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontFamily="Arial" FontSize="22" />
-        <TextBox x:Name="codigoPostalTxt" HorizontalAlignment="Left" Height="32" Margin="909,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="22" MaxLength="5" />
-        <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="correoElectronicoTxt_TextChanged" />
-        <TextBox x:Name="telefonoTxt" HorizontalAlignment="Left" Height="32" Margin="682,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" MaxLength="10" />
-        <ComboBox x:Name="puestosCB" HorizontalAlignment="Left" Margin="188,443,0,0" VerticalAlignment="Top" Width="347" Height="32" FontFamily="Arial" FontSize="22" SelectionChanged="puestosCB_SelectionChanged"/>
-        <TextBox x:Name="idEmpleadoTxt" HorizontalAlignment="Left" Height="32" Margin="682,443,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial Black" FontSize="22" FontWeight="Bold"/>
-        <TextBox x:Name="usuarioTxt" HorizontalAlignment="Left" Height="32" Margin="188,543,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22"/>
-        <PasswordBox x:Name="contrasenaTxt" HorizontalAlignment="Left" Margin="682,543,0,0" VerticalAlignment="Top" Height="32" Width="347" PasswordChar="*" FontSize="22" FontWeight="Bold"/>
-        <Label Content="Nombre(s):" HorizontalAlignment="Left" Margin="188,122,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Apellido paterno:" HorizontalAlignment="Left" Margin="485,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Apellido materno:" HorizontalAlignment="Left" Margin="779,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Calle y número:" HorizontalAlignment="Left" Margin="188,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Colonia:" HorizontalAlignment="Left" Margin="549,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="C. P." HorizontalAlignment="Left" Margin="909,220,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Correo eletrónico:" HorizontalAlignment="Left" Margin="188,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="689,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Puesto:" HorizontalAlignment="Left" Margin="188,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label Content="ID de empleado:" HorizontalAlignment="Left" Margin="689,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label x:Name="usuarioLbl" Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="188,510,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Label x:Name="contrasenaLbl" Content="Contraseña:" HorizontalAlignment="Left" Margin="682,507,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Button x:Name="EditarGuardarBtn" Content="Editar" HorizontalAlignment="Left" Margin="188,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="#FF305825" BorderBrush="#FF2E2E12" Click="EditarGuardarBtn_Click"/>
-        <Button x:Name="EliminarBtn" Content="Eliminar" HorizontalAlignment="Left" Margin="520,613,0,0" VerticalAlignment="Top" Width="156" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="#FF740005" BorderBrush="#FF740005"/>
-        <Button x:Name="cancelarBtn" Content="Cancelar" HorizontalAlignment="Left" Margin="874,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="White" BorderBrush="#FF740005" Foreground="#FF740005" Click="cancelarBtn_Click_1"/>
+        <TextBox x:Name="nombreTxt" HorizontalAlignment="Left" Height="32" Margin="188,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black"/>
+        <TextBox x:Name="aPaternoTxt" HorizontalAlignment="Left" Height="32" Margin="485,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black" />
+        <TextBox x:Name="aMaternoTxt" HorizontalAlignment="Left" Height="32" Margin="779,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black" />
+        <TextBox x:Name="calleTxt" HorizontalAlignment="Left" Height="32" Margin="188,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black"/>
+        <TextBox x:Name="NoExteriorTxt" HorizontalAlignment="Left" Height="32" Margin="437,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black" />
+        <TextBox x:Name="NoInteriorTxt" HorizontalAlignment="Left" Height="32" Margin="550,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black" />
+        <TextBox x:Name="coloniaTxt" HorizontalAlignment="Left" Height="32" Margin="663,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black" />
+        <TextBox x:Name="codigoPostalTxt" HorizontalAlignment="Left" Height="32" Margin="909,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black" />
+        <TextBox x:Name="correoElectronicoTxt" HorizontalAlignment="Left" Height="32" Margin="188,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="correoElectronicoTxt_TextChanged" BorderBrush="Black" />
+        <TextBox x:Name="telefonoTxt" HorizontalAlignment="Left" Height="32" Margin="682,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" MaxLength="10" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black" />
+        <ComboBox x:Name="puestosCB" HorizontalAlignment="Left" Margin="188,443,0,0" VerticalAlignment="Top" Width="250" Height="32" FontFamily="Arial" FontSize="22" SelectionChanged="puestosCB_SelectionChanged"/>
+        <TextBox x:Name="idEmpleadoTxt" HorizontalAlignment="Left" Height="32" Margin="485,443,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial Black" FontSize="22" FontWeight="Bold" BorderBrush="Black"/>
+        <TextBox x:Name="usuarioTxt" HorizontalAlignment="Left" Height="32" Margin="188,543,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontFamily="Arial" FontSize="22" TextChanged="CamposDeTexto_TextChanged" BorderBrush="Black"/>
+        <PasswordBox x:Name="contrasenaTxt" HorizontalAlignment="Left" Margin="682,543,0,0" VerticalAlignment="Top" Height="32" Width="347" PasswordChar="*" FontSize="22" FontWeight="Bold" PasswordChanged="contrasenaTxt_PasswordChanged" BorderBrush="Black"/>
+        <Label Content="Nombre(s):" HorizontalAlignment="Left" Margin="188,122,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Apellido paterno:" HorizontalAlignment="Left" Margin="485,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Apellido materno:" HorizontalAlignment="Left" Margin="779,120,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Calle:" HorizontalAlignment="Left" Margin="188,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Número" HorizontalAlignment="Left" Margin="497,206,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Exterior:" HorizontalAlignment="Left" Margin="431,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Interior:" HorizontalAlignment="Left" Margin="550,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Colonia:" HorizontalAlignment="Left" Margin="661,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black" RenderTransformOrigin="1,0.571"/>
+        <Label Content="C. P." HorizontalAlignment="Left" Margin="909,226,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Correo eletrónico:" HorizontalAlignment="Left" Margin="188,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="689,320,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Puesto:" HorizontalAlignment="Left" Margin="188,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="ID de empleado:" HorizontalAlignment="Left" Margin="485,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label x:Name="usuarioLbl" Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="188,510,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Label x:Name="contrasenaLbl" Content="Contraseña:" HorizontalAlignment="Left" Margin="682,507,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+        <Button x:Name="EditarGuardarBtn" Content="Editar" HorizontalAlignment="Left" Margin="188,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="#FF305825" BorderBrush="#FF305825" Click="EditarGuardarBtn_Click"/>
+        <Button x:Name="EliminarBtn" Content="Dar de baja" HorizontalAlignment="Left" Margin="520,613,0,0" VerticalAlignment="Top" Width="156" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="#FF740005" Background="White" BorderBrush="#FF740005" Click="EliminarBtn_Click"/>
+        <Button x:Name="cancelarBtn" Content="Cancelar" HorizontalAlignment="Left" Margin="874,613,0,0" VerticalAlignment="Top" Width="155" Height="30" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="#FF740005" BorderBrush="#FF740005" Foreground="White" Click="cancelarBtn_Click"/>
+        <TextBox x:Name="EstadoTxt" HorizontalAlignment="Left" Height="32" Margin="779,443,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontFamily="Arial Black" FontSize="22" FontWeight="Bold" TextChanged="EstadoTxt_TextChanged" BorderBrush="Black"/>
+        <Label Content="Estado:" HorizontalAlignment="Left" Margin="779,410,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="Black"/>
     </Grid>
 </Window>

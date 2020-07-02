@@ -14,7 +14,7 @@ namespace ClienteItaliaPizza
 
     public partial class MainWindow : Window, ILoginCallback ,IGenerarReporteDelDiaCallback
     {
-        CuentaUsuario CuentaUsuario;
+        CuentaUsuario1 CuentaUsuario;
 
         public MainWindow()
         {
@@ -84,25 +84,30 @@ namespace ClienteItaliaPizza
             return datosValidos;
         }
 
-        /*
-        public void DevuelveCuenta(CuentaCliente cuenta)
+        public void DevuelveCuenta(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol)
         {
             Dispatcher.Invoke(() =>
             {
-               // CuentaUsuario = cuenta;
-
-                var rol = cuenta.rol;
-                if (rol == "Call center")
+               CuentaUsuario = cuenta;
+                
+                var rolCopia = rol.rol;
+                if (rol.rol == "Call Center")
                 {
-                    VentanaPedidos ventanaPedidos = new VentanaPedidos("CallCenter");
+                    VentanaPedidos ventanaPedidos = new VentanaPedidos(empleado.idEmpleado, empleado.idEmpleadoGenerado);
                     ventanaPedidos.Show();
                     this.Close();
                 }
-                else
+                else if (rol.rol == "Gerente" || rol.rol == "Contador")
                 {
                     Principal ventana = new Principal(cuenta);
                     ventana.Show();
                     this.Close();
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError("No cuentas con permisos para iniciar sesión");
+                    textBoxNombreUsuario.Text = "";
+                    passwordBoxContraseña.Password = "";
                 }                
             });
         }
@@ -116,9 +121,8 @@ namespace ClienteItaliaPizza
 
         private void ButtonVentanaMeseros_Click_1(object sender, RoutedEventArgs e)
         {
-            VentanaPedidos ventanaPedidos = new VentanaPedidos("Mesero");
+            VentanaPedidos ventanaPedidos = new VentanaPedidos();
             ventanaPedidos.Show();
-
             this.Close();
         }
 
