@@ -328,7 +328,7 @@ namespace ServidrorPizzaItaliana
             {
                 var empleadoC = (from p in db.EmpleadoSet
                                  where p.idEmpleadoGenerado == idEmpleadoGenerado
-                                 select p).Single();
+                                 select p).FirstOrDefault();
 
                 Empleado e = new Empleado();
                 e = empleadoC;
@@ -338,9 +338,13 @@ namespace ServidrorPizzaItaliana
                 db.SaveChanges();
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Éxito al eliminar la cuenta de usuario");
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Error al intentar acceder a la base de datos");
+            }
+            catch (ArgumentNullException)
+            {
+                OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("El ID de empleado no existe.");
             }
         }
     }
