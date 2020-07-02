@@ -313,6 +313,10 @@ namespace ServidrorPizzaItaliana
             {
                 OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().RespuestaOCU("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
             }
+            catch (NullReferenceException)
+            {
+                OperationContext.Current.GetCallbackChannel<IObtenerCuentasCallback>().RespuestaOCU("No se encontraron resultados con el id especificado");
+            }
         }
     }
 
