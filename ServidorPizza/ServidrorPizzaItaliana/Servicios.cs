@@ -344,7 +344,7 @@ namespace ServidrorPizzaItaliana
             }
             catch (ArgumentNullException)
             {
-                OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("El ID de empleado no existe.");
+                OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Error al intentar acceder a la base de datos");
             }
         }
     }
@@ -637,13 +637,13 @@ namespace ServidrorPizzaItaliana
                     
                     db.ProvisionSet.Add(provision);
                     db.SaveChanges();
-                    Callback3.Respuesta("Exito al registrar ingrediente");
+                    Callback3.Respuesta("Registro exitoso");
                 }
             }
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e.StackTrace);
-                Callback3.Respuesta("Error al registrar ingrediente");
+                Callback3.Respuesta("Ocurrió un error al guardar los datos del ingrediente");
             }
         }
 
@@ -708,9 +708,9 @@ namespace ServidrorPizzaItaliana
 
                 Callback5.RespuestaEditarIngrediente("Cambios Guardados");
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
-                Callback5.RespuestaEditarIngrediente("Error al guardar cambios");
+                Callback5.RespuestaEditarIngrediente("Ocurrió un error al tratar de guardar las modificaciones");                
             }
 
         }
