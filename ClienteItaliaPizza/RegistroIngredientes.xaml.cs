@@ -13,7 +13,7 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para RegistrarIngrediente.xaml
     /// </summary>
-    public partial class RegistroIngredientes : Window, Servicio.IRegistrarIngredienteCallback
+    public partial class RegistroIngredientes : Window, IRegistrarIngredienteCallback
     {
         CuentaUsuario1 CuentaUsuario;
         Provision ingrediente = new Provision();
@@ -186,9 +186,6 @@ namespace ClienteItaliaPizza
                 {
                     InicializarObjetoIngrediente();
                     ServicioIngrediente.RegistrarIngrediente(ingrediente);
-                    Mensaje = "El ingrediente se guardó exitosamente";
-                    MostrarMensajeExitoso(Mensaje);
-                    VaciarCampos();
                 }
                 else
                 {
@@ -419,7 +416,18 @@ namespace ClienteItaliaPizza
 
         public void Respuesta(string mensajeError)
         {
-            throw new NotImplementedException();
+            if (mensajeError == "Registro exitoso")
+            {
+                FuncionesComunes.MostrarMensajeExitoso(mensajeError);
+                Dispatcher.Invoke(() =>
+                { 
+                    VaciarCampos();
+                });
+            }
+            else
+            {
+                MostrarCuadroError(mensajeError);
+            }
         }
     }
 }
