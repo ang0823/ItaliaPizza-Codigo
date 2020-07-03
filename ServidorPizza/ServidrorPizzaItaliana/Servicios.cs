@@ -1427,20 +1427,20 @@ namespace ServidrorPizzaItaliana
 
         public void EliminarImagen(String nombreImagen)
         {
-            File.Delete("C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg");
+            File.Delete("../ImagenesDeProductos/" + nombreImagen + ".jpg");
         }
 
         public void GuardarImagen(byte[] arrayImagen, string nombreDeImagen)
         {
             Image imagen = (Bitmap)((new ImageConverter()).ConvertFrom(arrayImagen));
-            imagen.Save("C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreDeImagen + ".jpg", ImageFormat.Jpeg);
+            imagen.Save("../ImagenesDeProductos/" + nombreDeImagen + ".jpg", ImageFormat.Jpeg);
         }
 
         public byte[] ObtenerImagen(string nombreImagen)
         {
             byte[] imagen;
 
-            Stream archivo = new FileStream("C:/Users/BETO/Documents/GitHub/ItaliaPizza-Codigo/ServidorPizza/ServidrorPizzaItaliana/ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
+            Stream archivo = new FileStream("../ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
 
             using (MemoryStream ms = new MemoryStream())
             {
