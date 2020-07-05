@@ -536,7 +536,7 @@ namespace ServidrorPizzaItaliana
                     db.ProductoSet.AddOrUpdate(producto);
                     db.SaveChanges();
 
-                    if (modificarImagen == true)
+                    if (modificarImagen)
                     {
                         EliminarImagen(producto.nombre);
                         GuardarImagen(imagen, producto.nombre);

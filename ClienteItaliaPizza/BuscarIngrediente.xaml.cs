@@ -62,11 +62,15 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException error)
             {
-                throw new FormatException(error.Message);
+                FuncionesComunes.MostrarMensajeDeError(error.Message);
             }
             catch (OverflowException error)
             {
-                throw new OverflowException(error.Message);
+                FuncionesComunes.MostrarMensajeDeError(error.Message);
+            }
+            catch (EndpointNotFoundException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("Ocurrió un error al tratar de guardar las modificaciones");
             }
         }
 
@@ -301,7 +305,10 @@ namespace ClienteItaliaPizza
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            BuscarInformacionDeProducto();
+            if(SearchBox.Text.Length > 0)
+            {
+                BuscarInformacionDeProducto();
+            }
         }
 
         public void ProvicionDirecta(ProvisionDirecta provDir)

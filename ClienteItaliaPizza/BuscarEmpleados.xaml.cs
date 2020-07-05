@@ -289,7 +289,7 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException)
             {
-                FuncionesComunes.MostrarMensajeDeError("El ID de empleado solo pueden ser numeros");
+                FuncionesComunes.MostrarMensajeDeError("El ID de empleado solo puede contener números");
             }
             catch (Exception e)
             {
@@ -553,6 +553,10 @@ namespace ClienteItaliaPizza
             if (mensaje == "Éxito al eliminar la cuenta de usuario")
             {
                 EstadoTxt.Text = "Inactivo";
+            }
+            else
+            {
+                FuncionesComunes.MostrarMensajeDeError(mensaje);
             }
         }
 
