@@ -11,19 +11,19 @@
             <StackPanel.Background>
                 <SolidColorBrush Color="#FFCCCCCC" Opacity="0.75"/>
             </StackPanel.Background>
-            <Label x:Name="labelIDpedido"  Content="id" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="20" Height="35" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" FontWeight="Bold"/>
-            <Label x:Name="labelTipo"  Content="tipo" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="20" Height="36" Margin="550,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="73" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Arial" FontWeight="Bold"/>
-            <DataGrid x:Name="DataGridPlatillos"  Margin="24,5,394,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="124" FontSize="16" FontFamily="Arial" CurrentCellChanged="CellChanged_VerificarPlatillosPreparados"  >
+            <Label x:Name="labelIDpedido"  Content="id" Background="{x:Null}" Foreground="#FF822B00" FontSize="20" Height="35" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" FontWeight="Bold"/>
+            <Label x:Name="labelTipo"  Content="tipo" Background="{x:Null}" Foreground="Black" FontSize="20" Height="36" Margin="550,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="73" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Arial" FontWeight="Bold"/>
+            <DataGrid x:Name="DataGridPlatillos"  Margin="24,5,394,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="124" FontSize="18" FontFamily="Arial" CurrentCellChanged="CellChanged_VerificarPlatillosPreparados"  >
 
                 <!--Encabezados de la tabla -->
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="280" MinWidth="200" Foreground="#FF0F0F11" IsReadOnly="True" Binding="{Binding nombreplatillo}"  />
-                    <DataGridCheckBoxColumn x:Name="ColumnCasillaCheckBox" Header="Preparado" Width="60" MinWidth="150" Binding="{Binding preparado}"/>
+                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="250" MinWidth="100" Foreground="#FF0F0F11" IsReadOnly="True" Binding="{Binding nombreplatillo}" FontFamily="Arial" FontSize="16"  />
+                    <DataGridCheckBoxColumn x:Name="ColumnCasillaCheckBox" Header="Preparado" Width="80" MinWidth="150" Binding="{Binding preparado}" HeaderStringFormat=""/>
                 </DataGrid.Columns>
 
             </DataGrid>
-            <TextBlock TextWrapping="Wrap" Text="Instrucciones Especiales" Foreground="#FFF5F1F1" Height="21" Margin="31,0,667,0" HorizontalAlignment="Center" FontFamily="Arial" FontSize="20" FontWeight="Bold" Width="136"/>
-            <Label x:Name="labelInstrucciones" Content="instrucciones" Height="45" Margin="29,0,34,0" Foreground="#FFFDF4F4" Background="#FF999999" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+            <TextBlock TextWrapping="Wrap" Text="Instrucciones Especiales" Foreground="#FFFFFEFE" Height="21" Margin="31,0,667,0" HorizontalAlignment="Center" FontFamily="Arial" FontSize="20" FontWeight="Bold" Width="136"/>
+            <Label x:Name="labelInstrucciones" Content="instrucciones" Height="51" Margin="27,0,34,0" Foreground="#FF822B00" Background="{x:Null}" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
         </StackPanel>
 
     </Grid>
