@@ -125,12 +125,11 @@ namespace ClienteItaliaPizza
 
         private String GenerarIdEmpleado() 
         {
-            int primerPar = idGenerado.Next(10, 20);
+            int primerPar = idGenerado.Next(10, 99);
             int segundoPar = idGenerado.Next(10, 99);
             int tercerPar = idGenerado.Next(10, 99);
-            int cuartoPart = idGenerado.Next(20, 99);
 
-            return primerPar.ToString() + segundoPar.ToString() + tercerPar.ToString() + cuartoPart.ToString();
+            return primerPar.ToString() + segundoPar.ToString() + tercerPar.ToString();
         }
 
         private void LlenarPuestosCb()
@@ -138,7 +137,7 @@ namespace ClienteItaliaPizza
             puestosCB.Items.Insert(0, "Seleccionar rol");
             puestosCB.Items.Insert(1, "Mesero");
             puestosCB.Items.Insert(2, "Cocinero");
-            puestosCB.Items.Insert(3, "Call center");
+            puestosCB.Items.Insert(3, "Call Center");
             puestosCB.Items.Insert(4, "Contador");
             puestosCB.Items.Insert(5, "Gerente");
             puestosCB.SelectedIndex = 0;

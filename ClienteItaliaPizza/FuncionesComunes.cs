@@ -46,11 +46,11 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException)
             {
-                throw new FormatException("Los campos marcaos solo aceptan valores numéricos");
+                throw new FormatException("Ingresó datos inválidos.");
             }
             catch (OverflowException)
             {
-                throw new OverflowException("Los campos marcados provocaron un desbordamiento porque el valor es deasiado grande.");
+                throw new OverflowException("El valor de uno o varios datos numéricos es demaiado grande.");
             }
 
             return entero;
@@ -73,11 +73,11 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException)
             {
-                throw new FormatException("El número de existencias no pueden ser letras");
+                throw new FormatException("Ingresó datos inválidos.");
             }
             catch (OverflowException)
             {
-                throw new OverflowException("El númweo de existencias ingresado provocó un desbordamiento porque es deasiado grande.");
+                throw new OverflowException("El valor de uno o varios datos numéricos es demaiado grande.");
             }
 
             return shortNumber;
@@ -100,11 +100,11 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException)
             {
-                throw new FormatException("El precio del producto debe ser numérico (puede incluir punto decimal).");
+                throw new FormatException("Ingresó datos inválidos.");
             }
             catch (OverflowException)
             {
-                throw new OverflowException("El precio ingresado provoco un desbordamiento porque es deasiado grande.");
+                throw new OverflowException("El valor de uno o varios datos numéricos es demaiado grande.");
             }
 
             return costo;

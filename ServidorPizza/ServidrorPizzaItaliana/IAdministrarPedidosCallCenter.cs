@@ -115,6 +115,14 @@ namespace ServidrorPizzaItaliana
         }
 
         public byte[] Imagen { get => imagen; set => imagen = value; }
+        public string NombreReceta { get => nombreReceta; set => nombreReceta = value; }
+        public bool Activado { get => activado; set => activado = value; }
+        public int Id { get => id; set => id = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public string Descrpcion { get => descrpcion; set => descrpcion = value; }
+        public double PrecioUnitario { get => precioUnitario; set => precioUnitario = value; }
+        public string Restricciones { get => restricciones; set => restricciones = value; }
+        public string Categoria { get => categoria; set => categoria = value; }
     }
 
 
@@ -191,6 +199,18 @@ namespace ServidrorPizzaItaliana
         }
 
         public byte[] Imagen { get => imagen; set => imagen = value; }
+        public int IdProvisionVentaDirecta { get => idProvisionVentaDirecta; set => idProvisionVentaDirecta = value; }
+        public int IdProvision { get => idProvision; set => idProvision = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public int CantidadExistencias { get => cantidadExistencias; set => cantidadExistencias = value; }
+        public string Ubicacion { get => ubicacion; set => ubicacion = value; }
+        public int Stock { get => stock; set => stock = value; }
+        public double PrecioUnitario { get => precioUnitario; set => precioUnitario = value; }
+        public string UnidadDeMedida { get => unidadDeMedida; set => unidadDeMedida = value; }
+        public bool Activado { get => activado; set => activado = value; }
+        public string Descripcion { get => descripcion; set => descripcion = value; }
+        public string Restricciones { get => restricciones; set => restricciones = value; }
+        public string Categoria { get => categoria; set => categoria = value; }
     }
 
     [DataContract]

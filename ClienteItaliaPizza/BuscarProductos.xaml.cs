@@ -1,6 +1,7 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using System;
 using System.IO;
+using System.Printing;
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Input;
@@ -24,6 +25,7 @@ namespace ClienteItaliaPizza
             DeshabilitarCampos();
 
             UserLbl.Content = cuenta.nombreUsuario;
+            recetaExistenciasLbl.Content = "Receta:";
             criterioCb.SelectedIndex = 0;
             ImagenBtn.Visibility = Visibility.Hidden;
             //EditSaveBtn.IsEnabled = false;
@@ -61,29 +63,70 @@ namespace ClienteItaliaPizza
             RestriccionesTxt.IsEnabled = false;
         }
 
-        // FALTA LA CORRECCIÓN DEL SERVIDOR PARA TERMINAR ESTO
-        private void BuscarProducto(object sender, KeyEventArgs e)
+        private void SearchBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (SearchBox.Text.Length > 0 && e.Key == Key.Return)
+            if(e.Key == Key.Return)
+            {
+                BuscarProducto();
+            }
+        }
+
+        private void BuscarProducto()
+        {
+            if (SearchBox.Text.Length > 0)
             {
                 InstanceContext context = new InstanceContext(this);
                 BuscarProductoClient ServicioBuscar = new BuscarProductoClient(context);
 
                 try
                 {
-                    int idProducto = int.Parse(SearchBox.Text);
-                    // ServicioBuscar(idProducto);
-                }
-                catch (FormatException)
-                {
                     string nombreProducto = SearchBox.Text;
-                    ServicioBuscar.BuscarProductoInternoPorNombre(nombreProducto);
+                    string tipoProducto = criterioCb.SelectedItem.ToString();
+
+                    if (tipoProducto == "Producto interno")
+                    {
+                        ServicioBuscar.BuscarProductoInternoPorNombre(nombreProducto);
+                    }
+                    else if (tipoProducto == "Producto externo")
+                    {
+                        ServicioBuscar.BuscarProductoExternoPorNombre(nombreProducto);
+                    }
                 }
                 catch (Exception any)
                 {
                     FuncionesComunes.MostrarMensajeDeError(any.Message + " " + any.GetType());
                 }
             }
+        }
+
+        public void ProductoInterno([MessageParameter(Name = "productoInterno")] Producto productoInterno1, byte[] imagen)
+        {
+            tipoProductoCb.SelectedIndex = 0;
+            nombreTxt.Text = productoInterno1.nombre;
+            precioTxt.Text = productoInterno1.precioUnitario.ToString();
+            estadoCb.SelectedIndex = EstaActivado(productoInterno1.activado);
+            CategoriaCb.SelectedIndex = CategoriaProducto(productoInterno1);
+            recetaCb.SelectedItem = productoInterno1.Receta;
+            DescripcionTxt.Text = productoInterno1.descripcion;
+            RestriccionesTxt.Text = productoInterno1.restricciones;
+            EstablecerImagenProducto(imagen);
+        }
+
+        private void EstablecerImagenProducto(byte[] arrayImagen)
+        {
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(arrayImagen))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+
+            ProductoImg.Source = image;
         }
 
         private Boolean CamposVacios()
@@ -113,13 +156,14 @@ namespace ClienteItaliaPizza
 
                 if (opcion == MessageBoxResult.OK)
                 {
-                    EditSaveBtn.Content = "Editar";
-                    DeshabilitarCampos();
+                    //DeshabilitarCampos();
+
+
                 }
             }
         }
 
-        private int ProductoExternoAcitvado(ProvisionDirecta1 provisionDirecta)
+        /*private int ProductoExternoAcitvado(ProvisionDirecta1 provisionDirecta)
         {
             int EstaActivo = 0;
 
@@ -129,7 +173,7 @@ namespace ClienteItaliaPizza
             }
 
             return EstaActivo;
-        }
+        }*/
 
         private void HabilitarCampos()
         {
@@ -197,10 +241,10 @@ namespace ClienteItaliaPizza
             }
         }
 
-        public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta, byte[] imagen)
+        /*public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta, byte[] imagen)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public void ErrorAlRecuperarProducto(string mensajeError)
         {
@@ -249,19 +293,6 @@ namespace ClienteItaliaPizza
             {
                 FuncionesComunes.MostrarMensajeDeError(e.Message + " " + e.GetType());
             }
-        }
-
-        public void ProductoInterno([MessageParameter(Name = "productoInterno")] Producto productoInterno1, byte[] imagen)
-        {
-            tipoProductoCb.SelectedIndex = 0;
-            nombreTxt.Text = productoInterno1.nombre;
-            precioTxt.Text = productoInterno1.precioUnitario.ToString();
-            estadoCb.SelectedIndex = EstaActivado(productoInterno1.activado);
-            CategoriaCb.SelectedIndex = CategoriaProducto(productoInterno1);
-            recetaCb.SelectedItem = productoInterno1.Receta;
-            DescripcionTxt.Text = productoInterno1.descripcion;
-            RestriccionesTxt.Text = productoInterno1.restricciones;
-            ProductoImg.Source = ObtenerImagenDeArray(imagen);
         }
 
         private int EstaActivado(bool productoEstaActivado)
@@ -327,7 +358,17 @@ namespace ClienteItaliaPizza
             //existenciasTxt.Text = productoInterno1.Id.ToString();
 
         }
-        
+
+        public void ProductoInterno([MessageParameter(Name = "productoInterno")] Producto productoInterno1, byte[] imagen, string nombreReceta, string categoria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ProductoExterno([MessageParameter(Name = "productoExterno")] ProvisionVentaDirecta productoExterno1)
+        {
+            throw new NotImplementedException();
+        }
+
         /*
         public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta)
         {
@@ -339,5 +380,7 @@ namespace ClienteItaliaPizza
             estadoCb.SelectedIndex = EstaActivadoProductoExterno(provisionDirecta);
             recetaCb.IsEnabled = false;          
         }*/
+
+        // ------------------------------------------------------------------------------------
     }
 }

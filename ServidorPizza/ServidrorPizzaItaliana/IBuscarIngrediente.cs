@@ -14,9 +14,6 @@ namespace ServidrorPizzaItaliana
     {
         [OperationContract(IsOneWay = true)]
         void BuscarIngredientePorNombre(string nombreProducto);
-
-        [OperationContract(IsOneWay = true)]
-        void BuscarIngredientePorID(int idProducto);
     }
 
     [ServiceContract]

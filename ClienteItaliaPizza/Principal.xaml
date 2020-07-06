@@ -24,7 +24,7 @@
         <UniformGrid x:Name="productosPanel" Rows="3" Margin="786,143,71,385">
             <Label Content="Admistracón de productos" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="42,0,43,0" Width="252" Foreground="Black"/>
             <Button x:Name="registrrProdBtn" Content="Registrar producto" Height="40" Width="250" Margin="44,-1,43,15" Click="MostrarRegistroProductosGui" Foreground="White" BorderBrush="#FF444801" Background="#FF008050"/>
-            <Button x:Name="BuscarProductosBtn" Content="Buscar prodcuto" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFB51223" BorderBrush="#FF740005" Foreground="White" Click="BuscarProductosBtn_Click"/>
+            <Button x:Name="BuscarProductosBtn" Content="Buscar producto" Height="40" Width="250" Margin="44,-1,43,15" Background="#FFB51223" BorderBrush="#FF740005" Foreground="White" Click="BuscarProductosBtn_Click"/>
         </UniformGrid>
         <UniformGrid Rows="3" Margin="397,323,460,205">
             <Label Content="Admistración de recetas" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="56,0,60,0" Width="221" Foreground="Black"/>

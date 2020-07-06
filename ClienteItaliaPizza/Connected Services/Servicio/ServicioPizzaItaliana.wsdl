@@ -819,29 +819,6 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarIngrediente_BuscarIngredientePorID_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarIngrediente_Ingrediente_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1148,6 +1125,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ObtenerNombresDeRecetas_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ModificarProductoExterno_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1172,6 +1172,29 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ModificarProductoInterno_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IModificarProducto_ListaDeRecetas_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -4001,6 +4024,7 @@
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AccesoBD2" />
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" />
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IBuscarProducto_BuscarProductoInternoPorNombre_InputMessage">
@@ -4054,9 +4078,6 @@
   <wsdl:message name="IBuscarIngrediente_BuscarIngredientePorNombre_InputMessage">
     <wsdl:part name="parameters" element="tns:BuscarIngredientePorNombre" />
   </wsdl:message>
-  <wsdl:message name="IBuscarIngrediente_BuscarIngredientePorID_InputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarIngredientePorID" />
-  </wsdl:message>
   <wsdl:message name="IBuscarIngrediente_Ingrediente_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:Ingrediente" />
   </wsdl:message>
@@ -4069,11 +4090,17 @@
   <wsdl:message name="IEditarIngrediente_RespuestaEditarIngrediente_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaEditarIngrediente" />
   </wsdl:message>
+  <wsdl:message name="IModificarProducto_ObtenerNombresDeRecetas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerNombresDeRecetas" />
+  </wsdl:message>
   <wsdl:message name="IModificarProducto_ModificarProductoExterno_InputMessage">
     <wsdl:part name="parameters" element="tns:ModificarProductoExterno" />
   </wsdl:message>
   <wsdl:message name="IModificarProducto_ModificarProductoInterno_InputMessage">
     <wsdl:part name="parameters" element="tns:ModificarProductoInterno" />
+  </wsdl:message>
+  <wsdl:message name="IModificarProducto_ListaDeRecetas_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ListaDeRecetas" />
   </wsdl:message>
   <wsdl:message name="IModificarProducto_RespuestaModificarProducto_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RespuestaModificarProducto" />
@@ -4289,9 +4316,6 @@
     <wsdl:operation name="BuscarIngredientePorNombre">
       <wsdl:input wsam:Action="http://tempuri.org/IBuscarIngrediente/BuscarIngredientePorNombre" message="tns:IBuscarIngrediente_BuscarIngredientePorNombre_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarIngredientePorID">
-      <wsdl:input wsam:Action="http://tempuri.org/IBuscarIngrediente/BuscarIngredientePorID" message="tns:IBuscarIngrediente_BuscarIngredientePorID_InputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="Ingrediente">
       <wsdl:output wsam:Action="http://tempuri.org/IBuscarIngrediente/Ingrediente" message="tns:IBuscarIngrediente_Ingrediente_OutputCallbackMessage" />
     </wsdl:operation>
@@ -4308,11 +4332,17 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IModificarProducto">
+    <wsdl:operation name="ObtenerNombresDeRecetas">
+      <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ObtenerNombresDeRecetas" message="tns:IModificarProducto_ObtenerNombresDeRecetas_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ModificarProductoExterno">
       <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProductoExterno" message="tns:IModificarProducto_ModificarProductoExterno_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ModificarProductoInterno">
       <wsdl:input wsam:Action="http://tempuri.org/IModificarProducto/ModificarProductoInterno" message="tns:IModificarProducto_ModificarProductoInterno_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaDeRecetas">
+      <wsdl:output wsam:Action="http://tempuri.org/IModificarProducto/ListaDeRecetas" message="tns:IModificarProducto_ListaDeRecetas_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="RespuestaModificarProducto">
       <wsdl:output wsam:Action="http://tempuri.org/IModificarProducto/RespuestaModificarProducto" message="tns:IModificarProducto_RespuestaModificarProducto_OutputCallbackMessage" />
@@ -4631,13 +4661,6 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="BuscarIngredientePorID">
-      <soap12:operation soapAction="http://tempuri.org/IBuscarIngrediente/BuscarIngredientePorID" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarIngrediente_BuscarIngredientePorID_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-    </wsdl:operation>
     <wsdl:operation name="Ingrediente">
       <soap12:operation soapAction="http://tempuri.org/IBuscarIngrediente/Ingrediente" style="document" />
       <wsdl:output>
@@ -4674,6 +4697,13 @@
   <wsdl:binding name="WSDualHttpBinding_IModificarProducto" type="tns:IModificarProducto">
     <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerNombresDeRecetas">
+      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ObtenerNombresDeRecetas" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ObtenerNombresDeRecetas_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="ModificarProductoExterno">
       <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ModificarProductoExterno" style="document" />
       <wsdl:input>
@@ -4687,6 +4717,13 @@
         <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ModificarProductoInterno_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDeRecetas">
+      <soap12:operation soapAction="http://tempuri.org/IModificarProducto/ListaDeRecetas" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IModificarProducto_ListaDeRecetas_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RespuestaModificarProducto">
       <soap12:operation soapAction="http://tempuri.org/IModificarProducto/RespuestaModificarProducto" style="document" />

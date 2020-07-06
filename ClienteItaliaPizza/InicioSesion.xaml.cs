@@ -53,8 +53,27 @@ namespace ClienteItaliaPizza
             }
         }
 
+        private void DeshabilitarCamposYBotonones()
+        {
+            textBoxNombreUsuario.IsEnabled = false;
+            passwordBoxContraseña.IsEnabled = false;
+            LoginBtn.IsEnabled = false;
+            ButtonVentanaMeseros.IsEnabled = false;
+            ButtonVentanaCocina.IsEnabled = false;
+        }
+
+        private void HabilitarCamposYBotonones()
+        {
+            textBoxNombreUsuario.IsEnabled = true;
+            passwordBoxContraseña.IsEnabled = true;
+            LoginBtn.IsEnabled = true;
+            ButtonVentanaMeseros.IsEnabled = true;
+            ButtonVentanaCocina.IsEnabled = true;
+        }
+
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
+            DeshabilitarCamposYBotonones();
             IniciarSesion();
         }
 
@@ -75,19 +94,26 @@ namespace ClienteItaliaPizza
             Dispatcher.Invoke(() =>
             {
                CuentaUsuario = cuenta;
-
-                var rolCopia = rol.rol;                
+                
+                var rolCopia = rol.rol;
                 if (rol.rol == "Call Center")
-                { 
+                {
                     VentanaPedidos ventanaPedidos = new VentanaPedidos(empleado.idEmpleado, empleado.idEmpleadoGenerado);
                     ventanaPedidos.Show();
                     this.Close();
                 }
-                else
+                else if (rol.rol == "Gerente" || rol.rol == "Contador")
                 {
                     Principal ventana = new Principal(cuenta);
                     ventana.Show();
                     this.Close();
+                }
+                else
+                {
+                    FuncionesComunes.MostrarMensajeDeError("No cuentas con permisos para iniciar sesión");
+                    HabilitarCamposYBotonones();
+                    textBoxNombreUsuario.Text = "";
+                    passwordBoxContraseña.Password = "";
                 }                
             });
         }
@@ -110,6 +136,7 @@ namespace ClienteItaliaPizza
         {
             if (e.Key == Key.Return)
             {
+                DeshabilitarCamposYBotonones();
                 IniciarSesion();
             }
         }
@@ -118,6 +145,7 @@ namespace ClienteItaliaPizza
         {
             if (e.Key == Key.Return)
             {
+                DeshabilitarCamposYBotonones();
                 IniciarSesion();
             }
         }
@@ -127,6 +155,7 @@ namespace ClienteItaliaPizza
             Dispatcher.Invoke(() =>
             {
                 FuncionesComunes.MostrarMensajeDeError(mensaje);
+                HabilitarCamposYBotonones();
             });
         }
 
