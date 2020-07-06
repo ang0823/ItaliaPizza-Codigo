@@ -173,5 +173,12 @@ namespace ClienteItaliaPizza.Pantallas
             get { return dataGridPedidosEnEspera.SelectedItem as PedidoEnDataGrid; }
             set { pedidosEnEspera.Add(value); }
         }
+
+        public List<PedidoEnDataGrid> ListaEnEspera_DataGrid
+        {
+            get { return dataGridPedidosEnEspera.ItemsSource as List<PedidoEnDataGrid>;  }
+            set { dataGridPedidosEnEspera.ItemsSource = value; }
+        }
+            
     }
 }
