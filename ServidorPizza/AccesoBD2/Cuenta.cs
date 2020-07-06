@@ -25,6 +25,7 @@ namespace AccesoBD2
         public double subTotal { get; set; }
         public double iva { get; set; }
         public Nullable<double> descuento { get; set; }
+        public bool abierta { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }

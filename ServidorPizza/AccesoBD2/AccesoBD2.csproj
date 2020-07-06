@@ -95,6 +95,33 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="MostrarCantidadProductosPedido_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarCantidadProductosPedido_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarCantidadProductosPedido_Result2.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarCantidadProductosPedido_Result3.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarCantidadProductosPedido_Result4.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarCantidadProvisionesPedido_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarCantidadProvisionesPedido_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarCantidadProvisionesPedido_Result2.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarCantidadProvisionesPedido_Result3.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pedido.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
