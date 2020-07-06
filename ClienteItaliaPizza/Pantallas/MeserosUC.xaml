@@ -22,7 +22,7 @@
                             <DataGridTextColumn x:Name="ColumnIdPedido" Header="IdPedido" Width="80"  Foreground="#FF040404" Binding="{Binding IdPedido}"/>
                             <DataGridTextColumn x:Name="ColumnTipoPedido" Header="Tipo" Width="100" Foreground="Black" Binding="{Binding Tipo}"/>
                             <DataGridTextColumn x:Name="ColumnMesaOCliente" Header="Mesa/Cliente" IsReadOnly="True" Foreground="Black"  Binding="{Binding MesaOCliente}"/>
-                            <DataGridTextColumn x:Name="ColumnInstruccionesEspeciales" Header="Instrucciones Especiales" Width="230" Binding="{Binding InstruccionesEspeciales}"/>
+                            <DataGridTextColumn x:Name="ColumnInstruccionesEspeciales" Header="Instrucciones Especiales" Width="*" Binding="{Binding InstruccionesEspeciales}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

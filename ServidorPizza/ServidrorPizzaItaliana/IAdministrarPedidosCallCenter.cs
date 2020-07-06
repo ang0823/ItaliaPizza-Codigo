@@ -92,6 +92,8 @@ namespace ServidrorPizzaItaliana
         //Caicero: esto es una propiedad que he agregado para los pedidos
         [DataMember] int cantidad;
         private string descripcion;
+        private string nombreReceta;
+        private bool activado;
 
         public ProductoDePedido(int id, string nombre, string descripcion, double precioUnitario, string restricciones, string categoria)
         {
