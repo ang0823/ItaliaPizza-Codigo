@@ -23,6 +23,7 @@ namespace ClienteItaliaPizza
         int ejeY = 40; // eje Y de nuestra ventana
         int conteo = 0; //contador para nuestros controles dinámicos            
 
+        List<CocinaPedidoLocal> userControlCocinaPedidoLocals = new List<CocinaPedidoLocal>();
         public VentanaCocina()
         {
             InitializeComponent();
@@ -131,7 +132,7 @@ namespace ClienteItaliaPizza
         {
             CocinaPedidoLocal cocinaPedidoLocal = new CocinaPedidoLocal();
             cocinaPedidoLocal.Name = "local_" + conteo.ToString();
-            cocinaPedidoLocal.Margin = new Thickness(50, ejeY, 0, 0);
+            cocinaPedidoLocal.Margin = new Thickness(100, ejeY, 0, 0);
             cocinaPedidoLocal.Visibility = Visibility.Visible;
             cocinaPedidoLocal.eventoNotificarPedidoPreparado += EnviarPedidoLocalPreparado;
 
@@ -153,6 +154,7 @@ namespace ClienteItaliaPizza
 
             grid.Children.Add(cocinaPedidoLocal);
             pedidosLocales.Add(pedido);
+            
         }
 
         private void EnviarPedidoLocalPreparado(object sender, EventArgs e)
@@ -166,7 +168,16 @@ namespace ClienteItaliaPizza
             };
 
             if (pedidoEncontrado!= null){
-                server.NotificarPedidoLocalPreparado(pedidoEncontrado, "Cocinero");
+                try
+                {
+                    server.NotificarPedidoLocalPreparado(pedidoEncontrado, "Cocinero");
+                    grid.Children.Remove(local);
+                    ejeY -= 300;
+                }
+                catch(CommunicationException ex)
+                {
+                    FuncionesComunes.MostrarMensajeDeError("No se ha podido establecer comunicación con el servidor\n"+ex.Message);
+                }
             }            
         }
 
@@ -174,7 +185,7 @@ namespace ClienteItaliaPizza
         {
             CocinaPedidoDomicilio cocinaPedidoDomicilio = new CocinaPedidoDomicilio();
             cocinaPedidoDomicilio.Name = "domicilio_" + conteo.ToString();
-            cocinaPedidoDomicilio.Margin = new Thickness(50, ejeY, 0, 0);
+            cocinaPedidoDomicilio.Margin = new Thickness(100, ejeY, 0, 0);
             cocinaPedidoDomicilio.Visibility = Visibility.Visible;
 
             cocinaPedidoDomicilio.EditarLabelIDPedido = pedido.Id.ToString();

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
         
         mc:Ignorable="d"
-        Title="Ventana de Pedidos" Height="650" Width="1000" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" >
+        Title="Ventana de Pedidos" Height="721" Width="1202" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" >
 
     <ScrollViewer x:Name="bar" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="gridpedidos">
