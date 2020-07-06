@@ -1048,41 +1048,6 @@ namespace ClienteItaliaPizza.Servicio {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string nombre {
-            get {
-                return this.nombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nombreField, value) != true)) {
-                    this.nombreField = value;
-                    this.RaisePropertyChanged("nombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string telefono {
-            get {
-                return this.telefonoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.telefonoField, value) != true)) {
-                    this.telefonoField = value;
-                    this.RaisePropertyChanged("telefono");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1205,37 +1170,15 @@ namespace ClienteItaliaPizza.Servicio {
             }
         }
         
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PedidoADomicilio", Namespace="http://schemas.datacontract.org/2004/07/AccesoBD2")]
-    [System.SerializableAttribute()]
-    public partial class PedidoADomicilio : ClienteItaliaPizza.Servicio.Pedido {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private ClienteItaliaPizza.Servicio.Cliente ClienteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ClienteIdField;
-        
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public ClienteItaliaPizza.Servicio.Cliente Cliente {
+        public bool activado {
             get {
-                return this.ClienteField;
+                return this.activadoField;
             }
             set {
-                if ((object.ReferenceEquals(this.ClienteField, value) != true)) {
-                    this.ClienteField = value;
-                    this.RaisePropertyChanged("Cliente");
+                if ((this.activadoField.Equals(value) != true)) {
+                    this.activadoField = value;
+                    this.RaisePropertyChanged("activado");
                 }
             }
         }
@@ -1265,19 +1208,6 @@ namespace ClienteItaliaPizza.Servicio {
                 }
             }
         }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PedidoLocal", Namespace="http://schemas.datacontract.org/2004/07/AccesoBD2")]
-    [System.SerializableAttribute()]
-    public partial class PedidoLocal : ClienteItaliaPizza.Servicio.Pedido {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private ClienteItaliaPizza.Servicio.Mesa MesaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int MesaIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string correo {
@@ -1328,6 +1258,15 @@ namespace ClienteItaliaPizza.Servicio {
                     this.telefonoField = value;
                     this.RaisePropertyChanged("telefono");
                 }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -1421,6 +1360,9 @@ namespace ClienteItaliaPizza.Servicio {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ClienteIdField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string direccionDestinoField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public ClienteItaliaPizza.Servicio.Cliente Cliente {
             get {
@@ -1445,7 +1387,20 @@ namespace ClienteItaliaPizza.Servicio {
                     this.RaisePropertyChanged("ClienteId");
                 }
             }
-        }        
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string direccionDestino {
+            get {
+                return this.direccionDestinoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.direccionDestinoField, value) != true)) {
+                    this.direccionDestinoField = value;
+                    this.RaisePropertyChanged("direccionDestino");
+                }
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2061,14 +2016,14 @@ namespace ClienteItaliaPizza.Servicio {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public ClienteItaliaPizza.Servicio.Cliente Cliente {
+        public int Id {
             get {
-                return this.ClienteField;
+                return this.IdField;
             }
             set {
-                if ((object.ReferenceEquals(this.ClienteField, value) != true)) {
-                    this.ClienteField = value;
-                    this.RaisePropertyChanged("Cliente");
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
                 }
             }
         }
@@ -2773,6 +2728,9 @@ namespace ClienteItaliaPizza.Servicio {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string categoriaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2800,6 +2758,19 @@ namespace ClienteItaliaPizza.Servicio {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                if ((this.cantidadField.Equals(value) != true)) {
+                    this.cantidadField = value;
+                    this.RaisePropertyChanged("cantidad");
+                }
             }
         }
         
@@ -2917,6 +2888,9 @@ namespace ClienteItaliaPizza.Servicio {
         private bool activadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int cantidadExistenciasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2971,6 +2945,19 @@ namespace ClienteItaliaPizza.Servicio {
                 if ((this.activadoField.Equals(value) != true)) {
                     this.activadoField = value;
                     this.RaisePropertyChanged("activado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                if ((this.cantidadField.Equals(value) != true)) {
+                    this.cantidadField = value;
+                    this.RaisePropertyChanged("cantidad");
                 }
             }
         }
@@ -3914,232 +3901,14 @@ namespace ClienteItaliaPizza.Servicio {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id {
-            get {
-                return this.idField;
-            }
-            set {
-                if ((this.idField.Equals(value) != true)) {
-                    this.idField = value;
-                    this.RaisePropertyChanged("id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string rol {
-            get {
-                return this.rolField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.rolField, value) != true)) {
-                    this.rolField = value;
-                    this.RaisePropertyChanged("rol");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Receta1", Namespace="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana")]
-    [System.SerializableAttribute()]
-    public partial class Receta1 : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string nombreRecetaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double porcionesField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string procedimientoField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id {
-            get {
-                return this.idField;
-            }
-            set {
-                if ((this.idField.Equals(value) != true)) {
-                    this.idField = value;
-                    this.RaisePropertyChanged("id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string nombreReceta {
-            get {
-                return this.nombreRecetaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nombreRecetaField, value) != true)) {
-                    this.nombreRecetaField = value;
-                    this.RaisePropertyChanged("nombreReceta");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double porciones {
-            get {
-                return this.porcionesField;
-            }
-            set {
-                if ((this.porcionesField.Equals(value) != true)) {
-                    this.porcionesField = value;
-                    this.RaisePropertyChanged("porciones");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string procedimiento {
-            get {
-                return this.procedimientoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.procedimientoField, value) != true)) {
-                    this.procedimientoField = value;
-                    this.RaisePropertyChanged("procedimiento");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Ingrediente1", Namespace="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana")]
-    [System.SerializableAttribute()]
-    public partial class Ingrediente1 : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int cantidadField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double costoPorUnidadField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string nombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string pesoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string unidadField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int cantidad {
-            get {
-                return this.cantidadField;
-            }
-            set {
-                if ((this.cantidadField.Equals(value) != true)) {
-                    this.cantidadField = value;
-                    this.RaisePropertyChanged("cantidad");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double costoPorUnidad {
-            get {
-                return this.costoPorUnidadField;
-            }
-            set {
-                if ((this.costoPorUnidadField.Equals(value) != true)) {
-                    this.costoPorUnidadField = value;
-                    this.RaisePropertyChanged("costoPorUnidad");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id {
-            get {
-                return this.idField;
-            }
-            set {
-                if ((this.idField.Equals(value) != true)) {
-                    this.idField = value;
-                    this.RaisePropertyChanged("id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string nombre {
-            get {
-                return this.nombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nombreField, value) != true)) {
-                    this.nombreField = value;
-                    this.RaisePropertyChanged("nombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public long id {
             get {
-                return this.pesoField;
+                return this.idField;
             }
             set {
-                if ((object.ReferenceEquals(this.pesoField, value) != true)) {
-                    this.pesoField = value;
-                    this.RaisePropertyChanged("peso");
+                if ((this.idField.Equals(value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
                 }
             }
         }
@@ -5886,18 +5655,18 @@ namespace ClienteItaliaPizza.Servicio {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Servicio.IBuscarPedidos", CallbackContract=typeof(ClienteItaliaPizza.Servicio.IBuscarPedidosCallback))]
     public interface IBuscarPedidos {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/BuscarPedidos")]
-        void BuscarPedidos();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/BuscarPedidosCallCenter")]
+        void BuscarPedidosCallCenter();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/BuscarPedidos")]
-        System.Threading.Tasks.Task BuscarPedidosAsync();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/BuscarPedidosCallCenter")]
+        System.Threading.Tasks.Task BuscarPedidosCallCenterAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IBuscarPedidosCallback {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/Pedidos")]
-        void Pedidos(ClienteItaliaPizza.Servicio.PedidoADomicilioDeServidor[] pedidosADomicilio, ClienteItaliaPizza.Servicio.PedidoLocalDeServidor[] pedidosLocales);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/PedidosCallCenter")]
+        void PedidosCallCenter(ClienteItaliaPizza.Servicio.PedidoADomicilioDeServidor[] pedidosADomicilio, ClienteItaliaPizza.Servicio.PedidoLocalDeServidor[] pedidosLocales);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/MensajeErrorBuscarPedidos")]
         void MensajeErrorBuscarPedidos(string mensaje);
@@ -5931,12 +5700,12 @@ namespace ClienteItaliaPizza.Servicio {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void BuscarPedidos() {
-            base.Channel.BuscarPedidos();
+        public void BuscarPedidosCallCenter() {
+            base.Channel.BuscarPedidosCallCenter();
         }
         
-        public System.Threading.Tasks.Task BuscarPedidosAsync() {
-            return base.Channel.BuscarPedidosAsync();
+        public System.Threading.Tasks.Task BuscarPedidosCallCenterAsync() {
+            return base.Channel.BuscarPedidosCallCenterAsync();
         }
     }
 }

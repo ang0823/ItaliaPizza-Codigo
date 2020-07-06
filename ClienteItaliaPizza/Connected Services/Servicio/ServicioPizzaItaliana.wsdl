@@ -3926,7 +3926,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarPedidos_BuscarPedidos_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarPedidos_BuscarPedidosCallCenter_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -3949,7 +3949,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarPedidos_Pedidos_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IBuscarPedidos_PedidosCallCenter_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -4222,11 +4222,11 @@
   <wsdl:message name="INotificarPedido_MensajeNotificarPedido_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:MensajeNotificarPedido" />
   </wsdl:message>
-  <wsdl:message name="IBuscarPedidos_BuscarPedidos_InputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarPedidos" />
+  <wsdl:message name="IBuscarPedidos_BuscarPedidosCallCenter_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarPedidosCallCenter" />
   </wsdl:message>
-  <wsdl:message name="IBuscarPedidos_Pedidos_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:Pedidos" />
+  <wsdl:message name="IBuscarPedidos_PedidosCallCenter_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:PedidosCallCenter" />
   </wsdl:message>
   <wsdl:message name="IBuscarPedidos_MensajeErrorBuscarPedidos_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:MensajeErrorBuscarPedidos" />
@@ -4487,11 +4487,11 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IBuscarPedidos">
-    <wsdl:operation name="BuscarPedidos">
-      <wsdl:input wsam:Action="http://tempuri.org/IBuscarPedidos/BuscarPedidos" message="tns:IBuscarPedidos_BuscarPedidos_InputMessage" />
+    <wsdl:operation name="BuscarPedidosCallCenter">
+      <wsdl:input wsam:Action="http://tempuri.org/IBuscarPedidos/BuscarPedidosCallCenter" message="tns:IBuscarPedidos_BuscarPedidosCallCenter_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="Pedidos">
-      <wsdl:output wsam:Action="http://tempuri.org/IBuscarPedidos/Pedidos" message="tns:IBuscarPedidos_Pedidos_OutputCallbackMessage" />
+    <wsdl:operation name="PedidosCallCenter">
+      <wsdl:output wsam:Action="http://tempuri.org/IBuscarPedidos/PedidosCallCenter" message="tns:IBuscarPedidos_PedidosCallCenter_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="MensajeErrorBuscarPedidos">
       <wsdl:output wsam:Action="http://tempuri.org/IBuscarPedidos/MensajeErrorBuscarPedidos" message="tns:IBuscarPedidos_MensajeErrorBuscarPedidos_OutputCallbackMessage" />
@@ -5085,17 +5085,17 @@
   <wsdl:binding name="WSDualHttpBinding_IBuscarPedidos" type="tns:IBuscarPedidos">
     <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="BuscarPedidos">
-      <soap12:operation soapAction="http://tempuri.org/IBuscarPedidos/BuscarPedidos" style="document" />
+    <wsdl:operation name="BuscarPedidosCallCenter">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarPedidos/BuscarPedidosCallCenter" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_BuscarPedidos_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_BuscarPedidosCallCenter_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="Pedidos">
-      <soap12:operation soapAction="http://tempuri.org/IBuscarPedidos/Pedidos" style="document" />
+    <wsdl:operation name="PedidosCallCenter">
+      <soap12:operation soapAction="http://tempuri.org/IBuscarPedidos/PedidosCallCenter" style="document" />
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_Pedidos_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IBuscarPedidos_PedidosCallCenter_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -5113,7 +5113,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5122,7 +5122,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5131,7 +5131,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5140,7 +5140,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5149,7 +5149,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5158,7 +5158,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5167,7 +5167,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5176,7 +5176,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5185,7 +5185,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5194,7 +5194,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5203,7 +5203,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5212,7 +5212,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5221,7 +5221,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5230,7 +5230,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5239,7 +5239,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5248,7 +5248,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5257,7 +5257,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5266,7 +5266,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5275,7 +5275,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -5284,16 +5284,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
-        </Identity>
-      </wsa10:EndpointReference>
-    </wsdl:port>
-    <wsdl:port name="WSDualHttpBinding_IBuscarPedidos" binding="tns:WSDualHttpBinding_IBuscarPedidos">
-      <soap12:address location="http://localhost:8080/CalculatorService" />
-      <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:8080/CalculatorService</wsa10:Address>
-        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2561MMJ\14-ab007la</Upn>
+          <Upn>DESKTOP-FLLKC20\irasema</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

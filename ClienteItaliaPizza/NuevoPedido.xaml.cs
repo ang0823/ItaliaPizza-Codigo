@@ -24,6 +24,7 @@ namespace ClienteItaliaPizza
         InstanceContext instanceContext;
         //AdministrarPedidosMeserosClient meserosClient;
         AdministrarPedidosCallCenterClient callCenterClient;
+
         //listas de productos seleccionados para el NUEVO Pedido
         private List<Producto> productosSeleccionados = new List<Producto>();
         private List<ProvisionDirecta> provisionesSeleccionadas = new List<ProvisionDirecta>();
@@ -92,7 +93,6 @@ namespace ClienteItaliaPizza
             if (Validador.validarSoloNumeros(e.Text) == false)
                 e.Handled = true;
         }
-
 
 
 
@@ -298,7 +298,7 @@ namespace ClienteItaliaPizza
                         precioTotal = (double)labelTotal.Content,
                     }                    
                 };
-
+                
                 pedidoLocalNuevo.Producto = new Producto[productosSeleccionados.Count];
                 productosSeleccionados.CopyTo(pedidoLocalNuevo.Producto);
                 pedidoLocalNuevo.ProvisionDirecta = new ProvisionDirecta[provisionesSeleccionadas.Count];
@@ -380,17 +380,18 @@ namespace ClienteItaliaPizza
                 {
                     IdEmpleado = VentanaPedidos.idEmpleadoCallCenter,
                     idEmpleadoGenerado = VentanaPedidos.idEmpleadoGeneradoCallCenter
-                    },
-                    Estado = new Estado { estadoPedido = "En Espera" },
-                    Cuenta = new Cuenta
-                    {
-                        Id = GenerarIdPedidoADomicilio(clienteEnLista.id),
-                        subTotal = (double)labelSubtotal.Content,
-                        iva = 0.16,
-                        descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text),
-                        precioTotal = (double)labelTotal.Content
-                    }
-                };
+                },
+                Estado = new Estado { estadoPedido = "En Espera" },
+                Cuenta = new Cuenta
+                {
+                    Id = GenerarIdPedidoADomicilio(clienteEnLista.id),
+                    subTotal = (double)labelSubtotal.Content,
+                    iva = 0.16,
+                    descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text),
+                    precioTotal = (double)labelTotal.Content
+                },
+                direccionDestino = UC_NuevoDomicilio.EditarComboBoxDireccion
+        };
 
             pedidoADomicilio.Producto = new Producto[productosSeleccionados.Count];
             productosSeleccionados.CopyTo(pedidoADomicilio.Producto);

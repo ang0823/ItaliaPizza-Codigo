@@ -74,6 +74,7 @@
   <xs:element name="ArrayOfProductoDePedido" nillable="true" type="tns:ArrayOfProductoDePedido" />
   <xs:complexType name="ProductoDePedido">
     <xs:sequence>
+      <xs:element minOccurs="0" name="cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="categoria" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="descrpcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
@@ -93,6 +94,7 @@
   <xs:complexType name="ProvisionVentaDirecta">
     <xs:sequence>
       <xs:element minOccurs="0" name="activado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="cantidadExistencias" type="xs:int" />
       <xs:element minOccurs="0" name="categoria" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />

@@ -152,6 +152,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="Cliente" nillable="true" type="tns:Cliente" />
           <xs:element minOccurs="0" name="ClienteId" type="xs:int" />
+          <xs:element minOccurs="0" name="direccionDestino" nillable="true" type="xs:string" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

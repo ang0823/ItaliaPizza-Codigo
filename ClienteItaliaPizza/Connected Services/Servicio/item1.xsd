@@ -541,12 +541,12 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="BuscarPedidos">
+  <xs:element name="BuscarPedidosCallCenter">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Pedidos">
+  <xs:element name="PedidosCallCenter">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="pedidosADomicilio" nillable="true" type="q62:ArrayOfPedidoADomicilioDeServidor" />
