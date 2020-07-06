@@ -1,5 +1,8 @@
 ﻿using ClienteItaliaPizza.Servicio;
+using iTextSharp.text;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using System.Windows;
 
@@ -8,8 +11,8 @@ namespace ClienteItaliaPizza.Pantallas
     /// <summary>
     /// Lógica de interacción para VentanaPedidos.xaml
     /// </summary>
-    public partial class VentanaPedidos : Window, INotificarPedidoCallback
-    {
+    public partial class VentanaPedidos : Window, INotificarPedidoCallback, IBuscarPedidosCallback 
+    { 
         NotificarPedidoClient server;
         MeserosUC meserosUC;
         public static long idEmpleadoCallCenter; public static string idEmpleadoGeneradoCallCenter;
@@ -60,6 +63,8 @@ namespace ClienteItaliaPizza.Pantallas
                 meserosUC.eventoAgregarNuevoPedidoALista += UC_AgregandoNuevoPedido;
                 meserosUC.eventoAbrirVentanaLocal += UC_AbrirVentanaPedidoLocal;
                 meserosUC.eventoAbrirVentanaADomicilio += UC_AbrirVentanaPedidoADomicilio;
+                BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
+                buscarPedidos.BuscarPedidosCallCenter();
             }
             catch (CommunicationException e)
             {
@@ -128,6 +133,29 @@ namespace ClienteItaliaPizza.Pantallas
                  ventana.Show();
                  this.Close();
              });
+        }
+
+        void IBuscarPedidosCallback.PedidosCallCenter(PedidoADomicilioDeServidor[] pedidosADomicilio, PedidoLocalDeServidor[] pedidosLocales)
+        {
+            List<PedidoEnDataGrid> pedidosEnEspera = new List<PedidoEnDataGrid>();            
+
+            foreach (var pedidoDomicilio in pedidosADomicilio.Where(p => p.estado == "En Espera"))
+            {
+                PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedidoDomicilio.idGeneradoDeEmpleado, pedidoDomicilio.id.ToString(), "Domicilio", pedidoDomicilio.cliente.nombre + " " + pedidoDomicilio.cliente.apellidoPaterno + " " + pedidoDomicilio.cliente.apellidoMaterno, pedidoDomicilio.instruccionesDePedido);
+                pedidosEnEspera.Add(pedidoEnDataGrid);
+            }
+
+            foreach (var pedido in pedidosLocales.Where(p=> p.estado == "En Espera"))
+            {                
+                 PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedido.idGeneradoDeEmpleado, pedido.id.ToString(), "Local", pedido.numeroMesa.ToString(), pedido.instruccionesDePedido);
+                 pedidosEnEspera.Add(pedidoEnDataGrid);
+            }
+            meserosUC.ListaEnEspera_DataGrid = pedidosEnEspera;
+        }
+
+        void IBuscarPedidosCallback.MensajeErrorBuscarPedidos(string mensaje)
+        {
+            FuncionesComunes.MostrarMensajeDeError(mensaje);
         }
     }
 
