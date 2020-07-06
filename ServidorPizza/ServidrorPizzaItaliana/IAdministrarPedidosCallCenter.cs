@@ -89,8 +89,21 @@ namespace ServidrorPizzaItaliana
         private string categoria;
         [DataMember]
         private byte[] imagen;
+        //Caicero: esto es una propiedad que he agregado para los pedidos
+        [DataMember] int cantidad;
+        private string descripcion;
 
-        public ProductoDePedido(int id, string nombre, string descrpcion, double precioUnitario, string restricciones, string categoria)
+        public ProductoDePedido(int id, string nombre, string descripcion, double precioUnitario, string restricciones, string categoria)
+        {
+            this.id = id;
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.precioUnitario = precioUnitario;
+            this.restricciones = restricciones;
+            this.categoria = categoria;
+        }
+
+        public ProductoDePedido(int id, string nombre, string descrpcion, double precioUnitario, string restricciones, string categoria, int cantidad)
         {
             this.id = id;
             this.nombre = nombre;
@@ -98,6 +111,7 @@ namespace ServidrorPizzaItaliana
             this.precioUnitario = precioUnitario;
             this.restricciones = restricciones;
             this.categoria = categoria;
+            this.cantidad = cantidad;
         }
 
         public byte[] Imagen { get => imagen; set => imagen = value; }
@@ -133,8 +147,33 @@ namespace ServidrorPizzaItaliana
         private string categoria;
         [DataMember]
         private byte[] imagen;
+        //Caicero: esto es una propiedad que he agregado.
+        [DataMember] int cantidad;
 
-        public ProvisionVentaDirecta(int idProvisionVentaDirecta, int idProvision, string nombre, int cantidadExistencias, string ubicacion, int stock, double precioUnitario, string unidadDeMedida, bool activado, string descripcion, string restricciones, string categoria)
+        private int id1;
+        private int id2;
+        private int noExistencias;
+        private int stockMinimo;
+        private double costoUnitario;
+        private string unidadMedida;
+
+        public ProvisionVentaDirecta(int id1, int id2, string nombre, int noExistencias, string ubicacion, int stockMinimo, double costoUnitario, string unidadMedida, bool activado, string descripcion, string restricciones, string categoria)
+        {
+            this.id1 = id1;
+            this.id2 = id2;
+            this.nombre = nombre;
+            this.noExistencias = noExistencias;
+            this.ubicacion = ubicacion;
+            this.stockMinimo = stockMinimo;
+            this.costoUnitario = costoUnitario;
+            this.unidadMedida = unidadMedida;
+            this.activado = activado;
+            this.descripcion = descripcion;
+            this.restricciones = restricciones;
+            this.categoria = categoria;
+        }
+
+        public ProvisionVentaDirecta(int idProvisionVentaDirecta, int idProvision, string nombre, int cantidadExistencias, string ubicacion, int stock, double precioUnitario, string unidadDeMedida, bool activado, string descripcion, string restricciones, string categoria, int cantidad)
         {
             this.idProvisionVentaDirecta = idProvisionVentaDirecta;
             this.idProvision = idProvision;
@@ -148,6 +187,7 @@ namespace ServidrorPizzaItaliana
             this.descripcion = descripcion;
             this.restricciones = restricciones;
             this.categoria = categoria;
+            this.cantidad = cantidad;
         }
 
         public byte[] Imagen { get => imagen; set => imagen = value; }
