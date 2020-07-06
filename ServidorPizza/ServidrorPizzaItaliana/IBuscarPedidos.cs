@@ -13,7 +13,7 @@ namespace ServidrorPizzaItaliana
     public interface IBuscarPedidos
     {
         [OperationContract(IsOneWay = true)]
-        void BuscarPedidos();
+        void BuscarPedidosCallCenter();
 
     }
 
@@ -21,7 +21,7 @@ namespace ServidrorPizzaItaliana
     public interface IBuscarPedidosCallback
     {
         [OperationContract(IsOneWay = true)]
-        void Pedidos(List<PedidoADomicilioDeServidor> pedidosADomicilio, List<PedidoLocalDeServidor> pedidosLocales);
+        void PedidosCallCenter(List<PedidoADomicilioDeServidor> pedidosADomicilio, List<PedidoLocalDeServidor> pedidosLocales);
 
 
         [OperationContract(IsOneWay = true)]
@@ -108,13 +108,17 @@ namespace ServidrorPizzaItaliana
         [DataMember]
         double descuento;
 
-        public CuentaDePedido(string id, double toal, double subtotal, double iva, double descuento)
+        //propiedad agregada por mi: Caicero Elsa. Estado para la Cuenta y saber cuando ya ha sido cerrada. 
+        [DataMember]
+        bool abierta;
+        public CuentaDePedido(string id, double toal, double subtotal, double iva, double descuento, bool abierta)
         {
             Id = id;
             this.toal = toal;
             this.subtotal = subtotal;
             this.iva = iva;
             this.descuento = descuento;
+            this.abierta = abierta;
         }
     }
 }
