@@ -600,7 +600,7 @@ namespace ClienteItaliaPizza.Servicio {
     [System.Runtime.Serialization.DataContractAttribute(Name="ProvisionDirecta", Namespace="http://schemas.datacontract.org/2004/07/AccesoBD2")]
     [System.SerializableAttribute()]
     public partial class ProvisionDirecta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
+        internal Categoria categoria;
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
@@ -3727,6 +3727,9 @@ namespace ClienteItaliaPizza.Servicio {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private ClienteItaliaPizza.Servicio.Cliente1 clienteField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string direccionDestinoField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public ClienteItaliaPizza.Servicio.Cliente1 cliente {
             get {
@@ -3736,6 +3739,19 @@ namespace ClienteItaliaPizza.Servicio {
                 if ((object.ReferenceEquals(this.clienteField, value) != true)) {
                     this.clienteField = value;
                     this.RaisePropertyChanged("cliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string direccionDestino {
+            get {
+                return this.direccionDestinoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.direccionDestinoField, value) != true)) {
+                    this.direccionDestinoField = value;
+                    this.RaisePropertyChanged("direccionDestino");
                 }
             }
         }
@@ -4295,6 +4311,12 @@ namespace ClienteItaliaPizza.Servicio {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarIngrediente/RegistrarIngrediente")]
         System.Threading.Tasks.Task RegistrarIngredienteAsync(ClienteItaliaPizza.Servicio.Provision provision);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarIngrediente/RegistrarProvisionDirecta")]
+        void RegistrarProvisionDirecta(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarIngrediente/RegistrarProvisionDirecta")]
+        System.Threading.Tasks.Task RegistrarProvisionDirectaAsync(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4338,6 +4360,14 @@ namespace ClienteItaliaPizza.Servicio {
         
         public System.Threading.Tasks.Task RegistrarIngredienteAsync(ClienteItaliaPizza.Servicio.Provision provision) {
             return base.Channel.RegistrarIngredienteAsync(provision);
+        }
+        
+        public void RegistrarProvisionDirecta(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta) {
+            base.Channel.RegistrarProvisionDirecta(provision, provisionDirecta);
+        }
+        
+        public System.Threading.Tasks.Task RegistrarProvisionDirectaAsync(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta) {
+            return base.Channel.RegistrarProvisionDirectaAsync(provision, provisionDirecta);
         }
     }
     
@@ -5461,13 +5491,22 @@ namespace ClienteItaliaPizza.Servicio {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/BuscarPedidosCallCenter")]
         System.Threading.Tasks.Task BuscarPedidosCallCenterAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/BuscarPedidosMesero")]
+        void BuscarPedidosMesero();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/BuscarPedidosMesero")]
+        System.Threading.Tasks.Task BuscarPedidosMeseroAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IBuscarPedidosCallback {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/PedidosCallCenter")]
-        void PedidosCallCenter(ClienteItaliaPizza.Servicio.PedidoADomicilioDeServidor[] pedidosADomicilio, ClienteItaliaPizza.Servicio.PedidoLocalDeServidor[] pedidosLocales);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/ObtenerTodosPedidos")]
+        void ObtenerTodosPedidos(ClienteItaliaPizza.Servicio.PedidoADomicilioDeServidor[] pedidosADomicilio, ClienteItaliaPizza.Servicio.PedidoLocalDeServidor[] pedidosLocales);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/ObtenerPedidosLocales")]
+        void ObtenerPedidosLocales(ClienteItaliaPizza.Servicio.PedidoLocalDeServidor[] pedidosLocales);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBuscarPedidos/MensajeErrorBuscarPedidos")]
         void MensajeErrorBuscarPedidos(string mensaje);
@@ -5507,6 +5546,14 @@ namespace ClienteItaliaPizza.Servicio {
         
         public System.Threading.Tasks.Task BuscarPedidosCallCenterAsync() {
             return base.Channel.BuscarPedidosCallCenterAsync();
+        }
+        
+        public void BuscarPedidosMesero() {
+            base.Channel.BuscarPedidosMesero();
+        }
+        
+        public System.Threading.Tasks.Task BuscarPedidosMeseroAsync() {
+            return base.Channel.BuscarPedidosMeseroAsync();
         }
     }
 }
