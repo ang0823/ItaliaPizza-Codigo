@@ -154,23 +154,23 @@
             <Image Height="47" Width="53" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
         </Button>
 
-        <TextBlock HorizontalAlignment="Left" Height="36" Margin="952,314,0,0" TextWrapping="Wrap" Text="SubTotal:" VerticalAlignment="Top" Width="112" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Height="38" Margin="1013,358,0,0" TextWrapping="Wrap" Text="IVA:" VerticalAlignment="Top" Width="102" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Height="39" Margin="926,406,0,0" TextWrapping="Wrap" Text="Descuento:" VerticalAlignment="Top" Width="134" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Height="41" Margin="995,455,0,0" TextWrapping="Wrap" Text="Total:" VerticalAlignment="Top" Width="81" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="36" Margin="890,326,0,0" TextWrapping="Wrap" Text="SubTotal:" VerticalAlignment="Top" Width="131" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="38" Margin="962,370,0,0" TextWrapping="Wrap" Text="IVA:" VerticalAlignment="Top" Width="119" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="39" Margin="860,418,0,0" TextWrapping="Wrap" Text="Descuento:" VerticalAlignment="Top" Width="157" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="41" Margin="941,467,0,0" TextWrapping="Wrap" Text="Total:" VerticalAlignment="Top" Width="94" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
 
-        <Label x:Name="labelSigno1" Content="$" HorizontalAlignment="Left" Margin="1080,313,0,0" VerticalAlignment="Top" FontSize="24" Height="43" Width="25" Foreground="#FFF39C27" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="labelSubtotal" Content="0" HorizontalAlignment="Left" Margin="1109,314,0,0" VerticalAlignment="Top" FontSize="24" Height="37" Width="55" Foreground="#FFF39C27" Background="{x:Null}" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="labelIVA" Content="16%" HorizontalAlignment="Left" Margin="1099,355,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="41" Width="59" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="labelSigno2" Content="$" HorizontalAlignment="Left" Margin="1080,452,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="54" Width="23" RenderTransformOrigin="0.607,0.721" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="labelTotal" Content="0" HorizontalAlignment="Left" Margin="1109,452,0,0" VerticalAlignment="Top" FontSize="24" Height="41" Width="54" Foreground="#FFF39C27" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelSigno1" Content="$" HorizontalAlignment="Left" Margin="1040,325,0,0" VerticalAlignment="Top" FontSize="24" Height="43" Width="29" Foreground="#FFF39C27" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelSubtotal" Content="0" HorizontalAlignment="Left" Margin="1074,326,0,0" VerticalAlignment="Top" FontSize="24" Height="37" Width="83" Foreground="#FFF39C27" Background="{x:Null}" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelIVA" Content="16%" HorizontalAlignment="Left" Margin="1062,367,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="41" Width="69" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelSigno2" Content="$" HorizontalAlignment="Left" Margin="1040,464,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="54" Width="27" RenderTransformOrigin="0.607,0.721" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelTotal" Content="0" HorizontalAlignment="Left" Margin="1074,464,0,0" VerticalAlignment="Top" FontSize="24" Height="41" Width="89" Foreground="#FFF39C27" FontWeight="Bold" FontFamily="Arial"/>
 
-        <TextBox x:Name="textBoxDescuento" HorizontalAlignment="Left" Height="38" Margin="1083,404,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="48" RenderTransformOrigin="0.5,0.5" FontSize="24" Foreground="Black" MaxLength="3" PreviewTextInput="TextBoxDescuento_PreviewTextInput" FontFamily="Arial" FontWeight="Bold">
+        <TextBox x:Name="textBoxDescuento" HorizontalAlignment="Left" Height="38" Margin="1044,416,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.5,0.5" FontSize="24" Foreground="Black" MaxLength="3" PreviewTextInput="TextBoxDescuento_PreviewTextInput" FontFamily="Arial" FontWeight="Bold">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
-                    <SkewTransform AngleY="0.093"/>
-                    <RotateTransform Angle="0.065"/>
+                    <SkewTransform AngleY="0.059"/>
+                    <RotateTransform Angle="0.076"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </TextBox.RenderTransform>
@@ -178,12 +178,12 @@
 
         <local:NuevoPedido_Local x:Name="UC_NuevoPLocal" Visibility="Collapsed" eventLlenarNoMesa="UC_NuevoPLocal_eventLlenarNoMesa" eventLlenarNumEmpleado="UC_NuevoPLocal_eventLlenarNumEmpleado" eventSeleccionarNoMesa="UC_NuevoPLocal_eventSeleccionarNoMesa" eventSeleccionarNumEmpleado="UC_NuevoPLocal_eventSeleccionarNumEmpleado" Margin="66,10,204,268" ></local:NuevoPedido_Local>
         <local:NuevoPedido_Domicilio x:Name="UC_NuevoDomicilio" Visibility="Collapsed" eventLlenarComboBoxClienteNombre="UC_NuevoDomicilio_eventLlenarComboBoxClienteNombre" eventSeleccionarCliente="UC_NuevoDomicilio_eventSeleccionarCliente" eventLlenarComboBoxDireccion="UC_NuevoDomicilio_eventLlenarComboBoxDireccion" eventSeleccionarDirección="UC_NuevoDomicilio_eventSeleccionarDirección" eventEditarTelefono="UC_NuevoDomicilio_eventEditarTelefono" eventAgregarNuevoCliente="UC_NuevoDomicilio_eventAgregarNuevoCliente" eventEditarTextBoxDireccion="UC_NuevoDomicilio_eventEditarTextBoxDireccion"></local:NuevoPedido_Domicilio>
-        <Label x:Name="labelPorcentajeDescuento" Content="%" HorizontalAlignment="Left" Margin="1133,405,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="37" Width="31" FontWeight="Bold" FontFamily="Arial" RenderTransformOrigin="0.188,0.483">
+        <Label x:Name="labelPorcentajeDescuento" Content="%" HorizontalAlignment="Left" Margin="1102,417,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="37" Width="36" FontWeight="Bold" FontFamily="Arial" RenderTransformOrigin="0.188,0.483">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
-                    <SkewTransform AngleY="-0.715"/>
-                    <RotateTransform Angle="-1.033"/>
+                    <SkewTransform AngleY="-0.286"/>
+                    <RotateTransform Angle="-1.208"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </Label.RenderTransform>
