@@ -283,5 +283,54 @@ namespace AccesoBD2
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistroDeClienteConDireccion", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, calleParameter, coloniaParameter, numeroExteriorParameter, numeroInteriorParameter, numeroTelefonicoParameter, codigoPostalParameter, iDCliente);
         }
+    
+        public virtual int RegistrarProvisionDirecta(string nombreProvisionDirecta, Nullable<int> noExistencias, string ubicacion, Nullable<int> stockMinimo, Nullable<double> costoUnitario, string unidadMedida, Nullable<bool> activado, string descripcionProvisionDirecta, Nullable<bool> activadoProvisionDirecta, string restriccionesProvisionDirecta, string categoria)
+        {
+            var nombreProvisionDirectaParameter = nombreProvisionDirecta != null ?
+                new ObjectParameter("NombreProvisionDirecta", nombreProvisionDirecta) :
+                new ObjectParameter("NombreProvisionDirecta", typeof(string));
+    
+            var noExistenciasParameter = noExistencias.HasValue ?
+                new ObjectParameter("noExistencias", noExistencias) :
+                new ObjectParameter("noExistencias", typeof(int));
+    
+            var ubicacionParameter = ubicacion != null ?
+                new ObjectParameter("Ubicacion", ubicacion) :
+                new ObjectParameter("Ubicacion", typeof(string));
+    
+            var stockMinimoParameter = stockMinimo.HasValue ?
+                new ObjectParameter("StockMinimo", stockMinimo) :
+                new ObjectParameter("StockMinimo", typeof(int));
+    
+            var costoUnitarioParameter = costoUnitario.HasValue ?
+                new ObjectParameter("CostoUnitario", costoUnitario) :
+                new ObjectParameter("CostoUnitario", typeof(double));
+    
+            var unidadMedidaParameter = unidadMedida != null ?
+                new ObjectParameter("UnidadMedida", unidadMedida) :
+                new ObjectParameter("UnidadMedida", typeof(string));
+    
+            var activadoParameter = activado.HasValue ?
+                new ObjectParameter("Activado", activado) :
+                new ObjectParameter("Activado", typeof(bool));
+    
+            var descripcionProvisionDirectaParameter = descripcionProvisionDirecta != null ?
+                new ObjectParameter("DescripcionProvisionDirecta", descripcionProvisionDirecta) :
+                new ObjectParameter("DescripcionProvisionDirecta", typeof(string));
+    
+            var activadoProvisionDirectaParameter = activadoProvisionDirecta.HasValue ?
+                new ObjectParameter("ActivadoProvisionDirecta", activadoProvisionDirecta) :
+                new ObjectParameter("ActivadoProvisionDirecta", typeof(bool));
+    
+            var restriccionesProvisionDirectaParameter = restriccionesProvisionDirecta != null ?
+                new ObjectParameter("RestriccionesProvisionDirecta", restriccionesProvisionDirecta) :
+                new ObjectParameter("RestriccionesProvisionDirecta", typeof(string));
+    
+            var categoriaParameter = categoria != null ?
+                new ObjectParameter("Categoria", categoria) :
+                new ObjectParameter("Categoria", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProvisionDirecta", nombreProvisionDirectaParameter, noExistenciasParameter, ubicacionParameter, stockMinimoParameter, costoUnitarioParameter, unidadMedidaParameter, activadoParameter, descripcionProvisionDirectaParameter, activadoProvisionDirectaParameter, restriccionesProvisionDirectaParameter, categoriaParameter);
+        }
     }
 }

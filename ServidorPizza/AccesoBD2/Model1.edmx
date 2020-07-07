@@ -578,6 +578,19 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <Parameter Name="Abierta" Type="bit" Mode="In" />
           <Parameter Name="IdPedido" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="RegistrarProvisionDirecta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreProvisionDirecta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="noExistencias" Type="int" Mode="In" />
+          <Parameter Name="Ubicacion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="StockMinimo" Type="int" Mode="In" />
+          <Parameter Name="CostoUnitario" Type="float" Mode="In" />
+          <Parameter Name="UnidadMedida" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Activado" Type="bit" Mode="In" />
+          <Parameter Name="DescripcionProvisionDirecta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ActivadoProvisionDirecta" Type="bit" Mode="In" />
+          <Parameter Name="RestriccionesProvisionDirecta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Categoria" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="RegistroDeClienteConDireccion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="varchar(max)" Mode="In" />
           <Parameter Name="ApellidoPaterno" Type="varchar(max)" Mode="In" />
@@ -882,6 +895,19 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             <Parameter Name="NumeroTelefonico" Mode="In" Type="String" />
             <Parameter Name="CodigoPostal" Mode="In" Type="String" />
             <Parameter Name="IDCliente" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RegistrarProvisionDirecta">
+            <Parameter Name="NombreProvisionDirecta" Mode="In" Type="String" />
+            <Parameter Name="noExistencias" Mode="In" Type="Int32" />
+            <Parameter Name="Ubicacion" Mode="In" Type="String" />
+            <Parameter Name="StockMinimo" Mode="In" Type="Int32" />
+            <Parameter Name="CostoUnitario" Mode="In" Type="Double" />
+            <Parameter Name="UnidadMedida" Mode="In" Type="String" />
+            <Parameter Name="Activado" Mode="In" Type="Boolean" />
+            <Parameter Name="DescripcionProvisionDirecta" Mode="In" Type="String" />
+            <Parameter Name="ActivadoProvisionDirecta" Mode="In" Type="Boolean" />
+            <Parameter Name="RestriccionesProvisionDirecta" Mode="In" Type="String" />
+            <Parameter Name="Categoria" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="CuentaUsuario">
@@ -1648,6 +1674,7 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarPedidoYCuenta" FunctionName="BDPizzaModel.Store.RegistrarPedidoYCuenta" />
           <FunctionImportMapping FunctionImportName="RegistroDeClienteConDireccion" FunctionName="BDPizzaModel.Store.RegistroDeClienteConDireccion" />
+          <FunctionImportMapping FunctionImportName="RegistrarProvisionDirecta" FunctionName="BDPizzaModel.Store.RegistrarProvisionDirecta" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
