@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Threading.Tasks;
 using ClienteItaliaPizza.Servicio;
 using System.Collections.Generic;
 using System.Windows;
 using ClienteItaliaPizza.Pantallas;
 using System.ServiceModel;
+using System.Linq;
 
 namespace ClienteItaliaPizza
 {
     /// <summary>
     /// Lógica de interacción para VentanaCocina.xaml
     /// </summary>
-    public partial class VentanaCocina : Window, INotificarPedidoCallback
+    public partial class VentanaCocina : Window, INotificarPedidoCallback, IBuscarPedidosCallback
     {
         InstanceContext context;
+        BuscarPedidosClient serverBusquedaPedidos;
         NotificarPedidoClient server;
         List<PedidoLocal> pedidosLocales = new List<PedidoLocal>();
         int ejeY = 40; // eje Y de nuestra ventana
@@ -32,16 +29,16 @@ namespace ClienteItaliaPizza
                 context = new InstanceContext(this);
                 server = new NotificarPedidoClient(context);
                 server.AgregarUsuario("Cocinero");
+
+                serverBusquedaPedidos = new BuscarPedidosClient(context);
+                serverBusquedaPedidos.BuscarPedidosCallCenter();
             }
             catch(CommunicationException e)
             {
                 FuncionesComunes.MostrarMensajeDeError(e.Message);
             }
         }
-    
-
-        private void ButtonPedidoDomicilioListo_Click(object sender, RoutedEventArgs e)
-        {
+           
             /// llamo al servicio para mandar el pedido a domicilio preparado
 
             /* estoy probando agregar controles dinámicos para cada que llegue un nuevo pedido en espera 
@@ -101,8 +98,7 @@ namespace ClienteItaliaPizza
             ejeY += 300;
             conteo++;
 
-            grid.Children.Add(cocinaPedidoLocal);*/
-        }
+            grid.Children.Add(cocinaPedidoLocal);*/        
 
         private void ButtonRegresarClick(object sender, RoutedEventArgs e)
         {
@@ -111,24 +107,7 @@ namespace ClienteItaliaPizza
             this.Close();
         }
 
-        private void BorderPedido_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<platillo> platillos = new List<platillo>();
-            platillo pla = new platillo("dodo", true);
-            platillo pla1 = new platillo("camote", false);
-            platillos.Add(pla);
-            platillos.Add(pla1);
-
-           /* foreach (var platillo in platillos)
-            {
-                DataGridPlatillos.Items.Add(platillo);
-            }
-            DataGridPlatillos.ItemsSource = platillos;
-            var n = DataGridPlatillos.ItemsSource;
-            */
-        }
-
-        public void RecibirPedidoLocal(PedidoLocal pedido)
+        public void MostrarPedidoLocal(PedidoLocal pedido)
         {
             CocinaPedidoLocal cocinaPedidoLocal = new CocinaPedidoLocal();
             cocinaPedidoLocal.Name = "local_" + conteo.ToString();
@@ -144,9 +123,9 @@ namespace ClienteItaliaPizza
 
             foreach (var producto in pedido.Producto)
             {
-                platillos.Add(new platillo (producto.nombre, false));
+                platillos.Add(new platillo(producto.nombre, false));
             }
-                       
+
             cocinaPedidoLocal.llenarDataGrid = platillos;
 
             ejeY += 300;
@@ -154,8 +133,45 @@ namespace ClienteItaliaPizza
 
             grid.Children.Add(cocinaPedidoLocal);
             pedidosLocales.Add(pedido);
-            
         }
+
+        public void MostrarPedidoDomicilio(PedidoADomicilio pedido)
+        {
+            CocinaPedidoDomicilio cocinaPedidoDomicilio = new CocinaPedidoDomicilio();
+            cocinaPedidoDomicilio.Name = "domicilio_" + conteo.ToString();
+            cocinaPedidoDomicilio.Margin = new Thickness(100, ejeY, 0, 0);
+            cocinaPedidoDomicilio.Visibility = Visibility.Visible;
+
+            cocinaPedidoDomicilio.EditarLabelIDPedido = pedido.Id.ToString();
+            cocinaPedidoDomicilio.EditarLabelTipo = "Domicilio";
+            cocinaPedidoDomicilio.EditarLabelInstrucciones = pedido.instruccionesEspeciales;
+
+            List<platillo> platillos = new List<platillo>();
+
+            cocinaPedidoDomicilio.llenarDatagridDomicilio = pedido.Producto;
+
+            ejeY += 300;
+            conteo++;
+
+            grid.Children.Add(cocinaPedidoDomicilio);
+        }
+
+        // CALLBACKS NOTIFICAR PEDIDOS ******************************************************
+        public void RecibirPedidoLocal(PedidoLocal pedido)
+        {
+            MostrarPedidoLocal(pedido);                       
+        }
+
+        public void RecibirPedidoDomicilio(PedidoADomicilio pedido)
+        {
+            MostrarPedidoDomicilio(pedido);
+        }
+
+        public void MensajeNotificarPedido(string mensaje)
+        {
+            MessageBox.Show(mensaje);
+        }
+        // CALLBACKS NOTIFICAR PEDIDOS ******************************************************
 
         private void EnviarPedidoLocalPreparado(object sender, EventArgs e)
         {
@@ -181,30 +197,27 @@ namespace ClienteItaliaPizza
             }            
         }
 
-        public void RecibirPedidoDomicilio(PedidoADomicilio pedido)
+        public void ObtenerTodosPedidos(PedidoADomicilioDeServidor[] pedidosADomicilio, PedidoLocalDeServidor[] pedidosLocales)
         {
-            CocinaPedidoDomicilio cocinaPedidoDomicilio = new CocinaPedidoDomicilio();
-            cocinaPedidoDomicilio.Name = "domicilio_" + conteo.ToString();
-            cocinaPedidoDomicilio.Margin = new Thickness(100, ejeY, 0, 0);
-            cocinaPedidoDomicilio.Visibility = Visibility.Visible;
+            foreach (var pedidoDomicilio in pedidosADomicilio.Where(p => p.estado == "En Espera"))
+            {
+                //MostrarPedidoDomicilio(pedidoDomicilio);
+            }
 
-            cocinaPedidoDomicilio.EditarLabelIDPedido = pedido.Id.ToString();
-            cocinaPedidoDomicilio.EditarLabelTipo = "Domicilio";
-            cocinaPedidoDomicilio.EditarLabelInstrucciones = pedido.instruccionesEspeciales;
-
-            List<platillo> platillos = new List<platillo>();
-
-            cocinaPedidoDomicilio.llenarDatagridDomicilio = pedido.Producto;
-
-            ejeY += 300;
-            conteo++;
-
-            grid.Children.Add(cocinaPedidoDomicilio);
+            foreach (var pedido in pedidosLocales.Where(p => p.estado == "En Espera"))
+            {
+                //MostrarPedidoLocal(pedido);
+            }
         }
 
-        public void MensajeNotificarPedido(string mensaje)
+        public void ObtenerPedidosLocales(PedidoLocalDeServidor[] pedidosLocales)
         {
-            MessageBox.Show(mensaje);
+            throw new NotImplementedException();
+        }
+
+        public void MensajeErrorBuscarPedidos(string mensaje)
+        {
+            throw new NotImplementedException();
         }
     }
 
