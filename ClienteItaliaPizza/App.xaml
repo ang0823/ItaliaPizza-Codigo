@@ -9,7 +9,6 @@
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Width" Value="375"/>
             <Setter Property="Height" Value="35"/>
-            <!--Setter Property="Background" Value="AliceBlue"/-->
             <Setter Property="BorderBrush" Value="#606060"/>
             <Setter Property="FontFamily" Value="Arial"/>
             <Setter Property="FontSize" Value="18"/>
@@ -17,7 +16,6 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Grid>
-                            <!--Aquí se da estilo al texto que va a introducir el usuario-->
                             <TextBox Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      x:Name="TextSource"
                                      Background="Transparent" Panel.ZIndex="2"
