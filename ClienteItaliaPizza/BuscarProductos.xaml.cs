@@ -1,21 +1,32 @@
 ﻿using ClienteItaliaPizza.Servicio;
+using DevExpress.Utils.Serializing.Helpers;
 using System;
+using System.Drawing;
 using System.IO;
-using System.Printing;
 using System.ServiceModel;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ClienteItaliaPizza
 {
     /// <summary>
     /// Lógica de interacción para BuscarEmpleado.xaml
     /// </summary>
-    public partial class BuscarProductos : Window, IBuscarProductoCallback
+    public partial class BuscarProductos : Window, IBuscarProductoCallback, IModificarProductoCallback
     {
         CuentaUsuario1 CuentaUsuario;
+        Producto producto = new Producto();
+        ProvisionVentaDirecta productoExterno = new ProvisionVentaDirecta();
+        Categoria categoria = new Categoria();
+        byte[] imagenProducto;
+        string nombreReceta;
+        bool imageneditada = false;
         bool enEdicion = false;
+
 
         public BuscarProductos(CuentaUsuario1 cuenta)
         {
@@ -23,12 +34,12 @@ namespace ClienteItaliaPizza
             InitializeComponent();
             InicilizarComboBoxes();
             DeshabilitarCampos();
-
+            producto.Id = 2; // BORRAR
             UserLbl.Content = cuenta.nombreUsuario;
             recetaExistenciasLbl.Content = "Receta:";
             criterioCb.SelectedIndex = 0;
             ImagenBtn.Visibility = Visibility.Hidden;
-            //EditSaveBtn.IsEnabled = false;
+            EditSaveBtn.IsEnabled = false;
         }
 
         private void InicilizarComboBoxes()
@@ -59,16 +70,41 @@ namespace ClienteItaliaPizza
             estadoCb.IsEnabled = false;
             CategoriaCb.IsEnabled = false;
             recetaCb.IsEnabled = false;
+            existenciasTxt.IsEnabled = false;
             DescripcionTxt.IsEnabled = false;
             RestriccionesTxt.IsEnabled = false;
+            enEdicion = false;
+        }
+
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcion;
+
+            opcion = MessageBox.Show("¿Seguro que deseas cerrar la sesión?", "Cerrar sesión",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (opcion == MessageBoxResult.OK)
+            {
+                FuncionesComunes.CerrarSesion();
+                this.Close();
+            }
         }
 
         private void SearchBox_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Return)
             {
+                SearchBox.IsEnabled = false;
+                SearchBtn.IsEnabled = false;
                 BuscarProducto();
             }
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SearchBox.IsEnabled = false;
+            SearchBtn.IsEnabled = false;
+            BuscarProducto();
         }
 
         private void BuscarProducto()
@@ -80,8 +116,9 @@ namespace ClienteItaliaPizza
 
                 try
                 {
-                    string nombreProducto = SearchBox.Text;
                     string tipoProducto = criterioCb.SelectedItem.ToString();
+                    string nombreProducto = SearchBox.Text;
+                    SearchBox.Text = "";
 
                     if (tipoProducto == "Producto interno")
                     {
@@ -94,22 +131,87 @@ namespace ClienteItaliaPizza
                 }
                 catch (Exception any)
                 {
+                    SearchBox.IsEnabled = true;
+                    SearchBtn.IsEnabled = true;
                     FuncionesComunes.MostrarMensajeDeError(any.Message + " " + any.GetType());
                 }
             }
         }
 
-        public void ProductoInterno([MessageParameter(Name = "productoInterno")] Producto productoInterno1, byte[] imagen)
+        public void ProductoInterno([MessageParameter(Name = "productoInterno")] Producto productoInterno1, byte[] imagen, string nombreReceta, string categoria)
+        {
+            SearchBox.IsEnabled = true;
+            SearchBtn.IsEnabled = true;
+
+            Dispatcher.Invoke(() =>
+            {
+                imagenProducto = imagen;
+                producto = productoInterno1;
+                this.categoria.categoria = categoria;
+                this.nombreReceta = nombreReceta;
+                EstablecerDatosProductoInterno();
+            });
+        }
+
+        private void EstablecerDatosProductoInterno()
         {
             tipoProductoCb.SelectedIndex = 0;
-            nombreTxt.Text = productoInterno1.nombre;
-            precioTxt.Text = productoInterno1.precioUnitario.ToString();
-            estadoCb.SelectedIndex = EstaActivado(productoInterno1.activado);
-            CategoriaCb.SelectedIndex = CategoriaProducto(productoInterno1);
-            recetaCb.SelectedItem = productoInterno1.Receta;
-            DescripcionTxt.Text = productoInterno1.descripcion;
-            RestriccionesTxt.Text = productoInterno1.restricciones;
-            EstablecerImagenProducto(imagen);
+            nombreTxt.Text = producto.nombre;
+            precioTxt.Text = producto.precioUnitario.ToString();
+            estadoCb.SelectedIndex = EstaActivado(producto.activado);
+            CategoriaCb.SelectedIndex = CategoriaProducto(categoria.categoria);
+            EstablecerReceta(nombreReceta);
+            DescripcionTxt.Text = producto.descripcion;
+            RestriccionesTxt.Text = producto.restricciones;
+            EstablecerImagenProducto(imagenProducto);
+
+        }
+
+        private int EstaActivado(bool productoEstaActivado)
+        {
+            int indexComboBox = 0;
+
+            if (productoEstaActivado)
+            {
+                indexComboBox = 1;
+            }
+
+            return indexComboBox;
+        }
+
+        private int CategoriaProducto(string nombreCategoria)
+        {
+            int categoriaIndex = 0;
+
+            switch (nombreCategoria)
+            {
+                case "Ensaladas":
+                    categoriaIndex = 1;
+                    break;
+                case "Pizzas":
+                    categoriaIndex = 2;
+                    break;
+                case "Pastas":
+                    categoriaIndex = 3;
+                    break;
+                case "Postres":
+                    categoriaIndex = 4;
+                    break;
+                case "Bebidas":
+                    categoriaIndex = 5;
+                    break;
+                default:
+                    categoriaIndex = 0;
+                    break;
+            }
+
+            return categoriaIndex;
+        }
+
+        private void EstablecerReceta(string nombreReceta)
+        {
+               recetaCb.Items.Insert(0, nombreReceta);
+               recetaCb.SelectedIndex = 0;
         }
 
         private void EstablecerImagenProducto(byte[] arrayImagen)
@@ -129,7 +231,202 @@ namespace ClienteItaliaPizza
             ProductoImg.Source = image;
         }
 
-        private Boolean CamposVacios()
+        public void ProductoExterno([MessageParameter(Name = "productoExterno")] ProvisionVentaDirecta productoExterno1)
+        {
+            SearchBox.IsEnabled = true;
+            SearchBtn.IsEnabled = true;
+            Dispatcher.Invoke(() =>
+            {
+                productoExterno = productoExterno1;
+                EstablecerDatosProductoExterno();
+            });
+        }
+
+        private void EstablecerDatosProductoExterno()
+        {
+            tipoProductoCb.SelectedIndex = 1;
+            nombreTxt.Text = productoExterno.nombre;
+            precioTxt.Text = productoExterno.precioUnitario.ToString();
+            estadoCb.SelectedIndex = EstaActivado(productoExterno.activado);
+            CategoriaCb.SelectedIndex = CategoriaProducto(productoExterno.categoria);
+            existenciasTxt.Text = productoExterno.cantidadExistencias.ToString();
+            DescripcionTxt.Text = productoExterno.descripcion;
+            RestriccionesTxt.Text = productoExterno.restricciones;
+            EstablecerImagenProducto(productoExterno.imagen);
+        }
+
+        public void ErrorAlRecuperarProducto(string mensajeError)
+        {
+            SearchBox.IsEnabled = true;
+            SearchBtn.IsEnabled = true;
+            FuncionesComunes.MostrarMensajeDeError(mensajeError);
+        }
+
+        private void EditSaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (enEdicion)
+            {
+                EditarInfoProducto();
+                EditSaveBtn.Content = "Editar";
+                DeshabilitarCampos();
+            }
+            else
+            {
+                if (tipoProductoCb.SelectedIndex == 0)
+                {
+                    ObtenerRecetasDeServidor();
+                }
+                EditSaveBtn.Content = "Guardar";
+                HabilitarCampos();
+            }
+        }
+
+        private void ObtenerRecetasDeServidor()
+        {
+            InstanceContext context = new InstanceContext(this);
+            ModificarProductoClient servicioModificar = new ModificarProductoClient(context);
+
+            try
+            {
+                servicioModificar.ObtenerNombresDeRecetas();
+            }
+            catch (Exception e)
+            {
+                FuncionesComunes.MostrarMensajeDeError("Ocurrio la excepcion: " + e.GetType() + " al recuperar recetas " +
+                    "\nMensaje: " + e.Message );
+            }
+        }
+
+        public void ListaDeRecetas(string[] nombreDeRecetas)
+        {
+            Array.Sort(nombreDeRecetas);
+            foreach(var receta in nombreDeRecetas)
+            {
+                recetaCb.Items.Add(receta);
+            }
+        }
+
+        private void CargarRecetasEnComboBox()
+        {
+            // FALTA IMPLEMETAR
+        }
+
+        private void HabilitarCampos()
+        {
+            enEdicion = true;
+            ImagenBtn.Visibility = Visibility.Visible;
+            tipoProductoCb.IsEnabled = true;
+            nombreTxt.IsEnabled = true;
+            precioTxt.IsEnabled = true;
+            estadoCb.IsEnabled = true;
+            CategoriaCb.IsEnabled = true;
+            recetaCb.IsEnabled = true;
+            existenciasTxt.IsEnabled = true;
+            DescripcionTxt.IsEnabled = true;
+            RestriccionesTxt.IsEnabled = true;
+        }
+
+        private void EditarInfoProducto()
+        {
+            MessageBoxResult opcion;
+
+                if (CamposVacios())
+                {
+                    opcion = MessageBox.Show("No se puede dejar campos vacíos", "Información",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    opcion = MessageBox.Show("¿Guardar cambios en la información del producto?", "Guardar",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Information);
+
+                    if (opcion == MessageBoxResult.OK)
+                    {
+                        DeterminarMetodoALlamar();
+                    }
+                }
+        }
+
+        private void DeterminarMetodoALlamar()
+        {
+            try
+            {
+                InstanceContext context = new InstanceContext(this);
+                ModificarProductoClient servicioProduto = new ModificarProductoClient(context);
+                string tipoProducto = tipoProductoCb.SelectedItem.ToString();
+
+                if (tipoProducto == "Interno")
+                {
+                    IniciarProductoInternoAEnviar();
+                    bool imagenEitada = true;
+                    string nombreReceta = recetaCb.SelectedItem.ToString();
+                    byte[] imagen = imagenProducto;
+
+                    servicioProduto.ModificarProductoInterno(producto, imagenEitada, nombreReceta, imagen);
+                } 
+                else if(tipoProducto == "Externo")
+                {
+                    IniciarProductoExternoAEnviar();
+
+                    servicioProduto.ModificarProductoExterno(this.productoExterno, this.imageneditada);
+                }
+            }
+            catch (FormatException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("Se encontraron caracteres invalidos, favor de corregir e intentar nuevamente");
+            }
+            catch (OverflowException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("Alguno de los valores núméricos ingresados es demasiado grande");
+            }
+        }
+
+        private void IniciarProductoInternoAEnviar()
+        {
+            try
+            {
+                producto.nombre = nombreTxt.Text;
+                producto.precioUnitario = double.Parse(precioTxt.Text);
+                producto.activado = Convert.ToBoolean(estadoCb.SelectedIndex);
+                categoria.categoria = CategoriaCb.SelectedItem.ToString();
+                producto.Categoria = categoria;
+                producto.descripcion = DescripcionTxt.Text;
+                producto.restricciones = RestriccionesTxt.Text;
+            }
+            catch (FormatException)
+            {
+                throw new FormatException();
+            }
+            catch (OverflowException)
+            {
+                throw new OverflowException();
+            }
+        }
+
+        private void IniciarProductoExternoAEnviar()
+        {
+            try
+            {
+                productoExterno.nombre = nombreTxt.Text;
+                productoExterno.precioUnitario = double.Parse(precioTxt.Text);
+                producto.activado = Convert.ToBoolean(estadoCb.SelectedIndex);
+                productoExterno.categoria = CategoriaCb.SelectedItem.ToString();
+                productoExterno.cantidadExistencias = int.Parse(existenciasTxt.Text);
+                productoExterno.descripcion = DescripcionTxt.Text;
+                productoExterno.restricciones = RestriccionesTxt.Text;
+                productoExterno.imagen = imagenProducto;
+            }
+            catch (FormatException)
+            {
+                throw new FormatException();
+            }
+            catch (OverflowException)
+            {
+                throw new OverflowException();
+            }
+        }
+
+        private bool CamposVacios()
         {
             if (nombreTxt.Text.Length > 0 && precioTxt.Text.Length > 0
                 && CategoriaCb.SelectedIndex != 0 && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
@@ -138,54 +435,6 @@ namespace ClienteItaliaPizza
             }
 
             return true;
-        }
-
-        private void EditarInfoProducto()
-        {
-            MessageBoxResult opcion;
-
-            if (CamposVacios())
-            {
-                opcion = MessageBox.Show("No se puede dejar campos vacíos", "Información",
-                MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                opcion = MessageBox.Show("¿Guardar cambios en la información del producto?", "Guardar",
-                MessageBoxButton.OKCancel, MessageBoxImage.Information);
-
-                if (opcion == MessageBoxResult.OK)
-                {
-                    //DeshabilitarCampos();
-
-
-                }
-            }
-        }
-
-        /*private int ProductoExternoAcitvado(ProvisionDirecta1 provisionDirecta)
-        {
-            int EstaActivo = 0;
-
-            if (provisionDirecta.activado)
-            {
-                EstaActivo = 1;
-            }
-
-            return EstaActivo;
-        }*/
-
-        private void HabilitarCampos()
-        {
-            ImagenBtn.Visibility = Visibility.Visible;
-            tipoProductoCb.IsEnabled = true;
-            nombreTxt.IsEnabled = true;
-            precioTxt.IsEnabled = true;
-            estadoCb.IsEnabled = true;
-            CategoriaCb.IsEnabled = true;
-            recetaCb.IsEnabled = true;
-            DescripcionTxt.IsEnabled = true;
-            RestriccionesTxt.IsEnabled = true;
         }
 
         private void CancelarBtn_Click(object sender, RoutedEventArgs e)
@@ -211,46 +460,6 @@ namespace ClienteItaliaPizza
 
         }
 
-        private void EditSaveBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if(EditSaveBtn.Content.ToString() == "Editar")
-            {
-                EditSaveBtn.Content = "Guardar";
-                HabilitarCampos();
-                enEdicion = true;
-            }
-            else if (EditSaveBtn.Content.ToString() == "Guardar")
-            {
-                EditarInfoProducto();
-                EditSaveBtn.Content = "Editar";
-                enEdicion = true;
-            }
-        }
-
-        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult opcion;
-
-            opcion = MessageBox.Show("¿Seguro que deseas cerrar la sesión?", "Cerrar sesión",
-                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
-
-            if (opcion == MessageBoxResult.OK)
-            {
-                FuncionesComunes.CerrarSesion();
-                this.Close();
-            }
-        }
-
-        /*public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta, byte[] imagen)
-        {
-            throw new NotImplementedException();
-        }*/
-
-        public void ErrorAlRecuperarProducto(string mensajeError)
-        {
-            FuncionesComunes.MostrarMensajeDeError(mensajeError);
-        }
-
         private void tipoProductoCb_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (tipoProductoCb.SelectedIndex == 0)
@@ -267,120 +476,93 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        private void CategoriaCb_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (criterioCb.SelectedIndex == 0)
+            if (CamposLlenos())
             {
-                BuscarProductoInterno();
+                EditSaveBtn.IsEnabled = true;
             }
             else
             {
-                BuscarProductoExterno();
+                EditSaveBtn.IsEnabled = false;
             }
         }
 
-        private void BuscarProductoInterno()
+        private void ActivarDesactivarEditSaveBtn(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            InstanceContext context = new InstanceContext(this);
-            BuscarProductoClient servicioProducto = new BuscarProductoClient(context);
-
-            try
+            if (CamposLlenos())
             {
-                string nombreProducto = SearchBox.Text;
-                servicioProducto.BuscarProductoInternoPorNombre(nombreProducto);
-            } 
-            catch(Exception e)
+                EditSaveBtn.IsEnabled = true;
+            }
+            else
             {
-                FuncionesComunes.MostrarMensajeDeError(e.Message + " " + e.GetType());
+                EditSaveBtn.IsEnabled = false;
             }
         }
 
-        private int EstaActivado(bool productoEstaActivado)
+        private bool CamposLlenos()
         {
-            int indexComboBox = 0;
-
-            if (productoEstaActivado)
+            if (nombreTxt.Text.Length > 0 && precioTxt.Text.Length > 0 && CategoriaCb.SelectedIndex != 0
+                && (recetaCb.SelectedIndex == 0 || recetaCb.SelectedIndex != 0 || existenciasTxt.Text.Length > 0) 
+                && DescripcionTxt.Text.Length > 0 && RestriccionesTxt.Text.Length > 0)
             {
-                indexComboBox = 1;
+                return true;
             }
 
-            return indexComboBox;
+            return false;
         }
 
-        private int CategoriaProducto(Producto producto)
+        private void SeleccionarImagen(object sender, RoutedEventArgs e)
         {
-            int categoriaIndex = 0;
+            OpenFileDialog exploradorArchivos = new OpenFileDialog();
+            exploradorArchivos.Filter = "*.jpg | *.jpg";
+            exploradorArchivos.Title = "Imagen del producto";
+            exploradorArchivos.RestoreDirectory = true;
 
-            switch (producto.Categoria.categoria)
+            DialogResult rutaImagen = exploradorArchivos.ShowDialog();
+
+            if (rutaImagen == System.Windows.Forms.DialogResult.OK)
             {
-                case "Ensaladas":
-                    categoriaIndex = 1;
-                    break;
-                case "Pizzas":
-                    categoriaIndex = 2;
-                    break;
-                case "Pastas":
-                    categoriaIndex = 3;
-                    break;
-                case "Postres":
-                    categoriaIndex = 4;
-                    break;
-                case "Bebidas":
-                    categoriaIndex = 5;
-                    break;
-                default:
-                    categoriaIndex = 0;
-                    break;
+                imageneditada = true;
+                string imagePath = exploradorArchivos.FileName;
+                Uri FilePath = new Uri(imagePath);
+                ProductoImg.Source = new BitmapImage(FilePath);
             }
 
-            return categoriaIndex;
+            Stream bytesImagen = exploradorArchivos.OpenFile();
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bytesImagen.CopyTo(ms);
+                imagenProducto = ms.ToArray();
+            }
         }
 
-        private BitmapImage ObtenerImagenDeArray(byte[] arrayImagen)
+        public void RespuestaModificarProducto(string mensajeError)
         {
-            var image = new BitmapImage();
-            using (var mem = new MemoryStream(arrayImagen))
-            {
-                mem.Position = 0;
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = null;
-                image.StreamSource = mem;
-                image.EndInit();
+            if (imageneditada)
+            {   
+                imageneditada = false;
             }
 
-            return image;
+            if(mensajeError == "Cambios Guardados")
+            {
+                FuncionesComunes.MostrarMensajeExitoso(mensajeError);
+                DeshabilitarCampos();
+            }
+            else
+            {
+                FuncionesComunes.MostrarMensajeDeError(mensajeError);
+            }
         }
 
-        private void BuscarProductoExterno()
+        private byte[] ObtenerByteArrayDeImagen()
         {
-            //existenciasTxt.Text = productoInterno1.Id.ToString();
-
+            using (var ms = new MemoryStream())
+            {
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] xByte = (byte[])_imageConverter.ConvertTo(ProductoImg, typeof(byte[]));
+                return xByte;
+            }
         }
-
-        public void ProductoInterno([MessageParameter(Name = "productoInterno")] Producto productoInterno1, byte[] imagen, string nombreReceta, string categoria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ProductoExterno([MessageParameter(Name = "productoExterno")] ProvisionVentaDirecta productoExterno1)
-        {
-            throw new NotImplementedException();
-        }
-
-        /*
-        public void ProductoExterno(Provision1 provision, ProvisionDirecta1 provisionDirecta)
-        {
-            codigoTxt.Text = provision.id.ToString();
-            nombreTxt.Text = provision.nombre;
-            precioTxt.Text = provision.costoUnitario.ToString();
-            DescripcionTxt.Text = provisionDirecta.descripcion.ToString();
-            RestriccionesTxt.Text = provisionDirecta.restricciones;
-            estadoCb.SelectedIndex = EstaActivadoProductoExterno(provisionDirecta);
-            recetaCb.IsEnabled = false;          
-        }*/
-
-        // ------------------------------------------------------------------------------------
     }
 }

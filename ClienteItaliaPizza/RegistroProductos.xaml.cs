@@ -115,9 +115,23 @@ namespace ClienteItaliaPizza
         private void RegistrarProducto()
         {
             // AQUI HAY ERROR AL ASIGNAR IMAGEN AL PRODUCTO
+            
+            string tipoProducto = tipoProductoCb.SelectedItem.ToString();
+            if (tipoProducto == "Interno")
+            {
+                RegistrarProductoInterno();
+            }
+            else if (tipoProducto == "Extereno")
+            {
+
+            }
+        }
+
+        private void RegistrarProductoInterno()
+        {
             Producto producto = new Producto();
             Categoria categoria = new Categoria();
-            int indiceReceta = RecetaCb.SelectedIndex;
+            int idReceta = RecetaCb.SelectedIndex;
 
             try
             {
@@ -127,13 +141,13 @@ namespace ClienteItaliaPizza
                 InicialzarProdcutoInterno(ref producto);
                 InicializarCategoria(ref categoria);
 
-                ServicioRegistro.RegistrarProducto(producto, categoria, indiceReceta);
+                ServicioRegistro.RegistrarProducto(producto, categoria, idReceta);
             }
             catch (EndpointNotFoundException)
             {
                 FuncionesComunes.MostrarMensajeDeError("No se pudo establecer conexión con el servidor");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 FuncionesComunes.MostrarMensajeDeError(e.Message + " " + e.GetType());
             }
@@ -376,7 +390,7 @@ namespace ClienteItaliaPizza
         private void ImagenBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog exploradorArchivos = new OpenFileDialog();
-            exploradorArchivos.Filter = "*.jpg; *.png; *.bmp | *.jpg; *.png; *.bmp";
+            exploradorArchivos.Filter = "*.jpg | *.jpg";
             exploradorArchivos.Title = "Imagen del producto";
             exploradorArchivos.RestoreDirectory = true;
 
