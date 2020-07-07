@@ -15,14 +15,19 @@ namespace ServidrorPizzaItaliana
         [OperationContract(IsOneWay = true)]
         void BuscarPedidosCallCenter();
 
+        [OperationContract(IsOneWay = true)]
+        void BuscarPedidosMesero();
+
     }
 
     [ServiceContract]
     public interface IBuscarPedidosCallback
     {
         [OperationContract(IsOneWay = true)]
-        void PedidosCallCenter(List<PedidoADomicilioDeServidor> pedidosADomicilio, List<PedidoLocalDeServidor> pedidosLocales);
+        void ObtenerTodosPedidos(List<PedidoADomicilioDeServidor> pedidosADomicilio, List<PedidoLocalDeServidor> pedidosLocales);
 
+        [OperationContract(IsOneWay = true)]
+        void ObtenerPedidosLocales(List<PedidoLocalDeServidor> pedidosLocales);
 
         [OperationContract(IsOneWay = true)]
         void MensajeErrorBuscarPedidos(string mensaje);
@@ -68,6 +73,8 @@ namespace ServidrorPizzaItaliana
     {
         [DataMember]
         Cliente cliente;
+        [DataMember]
+        string direccionDestino;
 
         public PedidoADomicilioDeServidor(Cliente cliente)
         {
@@ -75,6 +82,7 @@ namespace ServidrorPizzaItaliana
             ProductosExternos = new List<ProvisionVentaDirecta>();
             this.ProductosLocales = new List<ProductoDePedido>();
         }
+        public string DireccionDestino { get => direccionDestino; set => direccionDestino = value; }
     }
 
     [DataContract]
