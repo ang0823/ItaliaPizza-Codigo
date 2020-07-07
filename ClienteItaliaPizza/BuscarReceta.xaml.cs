@@ -240,6 +240,7 @@ namespace ClienteItaliaPizza
 
             this.ingredientes = this.ingredientes.OrderBy(item => item.nombre).ToList();
             EstablecerInfoReceta();
+            HabiliarBotonesDeEdicion();
         }
 
         private void EstablecerInfoReceta()
@@ -248,7 +249,6 @@ namespace ClienteItaliaPizza
             PorcionesTxt.Text = receta.porciones.ToString();
             EstablecerIngredientesDeReceta();
             textBoxProcedimiento.Text = receta.procedimiento;
-            HabiliarBotonesDeEdicion();
         }
 
         private void EstablecerIngredientesDeReceta()
