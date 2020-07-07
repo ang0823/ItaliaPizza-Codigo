@@ -491,7 +491,7 @@ namespace ServidrorPizzaItaliana
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<IObtenerRecetasCallback>().RespuestaIOR("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
+                OperationContext.Current.GetCallbackChannel<IObtenerRecetasCallback>().RespuestaIOR("No se encontro receta con el nombre " + nombre);
             }
         }
 
