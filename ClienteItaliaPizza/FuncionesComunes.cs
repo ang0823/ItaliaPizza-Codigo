@@ -151,5 +151,26 @@ namespace ClienteItaliaPizza
             opcion = MessageBox.Show(Mensaje, titulo,
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        /// <summary>
+        /// Muestra un mensaje de confirmación con las opciones "Aceptar" y "Cancelar"
+        /// </summary>
+        /// <param name="titulo">Nombre de la operación a realizar</param>
+        /// <param name="mensaje">Pregunta a hacer al cliente para confirmar la operación</param>
+        /// <returns>true: si la operación se acepta. false: si se rechaza la operación</returns>
+        public static bool ConfirmarOperacion(string titulo, string mensaje)
+        {
+            MessageBoxResult option;
+            option = MessageBox.Show(mensaje, titulo, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (option == MessageBoxResult.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
