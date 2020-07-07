@@ -10,13 +10,17 @@
 namespace AccesoBD2
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class PedidoADomicilio : Pedido
+    public partial class MostrarCantidadProvisionesPedido_Result
     {
-        public int ClienteId { get; set; }
-        public string direccionDestino { get; set; }
-    
-        public virtual Cliente Cliente { get; set; }
+        public Nullable<int> Id { get; set; }
+        public string descripcion { get; set; }
+        public Nullable<bool> activado { get; set; }
+        public string restricciones { get; set; }
+        public Nullable<int> Provision_Id { get; set; }
+        public Nullable<int> Categoria_Id { get; set; }
+        public Nullable<int> cantidad { get; set; }
+        public int Pedido_Id { get; set; }
+        public string categoria { get; set; }
     }
 }

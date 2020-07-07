@@ -13,7 +13,10 @@ namespace ServidrorPizzaItaliana
     public interface IBuscarPedidos
     {
         [OperationContract(IsOneWay = true)]
-        void BuscarPedidos();
+        void BuscarPedidosCallCenter();
+
+        [OperationContract(IsOneWay = true)]
+        void BuscarPedidosMesero();
 
     }
 
@@ -21,8 +24,10 @@ namespace ServidrorPizzaItaliana
     public interface IBuscarPedidosCallback
     {
         [OperationContract(IsOneWay = true)]
-        void Pedidos(List<PedidoADomicilioDeServidor> pedidosADomicilio, List<PedidoLocalDeServidor> pedidosLocales);
+        void ObtenerTodosPedidos(List<PedidoADomicilioDeServidor> pedidosADomicilio, List<PedidoLocalDeServidor> pedidosLocales);
 
+        [OperationContract(IsOneWay = true)]
+        void ObtenerPedidosLocales(List<PedidoLocalDeServidor> pedidosLocales);
 
         [OperationContract(IsOneWay = true)]
         void MensajeErrorBuscarPedidos(string mensaje);
@@ -68,6 +73,8 @@ namespace ServidrorPizzaItaliana
     {
         [DataMember]
         Cliente cliente;
+        [DataMember]
+        string direccionDestino;
 
         public PedidoADomicilioDeServidor(Cliente cliente)
         {
@@ -75,6 +82,7 @@ namespace ServidrorPizzaItaliana
             ProductosExternos = new List<ProvisionVentaDirecta>();
             this.ProductosLocales = new List<ProductoDePedido>();
         }
+        public string DireccionDestino { get => direccionDestino; set => direccionDestino = value; }
     }
 
     [DataContract]
@@ -108,13 +116,17 @@ namespace ServidrorPizzaItaliana
         [DataMember]
         double descuento;
 
-        public CuentaDePedido(string id, double toal, double subtotal, double iva, double descuento)
+        //propiedad agregada por mi: Caicero Elsa. Estado para la Cuenta y saber cuando ya ha sido cerrada. 
+        [DataMember]
+        bool abierta;
+        public CuentaDePedido(string id, double toal, double subtotal, double iva, double descuento, bool abierta)
         {
             Id = id;
             this.toal = toal;
             this.subtotal = subtotal;
             this.iva = iva;
             this.descuento = descuento;
+            this.abierta = abierta;
         }
     }
 }

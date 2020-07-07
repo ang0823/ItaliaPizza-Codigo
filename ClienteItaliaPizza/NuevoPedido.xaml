@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
         mc:Ignorable="d"
-        Height="650" Width="1000">
+        Height="720" Width="1202">
     <UserControl.Background>
         <ImageBrush ImageSource="RecursosGUI/fondoNuevoPedido.jpg">
             <ImageBrush.RelativeTransform>
                 <TransformGroup>
                     <ScaleTransform CenterY="0.5" CenterX="0.5"/>
                     <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                    <RotateTransform CenterY="0.5" CenterX="0.5" Angle="90"/>
+                    <RotateTransform CenterY="0.5" CenterX="0.5" Angle="-90"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </ImageBrush.RelativeTransform>
@@ -20,7 +20,7 @@
     </UserControl.Background>
 
     <Grid x:Name="gridPedido">
-        <TabControl x:Name="tabControlProductos" HorizontalAlignment="Left" Height="214" Margin="58,222,0,0" VerticalAlignment="Top" Width="601" BorderBrush="#FF060606" FontFamily="Arial" FontSize="16">
+        <TabControl x:Name="tabControlProductos" HorizontalAlignment="Left" Height="314" Margin="84,200,0,0" VerticalAlignment="Top" Width="717" BorderBrush="#FF060606" FontFamily="Arial" FontSize="16" Background="#FFE0DADA">
             <TabItem x:Name="tabItemEnsaladas" Header="Ensaladas">
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
                     <Grid.ColumnDefinitions>
@@ -37,8 +37,8 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
-                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -58,8 +58,8 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
-                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontSize="14" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -79,8 +79,8 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
-                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontSize="14" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -100,8 +100,8 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
-                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -121,8 +121,8 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
-                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                                    <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -131,48 +131,62 @@
             </TabItem>
         </TabControl>
 
-        <TextBlock x:Name="textBlockInstruccionesEspeciales" HorizontalAlignment="Left" Margin="64,456,0,0" TextWrapping="Wrap" Text="Instrucciones Especiales" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <TextBox x:Name="textBoxInstruccionesEspeciales" HorizontalAlignment="Left" Height="90" Margin="64,494,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="587" BorderBrush="Black" MaxLength="150" />
+        <TextBlock x:Name="textBlockInstruccionesEspeciales" HorizontalAlignment="Left" Margin="92,538,0,0" TextWrapping="Wrap" Text="Instrucciones Especiales" VerticalAlignment="Top" Foreground="White" FontSize="20" FontFamily="Arial" FontWeight="Bold" Height="29"/>
+        <TextBox x:Name="textBoxInstruccionesEspeciales" HorizontalAlignment="Left" Height="102" Margin="84,564,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="715" BorderBrush="Black" MaxLength="150" FontFamily="Arial" FontSize="18" />
 
-        <DataGrid x:Name="dataGridOrden" HorizontalAlignment="Left" Height="230"  Margin="704,34,0,0" VerticalAlignment="Top" Width="265" CanUserResizeColumns="False" BorderBrush="Black" AutoGenerateColumns="False" IsReadOnly="True" FontFamily="Arial" FontSize="14" >
+        <DataGrid x:Name="dataGridOrden" HorizontalAlignment="Left" Height="252"  Margin="881,32,0,0" VerticalAlignment="Top" Width="287" CanUserResizeColumns="False" BorderBrush="Black" AutoGenerateColumns="False" IsReadOnly="True" FontFamily="Arial" FontSize="16" >
             <DataGrid.Background>
                 <SolidColorBrush Color="#FFF0F0F0" Opacity="0.5"/>
             </DataGrid.Background>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="70" Binding="{Binding cantidad}" />
-                <DataGridTextColumn x:Name="ColumnProducto" Header="Producto" Width="90" Binding="{Binding nombreProducto}" />
-                <DataGridTextColumn x:Name="ColumnPreciounitario" Header="P.U" Width="50" Binding="{Binding precioUnitario}" />
-                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="60" Binding="{Binding precioTotal}"/>
+                <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="80" Binding="{Binding cantidad}" FontFamily="Arial" FontSize="14" />
+                <DataGridTextColumn x:Name="ColumnProducto" Header="Producto" Width="90" Binding="{Binding nombreProducto}" FontFamily="Arial" FontSize="14" />
+                <DataGridTextColumn x:Name="ColumnPreciounitario" Header="P.U" Width="50" Binding="{Binding precioUnitario}" FontFamily="Arial" FontSize="14" />
+                <DataGridTextColumn x:Name="ColumnPrecioTotal" Header="P.T" Width="60" Binding="{Binding precioTotal}" FontFamily="Arial" FontSize="14"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="670,525,0,0" VerticalAlignment="Top" Width="148" Height="59" Click="ButtonAceptar_Click"/>
-        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="834,525,0,0" VerticalAlignment="Top" Width="148" Height="59" Click="ButtonCancelar_Click"/>
+        <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="944,561,0,0" VerticalAlignment="Top" Width="210" Height="70" Click="ButtonAceptar_Click" FontFamily="Arial" FontSize="22" FontWeight="Bold" Background="#FF54B053" Foreground="White"/>
+        <Button x:Name="ButtonCancelar" HorizontalAlignment="Left" Margin="4,3,0,0" VerticalAlignment="Top" Width="70" Height="63" Click="ButtonCancelar_Click" FontFamily="Arial" FontSize="18" FontWeight="Bold">
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Button.Background>
+            <Image Height="47" Width="53" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
+        </Button>
 
-        <TextBlock HorizontalAlignment="Left" Height="28" Margin="722,291,0,0" TextWrapping="Wrap" Text="SubTotal:" VerticalAlignment="Top" Width="103" Foreground="White" FontSize="20" FontFamily="Arial" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Height="29" Margin="722,331,0,0" TextWrapping="Wrap" Text="IVA:" VerticalAlignment="Top" Width="103" Foreground="White" FontSize="20" FontFamily="Arial" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Height="30" Margin="720,379,0,0" TextWrapping="Wrap" Text="Descuento:" VerticalAlignment="Top" Width="102" Foreground="White" FontSize="20" FontFamily="Arial" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Height="31" Margin="724,419,0,0" TextWrapping="Wrap" Text="Total:" VerticalAlignment="Top" Width="103" Foreground="White" FontSize="20" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="36" Margin="890,326,0,0" TextWrapping="Wrap" Text="SubTotal:" VerticalAlignment="Top" Width="131" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="38" Margin="962,370,0,0" TextWrapping="Wrap" Text="IVA:" VerticalAlignment="Top" Width="119" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="39" Margin="860,418,0,0" TextWrapping="Wrap" Text="Descuento:" VerticalAlignment="Top" Width="157" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="41" Margin="941,467,0,0" TextWrapping="Wrap" Text="Total:" VerticalAlignment="Top" Width="94" Foreground="White" FontSize="24" FontFamily="Arial" FontWeight="Bold"/>
 
-        <Label x:Name="labelSigno1" Content="$" HorizontalAlignment="Left" Margin="834,286,0,0" VerticalAlignment="Top" FontSize="20" Height="41" Width="35" Foreground="#FFF39C27" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="labelSubtotal" Content="0" HorizontalAlignment="Left" Margin="864,287,0,0" VerticalAlignment="Top" FontSize="20" Height="37" Width="88" Foreground="#FFF39C27" Background="{x:Null}" FontStretch="Condensed" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="labelIVA" Content="16%" HorizontalAlignment="Left" Margin="841,326,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="20" Height="32" Width="71" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="labelSigno2" Content="$" HorizontalAlignment="Left" Margin="833,409,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="20" Height="41" Width="33" RenderTransformOrigin="0.607,0.721" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="labelTotal" Content="0" HorizontalAlignment="Left" Margin="861,409,0,0" VerticalAlignment="Top" FontSize="20" Height="32" Width="69" Foreground="#FFF39C27" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelSigno1" Content="$" HorizontalAlignment="Left" Margin="1040,325,0,0" VerticalAlignment="Top" FontSize="24" Height="43" Width="29" Foreground="#FFF39C27" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelSubtotal" Content="0" HorizontalAlignment="Left" Margin="1074,326,0,0" VerticalAlignment="Top" FontSize="24" Height="37" Width="83" Foreground="#FFF39C27" Background="{x:Null}" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelIVA" Content="16%" HorizontalAlignment="Left" Margin="1062,367,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="41" Width="69" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelSigno2" Content="$" HorizontalAlignment="Left" Margin="1040,464,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="54" Width="27" RenderTransformOrigin="0.607,0.721" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelTotal" Content="0" HorizontalAlignment="Left" Margin="1074,464,0,0" VerticalAlignment="Top" FontSize="24" Height="41" Width="89" Foreground="#FFF39C27" FontWeight="Bold" FontFamily="Arial"/>
 
-        <TextBox x:Name="textBoxDescuento" HorizontalAlignment="Left" Height="32" Margin="848,372,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="88" RenderTransformOrigin="0.5,0.5" FontSize="20" Foreground="Black" MaxLength="3" PreviewTextInput="TextBoxDescuento_PreviewTextInput" FontFamily="Arial" FontWeight="Bold">
+        <TextBox x:Name="textBoxDescuento" HorizontalAlignment="Left" Height="38" Margin="1044,416,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.5,0.5" FontSize="24" Foreground="Black" MaxLength="3" PreviewTextInput="TextBoxDescuento_PreviewTextInput" FontFamily="Arial" FontWeight="Bold">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
-                    <SkewTransform AngleY="0.037"/>
-                    <RotateTransform Angle="0.085"/>
+                    <SkewTransform AngleY="0.059"/>
+                    <RotateTransform Angle="0.076"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
 
-        <local:NuevoPedido_Local x:Name="UC_NuevoPLocal" Visibility="Collapsed" eventLlenarNoMesa="UC_NuevoPLocal_eventLlenarNoMesa" eventLlenarNumEmpleado="UC_NuevoPLocal_eventLlenarNumEmpleado" eventSeleccionarNoMesa="UC_NuevoPLocal_eventSeleccionarNoMesa" eventSeleccionarNumEmpleado="UC_NuevoPLocal_eventSeleccionarNumEmpleado" ></local:NuevoPedido_Local>
+        <local:NuevoPedido_Local x:Name="UC_NuevoPLocal" Visibility="Collapsed" eventLlenarNoMesa="UC_NuevoPLocal_eventLlenarNoMesa" eventLlenarNumEmpleado="UC_NuevoPLocal_eventLlenarNumEmpleado" eventSeleccionarNoMesa="UC_NuevoPLocal_eventSeleccionarNoMesa" eventSeleccionarNumEmpleado="UC_NuevoPLocal_eventSeleccionarNumEmpleado" Margin="66,10,204,268" ></local:NuevoPedido_Local>
         <local:NuevoPedido_Domicilio x:Name="UC_NuevoDomicilio" Visibility="Collapsed" eventLlenarComboBoxClienteNombre="UC_NuevoDomicilio_eventLlenarComboBoxClienteNombre" eventSeleccionarCliente="UC_NuevoDomicilio_eventSeleccionarCliente" eventLlenarComboBoxDireccion="UC_NuevoDomicilio_eventLlenarComboBoxDireccion" eventSeleccionarDirección="UC_NuevoDomicilio_eventSeleccionarDirección" eventEditarTelefono="UC_NuevoDomicilio_eventEditarTelefono" eventAgregarNuevoCliente="UC_NuevoDomicilio_eventAgregarNuevoCliente" eventEditarTextBoxDireccion="UC_NuevoDomicilio_eventEditarTextBoxDireccion"></local:NuevoPedido_Domicilio>
-        <Label x:Name="labelPorcentajeDescuento" Content="%" HorizontalAlignment="Left" Margin="940,369,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="20" Height="43" Width="33" FontWeight="Bold" FontFamily="Arial"/>
+        <Label x:Name="labelPorcentajeDescuento" Content="%" HorizontalAlignment="Left" Margin="1102,417,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontSize="24" Height="37" Width="36" FontWeight="Bold" FontFamily="Arial" RenderTransformOrigin="0.188,0.483">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.286"/>
+                    <RotateTransform Angle="-1.208"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
     </Grid>
 </UserControl>

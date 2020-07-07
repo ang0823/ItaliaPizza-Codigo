@@ -11,19 +11,19 @@
             <StackPanel.Background>
                 <SolidColorBrush Color="#FFCCCCCC" Opacity="0.75"/>
             </StackPanel.Background>
-            <Label x:Name="labelIDPedido" Content="id" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="20" Height="35" Margin="326,0,332,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" Width="62" FontWeight="Bold"/>
-            <Label x:Name="labelTipo" Content="tipo" Background="{x:Null}" Foreground="#FFFFF9F9" FontSize="20" Height="36" Margin="509,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="126" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Arial" FontWeight="Bold"/>
-            <Button Content="Listo" Height="55" Margin="606,75,45,0" Background="#FFF39C27" FontSize="20" FontWeight="Bold" BorderBrush="#FF212121" FontFamily="Arial"/>
-            <DataGrid x:Name="DataGridPlatillos"  Margin="24,-115,338,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="124" FontFamily="Arial" FontSize="16"  >
+            <Label x:Name="labelIDPedido" Content="id" Background="{x:Null}" Foreground="#FF822B00" FontSize="20" Height="35" Margin="326,0,332,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" Width="62" FontWeight="Bold"/>
+            <Label x:Name="labelTipo" Content="tipo" Background="{x:Null}" Foreground="Black" FontSize="20" Height="36" Margin="575,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="127" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Arial" FontWeight="Bold"/>
+            <Button Content="Listo" Height="55" Margin="606,75,45,0" Background="#FFF39C27" FontSize="22" FontWeight="Bold" BorderBrush="#FF212121" FontFamily="Arial"/>
+            <DataGrid x:Name="DataGridPlatillos"  Margin="25,-124,414,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="121" FontFamily="Arial" FontSize="18"  >
 
                 <!--Encabezados de la tabla -->
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="100" MinWidth="120" Foreground="#FF0F0F11" Binding="{Binding nombre}"  />
+                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="150" MinWidth="465" Foreground="#FF0F0F11" Binding="{Binding nombre}" FontSize="16" FontFamily="Arial"  />
                 </DataGrid.Columns>
 
             </DataGrid>
-            <TextBlock TextWrapping="Wrap" Text="Instrucciones Especiales" Foreground="#FFF5F1F1" Height="23" Margin="23,0,573,0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
-            <Label x:Name="labelInstrucciones" Content="instrucciones" Height="42" Margin="29,0,42,0" Foreground="#FFFFFDFB" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="#FF999999"/>
+            <TextBlock TextWrapping="Wrap" Text="Instrucciones Especiales" Foreground="#FFF5F1F1" Height="23" Margin="31,0,627,0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" FontFamily="Arial" Width="176"/>
+            <Label x:Name="labelInstrucciones" Content="instrucciones" Height="48" Margin="27,0,35,0" Foreground="#FF822B00" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="{x:Null}" FontFamily="Arial"/>
         </StackPanel>
 
     </Grid>

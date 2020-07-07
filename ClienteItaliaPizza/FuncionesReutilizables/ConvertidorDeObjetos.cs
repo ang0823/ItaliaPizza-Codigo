@@ -37,5 +37,21 @@ namespace ClienteItaliaPizza.Validacion
             };
             return producto;
         }
+
+        /*static public PedidoADomicilio PedidoADomicilioDeServidor_A_PedidoADomicilio(PedidoADomicilioDeServidor pedidoADomicilioDeServidor)
+        {
+            PedidoADomicilio pedidoADomicilio = new PedidoADomicilio
+            {
+                Id = pedidoADomicilioDeServidor.id,
+                fecha = pedidoADomicilioDeServidor.fecha,
+                instruccionesEspeciales = pedidoADomicilioDeServidor.instruccionesDePedido,
+                direccionDestino = pedidoADomicilioDeServidor.,
+                Cliente = new Cliente
+                {
+                    Id = pedidoADomicilio.Cliente.Id,
+                }
+            };
+            return pedidoADomicilio;
+        }*/
     }
 }

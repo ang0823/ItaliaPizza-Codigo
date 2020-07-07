@@ -24,6 +24,7 @@ namespace ClienteItaliaPizza
         InstanceContext instanceContext;
         //AdministrarPedidosMeserosClient meserosClient;
         AdministrarPedidosCallCenterClient callCenterClient;
+
         //listas de productos seleccionados para el NUEVO Pedido
         private List<Producto> productosSeleccionados = new List<Producto>();
         private List<ProvisionDirecta> provisionesSeleccionadas = new List<ProvisionDirecta>();
@@ -95,7 +96,6 @@ namespace ClienteItaliaPizza
 
 
 
-
         //      SELECCIÓN DE PRODUCTOS  **************************************************+
         private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -112,15 +112,20 @@ namespace ClienteItaliaPizza
 
                 ProvisionDirecta provision = ConvertidorDeObjetos.ProvisionVentaDirecta_A_ProvisionDirecta(provisionSeleccionada);
                 provisionesSeleccionadas.Add(provision);
+                
                 labelSubtotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
-                labelTotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+
+                var IVA = FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString()) * .16;
+                labelTotal.Content = FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString()) + IVA - FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
             }
             else
             {                
                 ordenExistente.cantidad++;
                 ordenExistente.precioTotal = ordenExistente.precioUnitario * ordenExistente.cantidad;
                 dataGridOrden.Items.Refresh();
-                labelTotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+                labelSubtotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
+                var IVA = FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString()) * .16;
+                labelTotal.Content = FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString()) + IVA - FuncionesComunes.ParsearADouble(textBoxDescuento.Text);
             }
         }
 
@@ -166,14 +171,19 @@ namespace ClienteItaliaPizza
                 Producto producto = ConvertidorDeObjetos.ProductoDePedido_A_Producto(productoSeleccionado);
                 productosSeleccionados.Add(producto);
                 labelSubtotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
-                labelTotal.Content = orden.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+
+                var IVA = FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString()) * .16;
+                labelTotal.Content = FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString()) + IVA - FuncionesComunes.ParsearADouble("." + textBoxDescuento.Text); ;
             }
             else
             {
                 ordenExistente.cantidad++;
                 ordenExistente.precioTotal = ordenExistente.precioUnitario * ordenExistente.cantidad;
                 dataGridOrden.Items.Refresh();
-                labelTotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelTotal.Content.ToString());
+                labelSubtotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
+
+                var IVA = FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString()) * .16;
+                labelTotal.Content = FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString()) + IVA - FuncionesComunes.ParsearADouble("."+textBoxDescuento.Text);
             }
         }
         //      SELECCIÓN DE PRODUCTOS  **************************************************
@@ -298,7 +308,7 @@ namespace ClienteItaliaPizza
                         precioTotal = (double)labelTotal.Content,
                     }                    
                 };
-
+                
                 pedidoLocalNuevo.Producto = new Producto[productosSeleccionados.Count];
                 productosSeleccionados.CopyTo(pedidoLocalNuevo.Producto);
                 pedidoLocalNuevo.ProvisionDirecta = new ProvisionDirecta[provisionesSeleccionadas.Count];
@@ -316,8 +326,8 @@ namespace ClienteItaliaPizza
         public string GenerarIdPedidoLocal(int numeroMesa)
         {
             string id;
-            TimeSpan horaRealizacionDePedido = DateTime.Now.TimeOfDay;
-            id = "PL-" + numeroMesa + horaRealizacionDePedido;
+            var horaRealizacionDePedido = DateTime.Now;
+            id = "PL-" + numeroMesa+ "-" + horaRealizacionDePedido;
             return id;
         }
         //      MÉTODOS ESPECÍFICOS DEL PEDIDO LOCAL **************************************************
@@ -380,17 +390,18 @@ namespace ClienteItaliaPizza
                 {
                     IdEmpleado = VentanaPedidos.idEmpleadoCallCenter,
                     idEmpleadoGenerado = VentanaPedidos.idEmpleadoGeneradoCallCenter
-                    },
-                    Estado = new Estado { estadoPedido = "En Espera" },
-                    Cuenta = new Cuenta
-                    {
-                        Id = GenerarIdPedidoADomicilio(clienteEnLista.id),
-                        subTotal = (double)labelSubtotal.Content,
-                        iva = 0.16,
-                        descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text),
-                        precioTotal = (double)labelTotal.Content
-                    }
-                };
+                },
+                Estado = new Estado { estadoPedido = "En Espera" },
+                Cuenta = new Cuenta
+                {
+                    Id = GenerarIdPedidoADomicilio(clienteEnLista.id),
+                    subTotal = (double)labelSubtotal.Content,
+                    iva = 0.16,
+                    descuento = FuncionesComunes.ParsearADouble(textBoxDescuento.Text),
+                    precioTotal = (double)labelTotal.Content
+                },
+                direccionDestino = UC_NuevoDomicilio.EditarComboBoxDireccion
+        };
 
             pedidoADomicilio.Producto = new Producto[productosSeleccionados.Count];
             productosSeleccionados.CopyTo(pedidoADomicilio.Producto);
@@ -403,8 +414,8 @@ namespace ClienteItaliaPizza
         public string GenerarIdPedidoADomicilio(int idCliente)
         {
             string id;
-            TimeSpan horaRealizacionDePedido = DateTime.Now.TimeOfDay;
-            id = "PD-" + idCliente + horaRealizacionDePedido;
+            var horaRealizacionDePedido = DateTime.Now;
+            id = "PD-" + idCliente +"-"+ horaRealizacionDePedido;
             return id;
         }
         //      MÉTODOS ESPECÍFICOS DEL PEDIDO A DOMICILIO ****************************************************

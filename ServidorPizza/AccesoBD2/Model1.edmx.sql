@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/20/2020 14:32:28
--- Generated from EDMX file: C:\Users\BETO\Documents\GitHub\ItaliaPizza-Codigo\ServidorPizza\AccesoBD2\Model1.edmx
+-- Date Created: 07/04/2020 00:29:10
+-- Generated from EDMX file: C:\Users\survi\Documents\ItaliaPizza-Codigo\ServidorPizza\AccesoBD2\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -273,7 +273,8 @@ CREATE TABLE [dbo].[CuentaSet] (
     [precioTotal] float  NOT NULL,
     [subTotal] float  NOT NULL,
     [iva] float  NOT NULL,
-    [descuento] float  NULL
+    [descuento] float  NULL,
+    [abierta] bit  NOT NULL
 );
 GO
 
@@ -333,6 +334,7 @@ GO
 -- Creating table 'PedidoSet_PedidoADomicilio'
 CREATE TABLE [dbo].[PedidoSet_PedidoADomicilio] (
     [ClienteId] int  NOT NULL,
+    [direccionDestino] varchar(50)  NULL,
     [Id] int  NOT NULL
 );
 GO
@@ -354,14 +356,16 @@ GO
 -- Creating table 'ProductoPedido'
 CREATE TABLE [dbo].[ProductoPedido] (
     [Producto_Id] int  NOT NULL,
-    [Pedido_Id] int  NOT NULL
+    [Pedido_Id] int  NOT NULL,
+    [cantidad] int NULL
 );
 GO
 
 -- Creating table 'ProvisionDirectaPedido'
 CREATE TABLE [dbo].[ProvisionDirectaPedido] (
     [ProvisionDirecta_Id] int  NOT NULL,
-    [Pedido_Id] int  NOT NULL
+    [Pedido_Id] int  NOT NULL,
+    [cantidad] int NULL
 );
 GO
 

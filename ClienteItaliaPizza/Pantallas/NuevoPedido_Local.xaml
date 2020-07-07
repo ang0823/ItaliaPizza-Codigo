@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
-             mc:Ignorable="d" Height="561.184" Width="948.684"
+             mc:Ignorable="d" Height="538.684" Width="953.184"
              Name="NuevoPedidoLocalUserControl">
-    <Grid x:Name="gridNuevoPedidoLocal" Margin="0,0,555,382">
-        <Label x:Name="labelNumEmpleado" Content="Número de empleado" HorizontalAlignment="Left" Margin="60,44,0,0" VerticalAlignment="Top" Foreground="#FFFFF2F2" FontFamily="Palatino Linotype" FontSize="18"/>
-        <ComboBox x:Name="comboBoxNumEmpleado" HorizontalAlignment="Left" Margin="256,44,0,0" VerticalAlignment="Top" Width="132" IsEditable="True" IsReadOnly="True" Text="No.Empleado"  Loaded="ComboBoxNumEmpleado_Loaded" Height="30" SelectionChanged="ComboBoxNumEmpleado_SelectionChanged"  />
-        <Label x:Name="labelNoMesa" Content="No.Mesa" HorizontalAlignment="Left" Margin="59,127,0,0" VerticalAlignment="Top" Foreground="#FFF9F9F9" FontFamily="Palatino Linotype" FontSize="18"/>
-        <ComboBox x:Name="comboBoxNoMesa" HorizontalAlignment="Left" Margin="170,131,0,0" VerticalAlignment="Top" Width="120" Height="31" IsEditable="True" IsReadOnly="True" Text="No.Mesa" Loaded="ComboBoxNoMesa_Loaded" SelectionChanged="ComboBoxNoMesa_SelectionChanged"/>
+    <Grid x:Name="gridNuevoPedidoLocal" Margin="0,0,153,317">
+        <Label x:Name="labelNumEmpleado" Content="Número de empleado" HorizontalAlignment="Left" Margin="14,76,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontFamily="Arial" FontSize="20" FontWeight="Bold"/>
+        <ComboBox x:Name="comboBoxNumEmpleado" HorizontalAlignment="Left" Margin="266,74,0,0" VerticalAlignment="Top" Width="168" IsEditable="True" IsReadOnly="True" Text="No.Empleado"  Loaded="ComboBoxNumEmpleado_Loaded" Height="32" SelectionChanged="ComboBoxNumEmpleado_SelectionChanged" FontFamily="Arial" FontSize="18"  />
+        <Label x:Name="labelNoMesa" Content="No.Mesa" HorizontalAlignment="Left" Margin="480,74,0,0" VerticalAlignment="Top" Foreground="#FFF39C27" FontFamily="Arial" FontSize="18" FontWeight="Bold"/>
+        <ComboBox x:Name="comboBoxNoMesa" HorizontalAlignment="Left" Margin="610,74,0,0" VerticalAlignment="Top" Width="120" Height="30" IsEditable="True" IsReadOnly="True" Text="No.Mesa" Loaded="ComboBoxNoMesa_Loaded" SelectionChanged="ComboBoxNoMesa_SelectionChanged" FontFamily="Arial" FontSize="18"/>
 
     </Grid>
 </UserControl>
