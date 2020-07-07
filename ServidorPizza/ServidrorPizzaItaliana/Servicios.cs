@@ -634,7 +634,7 @@ namespace ServidrorPizzaItaliana
                 var prov = (from p in db.ProvisionSet where p.nombre == provision.nombre select p).FirstOrDefault();
 
                 if (prov != null) {
-                    Callback3.Respuesta("El producto con el nombre: " + provision.nombre + " ya esta registrado");
+                    Callback3.Respuesta("La provision con el nombre: " + provision.nombre + " ya esta registrado");
                 }
                 else
                 {
@@ -647,6 +647,28 @@ namespace ServidrorPizzaItaliana
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e.StackTrace);
+                Callback3.Respuesta("Ocurrió un error al guardar los datos del ingrediente");
+            }
+        }
+
+        public void RegistrarProvisionDirecta(Provision provision, ProvisionDirecta provisionDirecta)
+        {
+            try
+            {
+                var provisionEncontrada = (from p in db.ProvisionSet where p.nombre == provision.nombre select p).FirstOrDefault();
+
+                if (provisionEncontrada != null)
+                {
+                    Callback3.Respuesta("La provision con el nombre: " + provision.nombre + " ya esta registrado");
+                }
+                else
+                {
+                    db.RegistrarProvisionDirecta(provision.nombre, provision.noExistencias, provision.ubicacion, provision.stockMinimo, provision.costoUnitario, provision.unidadMedida, provision.activado, provisionDirecta.descripcion, provisionDirecta.activado, provisionDirecta.restricciones, provisionDirecta.Categoria.categoria);
+                    Callback3.Respuesta("Registro Exitoso");
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
                 Callback3.Respuesta("Ocurrió un error al guardar los datos del ingrediente");
             }
         }
@@ -1058,8 +1080,8 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IBuscarPedidos
     {
-        private List<PedidoADomicilioDeServidor> pedidosADomicilio = new List<PedidoADomicilioDeServidor>();
-        private List<PedidoLocalDeServidor> pedidosLocalesDeServidor = new List<PedidoLocalDeServidor>();
+        private List<PedidoADomicilioDeServidor> pedidosADomicilio;
+        private List<PedidoLocalDeServidor> pedidosLocalesDeServidor;
         private static DateTime fecha = DateTime.Now;
         private string fechaDelDia = fecha.ToString("dd/MM/yyyy");
         private const string IDPEDIDOLOCAL = "PL";
@@ -1067,12 +1089,39 @@ namespace ServidrorPizzaItaliana
 
         public void BuscarPedidosCallCenter()
         {
+           
             db.Configuration.LazyLoadingEnabled = false;
-            if(ObtenerPedidosADomicilio() && ObtenerPedidosLocales())
+            pedidosADomicilio = new List<PedidoADomicilioDeServidor>();
+            pedidosLocalesDeServidor = new List<PedidoLocalDeServidor>();
+
+            if (ObtenerPedidosADomicilio() && ObtenerPedidosLocales())
             {
                 if(pedidosADomicilio.Count > 0 || pedidosLocalesDeServidor.Count > 0)
                 {
-                    Callback10.PedidosCallCenter(pedidosADomicilio, pedidosLocalesDeServidor);
+                    Callback10.ObtenerTodosPedidos(pedidosADomicilio, pedidosLocalesDeServidor);
+                }
+                else
+                {
+                    Callback10.MensajeErrorBuscarPedidos("No hay pedidos registrados");
+                }
+            }
+            else
+            {
+                Callback10.MensajeErrorBuscarPedidos("Ocurrio un error al obtener pedidos");
+            }
+            db.Configuration.LazyLoadingEnabled = true;
+        }
+
+        public void BuscarPedidosMesero()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+            pedidosADomicilio = new List<PedidoADomicilioDeServidor>();
+            pedidosLocalesDeServidor = new List<PedidoLocalDeServidor>();
+            if (ObtenerPedidosLocales())
+            {
+                if(pedidosLocalesDeServidor.Count > 0)
+                {
+                    Callback10.ObtenerPedidosLocales(pedidosLocalesDeServidor);
                 }
                 else
                 {
@@ -1094,7 +1143,7 @@ namespace ServidrorPizzaItaliana
             {
                 //var pedidosDomicilio = db.PedidoSet.Where(x => x.Cuenta.Id.Contains(IDPEDIDOADOMICILIO)).Where(x => x.Cuenta.Id.Contains(fechaDelDia)).Include(x => x.Empleado).Include(x => x.Producto.Select(j => j.Categoria)).Include(x => x.ProvisionDirecta.Select(j => j.Provision)).Include(x => x.Estado).Include(x => x.Cuenta).ToList();
 
-                var pedidosDomicilio = db.PedidoSet.Where(x => x.Cuenta.Id.Contains(IDPEDIDOADOMICILIO)).Include("Cuenta").Include("Empleado").Include("Estado").ToList();
+                var pedidosDomicilio = db.PedidoSet.Where(p => p.Cuenta.Id.Contains(IDPEDIDOADOMICILIO) && p.Cuenta.Id.Contains(fechaDelDia)).Include("Cuenta").Include("Empleado").Include("Estado").ToList();
 
                 foreach (Pedido pedido in pedidosDomicilio)
                 {
@@ -1120,7 +1169,7 @@ namespace ServidrorPizzaItaliana
                     
                     double descuento = Convert.ToDouble(pedido.Cuenta.descuento.Value);
                     CuentaDePedido cuenta = new CuentaDePedido(pedido.Cuenta.Id, pedido.Cuenta.precioTotal, pedido.Cuenta.subTotal, pedido.Cuenta.iva, descuento, pedido.Cuenta.abierta);
-
+                   
                     pedidoADomicilio.Estado = pedido.Estado.estadoPedido;
                     pedidoADomicilio.Cuenta = cuenta;
                     pedidoADomicilio.Id = pedido.Id;
@@ -1128,19 +1177,14 @@ namespace ServidrorPizzaItaliana
                     pedidoADomicilio.InstruccionesDePedido = pedido.instruccionesEspeciales;
                     pedidoADomicilio.IdEmpleado = pedido.Empleado.IdEmpleado;
                     pedidoADomicilio.IdGeneradoDeEmpleado = pedido.Empleado.idEmpleadoGenerado;
-
-                    // foreach (AccesoBD2.Producto producto in pedido.Producto)
-                    // {
+                   
                     var listaProductos = db.MostrarCantidadProductosPedido(pedido.Id).ToList();
                     foreach (var producto in listaProductos)
                     {
                         ProductoDePedido productoLocal = new ProductoDePedido((int)producto.Id, producto.nombre, producto.descripcion, (double)producto.precioUnitario, producto.restricciones, producto.categoria, (int)producto.cantidad);
                         pedidoADomicilio.ProductosLocales.Add(productoLocal);
                     }
-                    //  }
-
-                    // foreach (ProvisionDirecta a in pedido.ProvisionDirecta)
-                    //{
+                    
                     var listaProvisiones = db.MostrarCantidadProvisionesPedido(pedido.Id).ToList();
                     foreach(var provision in listaProvisiones)
                     {
@@ -1148,7 +1192,6 @@ namespace ServidrorPizzaItaliana
                         pedidoADomicilio.ProductosExternos.Add(productoExterno);
                     }
                     
-                    //}
                     pedidosADomicilio.Add(pedidoADomicilio);
                 }
 
@@ -1163,11 +1206,10 @@ namespace ServidrorPizzaItaliana
         public bool ObtenerPedidosLocales()
         {
             bool exitoAlObtenerPedidos = false;
-
             try
             {
                 //  var pedidosLocales = db.PedidoSet.Where(x => x.Cuenta.Id.Contains(IDPEDIDOLOCAL)).Where(x => x.Cuenta.Id.Contains(fechaDelDia)).Include(x => x.Empleado).Include(x => x.Producto.Select(j => j.Categoria)).Include(x => x.ProvisionDirecta.Select(j => j.Provision)).Include(x => x.Estado).Include(x => x.Cuenta).ToList();
-                var pedidosLocales = db.PedidoSet.Where(x => x.Cuenta.Id.Contains(IDPEDIDOLOCAL)).Include("Cuenta").Include("Estado").Include("Empleado").ToList();
+                var pedidosLocales = db.PedidoSet.Where(p => p.Cuenta.Id.Contains(IDPEDIDOLOCAL) && p.Cuenta.Id.Contains(fechaDelDia)).Include("Cuenta").Include("Estado").Include("Empleado").ToList();
                 
                 foreach (Pedido pedido in pedidosLocales)
                 {  
@@ -1185,28 +1227,20 @@ namespace ServidrorPizzaItaliana
                     pedidoLocal.IdEmpleado = pedido.Empleado.IdEmpleado;
                     pedidoLocal.IdGeneradoDeEmpleado = pedido.Empleado.idEmpleadoGenerado;
                     var y = db.ChangeTracker;
-
-                   // foreach (AccesoBD2.Producto producto in pedido.Producto)
-                   // {
-                        var listaProductosPedido = db.MostrarCantidadProductosPedido(pedido.Id).ToList();
-                        foreach(var producto in listaProductosPedido)
-                        {                            
-                            ProductoDePedido productoLocal = new ProductoDePedido((int)producto.Id, producto.nombre, producto.descripcion, (double)producto.precioUnitario, producto.restricciones, producto.categoria, (int)producto.cantidad);
-                            pedidoLocal.ProductosLocales.Add(productoLocal);
-                        }
-                         
-                   // }
-
-                   // foreach(ProvisionDirecta a in pedido.ProvisionDirecta)
-                   // {
-                        var listaProvisionesPedido = db.MostrarCantidadProvisionesPedido(pedido.Id).ToList();
+                   
+                    var listaProductosPedido = db.MostrarCantidadProductosPedido(pedido.Id).ToList();
+                    foreach(var producto in listaProductosPedido)
+                    {
+                        ProductoDePedido productoLocal = new ProductoDePedido((int)producto.Id, producto.nombre, producto.descripcion, (double)producto.precioUnitario, producto.restricciones, producto.categoria, (int)producto.cantidad);
+                        pedidoLocal.ProductosLocales.Add(productoLocal);
+                    }
+                                           
+                    var listaProvisionesPedido = db.MostrarCantidadProvisionesPedido(pedido.Id).ToList();
                     foreach (var provision in listaProvisionesPedido)
                     {
                         ProvisionVentaDirecta productoExterno = new ProvisionVentaDirecta((int)provision.Id, (int)provision.Provision_Id, provision.nombre, provision.noExistencias, provision.ubicacion, provision.stockMinimo, provision.costoUnitario, provision.unidadMedida, (bool)provision.activado, provision.descripcion, provision.restricciones, provision.categoria, (int)provision.cantidad);
                         pedidoLocal.ProductosExternos.Add(productoExterno);
                     }
-                    //}
-
                     pedidosLocalesDeServidor.Add(pedidoLocal);
                 }
 
@@ -1219,9 +1253,7 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public 
-
-        IBuscarPedidosCallback Callback10
+        public IBuscarPedidosCallback Callback10
         {
             get
             {

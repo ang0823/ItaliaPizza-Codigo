@@ -13,6 +13,9 @@ namespace ServidrorPizzaItaliana
     {
         [OperationContract(IsOneWay = true)]
         void RegistrarIngrediente(Provision provision);
+
+        [OperationContract(IsOneWay = true)]
+        void RegistrarProvisionDirecta(Provision provision, ProvisionDirecta provisionDirecta);
     }
 
     [ServiceContract]
