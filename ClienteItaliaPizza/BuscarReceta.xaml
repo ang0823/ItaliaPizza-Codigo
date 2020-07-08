@@ -22,11 +22,11 @@
         <Grid VerticalAlignment="Bottom" Height="585" Margin="30, 0">
             <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="75" Width="895">
                 <Label Content="Nombre:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="23" FontFamily="Arial"/>
-                <TextBox x:Name="NombreRecetaTxt" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="473" FontFamily="Arial" FontSize="23" MaxLines="1"/>
+                <TextBox x:Name="NombreRecetaTxt" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="473" FontFamily="Arial" FontSize="23" MaxLines="1" TextChanged="ActivarDesactivarBotonGuardar"/>
                 <Label Content="Porciones:" HorizontalAlignment="Right" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23"/>
-                <TextBox x:Name="PorcionesTxt" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40" Width="259" FontFamily="Arial" FontSize="23" MaxLines="1"/>
+                <TextBox x:Name="PorcionesTxt" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40" Width="259" FontFamily="Arial" FontSize="23" MaxLines="1" TextChanged="ActivarDesactivarBotonGuardar"/>
             </Grid>
-            <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="208" Margin="0,102,0,275" VerticalAlignment="Center" Width="895" BorderBrush="Black" FontSize="20"  Background="#FFBDB9B9" CanUserDeleteRows="True" CanUserAddRows="True" CanUserResizeColumns="False" AutoGenerateColumns="False" Foreground="Black"  >
+            <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="208" Margin="0,102,0,275" VerticalAlignment="Center" Width="895" BorderBrush="Black" FontSize="20"  Background="#FFBDB9B9" CanUserDeleteRows="True" CanUserAddRows="False" CanUserResizeColumns="False" AutoGenerateColumns="False" Foreground="Black" SelectionChanged="dataGridIngredientes_SelectionChanged"  >
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="300" IsReadOnly="False" Binding="{Binding nombre}"/>
                     <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100" IsReadOnly="False" Binding="{Binding cantidad}" />
@@ -36,13 +36,13 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Procedimiento:" Margin="0,319,968,230" FontFamily="Arial" FontSize="23"/>
-            <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="200" Margin="0,0,0,30" TextWrapping="Wrap" Width="895" BorderBrush="#FF0C0C0C" MaxLength="150" FontFamily="Arial" FontSize="23" />
+            <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="200" Margin="0,0,0,30" TextWrapping="Wrap" Width="895" BorderBrush="#FF0C0C0C" MaxLength="150" FontFamily="Arial" FontSize="23" TextChanged="ActivarDesactivarBotonGuardar" />
             <Button x:Name="ButtonEditarGuardar" Content="Editar" HorizontalAlignment="Right" Margin="0,0,0,110" VerticalAlignment="Bottom" Width="155" Height="30" Background="#FF305825" BorderBrush="#FF305825" Foreground="White" Click="ButtonEditarGuardar_Click"/>
             <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Right" Margin="0,0,0,70" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonEliminar_Click" BorderBrush="#FF740005" Background="White" Foreground="#FF740005"/>
             <Button x:Name="ButtonRegresar" Content="Cancelar" HorizontalAlignment="Right" Margin="0,0,0,30" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonRegresar_Click" Foreground="White" Background="#FF740005" BorderBrush="#FF740005"/>
             <Label x:Name="SelectLbl" Content="Seleccionar ingredientes:" HorizontalAlignment="Left" Margin="919,10,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="18"/>
-            <ListBox x:Name="ingredientesList" HorizontalAlignment="Right" Height="238"  Margin="0, 40" VerticalAlignment="Top" Width="215" FontFamily="Arial" FontSize="20"/>
-            <Button x:Name="removerBtn" Content="Remover" HorizontalAlignment="Left" Margin="919,283,0,0" VerticalAlignment="Top" Width="215" Height="27" FontFamily="Arial" FontSize="23"/>
+            <ListBox x:Name="ingredientesList" HorizontalAlignment="Right" Height="238"  Margin="0, 40" VerticalAlignment="Top" Width="215" FontFamily="Arial" FontSize="20" SelectionChanged="AgregarIngrediente"/>
+            <Button x:Name="removerBtn" Content="Remover" HorizontalAlignment="Right" Margin="0,283,0,0" VerticalAlignment="Top" Width="215" Height="27" FontFamily="Arial" FontSize="23" Click="RemoverIngrediente"/>
         </Grid>
 
     </Grid>
