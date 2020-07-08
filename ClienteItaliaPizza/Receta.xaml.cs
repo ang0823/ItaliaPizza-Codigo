@@ -349,7 +349,6 @@ namespace ClienteItaliaPizza
             {
                 EliminarIngredienteBtn.IsEnabled = false;
             }
-            
         }
 
         private int ObtenerIndiceIngrediente(string nombreIngrediente)

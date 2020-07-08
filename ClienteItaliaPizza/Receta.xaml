@@ -49,7 +49,7 @@
             <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="200" Margin="0,0,0,0" TextWrapping="Wrap" Width="895" BorderBrush="#FF0C0C0C" Grid.Row="1" Grid.ColumnSpan="2" MaxLength="150" PreviewTextInput="TextBoxProcedimiento_PreviewTextInput" TextChanged="ActivardesactivarBtnAceptar" FontFamily="Arial" FontSize="23" />
             <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Right" Margin="0,0,0,70" VerticalAlignment="Bottom" Width="155" Height="30" Grid.Row="1" Foreground="White" Background="#FF305825" FontSize="20" Grid.ColumnSpan="2" Click="ButtonAceptar_Click" BorderBrush="#FF305825"/>
             <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="184,432,0,0" Width="155" Height="30" Grid.Row="1" Background="#FF740005" FontSize="20" RenderTransformOrigin="0.093,0.315" Grid.Column="1" Foreground="White" Click="ButtonCancelar_Click" BorderBrush="#FF740005"/>
-            <Button x:Name="EliminarIngredienteBtn" Content="Remover" HorizontalAlignment="Left" Margin="919,200,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" Grid.Row="1" Click="RemoverIngrediente"/>
+            <Button x:Name="EliminarIngredienteBtn" Content="Remover" HorizontalAlignment="Left" Margin="919,200,0,0" VerticalAlignment="Top" Width="215" FontFamily="Arial" FontSize="23" Grid.Row="1" Click="RemoverIngrediente"/>
         </Grid>
     </Grid>
 </Window>
