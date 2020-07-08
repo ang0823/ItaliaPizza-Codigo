@@ -55,6 +55,12 @@ namespace ClienteItaliaPizza
                 FuncionesComunes.MostrarMensajeDeError(Mensaje);
                 HabilitarCamposYBotonones();
             }
+            catch(TimeoutException)
+            {
+                Mensaje = "Se excedió el tiempo de espera y no hubo respuesta del servidor.";
+                FuncionesComunes.MostrarMensajeDeError(Mensaje);
+                HabilitarCamposYBotonones();
+            }
         }
 
         private void DeshabilitarCamposYBotonones()
