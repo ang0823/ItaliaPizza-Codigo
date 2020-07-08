@@ -3,7 +3,6 @@ using DevExpress.Mvvm.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Printing;
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -279,15 +278,6 @@ namespace ClienteItaliaPizza
             textBoxProcedimiento.IsEnabled = true;
         }
 
-        //private void HabiliarCamposYBotones()
-        //{
-        //    NombreRecetaTxt.IsEnabled = true;
-        //    PorcionesTxt.IsEnabled = true;
-        //    dataGridIngredientes.IsEnabled = true;
-        //    textBoxProcedimiento.IsEnabled = true;
-        //    ButtonEditarGuardar.IsEnabled = true;
-        //    ButtonEliminar.IsEnabled = true;
-        //}
         private void ButtonEliminar_Click(object sender, RoutedEventArgs e)
         {
             FuncionesComunes.MostrarMensajeDeError("Aún no se implementa.");
@@ -388,7 +378,6 @@ namespace ClienteItaliaPizza
             }
         }
 
-        // -----------------------------------AGREGADO POR ANGEL---------------------------------
          private void RemoverIngrediente(object sender, RoutedEventArgs e)
         {
                 try
