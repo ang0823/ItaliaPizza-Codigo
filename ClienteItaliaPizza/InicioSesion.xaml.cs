@@ -41,6 +41,7 @@ namespace ClienteItaliaPizza
                 {
                     Mensaje = "Se requiere usuario y contraseña";
                     FuncionesComunes.MostrarMensajeDeError(Mensaje);
+                    HabilitarCamposYBotonones();
                 }
             }
             catch (EndpointNotFoundException)
