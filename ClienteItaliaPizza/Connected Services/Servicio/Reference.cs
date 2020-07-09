@@ -600,7 +600,7 @@ namespace ClienteItaliaPizza.Servicio {
     [System.Runtime.Serialization.DataContractAttribute(Name="ProvisionDirecta", Namespace="http://schemas.datacontract.org/2004/07/AccesoBD2")]
     [System.SerializableAttribute()]
     public partial class ProvisionDirecta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        internal Categoria categoria;
+        
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
@@ -4313,10 +4313,10 @@ namespace ClienteItaliaPizza.Servicio {
         System.Threading.Tasks.Task RegistrarIngredienteAsync(ClienteItaliaPizza.Servicio.Provision provision);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarIngrediente/RegistrarProvisionDirecta")]
-        void RegistrarProvisionDirecta(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta);
+        void RegistrarProvisionDirecta(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta, byte[] imagen);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarIngrediente/RegistrarProvisionDirecta")]
-        System.Threading.Tasks.Task RegistrarProvisionDirectaAsync(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta);
+        System.Threading.Tasks.Task RegistrarProvisionDirectaAsync(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta, byte[] imagen);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4362,12 +4362,12 @@ namespace ClienteItaliaPizza.Servicio {
             return base.Channel.RegistrarIngredienteAsync(provision);
         }
         
-        public void RegistrarProvisionDirecta(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta) {
-            base.Channel.RegistrarProvisionDirecta(provision, provisionDirecta);
+        public void RegistrarProvisionDirecta(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta, byte[] imagen) {
+            base.Channel.RegistrarProvisionDirecta(provision, provisionDirecta, imagen);
         }
         
-        public System.Threading.Tasks.Task RegistrarProvisionDirectaAsync(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta) {
-            return base.Channel.RegistrarProvisionDirectaAsync(provision, provisionDirecta);
+        public System.Threading.Tasks.Task RegistrarProvisionDirectaAsync(ClienteItaliaPizza.Servicio.Provision provision, ClienteItaliaPizza.Servicio.ProvisionDirecta provisionDirecta, byte[] imagen) {
+            return base.Channel.RegistrarProvisionDirectaAsync(provision, provisionDirecta, imagen);
         }
     }
     
@@ -5020,10 +5020,10 @@ namespace ClienteItaliaPizza.Servicio {
     public interface IRegistrarProducto {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarProducto/RegistrarProducto")]
-        void RegistrarProducto(ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria, int receta);
+        void RegistrarProducto(ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria, string receta, byte[] imagen);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRegistrarProducto/RegistrarProducto")]
-        System.Threading.Tasks.Task RegistrarProductoAsync(ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria, int receta);
+        System.Threading.Tasks.Task RegistrarProductoAsync(ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria, string receta, byte[] imagen);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -5061,12 +5061,12 @@ namespace ClienteItaliaPizza.Servicio {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void RegistrarProducto(ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria, int receta) {
-            base.Channel.RegistrarProducto(producto, categoria, receta);
+        public void RegistrarProducto(ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria, string receta, byte[] imagen) {
+            base.Channel.RegistrarProducto(producto, categoria, receta, imagen);
         }
         
-        public System.Threading.Tasks.Task RegistrarProductoAsync(ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria, int receta) {
-            return base.Channel.RegistrarProductoAsync(producto, categoria, receta);
+        public System.Threading.Tasks.Task RegistrarProductoAsync(ClienteItaliaPizza.Servicio.Producto producto, ClienteItaliaPizza.Servicio.Categoria categoria, string receta, byte[] imagen) {
+            return base.Channel.RegistrarProductoAsync(producto, categoria, receta, imagen);
         }
     }
     

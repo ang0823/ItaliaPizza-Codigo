@@ -119,6 +119,7 @@
       <xs:sequence>
         <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="provision" nillable="true" type="q15:Provision" />
         <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="provisionDirecta" nillable="true" type="q16:ProvisionDirecta" />
+        <xs:element minOccurs="0" name="imagen" nillable="true" type="xs:base64Binary" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -383,7 +384,8 @@
       <xs:sequence>
         <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="producto" nillable="true" type="q47:Producto" />
         <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="categoria" nillable="true" type="q48:Categoria" />
-        <xs:element minOccurs="0" name="receta" type="xs:int" />
+        <xs:element minOccurs="0" name="receta" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="imagen" nillable="true" type="xs:base64Binary" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
