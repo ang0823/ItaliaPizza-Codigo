@@ -355,7 +355,7 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IRegistrarProducto
     {
-        public void RegistrarProducto(AccesoBD2.Producto producto, Categoria categoria, int receta)
+        public void RegistrarProducto(AccesoBD2.Producto producto, Categoria categoria, string receta, byte[] imagen)
         {
             try
             {
@@ -367,19 +367,24 @@ namespace ServidrorPizzaItaliana
                 }
                 else
                 {
-                    var recetadb = (from p in db.RecetaSet where p.id == receta select p).FirstOrDefault();
+                    var recetadb = (from p in db.RecetaSet where p.nombreReceta == receta select p).FirstOrDefault();
 
                     producto.Receta = recetadb;
                     producto.Categoria = categoria;
                     db.ProductoSet.Add(producto);
                     db.SaveChanges();
-                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
+                    GuardarImagen(imagen, producto.nombre);
+                    OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Guardado");
                 }
             }
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e.StackTrace);
                 OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Ocurrio un error al registrarReceta");
+            }
+            catch(Exception e)
+            {
+                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR(e.GetType() + " " + e.Message);
             }
         }
     }
@@ -432,6 +437,7 @@ namespace ServidrorPizzaItaliana
                 else
                 {
                     receta.Ingrediente = ingredientes;
+                    receta.activado = true;
                     db.RecetaSet.Add(receta);
                     db.SaveChanges();
                     OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
@@ -453,18 +459,18 @@ namespace ServidrorPizzaItaliana
             {
                 Receta r = new Receta();
                 r = receta;
-                receta.Ingrediente = ingredinetes;
+                r.Ingrediente = ingredinetes;
                 db.RecetaSet.Attach(r);
                 db.Entry(r).State = EntityState.Modified;
                 db.SaveChanges();
-
+                
                 OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER("Se modificó correctamente");
                 Console.WriteLine("Se modificó correctamente");
 
             }
-            catch (InvalidOperationException)
+            catch (Exception e)
             {
-                OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER("Alguno de los datos introducidos no son correctos");
+                OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER(e.GetType()+": "+e.Message);
             }
         }
     }
@@ -651,7 +657,7 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public void RegistrarProvisionDirecta(Provision provision, ProvisionDirecta provisionDirecta)
+        public void RegistrarProvisionDirecta(Provision provision, ProvisionDirecta provisionDirecta, byte[] imagen)
         {
             try
             {
@@ -664,11 +670,12 @@ namespace ServidrorPizzaItaliana
                 else
                 {
                     db.RegistrarProvisionDirecta(provision.nombre, provision.noExistencias, provision.ubicacion, provision.stockMinimo, provision.costoUnitario, provision.unidadMedida, provision.activado, provisionDirecta.descripcion, provisionDirecta.activado, provisionDirecta.restricciones, provisionDirecta.Categoria.categoria);
-                    Callback3.Respuesta("Registro Exitoso");
+                    GuardarImagen(imagen, provision.nombre);
+                    Callback3.Respuesta("Registro exitoso");
                 }
             }catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message + "\n" + e.GetType() + "\n" + e.StackTrace);
                 Callback3.Respuesta("Ocurrió un error al guardar los datos del ingrediente");
             }
         }
