@@ -196,7 +196,7 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IModificarCuentaUsuario
     {
-        public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int idrol)
+        public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, string nombreRol)
         {
             try
             {
@@ -207,7 +207,7 @@ namespace ServidrorPizzaItaliana
                 // db.Entry(c).State = EntityState.Modified;
                 db.CuentaUsuarioSet.AddOrUpdate(c);
                 db.SaveChanges();
-                var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
+                var rol = (from r in db.RolSet where r.nombreRol == nombreRol select r).FirstOrDefault();
                 Empleado e = new Empleado();
                 e = empleado;
                 e.Rol = rol;
@@ -223,10 +223,39 @@ namespace ServidrorPizzaItaliana
                 db.DireccionSet.AddOrUpdate(d);
                 db.SaveChanges();
 
-
                 OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().RespuestaMCU("Se modificó correctamente");
                 Console.WriteLine("Se modificó correctamente");
 
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException exc)
+            {
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>()
+                    .RespuestaMCU(exc.Message + " " + exc.Source);
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException db)
+            {
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>()
+                    .RespuestaMCU("Ocurrio un error al actualizar base de datos.\n" + db.StackTrace);
+            }
+            catch (ArgumentNullException)
+            {
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>()
+                    .RespuestaMCU("No se pudo recuperar el tipo de rol.");
+            }
+            catch (DbEntityValidationException)
+            {
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>()
+                    .RespuestaMCU("Error al valiar la entidad.");
+            }
+            catch (NotSupportedException)
+            {
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>()
+                    .RespuestaMCU("Not suported exception.");
+            }
+            catch (ObjectDisposedException)
+            {
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>()
+                    .RespuestaMCU("ObjectDisposedException.");
             }
             catch (InvalidOperationException)
             {
@@ -234,11 +263,11 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public void ModificarCuentaUsuario2(Empleado empleado, Direccion direccion, int idrol)
+        public void ModificarCuentaUsuario2(Empleado empleado, Direccion direccion, string nombreRol)
         {
             try
             {
-                var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
+                var rol = (from r in db.RolSet where r.nombreRol == nombreRol select r).FirstOrDefault();
                 //Empleado e = new Empleado();
                 //e = empleado;
                 empleado.Rol = rol;
