@@ -12,10 +12,10 @@ namespace ServidrorPizzaItaliana
     interface IModificarCuentaUsuario
     {
         [OperationContract(IsOneWay = true)]
-        void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int rol);
+        void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, string nombreRol);
 
         [OperationContract(IsOneWay = true)]
-        void ModificarCuentaUsuario2(Empleado empleado, Direccion direccion, int rol);
+        void ModificarCuentaUsuario2(Empleado empleado, Direccion direccion, string nombreRol);
 
     }
 
