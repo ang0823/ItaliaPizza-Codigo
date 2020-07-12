@@ -460,8 +460,12 @@ namespace ServidrorPizzaItaliana
                     receta.activado = true;
                     db.RecetaSet.AddOrUpdate(receta);
                     db.SaveChanges();
-                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrar la receta");
                 }
+            }
+            catch(DbEntityValidationException)
+            {
+                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Faltan detalles de las porciones en alguno de los ingredientes, favor de incluirlos para poder continuar.");
             }
             catch (InvalidOperationException e)
             {
