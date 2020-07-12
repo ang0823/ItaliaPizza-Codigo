@@ -26,20 +26,6 @@ namespace ClienteItaliaPizza
         readonly bool imagenEditada = true;
         bool enEdicion = false;
         
-        //Constructorr de prueba. Eliminiar posteriormente
-        public BuscarProductos()
-        {
-            InitializeComponent();
-            InicilizarComboBoxes();
-            DeshabilitarModoEdicion();
-
-            SearchBox.Focus();
-            recetaUbicacionLbl.Content = "Ubicación:";
-            criterioCb.SelectedIndex = 0;
-            ImagenBtn.Visibility = Visibility.Hidden;
-            EditSaveBtn.IsEnabled = false;
-        }
-
         public BuscarProductos(CuentaUsuario1 cuenta)
         {
             CuentaUsuario = cuenta;

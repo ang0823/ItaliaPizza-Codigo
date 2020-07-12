@@ -568,7 +568,6 @@ namespace ClienteItaliaPizza
             Dispatcher.Invoke(() =>
             {
                 VaciarCampos();
-                SearchBox.Text = empleado.idEmpleado.ToString();
                 this.empleado.IdEmpleado = empleado.idEmpleado;
                 this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
                 this.empleado.nombre = empleado.nombre;
