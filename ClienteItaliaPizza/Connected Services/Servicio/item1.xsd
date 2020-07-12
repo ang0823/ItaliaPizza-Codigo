@@ -174,7 +174,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="productoExterno" nillable="true" type="q19:ProvisionVentaDirecta" />
-        <xs:element minOccurs="0" name="modificarImagen" type="xs:boolean" />
+        <xs:element minOccurs="0" name="antiguoNombreImagen" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -182,7 +182,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="producto" nillable="true" type="q20:Producto" />
-        <xs:element minOccurs="0" name="modificarImagen" type="xs:boolean" />
+        <xs:element minOccurs="0" name="antiguoNombreImagen" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="nombreReceta" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="imagen" nillable="true" type="xs:base64Binary" />
       </xs:sequence>
@@ -278,7 +278,7 @@
         <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuenta" nillable="true" type="q32:CuentaUsuario" />
         <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="empleado" nillable="true" type="q33:Empleado" />
         <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="direccion" nillable="true" type="q34:Direccion" />
-        <xs:element minOccurs="0" name="rol" type="xs:int" />
+        <xs:element minOccurs="0" name="nombreRol" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -287,7 +287,7 @@
       <xs:sequence>
         <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="empleado" nillable="true" type="q35:Empleado" />
         <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="direccion" nillable="true" type="q36:Direccion" />
-        <xs:element minOccurs="0" name="rol" type="xs:int" />
+        <xs:element minOccurs="0" name="nombreRol" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

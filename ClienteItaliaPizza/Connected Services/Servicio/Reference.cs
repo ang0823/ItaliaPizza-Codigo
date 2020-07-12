@@ -4495,16 +4495,16 @@ namespace ClienteItaliaPizza.Servicio {
         System.Threading.Tasks.Task ObtenerNombresDeRecetasAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarProducto/ModificarProductoExterno")]
-        void ModificarProductoExterno(ClienteItaliaPizza.Servicio.ProvisionVentaDirecta productoExterno, bool modificarImagen);
+        void ModificarProductoExterno(ClienteItaliaPizza.Servicio.ProvisionVentaDirecta productoExterno, string antiguoNombreImagen);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarProducto/ModificarProductoExterno")]
-        System.Threading.Tasks.Task ModificarProductoExternoAsync(ClienteItaliaPizza.Servicio.ProvisionVentaDirecta productoExterno, bool modificarImagen);
+        System.Threading.Tasks.Task ModificarProductoExternoAsync(ClienteItaliaPizza.Servicio.ProvisionVentaDirecta productoExterno, string antiguoNombreImagen);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarProducto/ModificarProductoInterno")]
-        void ModificarProductoInterno(ClienteItaliaPizza.Servicio.Producto producto, bool modificarImagen, string nombreReceta, byte[] imagen);
+        void ModificarProductoInterno(ClienteItaliaPizza.Servicio.Producto producto, string antiguoNombreImagen, string nombreReceta, byte[] imagen);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarProducto/ModificarProductoInterno")]
-        System.Threading.Tasks.Task ModificarProductoInternoAsync(ClienteItaliaPizza.Servicio.Producto producto, bool modificarImagen, string nombreReceta, byte[] imagen);
+        System.Threading.Tasks.Task ModificarProductoInternoAsync(ClienteItaliaPizza.Servicio.Producto producto, string antiguoNombreImagen, string nombreReceta, byte[] imagen);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4553,20 +4553,20 @@ namespace ClienteItaliaPizza.Servicio {
             return base.Channel.ObtenerNombresDeRecetasAsync();
         }
         
-        public void ModificarProductoExterno(ClienteItaliaPizza.Servicio.ProvisionVentaDirecta productoExterno, bool modificarImagen) {
-            base.Channel.ModificarProductoExterno(productoExterno, modificarImagen);
+        public void ModificarProductoExterno(ClienteItaliaPizza.Servicio.ProvisionVentaDirecta productoExterno, string antiguoNombreImagen) {
+            base.Channel.ModificarProductoExterno(productoExterno, antiguoNombreImagen);
         }
         
-        public System.Threading.Tasks.Task ModificarProductoExternoAsync(ClienteItaliaPizza.Servicio.ProvisionVentaDirecta productoExterno, bool modificarImagen) {
-            return base.Channel.ModificarProductoExternoAsync(productoExterno, modificarImagen);
+        public System.Threading.Tasks.Task ModificarProductoExternoAsync(ClienteItaliaPizza.Servicio.ProvisionVentaDirecta productoExterno, string antiguoNombreImagen) {
+            return base.Channel.ModificarProductoExternoAsync(productoExterno, antiguoNombreImagen);
         }
         
-        public void ModificarProductoInterno(ClienteItaliaPizza.Servicio.Producto producto, bool modificarImagen, string nombreReceta, byte[] imagen) {
-            base.Channel.ModificarProductoInterno(producto, modificarImagen, nombreReceta, imagen);
+        public void ModificarProductoInterno(ClienteItaliaPizza.Servicio.Producto producto, string antiguoNombreImagen, string nombreReceta, byte[] imagen) {
+            base.Channel.ModificarProductoInterno(producto, antiguoNombreImagen, nombreReceta, imagen);
         }
         
-        public System.Threading.Tasks.Task ModificarProductoInternoAsync(ClienteItaliaPizza.Servicio.Producto producto, bool modificarImagen, string nombreReceta, byte[] imagen) {
-            return base.Channel.ModificarProductoInternoAsync(producto, modificarImagen, nombreReceta, imagen);
+        public System.Threading.Tasks.Task ModificarProductoInternoAsync(ClienteItaliaPizza.Servicio.Producto producto, string antiguoNombreImagen, string nombreReceta, byte[] imagen) {
+            return base.Channel.ModificarProductoInternoAsync(producto, antiguoNombreImagen, nombreReceta, imagen);
         }
     }
     
@@ -4760,16 +4760,16 @@ namespace ClienteItaliaPizza.Servicio {
     public interface IModificarCuentaUsuario {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario")]
-        void ModificarCuentaUsuario(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol);
+        void ModificarCuentaUsuario(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, string nombreRol);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario")]
-        System.Threading.Tasks.Task ModificarCuentaUsuarioAsync(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol);
+        System.Threading.Tasks.Task ModificarCuentaUsuarioAsync(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, string nombreRol);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario2")]
-        void ModificarCuentaUsuario2(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol);
+        void ModificarCuentaUsuario2(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, string nombreRol);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IModificarCuentaUsuario/ModificarCuentaUsuario2")]
-        System.Threading.Tasks.Task ModificarCuentaUsuario2Async(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol);
+        System.Threading.Tasks.Task ModificarCuentaUsuario2Async(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, string nombreRol);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4807,20 +4807,20 @@ namespace ClienteItaliaPizza.Servicio {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void ModificarCuentaUsuario(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol) {
-            base.Channel.ModificarCuentaUsuario(cuenta, empleado, direccion, rol);
+        public void ModificarCuentaUsuario(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, string nombreRol) {
+            base.Channel.ModificarCuentaUsuario(cuenta, empleado, direccion, nombreRol);
         }
         
-        public System.Threading.Tasks.Task ModificarCuentaUsuarioAsync(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol) {
-            return base.Channel.ModificarCuentaUsuarioAsync(cuenta, empleado, direccion, rol);
+        public System.Threading.Tasks.Task ModificarCuentaUsuarioAsync(ClienteItaliaPizza.Servicio.CuentaUsuario cuenta, ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, string nombreRol) {
+            return base.Channel.ModificarCuentaUsuarioAsync(cuenta, empleado, direccion, nombreRol);
         }
         
-        public void ModificarCuentaUsuario2(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol) {
-            base.Channel.ModificarCuentaUsuario2(empleado, direccion, rol);
+        public void ModificarCuentaUsuario2(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, string nombreRol) {
+            base.Channel.ModificarCuentaUsuario2(empleado, direccion, nombreRol);
         }
         
-        public System.Threading.Tasks.Task ModificarCuentaUsuario2Async(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, int rol) {
-            return base.Channel.ModificarCuentaUsuario2Async(empleado, direccion, rol);
+        public System.Threading.Tasks.Task ModificarCuentaUsuario2Async(ClienteItaliaPizza.Servicio.Empleado empleado, ClienteItaliaPizza.Servicio.Direccion direccion, string nombreRol) {
+            return base.Channel.ModificarCuentaUsuario2Async(empleado, direccion, nombreRol);
         }
     }
     
