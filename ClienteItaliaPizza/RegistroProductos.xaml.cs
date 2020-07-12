@@ -15,23 +15,20 @@ namespace ClienteItaliaPizza
     /// <summary>
     /// Lógica de interacción para RegistroProductos.xaml
     /// </summary>
-    public partial class RegistroProductos : Window, IRegistrarProductoCallback, IObtenerRecetasCallback, IRegistrarIngredienteCallback
+    public partial class RegistroProductos : Window, IRegistrarProductoCallback, IObtenerRecetasCallback, IRegistrarIngredienteCallback, IModificarProductoCallback
     {
         CuentaUsuario1 CuentaUsuario;
-        List<Receta1> recetas = new List<Receta1>();
+        List<string> recetas = new List<string>();
         byte[] imagenProducto = null;
 
         public RegistroProductos(CuentaUsuario1 cuenta)
         {
             CuentaUsuario = cuenta;
             InitializeComponent();
-            OcultarCamposProductoExterno();
-            GenerarIdProducto();
-            CargarRecetas();
             IniciarComboBoxes();
 
             UsuarioLbl.Content = cuenta.nombreUsuario;
-            recetaExistenciasLbl.Content = "Receta:";
+            RecetaUbicacionLbl.Content = "Receta";
             tipoProductoCb.SelectedIndex = 0;
             EstadoCb.SelectedIndex = 1;
             CategoriaCb.SelectedIndex = 0;
@@ -40,6 +37,10 @@ namespace ClienteItaliaPizza
             GuardarBtn.IsEnabled = false;
             VaciarBtn.IsEnabled = false;
             tipoProductoCb.IsEnabled = true;
+            
+            OcultarCamposProductoExterno();
+            GenerarIdProducto();
+            CargarRecetas();
         }
 
         private void GenerarIdProducto()
@@ -56,9 +57,9 @@ namespace ClienteItaliaPizza
             try
             {
                 InstanceContext context = new InstanceContext(this);
-                ObtenerRecetasClient ServicioRecetas = new ObtenerRecetasClient(context);
+                ModificarProductoClient ServicioRecetas = new ModificarProductoClient(context);
 
-                ServicioRecetas.ObtenerRecetas();
+                ServicioRecetas.ObtenerNombresDeRecetas();
             }
             catch (Exception exc)
             {
@@ -287,10 +288,14 @@ namespace ClienteItaliaPizza
 
         private void VaciarCampos()
         {
+            string tipoProducto = tipoProductoCb.SelectedItem.ToString();
             NombreTxt.Text = string.Empty;
             PrecioTxt.Text = string.Empty;
             EstadoCb.SelectedIndex = 1;
-            CategoriaCb.SelectedIndex = 0;
+            if(tipoProducto == "Interno")
+            {
+                CategoriaCb.SelectedIndex = 0;
+            }
             RecetaCb.SelectedIndex = 0;
             ExistenciasTxt.Text = string.Empty;
             UbicacionTxt.Text = string.Empty;
@@ -489,13 +494,20 @@ namespace ClienteItaliaPizza
                 Uri FilePath = new Uri(imagePath);
                 ProductoImg.Source = new BitmapImage(FilePath);
             }
-
-            Stream bytesImagen = exploradorArchivos.OpenFile();
-            using (MemoryStream ms = new MemoryStream())
+            try
             {
-                bytesImagen.CopyTo(ms);
-                imagenProducto = ms.ToArray();
+                Stream bytesImagen = exploradorArchivos.OpenFile();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    bytesImagen.CopyTo(ms);
+                    imagenProducto = ms.ToArray();
+                }
             }
+            catch(Exception error)
+            {
+                Console.WriteLine(error.GetType() + " | | " +error.Message);
+            }
+            
         }
 
             private void CancelarBtn_Click(object sender, RoutedEventArgs e)
@@ -584,11 +596,7 @@ namespace ClienteItaliaPizza
         {
             Dispatcher.Invoke(() =>
             {
-                foreach (var receta in recetas)
-                {
-                    this.recetas.Add(receta);
-                    RecetaCb.Items.Add(receta.nombreReceta);
-                }
+                
             });
         }
 
@@ -597,22 +605,24 @@ namespace ClienteItaliaPizza
             if (tipoProductoCb.SelectedIndex == 0)
             {
                 OcultarCamposProductoExterno();
-                recetaExistenciasLbl.Content = "Receta:";
+                RecetaUbicacionLbl.Content = "Receta:";
                 RecetaCb.Visibility = Visibility.Visible;
             }
             else
             {
                 RecetaCb.Visibility = Visibility.Hidden;
-                recetaExistenciasLbl.Content = "Existencias actuales*:";
+                RecetaUbicacionLbl.Content = "Ubicación:";
                 MostrarCamposProductoExterno();
             }
         }
 
         private void OcultarCamposProductoExterno()
         {
-            ExistenciasTxt.Visibility = Visibility.Hidden;
-            UbicacionLbl.Visibility = Visibility.Hidden;
+            CategoriaCb.IsEnabled = true;
+            CategoriaCb.SelectedIndex = 0; 
             UbicacionTxt.Visibility = Visibility.Hidden;
+            ExistenciasLbl.Visibility = Visibility.Hidden;
+            ExistenciasTxt.Visibility = Visibility.Hidden;
             StockMinLbl.Visibility = Visibility.Hidden;
             stockMinTxt.Visibility = Visibility.Hidden;
             UnidadMedidaLbl.Visibility = Visibility.Hidden;
@@ -621,9 +631,11 @@ namespace ClienteItaliaPizza
 
         private void MostrarCamposProductoExterno()
         {
-            ExistenciasTxt.Visibility = Visibility.Visible;
-            UbicacionLbl.Visibility = Visibility.Visible;
+            CategoriaCb.IsEnabled = false;
+            CategoriaCb.SelectedIndex = 5;
             UbicacionTxt.Visibility = Visibility.Visible;
+            ExistenciasLbl.Visibility = Visibility.Visible;
+            ExistenciasTxt.Visibility = Visibility.Visible;
             StockMinLbl.Visibility = Visibility.Visible;
             stockMinTxt.Visibility = Visibility.Visible;
             UnidadMedidaLbl.Visibility = Visibility.Visible;
@@ -642,6 +654,20 @@ namespace ClienteItaliaPizza
             {
                 FuncionesComunes.MostrarMensajeDeError(mensajeError);
             }
+        }
+
+        public void ListaDeRecetas(string[] nombreDeRecetas)
+        {
+            foreach (var receta in nombreDeRecetas)
+            {
+                recetas.Add(receta);
+                RecetaCb.Items.Add(receta);
+            }
+        }
+
+        public void RespuestaModificarProducto(string mensajeError)
+        {
+            throw new NotImplementedException();
         }
     }
 }

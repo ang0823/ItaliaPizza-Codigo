@@ -17,21 +17,21 @@
         </Grid>
         <Grid VerticalAlignment="Bottom" Height="600" Width="1100" Margin="30,25">
             <Label Content="Tipo producto:" HorizontalAlignment="Left" Margin="42,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
-            <TextBox x:Name="ExistenciasTxt" HorizontalAlignment="Left" Height="31" Margin="555,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" TextChanged="nombreTxt_TextChanged" BorderBrush="Black" MaxLines="1"/>
             <Label Content="Nombre:" HorizontalAlignment="Left" Margin="295,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
-            <TextBox x:Name="NombreTxt" HorizontalAlignment="Left" Height="32" Margin="295,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="PrecioTxt_TextChanged" Grid.RowSpan="2" BorderBrush="Black"/>
+            <TextBox x:Name="NombreTxt" HorizontalAlignment="Left" Height="32" Margin="295,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="PrecioTxt_TextChanged" Grid.RowSpan="2" BorderBrush="Black" MaxLines="1"/>
             <Label Content="Precio*:" HorizontalAlignment="Left" Margin="555,91,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
-            <TextBox x:Name="PrecioTxt" HorizontalAlignment="Left" Height="32" Margin="555,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" TextChanged="MinimoTxt_TextChanged" Grid.RowSpan="2" BorderBrush="Black"/>
+            <TextBox x:Name="PrecioTxt" HorizontalAlignment="Left" Height="32" Margin="555,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" TextChanged="MinimoTxt_TextChanged" Grid.RowSpan="2" BorderBrush="Black" MaxLines="1"/>
             <Label Content="Estado:" HorizontalAlignment="Left" Margin="41,174,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
             <ComboBox x:Name="EstadoCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="33" Margin="41,207,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23"/>
             <Label Content="Categoría:" HorizontalAlignment="Left" Margin="295,174,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
             <ComboBox x:Name="CategoriaCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="33" Margin="295,207,0,0" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" SelectionChanged="CategoriaTxt_SelectionChanged"/>
-            <Label x:Name="recetaExistenciasLbl" Content="Receta/Existencias:" HorizontalAlignment="Left" Margin="555,174,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
+            <Label x:Name="RecetaUbicacionLbl" Content="Receta/Ubicación" FontFamily="Arial" FontSize="20" FontWeight="Bold" Margin="554,174,286,393"></Label>
             <ComboBox x:Name="RecetaCb" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="32" Margin="555,208,0,0" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23" />
-            <Label x:Name="UbicacionLbl" Content="Ubicación:" FontFamily="Arial" FontSize="20" FontWeight="Bold" Margin="41,254,935,313"></Label>
-            <TextBox x:Name="UbicacionTxt" Height="32" Width="205" Margin="42,287,853,281" BorderBrush="Black" FontFamily="Arial" FontSize="23"></TextBox>
+            <TextBox x:Name="UbicacionTxt" Height="32" Margin="555,207,286,361" BorderBrush="Black" FontFamily="Arial" FontSize="23" MaxLines="1"/>
+            <Label x:Name="ExistenciasLbl" Content="Existencias*:" HorizontalAlignment="Left" Margin="42,254,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
+            <TextBox x:Name="ExistenciasTxt" HorizontalAlignment="Left" Height="32" Margin="42,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontFamily="Arial" FontSize="23" TextChanged="nombreTxt_TextChanged" BorderBrush="Black" MaxLines="1"/>
             <Label x:Name="StockMinLbl" Content="Stock mínimo*:" Margin="295,254,647,313" FontFamily="Arial" FontSize="20" FontWeight="Bold"></Label>
-            <TextBox x:Name="stockMinTxt" Height="32" Width="205" VerticalAlignment="Center" Margin="295,287,600,281" BorderBrush="Black" FontFamily="Arial" FontSize="23"></TextBox>
+            <TextBox x:Name="stockMinTxt" Height="32" Width="205" VerticalAlignment="Center" Margin="295,287,600,281" BorderBrush="Black" FontFamily="Arial" FontSize="23" MaxLines="1"></TextBox>
             <Label x:Name="UnidadMedidaLbl" Content="Unidad de medida:" FontFamily="Arial" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Margin="555,254,352,314"></Label>
             <ComboBox x:Name="UnidadMedidaCb" Height="32" Margin="555,287,286,281" FontFamily="Arial" FontSize="23"/>
             <Label x:Name="DescripcionLbl" Content="Descripción" HorizontalAlignment="Left" Margin="41,329,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" Foreground="Black" FontWeight="Bold"/>
