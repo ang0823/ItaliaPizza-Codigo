@@ -42,7 +42,7 @@ namespace ClienteItaliaPizza.Pantallas
             BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
             buscarPedidos.BuscarPedidosMesero();
             }
-            catch (CommunicationException e)
+            catch (CommunicationException)
             {
             FuncionesComunes.MostrarMensajeDeError("Error de conexión con el servidor, intente más tarde."); 
                 //poner un anuncio a la GUI que no esta conectado
@@ -72,7 +72,7 @@ namespace ClienteItaliaPizza.Pantallas
                 BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
                 buscarPedidos.BuscarPedidosCallCenter();
             }
-            catch (CommunicationException e)
+            catch (CommunicationException)
             {
                 FuncionesComunes.MostrarMensajeDeError("Error de conexión con el servidor, intente más tarde");
             }
