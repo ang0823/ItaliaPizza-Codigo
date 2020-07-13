@@ -1,11 +1,7 @@
 ﻿using AccesoBD2;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServidrorPizzaItaliana
 {
@@ -21,8 +17,8 @@ namespace ServidrorPizzaItaliana
         [OperationContract]
         bool RegistrarPedidoLocal(PedidoLocal pedido);
 
-        [OperationContract(IsOneWay = true)]
-        void ModificarPedidoLocal(PedidoLocal pedido);
+        [OperationContract]
+        bool ModificarDatosPedidoLocal(PedidoLocal pedido);      
     }
 
     [ServiceContract]
