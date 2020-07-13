@@ -31,6 +31,18 @@ namespace ClienteItaliaPizza
 
         }
 
+        private void pdfDX_PrintPage(DependencyObject d, DevExpress.Xpf.PdfViewer.PdfPrintPageEventArgs e)
+        {            
+
+            PrintDialog dialogoImprimir = new PrintDialog();
+            var respuesta = dialogoImprimir.ShowDialog();
+
+            if (respuesta == true)
+            {
+                
+            }
+        }
+
         /* private void VisorDePDFControl_Loaded(object sender, RoutedEventArgs e)
          {
              visorDePDFControl.Load("C:/Users/survi/Documents/ItaliaPizza-Codigo/ClienteItaliaPizza/bin/Debug/hola.pdf");
