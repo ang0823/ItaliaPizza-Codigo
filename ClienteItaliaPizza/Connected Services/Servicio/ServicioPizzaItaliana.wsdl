@@ -421,7 +421,30 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosCallCenter_ModificarPedidoADomicilio_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosCallCenter_ModificarDatosPedidoADomicilio_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosCallCenter_ModificarDatosPedidoADomicilio_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -3069,7 +3092,30 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosMeseros_ModificarPedidoLocal_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosMeseros_ModificarDatosPedidoLocal_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IAdministrarPedidosMeseros_ModificarDatosPedidoLocal_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -3796,6 +3842,52 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_INotificarPedido_ModificarEstadoPedidoLocal_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_INotificarPedido_ModificarEstadoPedidoADomicilio_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_INotificarPedido_RecibirPedidoLocal_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -4123,8 +4215,11 @@
   <wsdl:message name="IAdministrarPedidosCallCenter_RegistrarCliente_InputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarCliente" />
   </wsdl:message>
-  <wsdl:message name="IAdministrarPedidosCallCenter_ModificarPedidoADomicilio_InputMessage">
-    <wsdl:part name="parameters" element="tns:ModificarPedidoADomicilio" />
+  <wsdl:message name="IAdministrarPedidosCallCenter_ModificarDatosPedidoADomicilio_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarDatosPedidoADomicilio" />
+  </wsdl:message>
+  <wsdl:message name="IAdministrarPedidosCallCenter_ModificarDatosPedidoADomicilio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarDatosPedidoADomicilioResponse" />
   </wsdl:message>
   <wsdl:message name="IAdministrarPedidosCallCenter_ModificarPedidoLocalCallCenter_InputMessage">
     <wsdl:part name="parameters" element="tns:ModificarPedidoLocalCallCenter" />
@@ -4273,8 +4368,11 @@
   <wsdl:message name="IAdministrarPedidosMeseros_RegistrarPedidoLocal_OutputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarPedidoLocalResponse" />
   </wsdl:message>
-  <wsdl:message name="IAdministrarPedidosMeseros_ModificarPedidoLocal_InputMessage">
-    <wsdl:part name="parameters" element="tns:ModificarPedidoLocal" />
+  <wsdl:message name="IAdministrarPedidosMeseros_ModificarDatosPedidoLocal_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarDatosPedidoLocal" />
+  </wsdl:message>
+  <wsdl:message name="IAdministrarPedidosMeseros_ModificarDatosPedidoLocal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarDatosPedidoLocalResponse" />
   </wsdl:message>
   <wsdl:message name="IAdministrarPedidosMeseros_DatosRecuperados_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:DatosRecuperados" />
@@ -4311,6 +4409,12 @@
   </wsdl:message>
   <wsdl:message name="INotificarPedido_NotificarPedidoADomicilioPreparado_InputMessage">
     <wsdl:part name="parameters" element="tns:NotificarPedidoADomicilioPreparado" />
+  </wsdl:message>
+  <wsdl:message name="INotificarPedido_ModificarEstadoPedidoLocal_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarEstadoPedidoLocal" />
+  </wsdl:message>
+  <wsdl:message name="INotificarPedido_ModificarEstadoPedidoADomicilio_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarEstadoPedidoADomicilio" />
   </wsdl:message>
   <wsdl:message name="INotificarPedido_RecibirPedidoLocal_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RecibirPedidoLocal" />
@@ -4366,8 +4470,9 @@
     <wsdl:operation name="RegistrarCliente">
       <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosCallCenter/RegistrarCliente" message="tns:IAdministrarPedidosCallCenter_RegistrarCliente_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ModificarPedidoADomicilio">
-      <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarPedidoADomicilio" message="tns:IAdministrarPedidosCallCenter_ModificarPedidoADomicilio_InputMessage" />
+    <wsdl:operation name="ModificarDatosPedidoADomicilio">
+      <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarDatosPedidoADomicilio" message="tns:IAdministrarPedidosCallCenter_ModificarDatosPedidoADomicilio_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarDatosPedidoADomicilioResponse" message="tns:IAdministrarPedidosCallCenter_ModificarDatosPedidoADomicilio_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ModificarPedidoLocalCallCenter">
       <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarPedidoLocalCallCenter" message="tns:IAdministrarPedidosCallCenter_ModificarPedidoLocalCallCenter_InputMessage" />
@@ -4540,8 +4645,9 @@
       <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/RegistrarPedidoLocal" message="tns:IAdministrarPedidosMeseros_RegistrarPedidoLocal_InputMessage" />
       <wsdl:output wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/RegistrarPedidoLocalResponse" message="tns:IAdministrarPedidosMeseros_RegistrarPedidoLocal_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ModificarPedidoLocal">
-      <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/ModificarPedidoLocal" message="tns:IAdministrarPedidosMeseros_ModificarPedidoLocal_InputMessage" />
+    <wsdl:operation name="ModificarDatosPedidoLocal">
+      <wsdl:input wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/ModificarDatosPedidoLocal" message="tns:IAdministrarPedidosMeseros_ModificarDatosPedidoLocal_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/ModificarDatosPedidoLocalResponse" message="tns:IAdministrarPedidosMeseros_ModificarDatosPedidoLocal_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DatosRecuperados">
       <wsdl:output wsam:Action="http://tempuri.org/IAdministrarPedidosMeseros/DatosRecuperados" message="tns:IAdministrarPedidosMeseros_DatosRecuperados_OutputCallbackMessage" />
@@ -4586,6 +4692,12 @@
     </wsdl:operation>
     <wsdl:operation name="NotificarPedidoADomicilioPreparado">
       <wsdl:input wsam:Action="http://tempuri.org/INotificarPedido/NotificarPedidoADomicilioPreparado" message="tns:INotificarPedido_NotificarPedidoADomicilioPreparado_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEstadoPedidoLocal">
+      <wsdl:input wsam:Action="http://tempuri.org/INotificarPedido/ModificarEstadoPedidoLocal" message="tns:INotificarPedido_ModificarEstadoPedidoLocal_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEstadoPedidoADomicilio">
+      <wsdl:input wsam:Action="http://tempuri.org/INotificarPedido/ModificarEstadoPedidoADomicilio" message="tns:INotificarPedido_ModificarEstadoPedidoADomicilio_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RecibirPedidoLocal">
       <wsdl:output wsam:Action="http://tempuri.org/INotificarPedido/RecibirPedidoLocal" message="tns:INotificarPedido_RecibirPedidoLocal_OutputCallbackMessage" />
@@ -4684,12 +4796,16 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="ModificarPedidoADomicilio">
-      <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarPedidoADomicilio" style="document" />
+    <wsdl:operation name="ModificarDatosPedidoADomicilio">
+      <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarDatosPedidoADomicilio" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosCallCenter_ModificarPedidoADomicilio_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosCallCenter_ModificarDatosPedidoADomicilio_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosCallCenter_ModificarDatosPedidoADomicilio_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ModificarPedidoLocalCallCenter">
       <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarPedidoLocalCallCenter" style="document" />
@@ -5084,12 +5200,16 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ModificarPedidoLocal">
-      <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosMeseros/ModificarPedidoLocal" style="document" />
+    <wsdl:operation name="ModificarDatosPedidoLocal">
+      <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosMeseros/ModificarDatosPedidoLocal" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosMeseros_ModificarPedidoLocal_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosMeseros_ModificarDatosPedidoLocal_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IAdministrarPedidosMeseros_ModificarDatosPedidoLocal_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="DatosRecuperados">
       <soap12:operation soapAction="http://tempuri.org/IAdministrarPedidosMeseros/DatosRecuperados" style="document" />
@@ -5188,6 +5308,20 @@
       <soap12:operation soapAction="http://tempuri.org/INotificarPedido/NotificarPedidoADomicilioPreparado" style="document" />
       <wsdl:input>
         <wsp:PolicyReference URI="#WSDualHttpBinding_INotificarPedido_NotificarPedidoADomicilioPreparado_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEstadoPedidoLocal">
+      <soap12:operation soapAction="http://tempuri.org/INotificarPedido/ModificarEstadoPedidoLocal" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_INotificarPedido_ModificarEstadoPedidoLocal_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEstadoPedidoADomicilio">
+      <soap12:operation soapAction="http://tempuri.org/INotificarPedido/ModificarEstadoPedidoADomicilio" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_INotificarPedido_ModificarEstadoPedidoADomicilio_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>

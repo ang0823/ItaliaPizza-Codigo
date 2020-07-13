@@ -38,6 +38,9 @@ namespace ClienteItaliaPizza.Servicio {
         private bool activadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string descripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -120,6 +123,19 @@ namespace ClienteItaliaPizza.Servicio {
                 if ((this.activadoField.Equals(value) != true)) {
                     this.activadoField = value;
                     this.RaisePropertyChanged("activado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                if ((this.cantidadField.Equals(value) != true)) {
+                    this.cantidadField = value;
+                    this.RaisePropertyChanged("cantidad");
                 }
             }
         }
@@ -600,7 +616,7 @@ namespace ClienteItaliaPizza.Servicio {
     [System.Runtime.Serialization.DataContractAttribute(Name="ProvisionDirecta", Namespace="http://schemas.datacontract.org/2004/07/AccesoBD2")]
     [System.SerializableAttribute()]
     public partial class ProvisionDirecta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        internal Categoria categoria;
+        
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
@@ -618,6 +634,9 @@ namespace ClienteItaliaPizza.Servicio {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool activadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string descripcionField;
@@ -696,6 +715,19 @@ namespace ClienteItaliaPizza.Servicio {
                 if ((this.activadoField.Equals(value) != true)) {
                     this.activadoField = value;
                     this.RaisePropertyChanged("activado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                if ((this.cantidadField.Equals(value) != true)) {
+                    this.cantidadField = value;
+                    this.RaisePropertyChanged("cantidad");
                 }
             }
         }
@@ -4199,11 +4231,13 @@ namespace ClienteItaliaPizza.Servicio {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAdministrarPedidosCallCenter/RegistrarCliente")]
         System.Threading.Tasks.Task RegistrarClienteAsync(ClienteItaliaPizza.Servicio.Cliente cliente, ClienteItaliaPizza.Servicio.Direccion direccionCliente, ClienteItaliaPizza.Servicio.Telefono telefonoCliente);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarPedidoADomicilio")]
-        void ModificarPedidoADomicilio(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarDatosPedidoADomicilio", ReplyAction="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarDatosPedidoADomicilioRe" +
+            "sponse")]
+        bool ModificarDatosPedidoADomicilio(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarPedidoADomicilio")]
-        System.Threading.Tasks.Task ModificarPedidoADomicilioAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarDatosPedidoADomicilio", ReplyAction="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarDatosPedidoADomicilioRe" +
+            "sponse")]
+        System.Threading.Tasks.Task<bool> ModificarDatosPedidoADomicilioAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAdministrarPedidosCallCenter/ModificarPedidoLocalCallCenter")]
         void ModificarPedidoLocalCallCenter(ClienteItaliaPizza.Servicio.PedidoLocal pedido);
@@ -4285,12 +4319,12 @@ namespace ClienteItaliaPizza.Servicio {
             return base.Channel.RegistrarClienteAsync(cliente, direccionCliente, telefonoCliente);
         }
         
-        public void ModificarPedidoADomicilio(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido) {
-            base.Channel.ModificarPedidoADomicilio(pedido);
+        public bool ModificarDatosPedidoADomicilio(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido) {
+            return base.Channel.ModificarDatosPedidoADomicilio(pedido);
         }
         
-        public System.Threading.Tasks.Task ModificarPedidoADomicilioAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido) {
-            return base.Channel.ModificarPedidoADomicilioAsync(pedido);
+        public System.Threading.Tasks.Task<bool> ModificarDatosPedidoADomicilioAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido) {
+            return base.Channel.ModificarDatosPedidoADomicilioAsync(pedido);
         }
         
         public void ModificarPedidoLocalCallCenter(ClienteItaliaPizza.Servicio.PedidoLocal pedido) {
@@ -5147,11 +5181,11 @@ namespace ClienteItaliaPizza.Servicio {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdministrarPedidosMeseros/RegistrarPedidoLocal", ReplyAction="http://tempuri.org/IAdministrarPedidosMeseros/RegistrarPedidoLocalResponse")]
         System.Threading.Tasks.Task<bool> RegistrarPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAdministrarPedidosMeseros/ModificarPedidoLocal")]
-        void ModificarPedidoLocal(ClienteItaliaPizza.Servicio.PedidoLocal pedido);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdministrarPedidosMeseros/ModificarDatosPedidoLocal", ReplyAction="http://tempuri.org/IAdministrarPedidosMeseros/ModificarDatosPedidoLocalResponse")]
+        bool ModificarDatosPedidoLocal(ClienteItaliaPizza.Servicio.PedidoLocal pedido);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAdministrarPedidosMeseros/ModificarPedidoLocal")]
-        System.Threading.Tasks.Task ModificarPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdministrarPedidosMeseros/ModificarDatosPedidoLocal", ReplyAction="http://tempuri.org/IAdministrarPedidosMeseros/ModificarDatosPedidoLocalResponse")]
+        System.Threading.Tasks.Task<bool> ModificarDatosPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -5216,12 +5250,12 @@ namespace ClienteItaliaPizza.Servicio {
             return base.Channel.RegistrarPedidoLocalAsync(pedido);
         }
         
-        public void ModificarPedidoLocal(ClienteItaliaPizza.Servicio.PedidoLocal pedido) {
-            base.Channel.ModificarPedidoLocal(pedido);
+        public bool ModificarDatosPedidoLocal(ClienteItaliaPizza.Servicio.PedidoLocal pedido) {
+            return base.Channel.ModificarDatosPedidoLocal(pedido);
         }
         
-        public System.Threading.Tasks.Task ModificarPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido) {
-            return base.Channel.ModificarPedidoLocalAsync(pedido);
+        public System.Threading.Tasks.Task<bool> ModificarDatosPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido) {
+            return base.Channel.ModificarDatosPedidoLocalAsync(pedido);
         }
     }
     
@@ -5414,6 +5448,18 @@ namespace ClienteItaliaPizza.Servicio {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificarPedido/NotificarPedidoADomicilioPreparado")]
         System.Threading.Tasks.Task NotificarPedidoADomicilioPreparadoAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido, string usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificarPedido/ModificarEstadoPedidoLocal")]
+        void ModificarEstadoPedidoLocal(ClienteItaliaPizza.Servicio.PedidoLocal pedido);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificarPedido/ModificarEstadoPedidoLocal")]
+        System.Threading.Tasks.Task ModificarEstadoPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificarPedido/ModificarEstadoPedidoADomicilio")]
+        void ModificarEstadoPedidoADomicilio(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotificarPedido/ModificarEstadoPedidoADomicilio")]
+        System.Threading.Tasks.Task ModificarEstadoPedidoADomicilioAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -5479,6 +5525,22 @@ namespace ClienteItaliaPizza.Servicio {
         
         public System.Threading.Tasks.Task NotificarPedidoADomicilioPreparadoAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido, string usuario) {
             return base.Channel.NotificarPedidoADomicilioPreparadoAsync(pedido, usuario);
+        }
+        
+        public void ModificarEstadoPedidoLocal(ClienteItaliaPizza.Servicio.PedidoLocal pedido) {
+            base.Channel.ModificarEstadoPedidoLocal(pedido);
+        }
+        
+        public System.Threading.Tasks.Task ModificarEstadoPedidoLocalAsync(ClienteItaliaPizza.Servicio.PedidoLocal pedido) {
+            return base.Channel.ModificarEstadoPedidoLocalAsync(pedido);
+        }
+        
+        public void ModificarEstadoPedidoADomicilio(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido) {
+            base.Channel.ModificarEstadoPedidoADomicilio(pedido);
+        }
+        
+        public System.Threading.Tasks.Task ModificarEstadoPedidoADomicilioAsync(ClienteItaliaPizza.Servicio.PedidoADomicilio pedido) {
+            return base.Channel.ModificarEstadoPedidoADomicilioAsync(pedido);
         }
     }
     
