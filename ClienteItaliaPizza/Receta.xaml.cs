@@ -19,14 +19,23 @@ namespace ClienteItaliaPizza
         protected object recetaExistente; //creo esta clase temporalmente para VALIDAR si la ventna se llama con un objeto receta o no
         protected CuentaUsuario1 cuenta = new CuentaUsuario1();
         InstanceContext context;
-        List<string> nombreIngredientesEnDb = new List<string>();
-
+        List<string> nombreIngredientes = new List<string>();
         List<Ingrediente> Ingredientes = new List<Ingrediente>();
-        
+
+        // Constructor de prueba, se debe eliminar
+        public Receta()
+        {
+            InitializeComponent();
+            CargarProvisionesDesdeDb();
+            dataGridIngredientes.ItemsSource = Ingredientes;
+            ButtonAceptar.IsEnabled = false;
+            EliminarIngredienteBtn.IsEnabled = false;
+        }
+
         public Receta(CuentaUsuario1 cuentaUsuario)
         {            
             InitializeComponent();
-            CargarProvisionesEnDb();
+            CargarProvisionesDesdeDb();
             dataGridIngredientes.ItemsSource = Ingredientes;
             cuenta = cuentaUsuario;
             ButtonAceptar.IsEnabled = false;
@@ -66,25 +75,61 @@ namespace ClienteItaliaPizza
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
-             context = new InstanceContext(this);               
-             RegistrarRecetaClient registrarRecetaClient = new RegistrarRecetaClient(context);
-            try
+            context = new InstanceContext(this);               
+            RegistrarRecetaClient registrarRecetaClient = new RegistrarRecetaClient(context);
+            
+            if (InfoIngredientesEstaCompleta())
             {
-             Servicio.Receta receta = new Servicio.Receta();
-             receta.nombreReceta = textBoxNombreReceta.Text;
-             receta.porciones = FuncionesComunes.ParsearADouble(textBoxPorciones.Text);
-             receta.procedimiento = textBoxProcedimiento.Text;
-            receta.activado = true;
-             
-            //receta.Ingrediente = new Ingrediente[1];
-            //Ingredientes.CopyTo(receta.Ingrediente);
-             var array = Ingredientes.ToArray();
-             registrarRecetaClient.RegistrarReceta(receta, array);
+                try
+                {
+                    Servicio.Receta receta = new Servicio.Receta();
+                    receta.nombreReceta = textBoxNombreReceta.Text;
+                    receta.porciones = FuncionesComunes.ParsearADouble(textBoxPorciones.Text);
+                    receta.procedimiento = textBoxProcedimiento.Text;
+                    receta.activado = true;
+
+                    var array = Ingredientes.ToArray();
+                    registrarRecetaClient.RegistrarReceta(receta, array);
+                    DeshabilitarCamposYBotones();
+                }
+                catch (CommunicationException)
+                {
+                    FuncionesComunes.MostrarMensajeDeError("No hay conexion");
+                    HabilitarCamposYBotones();
+                }
             }
-            catch (CommunicationException)
+            else
             {
-                FuncionesComunes.MostrarMensajeDeError("no hay conexion");
-            }                         
+                FuncionesComunes.MostrarMensajeDeError("Es necesario completar la información de los ingredientes para continnuar.");
+            }
+        }
+
+        private bool InfoIngredientesEstaCompleta()
+        {
+            foreach (var ingrediente in Ingredientes)
+            {
+                if (ingrediente.cantidad == 0 ||
+                    ingrediente.peso == "" ||
+                    ingrediente.unidad == "" ||
+                    ingrediente.costoPorUnidad == 0
+                    )
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void DeshabilitarCamposYBotones()
+        {
+            textBlockNombreReceta.IsEnabled = false;
+            textBoxPorciones.IsEnabled = false;
+            dataGridIngredientes.IsEnabled = false;
+            textBoxProcedimiento.IsEnabled = false;
+            ProvisionesList.IsEnabled = false;
+            EliminarIngredienteBtn.IsEnabled = false;
+            ButtonAceptar.IsEnabled = false;
         }
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
@@ -116,9 +161,16 @@ namespace ClienteItaliaPizza
        
         public void RespuestaRR(string mensaje)
         {
-            FuncionesComunes.MostrarMensajeExitoso(mensaje);
-            //MessageBox.Show(mensaje);
-            VaciarCampos();
+            if (mensaje == "Éxito al registrar la receta")
+            {
+                FuncionesComunes.MostrarMensajeExitoso(mensaje);
+                VaciarCampos();
+            }
+            else
+            {
+                FuncionesComunes.MostrarMensajeDeError(mensaje);
+                HabilitarCamposYBotones();
+            }
         }
 
         private void VaciarCampos()
@@ -128,6 +180,17 @@ namespace ClienteItaliaPizza
             Ingredientes.Clear();
             dataGridIngredientes.Items.Refresh();
             textBoxProcedimiento.Text = "";
+        }
+
+        private void HabilitarCamposYBotones()
+        {
+            textBlockNombreReceta.IsEnabled = true;
+            textBoxPorciones.IsEnabled = true;
+            dataGridIngredientes.IsEnabled = true;
+            textBoxProcedimiento.IsEnabled = true;
+            ProvisionesList.IsEnabled = true;
+            EliminarIngredienteBtn.IsEnabled = true;
+            ButtonAceptar.IsEnabled = true;
         }
 
         private void DataGridIngredientes_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
@@ -234,7 +297,6 @@ namespace ClienteItaliaPizza
             }
         }
 
-        // ---------------------------AGREADO POR ÁNGEL-----------------------------------------------------------
         private bool CamposEstanLlenos()
         {
             if(textBoxNombreReceta.Text.Length > 0 && textBoxPorciones.Text.Length > 0
@@ -280,7 +342,7 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void CargarProvisionesEnDb()
+        private void CargarProvisionesDesdeDb()
         {
             InstanceContext context = new InstanceContext(this);
             ConsultarInventarioClient servicioInventario = new ConsultarInventarioClient(context);
@@ -291,7 +353,7 @@ namespace ClienteItaliaPizza
             }
             catch (EndpointNotFoundException)
             {
-                FuncionesComunes.MostrarMensajeDeError("No se pudo recuperar los ingredientes en DB");
+                FuncionesComunes.MostrarMensajeDeError("No se pudieron recuperar los ingredientes porque no se encontró servidor.");
             }
         }
 
@@ -299,8 +361,18 @@ namespace ClienteItaliaPizza
         {
             foreach (var provision in cuentas)
             {
-                ProvisionesDb.Items.Add(provision.nombre);
-                nombreIngredientesEnDb.Add(provision.nombre);
+                nombreIngredientes.Add(provision.nombre);
+            }
+
+            nombreIngredientes.Sort();
+            CargarIngredientesEnGui();
+        }
+
+        private void CargarIngredientesEnGui()
+        {
+            foreach (var nombre in nombreIngredientes)
+            {
+                ProvisionesList.Items.Add(nombre);
             }
         }
 
@@ -309,20 +381,9 @@ namespace ClienteItaliaPizza
             throw new NotImplementedException();
         }
 
-        private void AgregarIngrediente(object sender, SelectionChangedEventArgs e)
-        {
-            if (!YaSeRegistroIngredienteSeleccionado())
-            {
-                Ingrediente ingrediente = new Ingrediente();
-                ingrediente.nombre = ProvisionesDb.SelectedItem.ToString();
-                Ingredientes.Add(ingrediente);
-                dataGridIngredientes.Items.Refresh();
-            }
-        }
-
         private bool YaSeRegistroIngredienteSeleccionado()
         {
-            var nombreProvision = ProvisionesDb.SelectedItem.ToString();
+            var nombreProvision = ProvisionesList.SelectedItem.ToString();
 
             foreach (var ing in Ingredientes)
             {
@@ -375,6 +436,17 @@ namespace ClienteItaliaPizza
             else
             {
                 EliminarIngredienteBtn.IsEnabled = false;
+            }
+        }
+
+        private void AgregarIngrediente_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!YaSeRegistroIngredienteSeleccionado())
+            {
+                Ingrediente ingrediente = new Ingrediente();
+                ingrediente.nombre = ProvisionesList.SelectedItem.ToString();
+                Ingredientes.Add(ingrediente);
+                dataGridIngredientes.Items.Refresh();
             }
         }
     }
