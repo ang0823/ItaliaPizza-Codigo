@@ -559,6 +559,29 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <Parameter Name="IdPedido" Type="int" Mode="In" />
           <Parameter Name="Cantidad" Type="int" Mode="In" />
         </Function>
+        <Function Name="ModificarPedidoADomicilio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDPedido" Type="int" Mode="In" />
+          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="bigint" Mode="In" />
+          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="PrecioTotal" Type="float" Mode="In" />
+          <Parameter Name="Subtotal" Type="float" Mode="In" />
+          <Parameter Name="Descuento" Type="float" Mode="In" />
+          <Parameter Name="abierta" Type="bit" Mode="In" />
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="DireccionDestino" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ModificarPedidoLocal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDPedido" Type="int" Mode="In" />
+          <Parameter Name="InstruccionesEspeciales" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdEmpleado" Type="bigint" Mode="In" />
+          <Parameter Name="IdCuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="PrecioTotal" Type="float" Mode="In" />
+          <Parameter Name="Subtotal" Type="float" Mode="In" />
+          <Parameter Name="Descuento" Type="float" Mode="In" />
+          <Parameter Name="abierta" Type="bit" Mode="In" />
+          <Parameter Name="NumeroMesa" Type="smallint" Mode="In" />
+        </Function>
         <Function Name="MostrarCantidadProductosPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPedido" Type="int" Mode="In" />
         </Function>
@@ -908,6 +931,29 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             <Parameter Name="ActivadoProvisionDirecta" Mode="In" Type="Boolean" />
             <Parameter Name="RestriccionesProvisionDirecta" Mode="In" Type="String" />
             <Parameter Name="Categoria" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ModificarPedidoADomicilio">
+            <Parameter Name="IDPedido" Mode="In" Type="Int32" />
+            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int64" />
+            <Parameter Name="IdCuenta" Mode="In" Type="String" />
+            <Parameter Name="PrecioTotal" Mode="In" Type="Double" />
+            <Parameter Name="Subtotal" Mode="In" Type="Double" />
+            <Parameter Name="Descuento" Mode="In" Type="Double" />
+            <Parameter Name="abierta" Mode="In" Type="Boolean" />
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="DireccionDestino" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ModificarPedidoLocal">
+            <Parameter Name="IDPedido" Mode="In" Type="Int32" />
+            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
+            <Parameter Name="IdEmpleado" Mode="In" Type="Int64" />
+            <Parameter Name="IdCuenta" Mode="In" Type="String" />
+            <Parameter Name="PrecioTotal" Mode="In" Type="Double" />
+            <Parameter Name="Subtotal" Mode="In" Type="Double" />
+            <Parameter Name="Descuento" Mode="In" Type="Double" />
+            <Parameter Name="abierta" Mode="In" Type="Boolean" />
+            <Parameter Name="NumeroMesa" Mode="In" Type="Int16" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="CuentaUsuario">
@@ -1675,6 +1721,8 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <FunctionImportMapping FunctionImportName="RegistrarPedidoYCuenta" FunctionName="BDPizzaModel.Store.RegistrarPedidoYCuenta" />
           <FunctionImportMapping FunctionImportName="RegistroDeClienteConDireccion" FunctionName="BDPizzaModel.Store.RegistroDeClienteConDireccion" />
           <FunctionImportMapping FunctionImportName="RegistrarProvisionDirecta" FunctionName="BDPizzaModel.Store.RegistrarProvisionDirecta" />
+          <FunctionImportMapping FunctionImportName="ModificarPedidoADomicilio" FunctionName="BDPizzaModel.Store.ModificarPedidoADomicilio" />
+          <FunctionImportMapping FunctionImportName="ModificarPedidoLocal" FunctionName="BDPizzaModel.Store.ModificarPedidoLocal" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

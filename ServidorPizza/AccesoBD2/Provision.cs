@@ -21,17 +21,6 @@ namespace AccesoBD2
             this.Receta = new HashSet<Receta>();
         }
 
-        public Provision(int id, string nombre, int noExistencias, string ubicacion, int stockMinimo, double costoUnitario, string unidadMedida)
-        {
-            Id = id;
-            this.nombre = nombre;
-            this.noExistencias = noExistencias;
-            this.ubicacion = ubicacion;
-            this.stockMinimo = stockMinimo;
-            this.costoUnitario = costoUnitario;
-            this.unidadMedida = unidadMedida;
-        }
-
         public int Id { get; set; }
         public string nombre { get; set; }
         public int noExistencias { get; set; }
