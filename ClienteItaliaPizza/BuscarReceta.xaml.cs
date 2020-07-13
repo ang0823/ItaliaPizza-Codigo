@@ -15,11 +15,20 @@ namespace ClienteItaliaPizza
     /// </summary>
     public partial class BuscarReceta : Window, IObtenerRecetasCallback, IConsultarInventarioCallback, IEditarRecetaCallback
     {
+        InstanceContext context;
         CuentaUsuario1 cuenta = new CuentaUsuario1();
         Receta1 receta = new Receta1();
         List<Ingrediente1> ingredientes = new List<Ingrediente1>();
         List<Ingrediente1> copiaIngredientes = new List<Ingrediente1>();
         bool enEdicion = false;
+
+        //Constructor para pruebas, se debe eliminar
+        public BuscarReceta()
+        {
+            InitializeComponent();
+            DeshabiliarCamposYBotones();
+            OcultarIngredientes();
+        }
 
         public BuscarReceta(CuentaUsuario1 cuentaUsuario)
         {
@@ -71,7 +80,7 @@ namespace ClienteItaliaPizza
 
         private void ObtenerRecetaDesdeDb()
         {
-            InstanceContext context = new InstanceContext(this);
+            context = new InstanceContext(this);
             ObtenerRecetasClient servicioReceta = new ObtenerRecetasClient(context);
 
             try
@@ -160,28 +169,53 @@ namespace ClienteItaliaPizza
 
         private void ActualizarInfoReceta()
         {
-            Servicio.Receta recetaModificada = new Servicio.Receta();
-            List<Ingrediente> ingredientesModificados = new List<Ingrediente>();
-
-            InstanceContext context = new InstanceContext(this);
-            EditarRecetaClient servicioReceta = new EditarRecetaClient(context);
-
-            try
+            if (InfoIngredientesCompleta())
             {
-                ActualizarRecetaLocal(ref recetaModificada);
-                ActualizarIngredietesDeRecetaLocal(ref ingredientesModificados);
-                servicioReceta.EditarReceta(recetaModificada, ingredientesModificados.ToArray());
+                Servicio.Receta recetaModificada = new Servicio.Receta();
+                List<Ingrediente> ingredientesModificados = new List<Ingrediente>();
+
+                context = new InstanceContext(this);
+                EditarRecetaClient servicioReceta = new EditarRecetaClient(context);
+
+                try
+                {
+                    ActualizarRecetaLocal(ref recetaModificada);
+                    ActualizarIngredietesDeRecetaLocal(ref ingredientesModificados);
+                    servicioReceta.EditarReceta(recetaModificada, ingredientesModificados.ToArray());
+                }
+                catch (FormatException)
+                {
+                    FuncionesComunes.MostrarMensajeDeError("El número de porciones es inválido");
+                }
             }
-            catch (FormatException)
+            else
             {
-                FuncionesComunes.MostrarMensajeDeError("El número de porciones es inválido");
+                FuncionesComunes.MostrarMensajeDeError("Es necesario completar la información de los ingredientes para continnuar.");
             }
+        }
+
+        private bool InfoIngredientesCompleta()
+        {
+            foreach (var ingrediente in ingredientes)
+            {
+                if (ingrediente.cantidad == 0 ||
+                    ingrediente.peso == "" ||
+                    ingrediente.unidad == "" ||
+                    ingrediente.costoPorUnidad == 0
+                    )
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void ActualizarRecetaLocal(ref Servicio.Receta recetaEntrante)
         {
             try
             {
+                recetaEntrante.id = receta.id;
                 recetaEntrante.nombreReceta = NombreRecetaTxt.Text;
                 recetaEntrante.porciones = double.Parse(PorcionesTxt.Text);
                 recetaEntrante.procedimiento = textBoxProcedimiento.Text;
@@ -197,6 +231,7 @@ namespace ClienteItaliaPizza
             foreach (var ingredient in this.ingredientes)
             {
                 Ingrediente nuevo = new Ingrediente();
+                nuevo.Id = ingredient.id;
                 nuevo.nombre = ingredient.nombre;
                 nuevo.cantidad = ingredient.cantidad;
                 nuevo.peso = ingredient.peso;
@@ -210,15 +245,48 @@ namespace ClienteItaliaPizza
         {
             if (mensaje == "Se modificó correctamente")
             {
-                FuncionesComunes.MostrarMensajeExitoso(mensaje);
-                OcultarIngredientes();
+                string nombreRecetaModificada = NombreRecetaTxt.Text;
+                VaciarCampos();
                 DeshabilitarEdicion();
-                RealizarCopiaDeIngredientes();
+                RecargarReceta(nombreRecetaModificada);
+                FuncionesComunes.MostrarMensajeExitoso(mensaje);
                 enEdicion = false;
             }
             else
             {
                 FuncionesComunes.MostrarMensajeDeError(mensaje);
+            }
+        }
+
+        private void VaciarCampos()
+        {
+            ingredientes.Clear();
+            NombreRecetaTxt.Text = string.Empty;
+            PorcionesTxt.Text = string.Empty;
+            dataGridIngredientes.Items.Refresh();
+            textBoxProcedimiento.Text = string.Empty;
+        }
+
+        private void RecargarReceta(string nombreReceta)
+        {
+            context = new InstanceContext(this);
+            ObtenerRecetasClient servicioReceta = new ObtenerRecetasClient(context);
+
+            try
+            {
+                servicioReceta.ObtenerReceta(nombreReceta);
+            }
+            catch (EndpointNotFoundException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("El servidor no sstá disponible.");
+            }
+            catch (TimeoutException)
+            {
+                FuncionesComunes.MostrarMensajeDeError("Se excedio el tiempo de espera para la respuesta.");
+            }
+            catch (Exception e)
+            {
+                FuncionesComunes.MostrarMensajeDeError(e.GetType() + ": " + e.Message);
             }
         }
 
@@ -253,6 +321,7 @@ namespace ClienteItaliaPizza
                 nombresIngredientes.Add(provision.nombre);
             }
 
+            nombresIngredientes.Sort();
             CargarIngredientesEnListBox(nombresIngredientes);
         }
 
@@ -328,16 +397,7 @@ namespace ClienteItaliaPizza
             textBoxProcedimiento.IsEnabled = false;
         }
 
-        private void AgregarIngrediente(object sender, SelectionChangedEventArgs e)
-        {
-            if (!YaSeRegistroIngredienteSeleccionado())
-            {
-                Ingrediente1 ingrediente = new Ingrediente1();
-                ingrediente.nombre =ingredientesList.SelectedItem.ToString();
-                ingredientes.Add(ingrediente);
-                dataGridIngredientes.Items.Refresh();
-            }
-        }
+        
 
         private bool YaSeRegistroIngredienteSeleccionado()
         {
@@ -445,6 +505,17 @@ namespace ClienteItaliaPizza
         public void DevuelveRecetas(Receta1[] recetas)
         {
             throw new NotImplementedException();
+        }
+
+        private void ingredientesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!YaSeRegistroIngredienteSeleccionado())
+            {
+                Ingrediente1 ingrediente = new Ingrediente1();
+                ingrediente.nombre = ingredientesList.SelectedItem.ToString();
+                ingredientes.Add(ingrediente);
+                dataGridIngredientes.Items.Refresh();
+            }
         }
     }
 }

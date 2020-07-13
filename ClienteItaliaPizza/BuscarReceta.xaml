@@ -41,7 +41,7 @@
             <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Right" Margin="0,0,0,70" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonEliminar_Click" BorderBrush="#FF740005" Background="White" Foreground="#FF740005"/>
             <Button x:Name="ButtonRegresar" Content="Cancelar" HorizontalAlignment="Right" Margin="0,0,0,30" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonRegresar_Click" Foreground="White" Background="#FF740005" BorderBrush="#FF740005"/>
             <Label x:Name="SelectLbl" Content="Seleccionar ingredientes:" HorizontalAlignment="Left" Margin="919,10,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="18"/>
-            <ListBox x:Name="ingredientesList" HorizontalAlignment="Right" Height="238"  Margin="0, 40" VerticalAlignment="Top" Width="215" FontFamily="Arial" FontSize="20" SelectionChanged="AgregarIngrediente"/>
+            <ListBox x:Name="ingredientesList" HorizontalAlignment="Right" Height="238"  Margin="0, 40" VerticalAlignment="Top" Width="215" FontFamily="Arial" FontSize="20" MouseDoubleClick="ingredientesList_MouseDoubleClick"/>
             <Button x:Name="removerBtn" Content="Remover" HorizontalAlignment="Right" Margin="0,283,0,0" VerticalAlignment="Top" Width="215" Height="27" FontFamily="Arial" FontSize="23" Click="RemoverIngrediente"/>
         </Grid>
 
