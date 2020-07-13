@@ -362,7 +362,7 @@ namespace ServidrorPizzaItaliana
                 db.SaveChanges();
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Éxito al eliminar la cuenta de usuario");
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Error al intentar acceder a la base de datos");
             }
