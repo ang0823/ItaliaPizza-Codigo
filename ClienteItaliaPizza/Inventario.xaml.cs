@@ -134,7 +134,5 @@ namespace ClienteItaliaPizza
                 FuncionesComunes.MostrarMensajeDeError("El inventario está vacío, no existen provisiones");
             }
         }
-
-       
     }
 }

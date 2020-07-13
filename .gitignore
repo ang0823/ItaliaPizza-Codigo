@@ -362,3 +362,9 @@ MigrationBackup/
 
 
 # End of https://www.gitignore.io/api/csharp,dotnetcore
+ClienteItaliaPizza/App.config
+ClienteItaliaPizza/Connected Services/Servicio/configuration.svcinfo
+ClienteItaliaPizza/Connected Services/Servicio/configuration91.svcinfo
+ClienteItaliaPizza/Connected Services/Servicio/item1.xsd
+ClienteItaliaPizza/Connected Services/Servicio/Reference.cs
+ClienteItaliaPizza/Connected Services/Servicio/ServicioPizzaItaliana.wsdl

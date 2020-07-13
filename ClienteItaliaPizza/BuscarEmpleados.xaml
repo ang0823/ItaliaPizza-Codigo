@@ -9,10 +9,8 @@
     <Grid Height="690" VerticalAlignment="Top">
         <Grid VerticalAlignment="Top" Height="100" Margin="30, 0">
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
-            <TextBox x:Name="SearchBox" Tag="Ingresar ID de empleado" Style="{DynamicResource placeHolderSearchBox}" Margin="410,32,372,34" Width="Auto" TextChanged="SearchBox_TextChanged" KeyDown="SearchBox_KeyDown" Background="White" BorderBrush="Black"/>
-            <Button x:Name="SearchBtn" VerticalAlignment="Center" Height="50" Width="50" Margin="765,0,302,0" Background="White" Click="SearchBtn_Click">
-                <Image Source="RecursosGUI/search.png" Stretch="Fill"/>
-            </Button>
+            <TextBox x:Name="SearchBox" Tag="Ingresar ID de empleado" Style="{DynamicResource placeHolderSearchBox}" VerticalAlignment="Center" Height="32" Width="350" TextChanged="SearchBox_TextChanged" KeyDown="SearchBox_KeyDown" Background="White" BorderBrush="Black"/>
+            <Button x:Name="SearchBtn" Content="Buscar" VerticalAlignment="Center" Height="32" Width="100" Margin="475,0,0,0" Background="LightGray" Click="SearchBtn_Click" BorderBrush="#FF707070"/>
             <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="White" BorderThickness="0" Click="LogoutBtn_Click">
                 <Image Source="RecursosGUI/logout.png"/>
             </Button>

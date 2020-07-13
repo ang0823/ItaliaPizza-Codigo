@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Collections;
 using System.Globalization;
+using System.Security.Cryptography;
 
 namespace ServidrorPizzaItaliana
 {
@@ -196,49 +197,68 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IModificarCuentaUsuario
     {
-        public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int idrol)
+        public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, string nombreRol)
         {
             try
             {
-                CuentaUsuario c = new CuentaUsuario();
-                c = cuenta;
+                db.Configuration.ProxyCreationEnabled = false;
+                var empleadoEncontrado = (from c in db.EmpleadoSet where c.IdEmpleado == empleado.IdEmpleado select c).FirstOrDefault();
+                var rol = (from r in db.RolSet where r.nombreRol == nombreRol select r).FirstOrDefault();
+                empleadoEncontrado.Rol = rol;
+                empleadoEncontrado.nombre = empleado.nombre;
+                empleadoEncontrado.apellidoPaterno = empleado.apellidoPaterno;
+                empleadoEncontrado.apellidoMaterno = empleado.apellidoMaterno;
+                empleadoEncontrado.correo = empleado.correo;
+                empleadoEncontrado.telefono = empleado.telefono;
+                db.EmpleadoSet.Attach(empleadoEncontrado);
+                db.Entry(empleadoEncontrado).State = EntityState.Modified;
 
-                // db.CuentaUsuarioSet.Attach(c);
-                // db.Entry(c).State = EntityState.Modified;
-                db.CuentaUsuarioSet.AddOrUpdate(c);
+                var direccionEncontrada = (from d in db.DireccionSet where d.Id == direccion.Id select d).FirstOrDefault();
+                direccionEncontrada.calle = direccion.calle;
+                direccionEncontrada.colonia = direccion.colonia;
+                direccionEncontrada.numeroInterior = direccion.numeroInterior;
+                direccionEncontrada.numeroExterior = direccion.numeroExterior;
+                direccionEncontrada.codigoPostal = direccion.codigoPostal;
+                db.DireccionSet.Attach(direccionEncontrada);
+                db.Entry(direccionEncontrada).State = EntityState.Modified;
                 db.SaveChanges();
-                var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
-                Empleado e = new Empleado();
-                e = empleado;
-                e.Rol = rol;
-                // db.EmpleadoSet.Attach(e);
-                // db.Entry(e).State = EntityState.Modified;
-                db.EmpleadoSet.AddOrUpdate(e);
-                db.SaveChanges();
 
-                Direccion d = new Direccion();
-                d = direccion;
-                // db.DireccionSet.Attach(d);
-                // db.Entry(d).State = EntityState.Modified;
-                db.DireccionSet.AddOrUpdate(d);
-                db.SaveChanges();
+                var cuentaEncontrada = (from c in db.CuentaUsuarioSet where c.Empleado.IdEmpleado == empleado.IdEmpleado select c)
+                    .FirstOrDefault();
 
-
+                if (cuentaEncontrada == null)
+                {
+                    db.CuentaUsuarioSet.Add(cuenta);
+                    cuenta.Empleado = empleadoEncontrado;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    cuentaEncontrada.contraseña = cuenta.contraseña;
+                    cuenta.Empleado = empleadoEncontrado;
+                    db.CuentaUsuarioSet.Attach(cuentaEncontrada);
+                    db.Entry(cuentaEncontrada).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                
                 OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().RespuestaMCU("Se modificó correctamente");
                 Console.WriteLine("Se modificó correctamente");
 
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException db)
             {
-                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().RespuestaMCU("Alguno de los datos introducidos no son correctos");
+                OperationContext.Current.GetCallbackChannel<IModificarCuentaUsuarioCallback>().RespuestaMCU(db.Message + "\n\n" 
+                    + db.InnerException + "\n\n" 
+                    + db.StackTrace + "\n\n" 
+                    + db.Source);
             }
         }
 
-        public void ModificarCuentaUsuario2(Empleado empleado, Direccion direccion, int idrol)
+        public void ModificarCuentaUsuario2(Empleado empleado, Direccion direccion, string nombreRol)
         {
             try
             {
-                var rol = (from r in db.RolSet where r.Id == idrol select r).FirstOrDefault();
+                var rol = (from r in db.RolSet where r.nombreRol == nombreRol select r).FirstOrDefault();
                 //Empleado e = new Empleado();
                 //e = empleado;
                 empleado.Rol = rol;
@@ -355,7 +375,7 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IRegistrarProducto
     {
-        public void RegistrarProducto(AccesoBD2.Producto producto, Categoria categoria, int receta)
+        public void RegistrarProducto(AccesoBD2.Producto producto, Categoria categoria, string receta, byte[] imagen)
         {
             try
             {
@@ -367,19 +387,24 @@ namespace ServidrorPizzaItaliana
                 }
                 else
                 {
-                    var recetadb = (from p in db.RecetaSet where p.id == receta select p).FirstOrDefault();
+                    var recetadb = (from p in db.RecetaSet where p.nombreReceta == receta select p).FirstOrDefault();
 
                     producto.Receta = recetadb;
                     producto.Categoria = categoria;
                     db.ProductoSet.Add(producto);
                     db.SaveChanges();
-                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
+                    GuardarImagen(imagen, producto.nombre);
+                    OperationContext.Current.GetCallbackChannel<IRegistrarProductoCallback>().RespuestaRP("Guardado");
                 }
             }
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e.StackTrace);
                 OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Ocurrio un error al registrarReceta");
+            }
+            catch(Exception e)
+            {
+                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR(e.GetType() + " " + e.Message);
             }
         }
     }
@@ -440,7 +465,8 @@ namespace ServidrorPizzaItaliana
                 else
                 {
                     receta.Ingrediente = ingredientes;
-                    db.RecetaSet.Add(receta);
+                    receta.activado = true;
+                    db.RecetaSet.AddOrUpdate(receta);
                     db.SaveChanges();
                     OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
                 }
@@ -461,18 +487,18 @@ namespace ServidrorPizzaItaliana
             {
                 Receta r = new Receta();
                 r = receta;
-                receta.Ingrediente = ingredinetes;
+                r.Ingrediente = ingredinetes;
                 db.RecetaSet.Attach(r);
                 db.Entry(r).State = EntityState.Modified;
                 db.SaveChanges();
-
+                
                 OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER("Se modificó correctamente");
                 Console.WriteLine("Se modificó correctamente");
 
             }
-            catch (InvalidOperationException)
+            catch (Exception e)
             {
-                OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER("Alguno de los datos introducidos no son correctos");
+                OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER(e.GetType()+": "+e.Message);
             }
         }
     }
@@ -503,7 +529,7 @@ namespace ServidrorPizzaItaliana
             }
             catch (InvalidOperationException)
             {
-                OperationContext.Current.GetCallbackChannel<IObtenerRecetasCallback>().RespuestaIOR("Ocurrio un error al intentar acceder a la base de datos intentelo más tarde");
+                OperationContext.Current.GetCallbackChannel<IObtenerRecetasCallback>().RespuestaIOR("No se encontro receta con el nombre " + nombre);
             }
         }
 
@@ -535,7 +561,7 @@ namespace ServidrorPizzaItaliana
     public partial class Servicios : IModificarProducto
     {
 
-        public void ModificarProductoInterno(AccesoBD2.Producto producto, bool modificarImagen, string nombreReceta, byte[] imagen)
+        public void ModificarProductoInterno(AccesoBD2.Producto producto, string nombreReceta, string antiguoNombreImagen, byte[] imagen)
         {
             try
             {
@@ -548,11 +574,8 @@ namespace ServidrorPizzaItaliana
                     db.ProductoSet.AddOrUpdate(producto);
                     db.SaveChanges();
 
-                    if (modificarImagen)
-                    {
-                        EliminarImagen(producto.nombre);
-                        GuardarImagen(imagen, producto.nombre);
-                    }
+                    EliminarImagen(antiguoNombreImagen);
+                    GuardarImagen(imagen, producto.nombre);
 
                     Callback2.RespuestaModificarProducto("Cambios Guardados");
                 }
@@ -568,7 +591,7 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public void ModificarProductoExterno(ProvisionVentaDirecta productoExterno, bool modificarImagen)
+        public void ModificarProductoExterno(ProvisionVentaDirecta productoExterno, string antiguoNombreImagen)
         {
             try
             {
@@ -598,11 +621,9 @@ namespace ServidrorPizzaItaliana
                     db.ProvisionSet.AddOrUpdate(provision);
                     db.SaveChanges();
 
-                    if (modificarImagen == true)
-                    {
-                        EliminarImagen(provision.nombre);
-                        GuardarImagen(productoExterno.Imagen, provision.nombre);
-                    }
+                    EliminarImagen(antiguoNombreImagen);
+                    GuardarImagen(productoExterno.Imagen, provision.nombre);
+
 
                     Callback2.RespuestaModificarProducto("Cambios Guardados");
                 }
@@ -659,7 +680,7 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public void RegistrarProvisionDirecta(Provision provision, ProvisionDirecta provisionDirecta)
+        public void RegistrarProvisionDirecta(Provision provision, ProvisionDirecta provisionDirecta, byte[] imagen)
         {
             try
             {
@@ -672,11 +693,12 @@ namespace ServidrorPizzaItaliana
                 else
                 {
                     db.RegistrarProvisionDirecta(provision.nombre, provision.noExistencias, provision.ubicacion, provision.stockMinimo, provision.costoUnitario, provision.unidadMedida, provision.activado, provisionDirecta.descripcion, provisionDirecta.activado, provisionDirecta.restricciones, provisionDirecta.Categoria.categoria);
-                    Callback3.Respuesta("Registro Exitoso");
+                    GuardarImagen(imagen, provision.nombre);
+                    Callback3.Respuesta("Registro exitoso");
                 }
             }catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message + "\n" + e.GetType() + "\n" + e.StackTrace);
                 Callback3.Respuesta("Ocurrió un error al guardar los datos del ingrediente");
             }
         }
@@ -1608,20 +1630,20 @@ namespace ServidrorPizzaItaliana
 
         public void EliminarImagen(String nombreImagen)
         {
-            File.Delete("../ImagenesDeProductos/" + nombreImagen + ".jpg");
+            File.Delete("ImagenesDeProductos/" + nombreImagen + ".jpg");
         }
 
         public void GuardarImagen(byte[] arrayImagen, string nombreDeImagen)
         {
             Image imagen = (Bitmap)((new ImageConverter()).ConvertFrom(arrayImagen));
-            imagen.Save("../ImagenesDeProductos/" + nombreDeImagen + ".jpg", ImageFormat.Jpeg);
+            imagen.Save("ImagenesDeProductos/" + nombreDeImagen + ".jpg", ImageFormat.Jpeg);
         }
 
         public byte[] ObtenerImagen(string nombreImagen)
         {
             byte[] imagen;
 
-            Stream archivo = new FileStream("../ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
+            Stream archivo = new FileStream("ImagenesDeProductos/" + nombreImagen + ".jpg", FileMode.Open, FileAccess.Read);
 
             using (MemoryStream ms = new MemoryStream())
             {

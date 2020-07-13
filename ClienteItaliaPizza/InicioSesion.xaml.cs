@@ -23,6 +23,7 @@ namespace ClienteItaliaPizza
 
         private void IniciarSesion()
         {
+            DeshabilitarCamposYBotonones();
             string Mensaje;
             string nombreUsuario = textBoxNombreUsuario.Text.Trim();
             string contraseña = passwordBoxContraseña.Password.Trim();
@@ -40,16 +41,26 @@ namespace ClienteItaliaPizza
                 {
                     Mensaje = "Se requiere usuario y contraseña";
                     FuncionesComunes.MostrarMensajeDeError(Mensaje);
+                    HabilitarCamposYBotonones();
                 }
             }
             catch (EndpointNotFoundException)
             {
                 Mensaje = "Falló la conexión con el servidor";
                 FuncionesComunes.MostrarMensajeDeError(Mensaje);
-            } catch (InvalidOperationException error)
+                HabilitarCamposYBotonones();
+            } 
+            catch (InvalidOperationException error)
             {
                 Mensaje = error.Message;
                 FuncionesComunes.MostrarMensajeDeError(Mensaje);
+                HabilitarCamposYBotonones();
+            }
+            catch(TimeoutException)
+            {
+                Mensaje = "Se excedió el tiempo de espera y no hubo respuesta del servidor.";
+                FuncionesComunes.MostrarMensajeDeError(Mensaje);
+                HabilitarCamposYBotonones();
             }
         }
 
@@ -73,7 +84,6 @@ namespace ClienteItaliaPizza
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            DeshabilitarCamposYBotonones();
             IniciarSesion();
         }
 
@@ -136,7 +146,6 @@ namespace ClienteItaliaPizza
         {
             if (e.Key == Key.Return)
             {
-                DeshabilitarCamposYBotonones();
                 IniciarSesion();
             }
         }

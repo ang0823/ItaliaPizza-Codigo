@@ -160,23 +160,16 @@ namespace ServidrorPizzaItaliana
         //Caicero: esto es una propiedad que he agregado de utilidad para los pedidos
         [DataMember] int cantidad;
 
-        private int id1;
-        private int id2;
-        private int noExistencias;
-        private int stockMinimo;
-        private double costoUnitario;
-        private string unidadMedida;
-
         public ProvisionVentaDirecta(int id1, int id2, string nombre, int noExistencias, string ubicacion, int stockMinimo, double costoUnitario, string unidadMedida, bool activado, string descripcion, string restricciones, string categoria)
         {
-            this.id1 = id1;
-            this.id2 = id2;
+            this.idProvisionVentaDirecta = id1;
+            this.idProvision = id2;
             this.nombre = nombre;
-            this.noExistencias = noExistencias;
+            this.cantidadExistencias = noExistencias;
             this.ubicacion = ubicacion;
-            this.stockMinimo = stockMinimo;
-            this.costoUnitario = costoUnitario;
-            this.unidadMedida = unidadMedida;
+            this.stock = stockMinimo;
+            this.precioUnitario = costoUnitario;
+            this.unidadDeMedida = unidadMedida;
             this.activado = activado;
             this.descripcion = descripcion;
             this.restricciones = restricciones;

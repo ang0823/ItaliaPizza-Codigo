@@ -15,7 +15,7 @@ namespace ServidrorPizzaItaliana
         void RegistrarIngrediente(Provision provision);
 
         [OperationContract(IsOneWay = true)]
-        void RegistrarProvisionDirecta(Provision provision, ProvisionDirecta provisionDirecta);
+        void RegistrarProvisionDirecta(Provision provision, ProvisionDirecta provisionDirecta, byte[] imagen);
     }
 
     [ServiceContract]

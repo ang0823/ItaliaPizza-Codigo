@@ -372,36 +372,7 @@ namespace ClienteItaliaPizza
 
         private void VaciarBtn_Click(object sender, RoutedEventArgs e)
         {
-            // VaciarCampos();
-            Provision provision = new Provision
-            {
-                nombre = "Sprite",
-                noExistencias = 60,
-                ubicacion = "Almacén",
-                stockMinimo = 10,
-                costoUnitario = 50.00,
-                unidadMedida = "Lt",
-                activado = true,                
-            };
-
-            ProvisionDirecta provisionDirecta = new ProvisionDirecta
-            {
-                descripcion = "gaseosa de 100ml",
-                activado = true, 
-                restricciones = "con mucho azúcar", 
-                Categoria = new Categoria
-                {
-                    categoria = "Bebidas"
-                }                
-            };
-            try
-            {
-                RegistrarIngredienteClient client = new RegistrarIngredienteClient(new InstanceContext(this));
-                client.RegistrarProvisionDirecta(provision, provisionDirecta);
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message + ex.StackTrace);
-            }
+            VaciarCampos();
         }
 
         private void CancelarBtn_Click(object sender, RoutedEventArgs e)
