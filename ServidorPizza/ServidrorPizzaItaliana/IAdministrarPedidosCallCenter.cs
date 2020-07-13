@@ -24,8 +24,8 @@ namespace ServidrorPizzaItaliana
         [OperationContract(IsOneWay = true)]
         void RegistrarCliente(AccesoBD2.Cliente cliente, Direccion direccionCliente, Telefono telefonoCliente);
 
-        [OperationContract(IsOneWay = true)]
-        void ModificarPedidoADomicilio(PedidoADomicilio pedido);
+        [OperationContract]
+        bool ModificarDatosPedidoADomicilio(PedidoADomicilio pedido);        
 
         [OperationContract(IsOneWay = true)]
         void ModificarPedidoLocalCallCenter(PedidoLocal pedido);
@@ -157,7 +157,7 @@ namespace ServidrorPizzaItaliana
         private string categoria;
         [DataMember]
         private byte[] imagen;
-        //Caicero: esto es una propiedad que he agregado.
+        //Caicero: esto es una propiedad que he agregado de utilidad para los pedidos
         [DataMember] int cantidad;
 
         public ProvisionVentaDirecta(int id1, int id2, string nombre, int noExistencias, string ubicacion, int stockMinimo, double costoUnitario, string unidadMedida, bool activado, string descripcion, string restricciones, string categoria)

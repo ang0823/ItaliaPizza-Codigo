@@ -7,6 +7,7 @@
       <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:ArrayOfPedido" />
       <xs:element minOccurs="0" name="Receta" nillable="true" type="tns:Receta" />
       <xs:element minOccurs="0" name="activado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="precioUnitario" type="xs:double" />
@@ -42,6 +43,7 @@
       <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:ArrayOfPedido" />
       <xs:element minOccurs="0" name="Provision" nillable="true" type="tns:Provision" />
       <xs:element minOccurs="0" name="activado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="restricciones" nillable="true" type="xs:string" />
     </xs:sequence>

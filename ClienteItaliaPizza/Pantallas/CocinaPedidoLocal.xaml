@@ -17,8 +17,9 @@
 
                 <!--Encabezados de la tabla -->
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="250" MinWidth="100" Foreground="#FF0F0F11" IsReadOnly="True" Binding="{Binding nombreplatillo}" FontFamily="Arial" FontSize="16"  />
-                    <DataGridCheckBoxColumn x:Name="ColumnCasillaCheckBox" Header="Preparado" Width="80" MinWidth="150" Binding="{Binding preparado}" HeaderStringFormat=""/>
+                    <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="50" MinWidth="90" Foreground="#FF0F0F11" IsReadOnly="True" Binding="{Binding cantidad}" FontFamily="Arial" FontSize="16"  />
+                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="250" MinWidth="10" Foreground="#FF0F0F11" IsReadOnly="True" Binding="{Binding nombreplatillo}" FontFamily="Arial" FontSize="16"  />
+                    <DataGridCheckBoxColumn x:Name="ColumnCasillaCheckBox" Header="Preparado" Width="*" MinWidth="150" Binding="{Binding preparado}" HeaderStringFormat="" />
                 </DataGrid.Columns>
 
             </DataGrid>

@@ -332,5 +332,91 @@ namespace AccesoBD2
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProvisionDirecta", nombreProvisionDirectaParameter, noExistenciasParameter, ubicacionParameter, stockMinimoParameter, costoUnitarioParameter, unidadMedidaParameter, activadoParameter, descripcionProvisionDirectaParameter, activadoProvisionDirectaParameter, restriccionesProvisionDirectaParameter, categoriaParameter);
         }
+    
+        public virtual int ModificarPedidoADomicilio(Nullable<int> iDPedido, string instruccionesEspeciales, Nullable<long> idEmpleado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subtotal, Nullable<double> descuento, Nullable<bool> abierta, Nullable<int> idCliente, string direccionDestino)
+        {
+            var iDPedidoParameter = iDPedido.HasValue ?
+                new ObjectParameter("IDPedido", iDPedido) :
+                new ObjectParameter("IDPedido", typeof(int));
+    
+            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
+                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
+                new ObjectParameter("InstruccionesEspeciales", typeof(string));
+    
+            var idEmpleadoParameter = idEmpleado.HasValue ?
+                new ObjectParameter("IdEmpleado", idEmpleado) :
+                new ObjectParameter("IdEmpleado", typeof(long));
+    
+            var idCuentaParameter = idCuenta != null ?
+                new ObjectParameter("IdCuenta", idCuenta) :
+                new ObjectParameter("IdCuenta", typeof(string));
+    
+            var precioTotalParameter = precioTotal.HasValue ?
+                new ObjectParameter("PrecioTotal", precioTotal) :
+                new ObjectParameter("PrecioTotal", typeof(double));
+    
+            var subtotalParameter = subtotal.HasValue ?
+                new ObjectParameter("Subtotal", subtotal) :
+                new ObjectParameter("Subtotal", typeof(double));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(double));
+    
+            var abiertaParameter = abierta.HasValue ?
+                new ObjectParameter("abierta", abierta) :
+                new ObjectParameter("abierta", typeof(bool));
+    
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            var direccionDestinoParameter = direccionDestino != null ?
+                new ObjectParameter("DireccionDestino", direccionDestino) :
+                new ObjectParameter("DireccionDestino", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ModificarPedidoADomicilio", iDPedidoParameter, instruccionesEspecialesParameter, idEmpleadoParameter, idCuentaParameter, precioTotalParameter, subtotalParameter, descuentoParameter, abiertaParameter, idClienteParameter, direccionDestinoParameter);
+        }
+    
+        public virtual int ModificarPedidoLocal(Nullable<int> iDPedido, string instruccionesEspeciales, Nullable<long> idEmpleado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subtotal, Nullable<double> descuento, Nullable<bool> abierta, Nullable<short> numeroMesa)
+        {
+            var iDPedidoParameter = iDPedido.HasValue ?
+                new ObjectParameter("IDPedido", iDPedido) :
+                new ObjectParameter("IDPedido", typeof(int));
+    
+            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
+                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
+                new ObjectParameter("InstruccionesEspeciales", typeof(string));
+    
+            var idEmpleadoParameter = idEmpleado.HasValue ?
+                new ObjectParameter("IdEmpleado", idEmpleado) :
+                new ObjectParameter("IdEmpleado", typeof(long));
+    
+            var idCuentaParameter = idCuenta != null ?
+                new ObjectParameter("IdCuenta", idCuenta) :
+                new ObjectParameter("IdCuenta", typeof(string));
+    
+            var precioTotalParameter = precioTotal.HasValue ?
+                new ObjectParameter("PrecioTotal", precioTotal) :
+                new ObjectParameter("PrecioTotal", typeof(double));
+    
+            var subtotalParameter = subtotal.HasValue ?
+                new ObjectParameter("Subtotal", subtotal) :
+                new ObjectParameter("Subtotal", typeof(double));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(double));
+    
+            var abiertaParameter = abierta.HasValue ?
+                new ObjectParameter("abierta", abierta) :
+                new ObjectParameter("abierta", typeof(bool));
+    
+            var numeroMesaParameter = numeroMesa.HasValue ?
+                new ObjectParameter("NumeroMesa", numeroMesa) :
+                new ObjectParameter("NumeroMesa", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ModificarPedidoLocal", iDPedidoParameter, instruccionesEspecialesParameter, idEmpleadoParameter, idCuentaParameter, precioTotalParameter, subtotalParameter, descuentoParameter, abiertaParameter, numeroMesaParameter);
+        }
     }
 }

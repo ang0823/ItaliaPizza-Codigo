@@ -13,12 +13,13 @@
             </StackPanel.Background>
             <Label x:Name="labelIDPedido" Content="id" Background="{x:Null}" Foreground="#FF822B00" FontSize="20" Height="35" Margin="326,0,332,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" Width="62" FontWeight="Bold"/>
             <Label x:Name="labelTipo" Content="tipo" Background="{x:Null}" Foreground="Black" FontSize="20" Height="36" Margin="575,-30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" FlowDirection="RightToLeft" Padding="5,1,5,5" UseLayoutRounding="False" BorderThickness="1,0,0,0" Width="127" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Arial" FontWeight="Bold"/>
-            <Button Content="Listo" Height="55" Margin="606,75,45,0" Background="#FFF39C27" FontSize="22" FontWeight="Bold" BorderBrush="#FF212121" FontFamily="Arial"/>
+            <Button x:Name="buttonListo" Content="Listo" Height="55" Margin="606,75,45,0" Background="#FFF39C27" FontSize="22" FontWeight="Bold" BorderBrush="#FF212121" FontFamily="Arial" Click="buttonListo_Click"/>
             <DataGrid x:Name="DataGridPlatillos"  Margin="25,-124,414,9"  Background="#FFAE9B9B" BorderBrush="#FF070808" Foreground="#FF020202" OpacityMask="#FF5F0A72" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" BorderThickness="0,1,1,1" ClipToBounds="True" Height="121" FontFamily="Arial" FontSize="18"  >
 
                 <!--Encabezados de la tabla -->
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="150" MinWidth="465" Foreground="#FF0F0F11" Binding="{Binding nombre}" FontSize="16" FontFamily="Arial"  />
+                    <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="50" MinWidth="90" Foreground="#FF0F0F11" Binding="{Binding cantidad}" FontSize="16" FontFamily="Arial" IsReadOnly="True" />
+                    <DataGridTextColumn x:Name="ColumnPlatillo" Header="Platillo" Width="*" MinWidth="150" Foreground="#FF0F0F11" Binding="{Binding nombre}" FontSize="16" FontFamily="Arial" IsReadOnly="True"  />
                 </DataGrid.Columns>
 
             </DataGrid>

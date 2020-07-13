@@ -1,19 +1,11 @@
 ﻿using ClienteItaliaPizza.Servicio;
 using ClienteItaliaPizza.Validacion;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Printing;
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using System.Drawing.Imaging;
-using System.Windows.Xps.Packaging;
-using System.Windows.Documents;
-using System.IO;
-using DevExpress.XtraExport.Helpers;
+
 
 namespace ClienteItaliaPizza
 {

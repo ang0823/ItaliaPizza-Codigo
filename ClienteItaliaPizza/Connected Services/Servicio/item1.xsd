@@ -69,10 +69,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ModificarPedidoADomicilio">
+  <xs:element name="ModificarDatosPedidoADomicilio">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="pedido" nillable="true" type="q8:PedidoADomicilio" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModificarDatosPedidoADomicilioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ModificarDatosPedidoADomicilioResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -442,10 +449,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ModificarPedidoLocal">
+  <xs:element name="ModificarDatosPedidoLocal">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="pedido" nillable="true" type="q53:PedidoLocal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModificarDatosPedidoLocalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ModificarDatosPedidoLocalResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -535,17 +549,31 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="RecibirPedidoLocal">
+  <xs:element name="ModificarEstadoPedidoLocal">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="pedido" nillable="true" type="q61:PedidoLocal" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="RecibirPedidoDomicilio">
+  <xs:element name="ModificarEstadoPedidoADomicilio">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="pedido" nillable="true" type="q62:PedidoADomicilio" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecibirPedidoLocal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="pedido" nillable="true" type="q63:PedidoLocal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecibirPedidoDomicilio">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="pedido" nillable="true" type="q64:PedidoADomicilio" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -569,15 +597,15 @@
   <xs:element name="ObtenerTodosPedidos">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="pedidosADomicilio" nillable="true" type="q63:ArrayOfPedidoADomicilioDeServidor" />
-        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="pedidosLocales" nillable="true" type="q64:ArrayOfPedidoLocalDeServidor" />
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="pedidosADomicilio" nillable="true" type="q65:ArrayOfPedidoADomicilioDeServidor" />
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="pedidosLocales" nillable="true" type="q66:ArrayOfPedidoLocalDeServidor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerPedidosLocales">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="pedidosLocales" nillable="true" type="q65:ArrayOfPedidoLocalDeServidor" />
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="pedidosLocales" nillable="true" type="q67:ArrayOfPedidoLocalDeServidor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

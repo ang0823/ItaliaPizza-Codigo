@@ -9,9 +9,11 @@ namespace ClienteItaliaPizza.Pantallas
 {
     /// <summary>
     /// Lógica de interacción para CocinaPedidoLocal.xaml
-    /// </summary>
+    /// </summary>   
     public partial class CocinaPedidoDomicilio : UserControl
     {
+        public EventHandler EventoPedidoDomicilioListo;
+
         public Producto[] llenarDatagridDomicilio
         {
             set { DataGridPlatillos.ItemsSource = value; }
@@ -38,6 +40,11 @@ namespace ClienteItaliaPizza.Pantallas
         public CocinaPedidoDomicilio()
         {
             InitializeComponent();
+        }
+     
+        private void buttonListo_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.EventoPedidoDomicilioListo?.Invoke(this, e);
         }
     }
 }
