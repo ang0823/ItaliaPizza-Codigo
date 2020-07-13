@@ -489,11 +489,27 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                Receta r = new Receta();
-                r = receta;
+                var r = (from recipe in db.RecetaSet where recipe.id == receta.id select recipe)
+                    .Include(i => i.Ingrediente).FirstOrDefault();
+
+                foreach (var ing in ingredinetes)
+                {
+                    var ingredienteRecuperado = (from i in db.IngredienteSet where i.Id == ing.Id select i).FirstOrDefault();
+                    if (ingredienteRecuperado != null)
+                    {
+                        db.IngredienteSet.Attach(ingredienteRecuperado);
+                        db.Entry(ingredienteRecuperado).State = EntityState.Deleted;
+                        db.SaveChanges();
+                    }
+                }
+
+                r.nombreReceta = receta.nombreReceta;
+                r.porciones = receta.porciones;
                 r.Ingrediente = ingredinetes;
+                r.procedimiento = receta.procedimiento;
                 db.RecetaSet.Attach(r);
                 db.Entry(r).State = EntityState.Modified;
+                //db.RecetaSet.AddOrUpdate(r);
                 db.SaveChanges();
                 
                 OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER("Se modificó correctamente");
