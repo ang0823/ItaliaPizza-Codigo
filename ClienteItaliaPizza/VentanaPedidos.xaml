@@ -21,6 +21,7 @@
                 <Image Height="35" Width="39" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
 
             </Button>
+            <Label x:Name="labelDesconectado" Content="" HorizontalAlignment="Left" Margin="405,3,0,0" VerticalAlignment="Top" Width="479" FontFamily="Arial" FontSize="18" Foreground="#FFF91609" FontWeight="Bold"/>
         </Grid>
     </ScrollViewer>
 </Window>
