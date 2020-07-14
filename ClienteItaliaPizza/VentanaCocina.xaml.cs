@@ -17,9 +17,9 @@ namespace ClienteItaliaPizza
     public partial class VentanaCocina : Window, INotificarPedidoCallback, IBuscarPedidosCallback
     {
         InstanceContext context;
-        IBuscarPedidos serverBusquedaPedidos;
-        INotificarPedido server;
-        //NotificarPedidoClient server;
+       // IBuscarPedidos serverBusquedaPedidos;
+       // INotificarPedido server;
+        NotificarPedidoClient server;
         List<PedidoLocal> pedidosLocales = new List<PedidoLocal>();
         List<PedidoADomicilio> pedidosADomicilio = new List<PedidoADomicilio>();
         int ejeY = 40; // eje Y de nuestra ventana
@@ -33,17 +33,17 @@ namespace ClienteItaliaPizza
             try
             {
                 context = new InstanceContext(this);
-                var canal = new DuplexChannelFactory<INotificarPedido>(context, "*");
-                server = canal.CreateChannel();
+               // var canal = new DuplexChannelFactory<INotificarPedido>(context, "*");
+                server = new NotificarPedidoClient(context);
                 //server = new NotificarPedidoClient(context);
-                ((ICommunicationObject)server).Faulted += delegate { MessageBox.Show(" Te desconectaste : Faulted COCINA"); 
+               /* ((ICommunicationObject)server).Faulted += delegate { MessageBox.Show(" Te desconectaste : Faulted COCINA"); 
                     var canal2 = new DuplexChannelFactory<INotificarPedido>(context, "*");
                     server = canal.CreateChannel(); server.AgregarUsuario("Cocinero"); MessageBox.Show("Nuevamente conectado");
                 };
                 ((ICommunicationObject)server).Closed += delegate { MessageBox.Show(" Te desconectaste : Closed COCINA");
                     var canal2 = new DuplexChannelFactory<INotificarPedido>(context, "*");
-                    server = canal.CreateChannel(); server.AgregarUsuario("Cocinero");
-                };
+                    server = canal.CreateChannel(); server.AgregarUsuario("Cocinero"); MessageBox.Show("Nuevamente conectado");
+                };*/
                 server.AgregarUsuario("Cocinero");
 
              //   var canalBusquedas = new DuplexChannelFactory<IBuscarPedidos>(context, "*");

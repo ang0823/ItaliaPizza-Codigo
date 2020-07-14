@@ -1049,8 +1049,8 @@ namespace ServidrorPizzaItaliana
         public void AgregarUsuario(string tipoUsuario)
         {
             usuarios[Callback9] = tipoUsuario;
-            OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
-            OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
+           // OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+           // OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
             Console.WriteLine($"{tipoUsuario} conectado. \n {usuarios.Count} usuarios connectados.");
         }
         public void Desconectar()
@@ -1125,8 +1125,8 @@ namespace ServidrorPizzaItaliana
         {
             const string NOESDESTINATARIO = "Mesero";
 
-            OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
-            OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
+           // OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+           // OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
             foreach (var destinatario in usuarios)
             {
                 if (!destinatario.Value.Equals(NOESDESTINATARIO))
@@ -1151,8 +1151,8 @@ namespace ServidrorPizzaItaliana
         {
             if (ModififcarPedido(pedido) && DisminuirExistenciasDeIngrediente(pedido.Producto.ToList()))
             {
-                OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
-                OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
+               // OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+                //OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
                 foreach (var destinatario in usuarios)
                 {
                     if (!destinatario.Value.Equals(usuario))
@@ -1169,8 +1169,8 @@ namespace ServidrorPizzaItaliana
 
         public void NotificarATodosPedidoLocal(PedidoLocal pedido)
         {
-            OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
-            OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
+           // OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+          //  OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
             foreach (var destinatario in usuarios)
             {
                 destinatario.Key.RecibirPedidoLocal(pedido);
@@ -1179,8 +1179,8 @@ namespace ServidrorPizzaItaliana
 
         public void NotificarPedidoLocalExceptoACocinero(PedidoLocal pedido)
         {
-            OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
-            OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
+            //OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+           // OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
             foreach (var destinatario in usuarios)
             {
                 if (!destinatario.Value.Equals("Cocinero"))
@@ -1194,8 +1194,8 @@ namespace ServidrorPizzaItaliana
         {
             if (ModififcarPedido(pedido) && DisminuirExistenciasDeIngrediente(pedido.Producto.ToList()))
             {
-                OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
-                OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
+               // OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+                //OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
                 foreach (var destinatario in usuarios)
                 {
                     if (destinatario.Value.Equals("Call Center"))

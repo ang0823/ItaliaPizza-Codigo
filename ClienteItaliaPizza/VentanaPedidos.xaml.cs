@@ -55,8 +55,12 @@ namespace ClienteItaliaPizza.Pantallas
                 meserosUC.EventCambiarEstado_Entregado += UC_CambiarEstadoAEntregado;
                 meserosUC.EventTicketPDF += UC_GenerarTicketPDF;
 
-                BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
-                buscarPedidos.BuscarPedidosMesero();
+                meserosUC.ListaEnEspera_DataGrid = pedidosEnEspera;
+                meserosUC.ListaPreparados_DataGrid = pedidosPreparados;
+                meserosUC.ListaEntregados_DataGrid = pedidosEntregados;
+                meserosUC.ListaCancelados_DataGrid = pedidosCancelados;
+                /*BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
+                buscarPedidos.BuscarPedidosMesero();*/
             }
             catch (CommunicationException e)
             {
@@ -91,14 +95,18 @@ namespace ClienteItaliaPizza.Pantallas
                 meserosUC.EventCambiarEstado_Entregado += UC_CambiarEstadoAEntregado;
                 meserosUC.EventCambiarEstado_Enviado += UC_CambiarEstadoAEnviado;
                 meserosUC.EventTicketPDF += UC_GenerarTicketPDF;
-                BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
-                buscarPedidos.BuscarPedidosCallCenter();
 
-
+                meserosUC.ListaEnEspera_DataGrid = pedidosEnEspera;
+                meserosUC.ListaPreparados_DataGrid = pedidosPreparados;
+                meserosUC.ListaEnviados_DataGrid = pedidosEnviados;
+                meserosUC.ListaEntregados_DataGrid = pedidosEntregados;
+                meserosUC.ListaCancelados_DataGrid = pedidosCancelados;
+                /* BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
+                 buscarPedidos.BuscarPedidosCallCenter();*/
                 //BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
                 //((ICommunicationObject)buscarPedidos).Faulted += delegate { MessageBox.Show("Faulted " + buscarPedidos.State +); };
-            // ((ICommunicationObject)buscarPedidos).Closed += delegate { MessageBox.Show(" Te desconectaste : Closed"); };
-               // buscarPedidos.BuscarPedidosCallCenter();
+                // ((ICommunicationObject)buscarPedidos).Closed += delegate { MessageBox.Show(" Te desconectaste : Closed"); };
+                // buscarPedidos.BuscarPedidosCallCenter();
             }
             catch (Exception ex)
             {
@@ -273,7 +281,7 @@ namespace ClienteItaliaPizza.Pantallas
         {
             FuncionesComunes.MostrarMensajeExitoso("PEDIDO A DOMICILIO: " + pedido.Estado.estadoPedido + "\nEmpleado: " + pedido.Empleado.idEmpleadoGenerado);
 
-            if(pedido.Estado.estadoPedido == "En Espera")
+            if(pedido.Estado.estadoPedido.Equals("En Espera"))
             {
                 PedidoADomicilio pedidoExiste = ListaPedidosDomicilio.Find(p => p.Id == Convert.ToInt32(pedido.Id));
                 if (pedidoExiste != null)
@@ -293,28 +301,28 @@ namespace ClienteItaliaPizza.Pantallas
                     ListaPedidosDomicilio.Add(pedido);
                 }               
             }
-            else if(pedido.Estado.estadoPedido == "Preparado")
+            else if(pedido.Estado.estadoPedido.Equals("Preparado"))
             {
                 PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedido.Empleado.idEmpleadoGenerado, pedido.Id.ToString(), "Domicilio", pedido.Cliente.nombre + " " + pedido.Cliente.apellidoPaterno + " " + pedido.Cliente.apellidoMaterno + ": " + pedido.direccionDestino, pedido.instruccionesEspeciales);
                 meserosUC.AgregarOSeleccionar_PedidoEnEspera = pedidoEnDataGrid;
                 pedidosPreparados.Add(pedidoEnDataGrid);
                 pedidosEnEspera.Remove(pedidosEnEspera.FirstOrDefault(p => p.IdPedido == pedidoEnDataGrid.IdPedido));
             }
-            else if(pedido.Estado.estadoPedido == "Enviado")
+            else if(pedido.Estado.estadoPedido.Equals("Enviado"))
             {
                 PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedido.Empleado.idEmpleadoGenerado, pedido.Id.ToString(), "Domicilio", pedido.Cliente.nombre + " " + pedido.Cliente.apellidoPaterno + " " + pedido.Cliente.apellidoMaterno + ": " + pedido.direccionDestino, pedido.instruccionesEspeciales);
                 meserosUC.AgregarOSeleccionar_PedidoEnviado = pedidoEnDataGrid;
                 pedidosEnviados.Add(pedidoEnDataGrid);
                 pedidosPreparados.Remove(pedidosPreparados.FirstOrDefault(p => p.IdPedido == pedidoEnDataGrid.IdPedido));
             }
-            else if(pedido.Estado.estadoPedido == "Entregado")
+            else if(pedido.Estado.estadoPedido.Equals("Entregado"))
             {
                 PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedido.Empleado.idEmpleadoGenerado, pedido.Id.ToString(), "Domicilio", pedido.Cliente.nombre + " " + pedido.Cliente.apellidoPaterno + " " + pedido.Cliente.apellidoMaterno + ": " + pedido.direccionDestino, pedido.instruccionesEspeciales);
                 meserosUC.AgregarOSeleccionar_PedidoEntregado = pedidoEnDataGrid;
                 pedidosEntregados.Add(pedidoEnDataGrid);
                 pedidosEnviados.Remove(pedidosEnviados.FirstOrDefault(p => p.IdPedido == pedidoEnDataGrid.IdPedido));
             }
-            else if(pedido.Estado.estadoPedido == "Cancelado")
+            else if(pedido.Estado.estadoPedido.Equals("Cancelado"))
             {
                 PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedido.Empleado.idEmpleadoGenerado, pedido.Id.ToString(), "Domicilio", pedido.Cliente.nombre + " " + pedido.Cliente.apellidoPaterno + " " + pedido.Cliente.apellidoMaterno + ": " + pedido.direccionDestino, pedido.instruccionesEspeciales);
                 meserosUC.AgregarOSeleccionar_PedidoCancelado = pedidoEnDataGrid;
@@ -331,7 +339,7 @@ namespace ClienteItaliaPizza.Pantallas
         {
             FuncionesComunes.MostrarMensajeExitoso("PEDIDO LOCAL: " + pedido.Estado.estadoPedido + "\nEmpleado: "+ pedido.Empleado.idEmpleadoGenerado);
 
-            if (pedido.Estado.estadoPedido == "En Espera")
+            if (pedido.Estado.estadoPedido.Equals("En Espera"))
             {
                 PedidoLocal pedidoExiste = ListaPedidosLocales.Find(p => p.Id == Convert.ToInt32(pedido.Id));
                 if(pedidoExiste != null)
@@ -351,21 +359,22 @@ namespace ClienteItaliaPizza.Pantallas
                     ListaPedidosLocales.Add(pedido);
                 }               
             }
-            else if(pedido.Estado.estadoPedido == "Preparado")
+            if(pedido.Estado.estadoPedido.Equals("Preparado"))
             {
                 PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedido.Empleado.idEmpleadoGenerado, pedido.Id.ToString(), "Local", pedido.Mesa.numeroMesa.ToString(), pedido.instruccionesEspeciales);
                 meserosUC.AgregarOSeleccionar_PedidoPreparado = pedidoEnDataGrid;
                 pedidosPreparados.Add(pedidoEnDataGrid);
                 pedidosEnEspera.Remove(pedidosEnEspera.FirstOrDefault(p => p.IdPedido == pedidoEnDataGrid.IdPedido));
+                meserosUC.dataGridPedidosPreparados.Items.Refresh();
             }
-            else if(pedido.Estado.estadoPedido == "Entregado")
+            if(pedido.Estado.estadoPedido.Equals("Entregado"))
             {
                 PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedido.Empleado.idEmpleadoGenerado, pedido.Id.ToString(), "Local", pedido.Mesa.numeroMesa.ToString(), pedido.instruccionesEspeciales);
                 meserosUC.AgregarOSeleccionar_PedidoEntregado = pedidoEnDataGrid;
                 pedidosEntregados.Add(pedidoEnDataGrid);
                 pedidosPreparados.Remove(pedidosPreparados.FirstOrDefault(p => p.IdPedido == pedidoEnDataGrid.IdPedido));
             }
-            else if(pedido.Estado.estadoPedido == "Cancelado")
+            if(pedido.Estado.estadoPedido.Equals("Cancelado"))
             {
                 PedidoEnDataGrid pedidoEnDataGrid = new PedidoEnDataGrid(pedido.Empleado.idEmpleadoGenerado, pedido.Id.ToString(), "Local", pedido.Mesa.numeroMesa.ToString(), pedido.instruccionesEspeciales);
                 meserosUC.AgregarOSeleccionar_PedidoCancelado = pedidoEnDataGrid;
@@ -425,23 +434,12 @@ namespace ClienteItaliaPizza.Pantallas
             }
 
             // Pedidos Locales
-            CargarPedidosLocales(pedidosLocales);
-
-            meserosUC.ListaEnEspera_DataGrid = pedidosEnEspera;
-            meserosUC.ListaPreparados_DataGrid = pedidosPreparados;
-            meserosUC.ListaEnviados_DataGrid = pedidosEnviados;
-            meserosUC.ListaEntregados_DataGrid = pedidosEntregados;
-            meserosUC.ListaCancelados_DataGrid = pedidosCancelados;
+            CargarPedidosLocales(pedidosLocales);           
         }
 
         void IBuscarPedidosCallback.ObtenerPedidosLocales(PedidoLocalDeServidor[] pedidosLocales)
         {
-            CargarPedidosLocales(pedidosLocales);
-
-            meserosUC.ListaEnEspera_DataGrid = pedidosEnEspera;
-            meserosUC.ListaPreparados_DataGrid = pedidosPreparados;
-            meserosUC.ListaEntregados_DataGrid = pedidosEntregados;
-            meserosUC.ListaCancelados_DataGrid = pedidosCancelados;
+            CargarPedidosLocales(pedidosLocales);            
         }
 
         void IBuscarPedidosCallback.MensajeErrorBuscarPedidos(string mensaje)

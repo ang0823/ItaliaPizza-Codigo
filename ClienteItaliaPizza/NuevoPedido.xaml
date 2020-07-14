@@ -45,8 +45,8 @@
                         </ItemsControl.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <Image Source="{Binding imagen}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                <StackPanel x:Name="panelEnsalada" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Image x:Name="imagenEnsalada" Source="{Binding imageProducto}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50"  />
                                     <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                     <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                 </StackPanel>

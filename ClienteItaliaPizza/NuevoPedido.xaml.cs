@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ClienteItaliaPizza.Pantallas;
 using DevExpress.Mvvm.Native;
+using System.IO;
 
 namespace ClienteItaliaPizza
 {
@@ -164,8 +165,8 @@ namespace ClienteItaliaPizza
         }       
 
         private void GridBebidas_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {                 
-            //ImageList listaImagesBebidas = new ImageList();
+        {
+            System.Windows.Forms.ImageList listaImagesBebidas = new System.Windows.Forms.ImageList();
             /* ListViewBebidas.ItemsSource = new MovieData[] {
              new MovieData{Title="Movie 1", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
              new MovieData{Title="Movie 2", ImageData=LoadImage("C:/Users/survi/Pictures/Granos Selectos (4).jpg")},
@@ -178,7 +179,18 @@ namespace ClienteItaliaPizza
 
         private BitmapImage LoadImage(byte[] arrayImagen)
         {
-            return new BitmapImage();
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(arrayImagen))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            return image;
         }
 
         private void buttonOrden_Click(object sender, RoutedEventArgs e)
@@ -379,7 +391,7 @@ namespace ClienteItaliaPizza
                             }
                         }catch(Exception ex)
                         {
-                            FuncionesComunes.MostrarMensajeDeError(ex.Message + ex.StackTrace);
+                            FuncionesComunes.MostrarMensajeDeError(ex.Message);
                         }
                     }
                     else
@@ -395,7 +407,7 @@ namespace ClienteItaliaPizza
                         }
                         catch (Exception ex)
                         {
-                            FuncionesComunes.MostrarMensajeDeError(ex.Message + ex.StackTrace);
+                            FuncionesComunes.MostrarMensajeDeError(ex.Message);
                         }
                     }                   
                 }
@@ -417,7 +429,7 @@ namespace ClienteItaliaPizza
                         }
                         catch (Exception ex)
                         {
-                            FuncionesComunes.MostrarMensajeDeError(ex.Message + "\n" + ex.StackTrace);
+                            FuncionesComunes.MostrarMensajeDeError("Error de conexión o Error de notificación a los usuarios conectados: "+ex.Message);
                         }
                     }                   
                 }
@@ -584,11 +596,11 @@ namespace ClienteItaliaPizza
             pedidoADomicilio.fecha = DateTime.Now;
             pedidoADomicilio.Cuenta.Id = GenerarIdPedidoADomicilio(pedidoADomicilio.ClienteId);
             try
-            {
+            {               
                 callCenterClient.RegistrarPedidoADomicilio(pedidoADomicilio);
             }catch(Exception e)
-            {
-                MessageBox.Show(e.Message + " " + e.StackTrace);
+            {                
+                MessageBox.Show("La conexión se perdió: "+e.Message);
             }                 
         }
 
@@ -687,7 +699,7 @@ namespace ClienteItaliaPizza
         {
             foreach (var producto in productos)
             {
-                if (producto.categoria == "Ensaladas")
+                if (producto.categoria == "Ensaladas")                    
                     ListViewEnsaladas.Items.Add(producto);
                 if (producto.categoria == "Pizzas")
                     ListViewPizzas.Items.Add(producto);
@@ -720,7 +732,7 @@ namespace ClienteItaliaPizza
             }
 
             foreach (var producto in productos)
-            {
+            {                
                 if (producto.categoria == "Ensaladas")
                     ListViewEnsaladas.Items.Add(producto);
                 if (producto.categoria == "Pizzas")
@@ -729,7 +741,7 @@ namespace ClienteItaliaPizza
                     ListViewPastas.Items.Add(producto);
                 if (producto.categoria == "Postres")
                     ListViewPostres.Items.Add(producto);
-            }
+            }          
             ListViewBebidas.ItemsSource = provisiones;
         }
 
@@ -848,6 +860,8 @@ namespace ClienteItaliaPizza
             public string nombreProducto { get; set; }
             public double precioUnitario { get; set; }
             public double precioTotal { get; set; }
-        }       
+        }
+
+      
     }
 }
