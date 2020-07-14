@@ -135,7 +135,7 @@ namespace ClienteItaliaPizza
                 conteo++;
 
                 grid.Children.Add(cocinaPedidoDomicilio);
-                cocinaPedidoDomicilios.Add(vistaPedidoDomicilio);
+                cocinaPedidoDomicilios.Add(cocinaPedidoDomicilio);
                 pedidosADomicilio.Add(pedido);
             }
             else

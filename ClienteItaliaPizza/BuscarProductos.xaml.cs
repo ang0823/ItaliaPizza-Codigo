@@ -569,7 +569,7 @@ namespace ClienteItaliaPizza
             if(mensajeError == "Cambios Guardados")
             {
                 FuncionesComunes.MostrarMensajeExitoso(mensajeError);
-                ActualizarInfoProducto();
+       
                 recetaCb.Items.Clear();
                 recetaCb.Items.Add(nombreReceta);
             }
