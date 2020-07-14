@@ -234,10 +234,7 @@ namespace ClienteItaliaPizza
             codigoPostalTxt.IsEnabled = true;
             correoElectronicoTxt.IsEnabled = true;
             telefonoTxt.IsEnabled = true;
-            if(cuenta == null)
-            {
-                usuarioTxt.IsEnabled = true;
-            }
+            usuarioTxt.IsEnabled = true;
             puestosCB.IsEnabled = true;
             contrasenaTxt.IsEnabled = true;
         }
@@ -263,14 +260,9 @@ namespace ClienteItaliaPizza
                 NuevoTelefono != empleado.telefono || NuevaCalle != direccion.calle || 
                 NuevoNoExterior != direccion.numeroExterior || NuevoNoInterior != direccion.numeroInterior || 
                 NuevaColonia != direccion.colonia || NuevoCodigoPostal !=  direccion.codigoPostal || 
-                NuevoRol != nombreRol)
+                NuevoRol != nombreRol || NuevaContrasena != contrasenaTxt.Password)
             {
                 InformacionEditada = true;
-            }
-
-            if (cuenta != null && NuevaContrasena == cuenta.contraseña)
-            {
-                InformacionEditada = false;
             }
 
             return InformacionEditada;
@@ -548,8 +540,6 @@ namespace ClienteItaliaPizza
 
         public void DevuelveCuentas(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol)
         {
-            FuncionesComunes.MostrarMensajeExitoso(cuenta.nombreUsuario + cuenta.contraseña);
-
             Dispatcher.Invoke(() =>
             {
                 VaciarCampos();
@@ -576,6 +566,8 @@ namespace ClienteItaliaPizza
 
         public void DevuelveCuentas2(Empleado1 empleado, Direccion1 direccion, Rol1 rol)
         {
+            cuenta.nombreUsuario = "";
+            cuenta.contraseña = "";
             Dispatcher.Invoke(() =>
             {
                 VaciarCampos();
