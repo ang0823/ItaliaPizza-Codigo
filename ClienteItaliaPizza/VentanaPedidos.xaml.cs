@@ -16,7 +16,7 @@ namespace ClienteItaliaPizza.Pantallas
     /// <summary>
     /// Lógica de interacción para VentanaPedidos.xaml
     /// </summary>
-    [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
+    //[CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     public partial class VentanaPedidos : Window, INotificarPedidoCallback, IBuscarPedidosCallback 
     { 
         NotificarPedidoClient server;
@@ -58,7 +58,7 @@ namespace ClienteItaliaPizza.Pantallas
                 BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
                 buscarPedidos.BuscarPedidosMesero();
             }
-            catch (CommunicationException e)
+            catch (CommunicationException)
             {
                 FuncionesComunes.MostrarMensajeDeError("Error de conexión con el servidor, intente más tarde.");
                 labelDesconectado.Content = "No hay conexión con el Servidor";
@@ -83,29 +83,34 @@ namespace ClienteItaliaPizza.Pantallas
             {
                 server = new NotificarPedidoClient(context);
                 server.AgregarUsuario("Call Center");
+                meserosUC.EventoAgregarNuevoPedidoALista += UC_AgregandoNuevoPedido;
                 meserosUC.EventoAbrirVentanaLocal += UC_AbrirVentanaPedidoLocal;
                 meserosUC.EventoAbrirVentanaADomicilio += UC_AbrirVentanaPedidoADomicilio;
                 meserosUC.EventEditarPedido += UC_EditarPedido;
                 meserosUC.EventQuitarPedido += UC_QuitarPedido;
-                meserosUC.EventCambiarEstado_Enviado += UC_CambiarEstadoAEnviado;
                 meserosUC.EventCambiarEstado_Entregado += UC_CambiarEstadoAEntregado;
+                meserosUC.EventCambiarEstado_Enviado += UC_CambiarEstadoAEnviado;
                 meserosUC.EventTicketPDF += UC_GenerarTicketPDF;
-
-
                 BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
-                ((ICommunicationObject)buscarPedidos).Faulted += delegate { MessageBox.Show("Faulted " + buscarPedidos.State); };
-                ((ICommunicationObject)buscarPedidos).Closed += delegate { MessageBox.Show(" Te desconectaste : Closed"); };
                 buscarPedidos.BuscarPedidosCallCenter();
+
+
+                //BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
+                //((ICommunicationObject)buscarPedidos).Faulted += delegate { MessageBox.Show("Faulted " + buscarPedidos.State +); };
+            // ((ICommunicationObject)buscarPedidos).Closed += delegate { MessageBox.Show(" Te desconectaste : Closed"); };
+               // buscarPedidos.BuscarPedidosCallCenter();
             }
-            catch (CommunicationException)
+            catch (Exception ex)
             {
-                FuncionesComunes.MostrarMensajeDeError("Error de conexión con el servidor, intente más tarde");
+                FuncionesComunes.MostrarMensajeDeError("Error de conexión con el servidor, intente más tarde "+ex.Message + " " +ex.StackTrace);
                 labelDesconectado.Content = "No hay conexión con el Servidor";
-            }catch(TimeoutException ex)
-            {
-                FuncionesComunes.MostrarMensajeDeError("Error de conexión con el servidor, intente más tarde "+ ex.Message);
             }
-        }       
+        }
+
+        private void UC_AgregandoNuevoPedido(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         private void UC_CambiarEstadoAEntregado(object sender, EventArgs e)
         {

@@ -23,7 +23,6 @@ namespace ClienteItaliaPizza
         Categoria categoria = new Categoria();
         byte[] imagenProducto;
         string nombreReceta;
-        readonly bool imagenEditada = true;
         bool enEdicion = false;
         
         public BuscarProductos(CuentaUsuario1 cuenta)

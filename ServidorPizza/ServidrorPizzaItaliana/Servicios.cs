@@ -393,7 +393,7 @@ namespace ServidrorPizzaItaliana
                 db.SaveChanges();
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Éxito al eliminar la cuenta de usuario");
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Error al intentar acceder a la base de datos");
             }
@@ -499,8 +499,12 @@ namespace ServidrorPizzaItaliana
                     receta.activado = true;
                     db.RecetaSet.AddOrUpdate(receta);
                     db.SaveChanges();
-                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrar la receta");
                 }
+            }
+            catch(DbEntityValidationException)
+            {
+                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Faltan detalles de las porciones en alguno de los ingredientes, favor de incluirlos para poder continuar.");
             }
             catch (InvalidOperationException e)
             {
@@ -516,11 +520,27 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                Receta r = new Receta();
-                r = receta;
+                var r = (from recipe in db.RecetaSet where recipe.id == receta.id select recipe)
+                    .Include(i => i.Ingrediente).FirstOrDefault();
+
+                foreach (var ing in ingredinetes)
+                {
+                    var ingredienteRecuperado = (from i in db.IngredienteSet where i.Id == ing.Id select i).FirstOrDefault();
+                    if (ingredienteRecuperado != null)
+                    {
+                        db.IngredienteSet.Attach(ingredienteRecuperado);
+                        db.Entry(ingredienteRecuperado).State = EntityState.Deleted;
+                        db.SaveChanges();
+                    }
+                }
+
+                r.nombreReceta = receta.nombreReceta;
+                r.porciones = receta.porciones;
                 r.Ingrediente = ingredinetes;
+                r.procedimiento = receta.procedimiento;
                 db.RecetaSet.Attach(r);
                 db.Entry(r).State = EntityState.Modified;
+                //db.RecetaSet.AddOrUpdate(r);
                 db.SaveChanges();
                 
                 OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER("Se modificó correctamente");
@@ -1156,6 +1176,8 @@ namespace ServidrorPizzaItaliana
         {
             const string NOESDESTINATARIO = "Mesero";
 
+            OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+            OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
             foreach (var destinatario in usuarios)
             {
                 if (!destinatario.Value.Equals(NOESDESTINATARIO))
@@ -1180,6 +1202,8 @@ namespace ServidrorPizzaItaliana
         {
             if (ModififcarPedido(pedido) && DisminuirExistenciasDeIngrediente(pedido.Producto.ToList()))
             {
+                OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+                OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
                 foreach (var destinatario in usuarios)
                 {
                     if (!destinatario.Value.Equals(usuario))
@@ -1196,6 +1220,8 @@ namespace ServidrorPizzaItaliana
 
         public void NotificarATodosPedidoLocal(PedidoLocal pedido)
         {
+            OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+            OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
             foreach (var destinatario in usuarios)
             {
                 destinatario.Key.RecibirPedidoLocal(pedido);
@@ -1204,6 +1230,8 @@ namespace ServidrorPizzaItaliana
 
         public void NotificarPedidoLocalExceptoACocinero(PedidoLocal pedido)
         {
+            OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+            OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
             foreach (var destinatario in usuarios)
             {
                 if (!destinatario.Value.Equals("Cocinero"))
@@ -1217,6 +1245,8 @@ namespace ServidrorPizzaItaliana
         {
             if (ModififcarPedido(pedido) && DisminuirExistenciasDeIngrediente(pedido.Producto.ToList()))
             {
+                OperationContext.Current.Channel.Closed += delegate { Desconectar(); };
+                OperationContext.Current.Channel.Faulted += delegate { Desconectar(); };
                 foreach (var destinatario in usuarios)
                 {
                     if (destinatario.Value.Equals("Call Center"))
@@ -1245,7 +1275,7 @@ namespace ServidrorPizzaItaliana
         private List<PedidoADomicilioDeServidor> pedidosADomicilio;
         private List<PedidoLocalDeServidor> pedidosLocalesDeServidor;
         private static DateTime fecha = DateTime.Now;
-        private string fechaDelDia = fecha.ToString("dd/MM/yyyy");
+        private string fechaDelDia = fecha.ToString("dd/MM/yyyy"); //"12/07/2020";
         private const string IDPEDIDOLOCAL = "PL";
         private const string IDPEDIDOADOMICILIO = "PD";
 

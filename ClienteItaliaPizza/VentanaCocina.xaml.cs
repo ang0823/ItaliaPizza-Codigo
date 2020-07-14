@@ -36,15 +36,21 @@ namespace ClienteItaliaPizza
                 var canal = new DuplexChannelFactory<INotificarPedido>(context, "*");
                 server = canal.CreateChannel();
                 //server = new NotificarPedidoClient(context);
-                ((ICommunicationObject)server).Faulted += delegate { MessageBox.Show(" Te desconectaste : Faulted COCINA"); };
-                ((ICommunicationObject)server).Closed += delegate { MessageBox.Show(" Te desconectaste : Closed COCINA"); };
+                ((ICommunicationObject)server).Faulted += delegate { MessageBox.Show(" Te desconectaste : Faulted COCINA"); 
+                    var canal2 = new DuplexChannelFactory<INotificarPedido>(context, "*");
+                    server = canal.CreateChannel(); server.AgregarUsuario("Cocinero"); MessageBox.Show("Nuevamente conectado");
+                };
+                ((ICommunicationObject)server).Closed += delegate { MessageBox.Show(" Te desconectaste : Closed COCINA");
+                    var canal2 = new DuplexChannelFactory<INotificarPedido>(context, "*");
+                    server = canal.CreateChannel(); server.AgregarUsuario("Cocinero");
+                };
                 server.AgregarUsuario("Cocinero");
 
-               /* var canalBusquedas = new DuplexChannelFactory<IBuscarPedidos>(context, "*");
-                serverBusquedaPedidos = canalBusquedas.CreateChannel();
-                ((ICommunicationObject)serverBusquedaPedidos).Faulted += delegate { MessageBox.Show( " Te desconectaste : Faulted"); };
-                ((ICommunicationObject)serverBusquedaPedidos).Closed += delegate { MessageBox.Show( " Te desconectaste : Closed"); };*/
-                //serverBusquedaPedidos.BuscarPedidosCallCenter();
+             //   var canalBusquedas = new DuplexChannelFactory<IBuscarPedidos>(context, "*");
+              //  serverBusquedaPedidos = canalBusquedas.CreateChannel();
+               // ((ICommunicationObject)serverBusquedaPedidos).Faulted += delegate { MessageBox.Show( " Te desconectaste : Faulted"); };
+               // ((ICommunicationObject)serverBusquedaPedidos).Closed += delegate { MessageBox.Show( " Te desconectaste : Closed"); };*/
+               // serverBusquedaPedidos.BuscarPedidosCallCenter();
             }
             catch(CommunicationException e)
             {
