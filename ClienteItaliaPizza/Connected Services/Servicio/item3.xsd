@@ -248,4 +248,19 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="PedidoLocalDeServidor" nillable="true" type="tns:PedidoLocalDeServidor" />
+  <xs:complexType name="ArrayOfReporte">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Reporte" nillable="true" type="tns:Reporte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReporte" nillable="true" type="tns:ArrayOfReporte" />
+  <xs:complexType name="Reporte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="nombreEmpleado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="totalCuenta" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Reporte" nillable="true" type="tns:Reporte" />
 </xs:schema>

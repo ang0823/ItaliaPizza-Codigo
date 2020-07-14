@@ -20,7 +20,7 @@ namespace AccesoBD2
             this.ProvisionDirecta = new HashSet<ProvisionDirecta>();
             this.Receta = new HashSet<Receta>();
         }
-
+    
         public int Id { get; set; }
         public string nombre { get; set; }
         public int noExistencias { get; set; }

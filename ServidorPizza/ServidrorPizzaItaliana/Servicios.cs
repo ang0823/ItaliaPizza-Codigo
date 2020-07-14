@@ -195,6 +195,37 @@ namespace ServidrorPizzaItaliana
         }
     }
 
+    public partial class Servicios : IGenerarReporteDelDia
+    {
+        public void ObtenerReporteDelDia()
+        {
+            try
+            {
+                DateTime fecha = DateTime.Now;
+                string fechaDelDia = fecha.ToString("dd/MM/yyyy");
+
+                List<Reporte> reporte = new List<Reporte>();
+
+                var pedidos = db.PedidoSet.Where(p => p.Cuenta.Id.Contains(fechaDelDia)).Include(x => x.Cuenta).Include(x => x.Empleado).ToList();
+
+                foreach (var valor in pedidos)
+                {
+                    reporte.Add(new Reporte(valor.Id, valor.fecha, valor.Cuenta.precioTotal, valor.Empleado.nombre));
+                }
+
+                OperationContext.Current.GetCallbackChannel<IGenerarReporteDelDiaCallback>().DevuelveReporte(reporte);
+                Console.WriteLine("Ha devuelto el reporte");
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                OperationContext.Current.GetCallbackChannel<IGenerarReporteDelDiaCallback>().RespuestaReporteDelDia("Ocurrió un error en la base de datos por favor intentelo más tarde");
+            }
+
+        }
+    }
+
     public partial class Servicios : IModificarCuentaUsuario
     {
         public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, string nombreRol)

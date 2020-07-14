@@ -616,4 +616,23 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ObtenerReporteDelDia">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DevuelveReporte">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana" minOccurs="0" name="reportes" nillable="true" type="q68:ArrayOfReporte" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RespuestaReporteDelDia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
