@@ -195,6 +195,37 @@ namespace ServidrorPizzaItaliana
         }
     }
 
+    public partial class Servicios : IGenerarReporteDelDia
+    {
+        public void ObtenerReporteDelDia()
+        {
+            try
+            {
+                DateTime fecha = DateTime.Now;
+                string fechaDelDia = fecha.ToString("dd/MM/yyyy");
+
+                List<Reporte> reporte = new List<Reporte>();
+
+                var pedidos = db.PedidoSet.Where(p => p.Cuenta.Id.Contains(fechaDelDia)).Include(x => x.Cuenta).Include(x => x.Empleado).ToList();
+
+                foreach (var valor in pedidos)
+                {
+                    reporte.Add(new Reporte(valor.Id, valor.fecha, valor.Cuenta.precioTotal, valor.Empleado.nombre));
+                }
+
+                OperationContext.Current.GetCallbackChannel<IGenerarReporteDelDiaCallback>().DevuelveReporte(reporte);
+                Console.WriteLine("Ha devuelto el reporte");
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                OperationContext.Current.GetCallbackChannel<IGenerarReporteDelDiaCallback>().RespuestaReporteDelDia("Ocurrió un error en la base de datos por favor intentelo más tarde");
+            }
+
+        }
+    }
+
     public partial class Servicios : IModificarCuentaUsuario
     {
         public void ModificarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, string nombreRol)
@@ -362,7 +393,7 @@ namespace ServidrorPizzaItaliana
                 db.SaveChanges();
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Éxito al eliminar la cuenta de usuario");
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 OperationContext.Current.GetCallbackChannel<IEliminarCuentaUsuarioCallback>().RespuestaECU("Error al intentar acceder a la base de datos");
             }
@@ -468,8 +499,12 @@ namespace ServidrorPizzaItaliana
                     receta.activado = true;
                     db.RecetaSet.AddOrUpdate(receta);
                     db.SaveChanges();
-                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrarReceta");
+                    OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Éxito al registrar la receta");
                 }
+            }
+            catch(DbEntityValidationException)
+            {
+                OperationContext.Current.GetCallbackChannel<IRegistrarRecetaCallback>().RespuestaRR("Faltan detalles de las porciones en alguno de los ingredientes, favor de incluirlos para poder continuar.");
             }
             catch (InvalidOperationException e)
             {
@@ -485,11 +520,27 @@ namespace ServidrorPizzaItaliana
         {
             try
             {
-                Receta r = new Receta();
-                r = receta;
+                var r = (from recipe in db.RecetaSet where recipe.id == receta.id select recipe)
+                    .Include(i => i.Ingrediente).FirstOrDefault();
+
+                foreach (var ing in ingredinetes)
+                {
+                    var ingredienteRecuperado = (from i in db.IngredienteSet where i.Id == ing.Id select i).FirstOrDefault();
+                    if (ingredienteRecuperado != null)
+                    {
+                        db.IngredienteSet.Attach(ingredienteRecuperado);
+                        db.Entry(ingredienteRecuperado).State = EntityState.Deleted;
+                        db.SaveChanges();
+                    }
+                }
+
+                r.nombreReceta = receta.nombreReceta;
+                r.porciones = receta.porciones;
                 r.Ingrediente = ingredinetes;
+                r.procedimiento = receta.procedimiento;
                 db.RecetaSet.Attach(r);
                 db.Entry(r).State = EntityState.Modified;
+                //db.RecetaSet.AddOrUpdate(r);
                 db.SaveChanges();
                 
                 OperationContext.Current.GetCallbackChannel<IEditarRecetaCallback>().RespuestaER("Se modificó correctamente");

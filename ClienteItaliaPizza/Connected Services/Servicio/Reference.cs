@@ -4128,6 +4128,99 @@ namespace ClienteItaliaPizza.Servicio {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Reporte", Namespace="http://schemas.datacontract.org/2004/07/ServidrorPizzaItaliana")]
+    [System.SerializableAttribute()]
+    public partial class Reporte : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime fechaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nombreEmpleadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double totalCuentaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPedido {
+            get {
+                return this.IdPedidoField;
+            }
+            set {
+                if ((this.IdPedidoField.Equals(value) != true)) {
+                    this.IdPedidoField = value;
+                    this.RaisePropertyChanged("IdPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                if ((this.fechaField.Equals(value) != true)) {
+                    this.fechaField = value;
+                    this.RaisePropertyChanged("fecha");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nombreEmpleado {
+            get {
+                return this.nombreEmpleadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nombreEmpleadoField, value) != true)) {
+                    this.nombreEmpleadoField = value;
+                    this.RaisePropertyChanged("nombreEmpleado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double totalCuenta {
+            get {
+                return this.totalCuentaField;
+            }
+            set {
+                if ((this.totalCuentaField.Equals(value) != true)) {
+                    this.totalCuentaField = value;
+                    this.RaisePropertyChanged("totalCuenta");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Servicio.IBuscarProducto", CallbackContract=typeof(ClienteItaliaPizza.Servicio.IBuscarProductoCallback))]
     public interface IBuscarProducto {
@@ -5616,6 +5709,64 @@ namespace ClienteItaliaPizza.Servicio {
         
         public System.Threading.Tasks.Task BuscarPedidosMeseroAsync() {
             return base.Channel.BuscarPedidosMeseroAsync();
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Servicio.IGenerarReporteDelDia", CallbackContract=typeof(ClienteItaliaPizza.Servicio.IGenerarReporteDelDiaCallback))]
+    public interface IGenerarReporteDelDia {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGenerarReporteDelDia/ObtenerReporteDelDia")]
+        void ObtenerReporteDelDia();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGenerarReporteDelDia/ObtenerReporteDelDia")]
+        System.Threading.Tasks.Task ObtenerReporteDelDiaAsync();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IGenerarReporteDelDiaCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGenerarReporteDelDia/DevuelveReporte")]
+        void DevuelveReporte(ClienteItaliaPizza.Servicio.Reporte[] reportes);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGenerarReporteDelDia/RespuestaReporteDelDia")]
+        void RespuestaReporteDelDia(string mensaje);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IGenerarReporteDelDiaChannel : ClienteItaliaPizza.Servicio.IGenerarReporteDelDia, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GenerarReporteDelDiaClient : System.ServiceModel.DuplexClientBase<ClienteItaliaPizza.Servicio.IGenerarReporteDelDia>, ClienteItaliaPizza.Servicio.IGenerarReporteDelDia {
+        
+        public GenerarReporteDelDiaClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public GenerarReporteDelDiaClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public GenerarReporteDelDiaClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public GenerarReporteDelDiaClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public GenerarReporteDelDiaClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void ObtenerReporteDelDia() {
+            base.Channel.ObtenerReporteDelDia();
+        }
+        
+        public System.Threading.Tasks.Task ObtenerReporteDelDiaAsync() {
+            return base.Channel.ObtenerReporteDelDiaAsync();
         }
     }
 }

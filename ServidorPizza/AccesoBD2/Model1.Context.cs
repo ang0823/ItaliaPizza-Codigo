@@ -44,6 +44,159 @@ namespace AccesoBD2
         public virtual DbSet<Provision> ProvisionSet { get; set; }
         public virtual DbSet<Ingrediente> IngredienteSet { get; set; }
     
+        public virtual int ModificarPedidoADomicilio(Nullable<int> iDPedido, string instruccionesEspeciales, Nullable<long> idEmpleado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subtotal, Nullable<double> descuento, Nullable<bool> abierta, Nullable<int> idCliente, string direccionDestino)
+        {
+            var iDPedidoParameter = iDPedido.HasValue ?
+                new ObjectParameter("IDPedido", iDPedido) :
+                new ObjectParameter("IDPedido", typeof(int));
+    
+            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
+                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
+                new ObjectParameter("InstruccionesEspeciales", typeof(string));
+    
+            var idEmpleadoParameter = idEmpleado.HasValue ?
+                new ObjectParameter("IdEmpleado", idEmpleado) :
+                new ObjectParameter("IdEmpleado", typeof(long));
+    
+            var idCuentaParameter = idCuenta != null ?
+                new ObjectParameter("IdCuenta", idCuenta) :
+                new ObjectParameter("IdCuenta", typeof(string));
+    
+            var precioTotalParameter = precioTotal.HasValue ?
+                new ObjectParameter("PrecioTotal", precioTotal) :
+                new ObjectParameter("PrecioTotal", typeof(double));
+    
+            var subtotalParameter = subtotal.HasValue ?
+                new ObjectParameter("Subtotal", subtotal) :
+                new ObjectParameter("Subtotal", typeof(double));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(double));
+    
+            var abiertaParameter = abierta.HasValue ?
+                new ObjectParameter("abierta", abierta) :
+                new ObjectParameter("abierta", typeof(bool));
+    
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            var direccionDestinoParameter = direccionDestino != null ?
+                new ObjectParameter("DireccionDestino", direccionDestino) :
+                new ObjectParameter("DireccionDestino", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ModificarPedidoADomicilio", iDPedidoParameter, instruccionesEspecialesParameter, idEmpleadoParameter, idCuentaParameter, precioTotalParameter, subtotalParameter, descuentoParameter, abiertaParameter, idClienteParameter, direccionDestinoParameter);
+        }
+    
+        public virtual int ModificarPedidoLocal(Nullable<int> iDPedido, string instruccionesEspeciales, Nullable<long> idEmpleado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subtotal, Nullable<double> descuento, Nullable<bool> abierta, Nullable<short> numeroMesa)
+        {
+            var iDPedidoParameter = iDPedido.HasValue ?
+                new ObjectParameter("IDPedido", iDPedido) :
+                new ObjectParameter("IDPedido", typeof(int));
+    
+            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
+                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
+                new ObjectParameter("InstruccionesEspeciales", typeof(string));
+    
+            var idEmpleadoParameter = idEmpleado.HasValue ?
+                new ObjectParameter("IdEmpleado", idEmpleado) :
+                new ObjectParameter("IdEmpleado", typeof(long));
+    
+            var idCuentaParameter = idCuenta != null ?
+                new ObjectParameter("IdCuenta", idCuenta) :
+                new ObjectParameter("IdCuenta", typeof(string));
+    
+            var precioTotalParameter = precioTotal.HasValue ?
+                new ObjectParameter("PrecioTotal", precioTotal) :
+                new ObjectParameter("PrecioTotal", typeof(double));
+    
+            var subtotalParameter = subtotal.HasValue ?
+                new ObjectParameter("Subtotal", subtotal) :
+                new ObjectParameter("Subtotal", typeof(double));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(double));
+    
+            var abiertaParameter = abierta.HasValue ?
+                new ObjectParameter("abierta", abierta) :
+                new ObjectParameter("abierta", typeof(bool));
+    
+            var numeroMesaParameter = numeroMesa.HasValue ?
+                new ObjectParameter("NumeroMesa", numeroMesa) :
+                new ObjectParameter("NumeroMesa", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ModificarPedidoLocal", iDPedidoParameter, instruccionesEspecialesParameter, idEmpleadoParameter, idCuentaParameter, precioTotalParameter, subtotalParameter, descuentoParameter, abiertaParameter, numeroMesaParameter);
+        }
+    
+        public virtual ObjectResult<MostrarCantidadProductosPedido_Result5> MostrarCantidadProductosPedido(Nullable<int> idPedido)
+        {
+            var idPedidoParameter = idPedido.HasValue ?
+                new ObjectParameter("IdPedido", idPedido) :
+                new ObjectParameter("IdPedido", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarCantidadProductosPedido_Result5>("MostrarCantidadProductosPedido", idPedidoParameter);
+        }
+    
+        public virtual ObjectResult<MostrarCantidadProvisionesPedido_Result4> MostrarCantidadProvisionesPedido(Nullable<int> idPedido)
+        {
+            var idPedidoParameter = idPedido.HasValue ?
+                new ObjectParameter("IdPedido", idPedido) :
+                new ObjectParameter("IdPedido", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarCantidadProvisionesPedido_Result4>("MostrarCantidadProvisionesPedido", idPedidoParameter);
+        }
+    
+        public virtual int RegistrarProvisionDirecta(string nombreProvisionDirecta, Nullable<int> noExistencias, string ubicacion, Nullable<int> stockMinimo, Nullable<double> costoUnitario, string unidadMedida, Nullable<bool> activado, string descripcionProvisionDirecta, Nullable<bool> activadoProvisionDirecta, string restriccionesProvisionDirecta, string categoria)
+        {
+            var nombreProvisionDirectaParameter = nombreProvisionDirecta != null ?
+                new ObjectParameter("NombreProvisionDirecta", nombreProvisionDirecta) :
+                new ObjectParameter("NombreProvisionDirecta", typeof(string));
+    
+            var noExistenciasParameter = noExistencias.HasValue ?
+                new ObjectParameter("noExistencias", noExistencias) :
+                new ObjectParameter("noExistencias", typeof(int));
+    
+            var ubicacionParameter = ubicacion != null ?
+                new ObjectParameter("Ubicacion", ubicacion) :
+                new ObjectParameter("Ubicacion", typeof(string));
+    
+            var stockMinimoParameter = stockMinimo.HasValue ?
+                new ObjectParameter("StockMinimo", stockMinimo) :
+                new ObjectParameter("StockMinimo", typeof(int));
+    
+            var costoUnitarioParameter = costoUnitario.HasValue ?
+                new ObjectParameter("CostoUnitario", costoUnitario) :
+                new ObjectParameter("CostoUnitario", typeof(double));
+    
+            var unidadMedidaParameter = unidadMedida != null ?
+                new ObjectParameter("UnidadMedida", unidadMedida) :
+                new ObjectParameter("UnidadMedida", typeof(string));
+    
+            var activadoParameter = activado.HasValue ?
+                new ObjectParameter("Activado", activado) :
+                new ObjectParameter("Activado", typeof(bool));
+    
+            var descripcionProvisionDirectaParameter = descripcionProvisionDirecta != null ?
+                new ObjectParameter("DescripcionProvisionDirecta", descripcionProvisionDirecta) :
+                new ObjectParameter("DescripcionProvisionDirecta", typeof(string));
+    
+            var activadoProvisionDirectaParameter = activadoProvisionDirecta.HasValue ?
+                new ObjectParameter("ActivadoProvisionDirecta", activadoProvisionDirecta) :
+                new ObjectParameter("ActivadoProvisionDirecta", typeof(bool));
+    
+            var restriccionesProvisionDirectaParameter = restriccionesProvisionDirecta != null ?
+                new ObjectParameter("RestriccionesProvisionDirecta", restriccionesProvisionDirecta) :
+                new ObjectParameter("RestriccionesProvisionDirecta", typeof(string));
+    
+            var categoriaParameter = categoria != null ?
+                new ObjectParameter("Categoria", categoria) :
+                new ObjectParameter("Categoria", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProvisionDirecta", nombreProvisionDirectaParameter, noExistenciasParameter, ubicacionParameter, stockMinimoParameter, costoUnitarioParameter, unidadMedidaParameter, activadoParameter, descripcionProvisionDirectaParameter, activadoProvisionDirectaParameter, restriccionesProvisionDirectaParameter, categoriaParameter);
+        }
+    
         public virtual int InsertarPedidoADomicilio(Nullable<int> idCliente, Nullable<System.DateTime> fecha, string instruccionesEspeciales, Nullable<long> idEmpleado, string nombreEstado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subTotal, Nullable<double> iva, Nullable<double> descuento, Nullable<bool> abierta, string direccionDestino, ObjectParameter iDPedido)
         {
             var idClienteParameter = idCliente.HasValue ?
@@ -180,159 +333,6 @@ namespace AccesoBD2
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LigarProvisionConPedido", idProvisionParameter, idPedidoParameter, cantidadParameter);
         }
     
-        public virtual ObjectResult<MostrarCantidadProductosPedido_Result4> MostrarCantidadProductosPedido(Nullable<int> idPedido)
-        {
-            var idPedidoParameter = idPedido.HasValue ?
-                new ObjectParameter("IdPedido", idPedido) :
-                new ObjectParameter("IdPedido", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarCantidadProductosPedido_Result4>("MostrarCantidadProductosPedido", idPedidoParameter);
-        }
-    
-        public virtual ObjectResult<MostrarCantidadProvisionesPedido_Result3> MostrarCantidadProvisionesPedido(Nullable<int> idPedido)
-        {
-            var idPedidoParameter = idPedido.HasValue ?
-                new ObjectParameter("IdPedido", idPedido) :
-                new ObjectParameter("IdPedido", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarCantidadProvisionesPedido_Result3>("MostrarCantidadProvisionesPedido", idPedidoParameter);
-        }
-    
-        public virtual int RegistrarPedidoYCuenta(Nullable<System.DateTime> fecha, string instruccionesEspeciales, Nullable<long> idEmpleado, string nombreEstado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subTotal, Nullable<double> iva, Nullable<double> descuento, Nullable<bool> abierta, ObjectParameter idPedido)
-        {
-            var fechaParameter = fecha.HasValue ?
-                new ObjectParameter("Fecha", fecha) :
-                new ObjectParameter("Fecha", typeof(System.DateTime));
-    
-            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
-                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
-                new ObjectParameter("InstruccionesEspeciales", typeof(string));
-    
-            var idEmpleadoParameter = idEmpleado.HasValue ?
-                new ObjectParameter("IdEmpleado", idEmpleado) :
-                new ObjectParameter("IdEmpleado", typeof(long));
-    
-            var nombreEstadoParameter = nombreEstado != null ?
-                new ObjectParameter("NombreEstado", nombreEstado) :
-                new ObjectParameter("NombreEstado", typeof(string));
-    
-            var idCuentaParameter = idCuenta != null ?
-                new ObjectParameter("IdCuenta", idCuenta) :
-                new ObjectParameter("IdCuenta", typeof(string));
-    
-            var precioTotalParameter = precioTotal.HasValue ?
-                new ObjectParameter("PrecioTotal", precioTotal) :
-                new ObjectParameter("PrecioTotal", typeof(double));
-    
-            var subTotalParameter = subTotal.HasValue ?
-                new ObjectParameter("SubTotal", subTotal) :
-                new ObjectParameter("SubTotal", typeof(double));
-    
-            var ivaParameter = iva.HasValue ?
-                new ObjectParameter("Iva", iva) :
-                new ObjectParameter("Iva", typeof(double));
-    
-            var descuentoParameter = descuento.HasValue ?
-                new ObjectParameter("Descuento", descuento) :
-                new ObjectParameter("Descuento", typeof(double));
-    
-            var abiertaParameter = abierta.HasValue ?
-                new ObjectParameter("Abierta", abierta) :
-                new ObjectParameter("Abierta", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarPedidoYCuenta", fechaParameter, instruccionesEspecialesParameter, idEmpleadoParameter, nombreEstadoParameter, idCuentaParameter, precioTotalParameter, subTotalParameter, ivaParameter, descuentoParameter, abiertaParameter, idPedido);
-        }
-    
-        public virtual int RegistroDeClienteConDireccion(string nombre, string apellidoPaterno, string apellidoMaterno, string calle, string colonia, string numeroExterior, string numeroInterior, string numeroTelefonico, string codigoPostal, ObjectParameter iDCliente)
-        {
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            var apellidoPaternoParameter = apellidoPaterno != null ?
-                new ObjectParameter("ApellidoPaterno", apellidoPaterno) :
-                new ObjectParameter("ApellidoPaterno", typeof(string));
-    
-            var apellidoMaternoParameter = apellidoMaterno != null ?
-                new ObjectParameter("ApellidoMaterno", apellidoMaterno) :
-                new ObjectParameter("ApellidoMaterno", typeof(string));
-    
-            var calleParameter = calle != null ?
-                new ObjectParameter("Calle", calle) :
-                new ObjectParameter("Calle", typeof(string));
-    
-            var coloniaParameter = colonia != null ?
-                new ObjectParameter("Colonia", colonia) :
-                new ObjectParameter("Colonia", typeof(string));
-    
-            var numeroExteriorParameter = numeroExterior != null ?
-                new ObjectParameter("NumeroExterior", numeroExterior) :
-                new ObjectParameter("NumeroExterior", typeof(string));
-    
-            var numeroInteriorParameter = numeroInterior != null ?
-                new ObjectParameter("NumeroInterior", numeroInterior) :
-                new ObjectParameter("NumeroInterior", typeof(string));
-    
-            var numeroTelefonicoParameter = numeroTelefonico != null ?
-                new ObjectParameter("NumeroTelefonico", numeroTelefonico) :
-                new ObjectParameter("NumeroTelefonico", typeof(string));
-    
-            var codigoPostalParameter = codigoPostal != null ?
-                new ObjectParameter("CodigoPostal", codigoPostal) :
-                new ObjectParameter("CodigoPostal", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistroDeClienteConDireccion", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, calleParameter, coloniaParameter, numeroExteriorParameter, numeroInteriorParameter, numeroTelefonicoParameter, codigoPostalParameter, iDCliente);
-        }
-    
-        public virtual int RegistrarProvisionDirecta(string nombreProvisionDirecta, Nullable<int> noExistencias, string ubicacion, Nullable<int> stockMinimo, Nullable<double> costoUnitario, string unidadMedida, Nullable<bool> activado, string descripcionProvisionDirecta, Nullable<bool> activadoProvisionDirecta, string restriccionesProvisionDirecta, string categoria)
-        {
-            var nombreProvisionDirectaParameter = nombreProvisionDirecta != null ?
-                new ObjectParameter("NombreProvisionDirecta", nombreProvisionDirecta) :
-                new ObjectParameter("NombreProvisionDirecta", typeof(string));
-    
-            var noExistenciasParameter = noExistencias.HasValue ?
-                new ObjectParameter("noExistencias", noExistencias) :
-                new ObjectParameter("noExistencias", typeof(int));
-    
-            var ubicacionParameter = ubicacion != null ?
-                new ObjectParameter("Ubicacion", ubicacion) :
-                new ObjectParameter("Ubicacion", typeof(string));
-    
-            var stockMinimoParameter = stockMinimo.HasValue ?
-                new ObjectParameter("StockMinimo", stockMinimo) :
-                new ObjectParameter("StockMinimo", typeof(int));
-    
-            var costoUnitarioParameter = costoUnitario.HasValue ?
-                new ObjectParameter("CostoUnitario", costoUnitario) :
-                new ObjectParameter("CostoUnitario", typeof(double));
-    
-            var unidadMedidaParameter = unidadMedida != null ?
-                new ObjectParameter("UnidadMedida", unidadMedida) :
-                new ObjectParameter("UnidadMedida", typeof(string));
-    
-            var activadoParameter = activado.HasValue ?
-                new ObjectParameter("Activado", activado) :
-                new ObjectParameter("Activado", typeof(bool));
-    
-            var descripcionProvisionDirectaParameter = descripcionProvisionDirecta != null ?
-                new ObjectParameter("DescripcionProvisionDirecta", descripcionProvisionDirecta) :
-                new ObjectParameter("DescripcionProvisionDirecta", typeof(string));
-    
-            var activadoProvisionDirectaParameter = activadoProvisionDirecta.HasValue ?
-                new ObjectParameter("ActivadoProvisionDirecta", activadoProvisionDirecta) :
-                new ObjectParameter("ActivadoProvisionDirecta", typeof(bool));
-    
-            var restriccionesProvisionDirectaParameter = restriccionesProvisionDirecta != null ?
-                new ObjectParameter("RestriccionesProvisionDirecta", restriccionesProvisionDirecta) :
-                new ObjectParameter("RestriccionesProvisionDirecta", typeof(string));
-    
-            var categoriaParameter = categoria != null ?
-                new ObjectParameter("Categoria", categoria) :
-                new ObjectParameter("Categoria", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProvisionDirecta", nombreProvisionDirectaParameter, noExistenciasParameter, ubicacionParameter, stockMinimoParameter, costoUnitarioParameter, unidadMedidaParameter, activadoParameter, descripcionProvisionDirectaParameter, activadoProvisionDirectaParameter, restriccionesProvisionDirectaParameter, categoriaParameter);
-        }
-    
         public virtual int ModificarPedidoADomicilio(Nullable<int> iDPedido, string instruccionesEspeciales, Nullable<long> idEmpleado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subtotal, Nullable<double> descuento, Nullable<bool> abierta, Nullable<int> idCliente, string direccionDestino)
         {
             var iDPedidoParameter = iDPedido.HasValue ?
@@ -417,6 +417,159 @@ namespace AccesoBD2
                 new ObjectParameter("NumeroMesa", typeof(short));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ModificarPedidoLocal", iDPedidoParameter, instruccionesEspecialesParameter, idEmpleadoParameter, idCuentaParameter, precioTotalParameter, subtotalParameter, descuentoParameter, abiertaParameter, numeroMesaParameter);
+        }
+    
+        public virtual ObjectResult<MostrarCantidadProductosPedido_Result5> MostrarCantidadProductosPedido(Nullable<int> idPedido)
+        {
+            var idPedidoParameter = idPedido.HasValue ?
+                new ObjectParameter("IdPedido", idPedido) :
+                new ObjectParameter("IdPedido", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarCantidadProductosPedido_Result5>("MostrarCantidadProductosPedido", idPedidoParameter);
+        }
+    
+        public virtual ObjectResult<MostrarCantidadProvisionesPedido_Result4> MostrarCantidadProvisionesPedido(Nullable<int> idPedido)
+        {
+            var idPedidoParameter = idPedido.HasValue ?
+                new ObjectParameter("IdPedido", idPedido) :
+                new ObjectParameter("IdPedido", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarCantidadProvisionesPedido_Result4>("MostrarCantidadProvisionesPedido", idPedidoParameter);
+        }
+    
+        public virtual int RegistrarPedidoYCuenta(Nullable<System.DateTime> fecha, string instruccionesEspeciales, Nullable<long> idEmpleado, string nombreEstado, string idCuenta, Nullable<double> precioTotal, Nullable<double> subTotal, Nullable<double> iva, Nullable<double> descuento, Nullable<bool> abierta, ObjectParameter idPedido)
+        {
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("Fecha", fecha) :
+                new ObjectParameter("Fecha", typeof(System.DateTime));
+    
+            var instruccionesEspecialesParameter = instruccionesEspeciales != null ?
+                new ObjectParameter("InstruccionesEspeciales", instruccionesEspeciales) :
+                new ObjectParameter("InstruccionesEspeciales", typeof(string));
+    
+            var idEmpleadoParameter = idEmpleado.HasValue ?
+                new ObjectParameter("IdEmpleado", idEmpleado) :
+                new ObjectParameter("IdEmpleado", typeof(long));
+    
+            var nombreEstadoParameter = nombreEstado != null ?
+                new ObjectParameter("NombreEstado", nombreEstado) :
+                new ObjectParameter("NombreEstado", typeof(string));
+    
+            var idCuentaParameter = idCuenta != null ?
+                new ObjectParameter("IdCuenta", idCuenta) :
+                new ObjectParameter("IdCuenta", typeof(string));
+    
+            var precioTotalParameter = precioTotal.HasValue ?
+                new ObjectParameter("PrecioTotal", precioTotal) :
+                new ObjectParameter("PrecioTotal", typeof(double));
+    
+            var subTotalParameter = subTotal.HasValue ?
+                new ObjectParameter("SubTotal", subTotal) :
+                new ObjectParameter("SubTotal", typeof(double));
+    
+            var ivaParameter = iva.HasValue ?
+                new ObjectParameter("Iva", iva) :
+                new ObjectParameter("Iva", typeof(double));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(double));
+    
+            var abiertaParameter = abierta.HasValue ?
+                new ObjectParameter("Abierta", abierta) :
+                new ObjectParameter("Abierta", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarPedidoYCuenta", fechaParameter, instruccionesEspecialesParameter, idEmpleadoParameter, nombreEstadoParameter, idCuentaParameter, precioTotalParameter, subTotalParameter, ivaParameter, descuentoParameter, abiertaParameter, idPedido);
+        }
+    
+        public virtual int RegistrarProvisionDirecta(string nombreProvisionDirecta, Nullable<int> noExistencias, string ubicacion, Nullable<int> stockMinimo, Nullable<double> costoUnitario, string unidadMedida, Nullable<bool> activado, string descripcionProvisionDirecta, Nullable<bool> activadoProvisionDirecta, string restriccionesProvisionDirecta, string categoria)
+        {
+            var nombreProvisionDirectaParameter = nombreProvisionDirecta != null ?
+                new ObjectParameter("NombreProvisionDirecta", nombreProvisionDirecta) :
+                new ObjectParameter("NombreProvisionDirecta", typeof(string));
+    
+            var noExistenciasParameter = noExistencias.HasValue ?
+                new ObjectParameter("noExistencias", noExistencias) :
+                new ObjectParameter("noExistencias", typeof(int));
+    
+            var ubicacionParameter = ubicacion != null ?
+                new ObjectParameter("Ubicacion", ubicacion) :
+                new ObjectParameter("Ubicacion", typeof(string));
+    
+            var stockMinimoParameter = stockMinimo.HasValue ?
+                new ObjectParameter("StockMinimo", stockMinimo) :
+                new ObjectParameter("StockMinimo", typeof(int));
+    
+            var costoUnitarioParameter = costoUnitario.HasValue ?
+                new ObjectParameter("CostoUnitario", costoUnitario) :
+                new ObjectParameter("CostoUnitario", typeof(double));
+    
+            var unidadMedidaParameter = unidadMedida != null ?
+                new ObjectParameter("UnidadMedida", unidadMedida) :
+                new ObjectParameter("UnidadMedida", typeof(string));
+    
+            var activadoParameter = activado.HasValue ?
+                new ObjectParameter("Activado", activado) :
+                new ObjectParameter("Activado", typeof(bool));
+    
+            var descripcionProvisionDirectaParameter = descripcionProvisionDirecta != null ?
+                new ObjectParameter("DescripcionProvisionDirecta", descripcionProvisionDirecta) :
+                new ObjectParameter("DescripcionProvisionDirecta", typeof(string));
+    
+            var activadoProvisionDirectaParameter = activadoProvisionDirecta.HasValue ?
+                new ObjectParameter("ActivadoProvisionDirecta", activadoProvisionDirecta) :
+                new ObjectParameter("ActivadoProvisionDirecta", typeof(bool));
+    
+            var restriccionesProvisionDirectaParameter = restriccionesProvisionDirecta != null ?
+                new ObjectParameter("RestriccionesProvisionDirecta", restriccionesProvisionDirecta) :
+                new ObjectParameter("RestriccionesProvisionDirecta", typeof(string));
+    
+            var categoriaParameter = categoria != null ?
+                new ObjectParameter("Categoria", categoria) :
+                new ObjectParameter("Categoria", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProvisionDirecta", nombreProvisionDirectaParameter, noExistenciasParameter, ubicacionParameter, stockMinimoParameter, costoUnitarioParameter, unidadMedidaParameter, activadoParameter, descripcionProvisionDirectaParameter, activadoProvisionDirectaParameter, restriccionesProvisionDirectaParameter, categoriaParameter);
+        }
+    
+        public virtual int RegistroDeClienteConDireccion(string nombre, string apellidoPaterno, string apellidoMaterno, string calle, string colonia, string numeroExterior, string numeroInterior, string numeroTelefonico, string codigoPostal, ObjectParameter iDCliente)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var apellidoPaternoParameter = apellidoPaterno != null ?
+                new ObjectParameter("ApellidoPaterno", apellidoPaterno) :
+                new ObjectParameter("ApellidoPaterno", typeof(string));
+    
+            var apellidoMaternoParameter = apellidoMaterno != null ?
+                new ObjectParameter("ApellidoMaterno", apellidoMaterno) :
+                new ObjectParameter("ApellidoMaterno", typeof(string));
+    
+            var calleParameter = calle != null ?
+                new ObjectParameter("Calle", calle) :
+                new ObjectParameter("Calle", typeof(string));
+    
+            var coloniaParameter = colonia != null ?
+                new ObjectParameter("Colonia", colonia) :
+                new ObjectParameter("Colonia", typeof(string));
+    
+            var numeroExteriorParameter = numeroExterior != null ?
+                new ObjectParameter("NumeroExterior", numeroExterior) :
+                new ObjectParameter("NumeroExterior", typeof(string));
+    
+            var numeroInteriorParameter = numeroInterior != null ?
+                new ObjectParameter("NumeroInterior", numeroInterior) :
+                new ObjectParameter("NumeroInterior", typeof(string));
+    
+            var numeroTelefonicoParameter = numeroTelefonico != null ?
+                new ObjectParameter("NumeroTelefonico", numeroTelefonico) :
+                new ObjectParameter("NumeroTelefonico", typeof(string));
+    
+            var codigoPostalParameter = codigoPostal != null ?
+                new ObjectParameter("CodigoPostal", codigoPostal) :
+                new ObjectParameter("CodigoPostal", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistroDeClienteConDireccion", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, calleParameter, coloniaParameter, numeroExteriorParameter, numeroInteriorParameter, numeroTelefonicoParameter, codigoPostalParameter, iDCliente);
         }
     }
 }

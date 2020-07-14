@@ -62,7 +62,7 @@ namespace ClienteItaliaPizza.Pantallas
                 /*BuscarPedidosClient buscarPedidos = new BuscarPedidosClient(context);
                 buscarPedidos.BuscarPedidosMesero();*/
             }
-            catch (CommunicationException e)
+            catch (CommunicationException)
             {
                 FuncionesComunes.MostrarMensajeDeError("Error de conexión con el servidor, intente más tarde.");
                 labelDesconectado.Content = "No hay conexión con el Servidor";
