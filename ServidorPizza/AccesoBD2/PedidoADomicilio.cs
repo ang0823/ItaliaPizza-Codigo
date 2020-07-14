@@ -15,6 +15,7 @@ namespace AccesoBD2
     public partial class PedidoADomicilio : Pedido
     {
         public int ClienteId { get; set; }
+        public string direccionDestino { get; set; }
     
         public virtual Cliente Cliente { get; set; }
     }

@@ -5,54 +5,180 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="1000"
+             d:DesignHeight="721" d:DesignWidth="1202"
              Name="meserosUserControl" >
 
-    <Grid>
-        <TabControl x:Name="tabControlPedidos" HorizontalAlignment="Left" Height="393" Margin="56,209,0,0" VerticalAlignment="Top" Width="643">
-            <TabItem x:Name="tabPedidosEnEspera" Header="En espera">
-                <Grid Background="#FFE5E5E5" Margin="0,0,0,4">
+    <Grid Margin="0,0,4,8">
+        <TabControl x:Name="tabControlPedidos" HorizontalAlignment="Left" Height="441" Margin="61,203,0,0" VerticalAlignment="Top" Width="779" FontFamily="Arial" FontSize="16" BorderBrush="#FF666666">
+            <TabControl.Background>
+                <SolidColorBrush Color="Black" Opacity="0.6"/>
+            </TabControl.Background>
+            <TabItem x:Name="tabPedidosEnEspera" Header="En espera" FontSize="18" Background="Black" BorderBrush="#FF151515" Foreground="#FF727272" FontWeight="Bold" GotFocus="tabPedidosEnEspera_GotFocus">
+                <Grid Margin="0,0,0,4" HorizontalAlignment="Left" Width="773">
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Grid.Background>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="237*"/>
-                        <ColumnDefinition Width="317*"/>
+                        <ColumnDefinition Width="331*"/>
+                        <ColumnDefinition Width="183*"/>
+                        <ColumnDefinition Width="259*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="dataGridPedidosEnEspera" HorizontalAlignment="Left" Height="339" Margin="21,7,0,0" AutoGenerateColumns="False" VerticalAlignment="Top" Width="601" Grid.ColumnSpan="2" Loaded="CargarPedidosEnEspera" Background="#FFB4AFAF" IsReadOnly="True">
+                    <DataGrid x:Name="dataGridPedidosEnEspera" HorizontalAlignment="Left" Height="387" Margin="12,7,0,0" AutoGenerateColumns="False" VerticalAlignment="Top" Width="750" Grid.ColumnSpan="3" Loaded="CargarPedidosEnEspera" IsReadOnly="True" FontFamily="Arial" FontSize="16" FontWeight="Normal" SelectionUnit="FullRow" SelectionChanged="dataGridPedidosEnEspera_SelectionChanged" >
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FF999999" Opacity="0.75"/>
+                        </DataGrid.Background>
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="ColumnEmpleado" Header="Empleado" Width="110" Foreground="#FF0A0A0A" Binding="{Binding Empleado}" />
-                            <DataGridTextColumn x:Name="ColumnIdPedido" Header="IdPedido" Width="80"  Foreground="#FF040404" Binding="{Binding IdPedido}"/>
-                            <DataGridTextColumn x:Name="ColumnTipoPedido" Header="Tipo" Width="100" Foreground="Black" Binding="{Binding Tipo}"/>
-                            <DataGridTextColumn x:Name="ColumnMesaOCliente" Header="Mesa/Cliente" IsReadOnly="True" Foreground="Black"  Binding="{Binding MesaOCliente}"/>
-                            <DataGridTextColumn x:Name="ColumnInstruccionesEspeciales" Header="Instrucciones Especials" Width="190" Binding="{Binding InstruccionesEspeciales}"/>
+                            <DataGridTextColumn x:Name="ColumnEmpleado" Header="Empleado" Width="85" Foreground="#FF0A0A0A" Binding="{Binding Empleado}" FontFamily="Arial" />
+                            <DataGridTextColumn x:Name="ColumnIdPedido" Header="IdPedido" Width="75"  Foreground="#FF040404" Binding="{Binding IdPedido}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnTipoPedido" Header="Tipo" Width="65" Foreground="Black" Binding="{Binding Tipo}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnMesaOCliente" Header="Mesa/Cliente : Direccion" Width="195" IsReadOnly="True" Foreground="Black"  Binding="{Binding MesaOCliente}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnInstruccionesEspeciales" Header="Instrucciones Especiales" Width="*" Binding="{Binding InstruccionesEspeciales}" FontFamily="Arial"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tabPedidosPreparados" Header="Preparados">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem x:Name="tabPedidosPreparados" Header="Preparados" FontSize="18" Background="Black" OpacityMask="#FF060606" FontWeight="Bold" Foreground="#FF727272" GotFocus="tabPedidosPreparados_GotFocus">
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dataGridPedidosPreparados" HorizontalAlignment="Left" Height="387" Margin="12,7,0,0" AutoGenerateColumns="False" Loaded="CargarPedidosEnEspera" VerticalAlignment="Top" Width="750" Grid.ColumnSpan="2" IsReadOnly="True" FontFamily="Arial" FontSize="16" FontWeight="Normal" SelectionChanged="dataGridPedidosPreparados_SelectionChanged">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FF999999" Opacity="0.75"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="ColumnEmpleadoPreparado" Header="Empleado" Width="85" Foreground="#FF0A0A0A" Binding="{Binding Empleado}" FontFamily="Arial" />
+                            <DataGridTextColumn x:Name="ColumnIdPedidoPreparado" Header="IdPedido" Width="75"  Foreground="#FF040404" Binding="{Binding IdPedido}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnTipoPedidoPreparado" Header="Tipo" Width="65" Foreground="Black" Binding="{Binding Tipo}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnMesaOClientePreparado" Header="Mesa/Cliente : Direccion" Width="195" IsReadOnly="True" Foreground="Black"  Binding="{Binding MesaOCliente}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnInstruccionesEspecialesPreparado" Header="Instrucciones Especiales" Width="*" Binding="{Binding InstruccionesEspeciales}" FontFamily="Arial"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
-            <TabItem x:Name="tabPedidosEnviados" Header="Enviados">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem x:Name="tabPedidosEnviados" Header="Enviados" FontSize="18" Foreground="#FF727272" FontWeight="Bold" Background="Black" GotFocus="tabPedidosEnviados_GotFocus">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="36*"/>
+                        <ColumnDefinition Width="713*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dataGridPedidosEnviados" HorizontalAlignment="Left" Height="387" Margin="12,7,0,0" AutoGenerateColumns="False" Loaded="CargarPedidosEnEspera" VerticalAlignment="Top" Width="750" Grid.ColumnSpan="3" IsReadOnly="True" FontFamily="Arial" FontSize="16" FontWeight="Normal" SelectionChanged="dataGridPedidosEnEspera_SelectionChanged">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FF999999" Opacity="0.75"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="ColumnEmpleadoEnviado" Header="Empleado" Width="85" Foreground="#FF0A0A0A" Binding="{Binding Empleado}" FontFamily="Arial" />
+                            <DataGridTextColumn x:Name="ColumnIdPedidoEnviado" Header="IdPedido" Width="75"  Foreground="#FF040404" Binding="{Binding IdPedido}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnTipoPedidoEnviado" Header="Tipo" Width="65" Foreground="Black" Binding="{Binding Tipo}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnMesaOClienteEnviado" Header="Mesa/Cliente : Direccion" Width="195" IsReadOnly="True" Foreground="Black"  Binding="{Binding MesaOCliente}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnInstruccionesEspecialesEnviado" Header="Instrucciones Especiales" Width="*" Binding="{Binding InstruccionesEspeciales}" FontFamily="Arial"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabPedidosEntregados" Header="Entregados" FontSize="18" Foreground="#FF727272" FontWeight="Bold" Background="Black" GotFocus="tabPedidosEntregados_GotFocus">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="36*"/>
+                        <ColumnDefinition Width="713*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dataGridPedidosEntregados" HorizontalAlignment="Left" Height="387" Margin="12,7,0,0" AutoGenerateColumns="False" Loaded="CargarPedidosEnEspera" VerticalAlignment="Top" Width="750" Grid.ColumnSpan="3" IsReadOnly="True" FontFamily="Arial" FontSize="16" FontWeight="Normal" SelectionChanged="dataGridPedidosEntregados_SelectionChanged">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FF999999" Opacity="0.75"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="ColumnEmpleadoEntregado" Header="Empleado" Width="85" Foreground="#FF0A0A0A" Binding="{Binding Empleado}" FontFamily="Arial" />
+                            <DataGridTextColumn x:Name="ColumnIdPedidoEntregado" Header="IdPedido" Width="75"  Foreground="#FF040404" Binding="{Binding IdPedido}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnTipoPedidoEntregado" Header="Tipo" Width="65" Foreground="Black" Binding="{Binding Tipo}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnMesaOClienteEntregado" Header="Mesa/Cliente : Direccion" Width="195" IsReadOnly="True" Foreground="Black"  Binding="{Binding MesaOCliente}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnInstruccionesEsntregado" Header="Instrucciones Especiales" Width="*" Binding="{Binding InstruccionesEspeciales}" FontFamily="Arial"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabPedidosCancelados" Header="Cancelados" FontSize="18" Foreground="#FF727272" FontWeight="Bold" Background="Black" GotFocus="tabPedidosCancelados_GotFocus">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="36*"/>
+                        <ColumnDefinition Width="713*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dataGridPedidosCancelados" HorizontalAlignment="Left" Height="387" Margin="12,7,0,0" AutoGenerateColumns="False" Loaded="CargarPedidosEnEspera" VerticalAlignment="Top" Width="750" Grid.ColumnSpan="3" IsReadOnly="True" FontFamily="Arial" FontSize="16" FontWeight="Normal">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FF999999" Opacity="0.75"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="ColumnEmpleadoCancelado" Header="Empleado" Width="85" Foreground="#FF0A0A0A" Binding="{Binding Empleado}" FontFamily="Arial" />
+                            <DataGridTextColumn x:Name="ColumnIdPedidoCancelado" Header="IdPedido" Width="75"  Foreground="#FF040404" Binding="{Binding IdPedido}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnTipoPedidoCancelado" Header="Tipo" Width="65" Foreground="Black" Binding="{Binding Tipo}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnMesaOClienteCancelado" Header="Mesa/Cliente : Direccion" Width="195" IsReadOnly="True" Foreground="Black"  Binding="{Binding MesaOCliente}" FontFamily="Arial"/>
+                            <DataGridTextColumn x:Name="ColumnInstruccionesEspecialesCancelado" Header="Instrucciones Especiales" Width="*" Binding="{Binding InstruccionesEspeciales}" FontFamily="Arial"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
         </TabControl>
 
-        <Border x:Name="borderNuevoPedido" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="763,78,0,0" VerticalAlignment="Top" Width="180" Background="#FFF1F1F1" CornerRadius="5">
-            <Label x:Name="labelNuevoPedido" Content="Nuevo Pedido" FontFamily="Palatino Linotype" FontSize="16" Margin="37,-1,26,54"/>
+        <Border x:Name="borderNuevoPedido" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="126" Margin="902,37,0,0" VerticalAlignment="Top" Width="260" CornerRadius="5">
+            <Border.Background>
+                <SolidColorBrush Color="#FF040404" Opacity="0.7"/>
+            </Border.Background>
+            <Label x:Name="labelNuevoPedido" Content="Nuevo Pedido" FontFamily="Arial" FontSize="20" Margin="59,2,37,84" FontWeight="Bold" Foreground="#FFF7F7F7"/>
         </Border>
-        <Border x:Name="borderBusqueda" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="88" Margin="65,70,0,0" VerticalAlignment="Top" Width="616" Background="#FFBFBEBE" CornerRadius="4">
-            <Label x:Name="labelBusqueda" Content="Realizar Búsqueda" FontFamily="Palatino Linotype" Foreground="#FF822B00" FontSize="16" Margin="6,2,248,58" FontWeight="Bold" Padding="5,5,0,0"/>
+        <Border x:Name="borderBusqueda" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="120" Margin="60,41,0,0" VerticalAlignment="Top" Width="778" CornerRadius="5">
+            <Border.Background>
+                <SolidColorBrush Color="#FF040404" Opacity="0.6"/>
+            </Border.Background>
+            <Label x:Name="labelBusqueda" Content="Realizar Búsqueda" FontFamily="Arial" Foreground="WhiteSmoke" FontSize="20" Margin="14,2,556,80" FontWeight="Bold" Padding="5,5,0,0" FontStretch="SemiExpanded" BorderBrush="White"/>
         </Border>
-        <Button x:Name="buttonEditar" Content="Editar" HorizontalAlignment="Left" Margin="784,225,0,0" VerticalAlignment="Top" Width="150" Height="45" Background="#FF54B053" BorderBrush="#FF060606" FontFamily="Palatino Linotype" FontSize="16" Foreground="White" Click="ButtonEditar_Click"/>
-        <Button x:Name="buttonQuitar" Content="Quitar" HorizontalAlignment="Left" Margin="784,302,0,0" VerticalAlignment="Top" Width="150" Height="45" Background="#FF887B4E" BorderBrush="#FF020202" Foreground="White" FontFamily="Palatino Linotype" FontSize="16"/>
-        <Button x:Name="buttonNuevoPedidoLocal" Content="Local" HorizontalAlignment="Left" Margin="774,112,0,0" VerticalAlignment="Top" Width="75" Height="40" Background="#FFAE0000" BorderBrush="#FF131313" Foreground="#FFFFF4F4" FontFamily="Palatino Linotype" FontSize="14" Click="ButtonNuevoPedidoLocal_Click"/>
-        <Button x:Name="buttonBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="560,103,0,0" VerticalAlignment="Top" Width="103" Height="29" BorderBrush="#FF0E0D0D" Background="#FFAE0000" Foreground="#FFF9F5F5" FontFamily="Palatino Linotype" FontSize="16"/>
-        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="73,118,0,0" VerticalAlignment="Top" Width="80" Text="Seleccione" IsEditable="True" IsReadOnly="True" Loaded="ComboBox1_Loaded" SelectionChanged="ComboBox1_SelectionChanged" />
-        <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" Margin="255,116,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.529,0.545" Text="No.Mesa" IsEditable="True" IsReadOnly="True" />
-        <Border x:Name="borderGenerarTicket" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="196" Height="97" Margin="763,431,41,0" Background="#FFBFBEBE" CornerRadius="5" >
-            <Label x:Name="labelGenerarTicket" Content="Generar Ticket" FontFamily="Palatino Linotype" FontSize="20" Margin="21,0,27,48"/>
+        <Button x:Name="buttonEditar" Content="Editar" HorizontalAlignment="Left" Margin="948,227,0,0" VerticalAlignment="Top" Width="170" Height="64" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="22" Foreground="White" Click="ButtonEditar_Click" FontWeight="Bold" Visibility="Collapsed">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF373837" Offset="0.014"/>
+                    <GradientStop Color="#FF009900" Offset="0.129"/>
+                    <GradientStop Color="#FFF0F0F0" Offset="0.034"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="buttonQuitar" Content="Cancelado" HorizontalAlignment="Left" Margin="948,336,0,0" VerticalAlignment="Top" Width="170" Height="59" BorderBrush="{x:Null}" Foreground="White" FontFamily="Arial" FontSize="22" Click="buttonQuitar_Click" FontWeight="Bold" Visibility="Collapsed">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="40" CenterX="60"/>
+                            <SkewTransform CenterY="40" CenterX="60"/>
+                            <RotateTransform CenterY="40" CenterX="60"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFF7F7F5" Offset="0"/>
+                    <GradientStop Color="#FF887B4E" Offset="0.123"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="buttonNuevoPedidoLocal" Content="Local" HorizontalAlignment="Left" Margin="923,80,0,0" VerticalAlignment="Top" Width="101" Height="60" Background="#FFAE0000" BorderBrush="#FF131313" Foreground="#FFFFF4F4" FontFamily="Arial" FontSize="18" Click="ButtonNuevoPedidoLocal_Click" FontWeight="Bold"/>
+        <Button x:Name="buttonBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="684,75,0,0" VerticalAlignment="Top" Width="137" Height="59" BorderBrush="#FF0E0D0D" Background="#FFAE0000" Foreground="#FFF9F5F5" FontFamily="Arial" FontSize="18" FontWeight="Bold"/>
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="82,96,0,0" VerticalAlignment="Top" Width="109" Text="Seleccione" IsEditable="True" IsReadOnly="True" Loaded="ComboBox1_Loaded" SelectionChanged="ComboBox1_SelectionChanged" FontFamily="Arial" FontSize="16" />
+        <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" Margin="333,96,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="0.529,0.545" Text="No.Mesa" IsEditable="True" IsReadOnly="True" FontFamily="Arial" FontSize="16" />
+        <Border x:Name="borderGenerarTicket" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="262" Height="124" Margin="901,477,35,0" CornerRadius="5" Visibility="Hidden" >
+            <Border.Background>
+                <SolidColorBrush Color="#FF040404" Opacity="0.75"/>
+            </Border.Background>
+            <Label x:Name="labelGenerarTicket" Content="Generar Ticket" FontFamily="Arial" FontSize="20" Margin="55,5,44,73" FontWeight="Bold" Foreground="White"/>
         </Border>
-        <Button x:Name="buttonImprimir" Content="Imprimir" HorizontalAlignment="Left" Margin="774,468,0,0" VerticalAlignment="Top" Width="80" Height="40" Background="#FFEE9106" FontFamily="Palatino Linotype" Foreground="White" FontSize="14" Click="ButtonImprimir_Click"/>
-        <Button x:Name="buttonPDF" Content="PDF" HorizontalAlignment="Left" Margin="865,468,0,0" VerticalAlignment="Top" Width="80" Height="40" Background="#FFEE9106" FontFamily="Palatino Linotype" Foreground="White" FontSize="14" Click="ButtonPDF_Click"/>
+        <Button x:Name="buttonImprimir" Content="Imprimir" HorizontalAlignment="Left" Margin="924,520,0,0" VerticalAlignment="Top" Width="98" Height="60" Background="#FFAE0000" FontFamily="Arial" Foreground="White" FontSize="18" Click="ButtonPDF_Click" FontWeight="Bold" Visibility="Hidden"/>
+        <Button x:Name="buttonPDF" Content="PDF" HorizontalAlignment="Left" Margin="1040,521,0,0" VerticalAlignment="Top" Width="97" Height="59" Background="#FFAE0000" FontFamily="Arial" Foreground="White" FontSize="18" Click="ButtonPDF_Click" FontWeight="Bold" Visibility="Hidden"/>
 
         <local:CallCenterUC x:Name="UCCallCenter" Visibility="Collapsed" eventoComboBox2Seleccionado="UCCallCenter_eventoComboBox2Seleccionado" eventoEditarNombreClienteBusqueda="UCCallCenter_eventoEditarNombreClienteBusqueda"  >
 

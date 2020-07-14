@@ -22,11 +22,6 @@ namespace ClienteItaliaPizza
             nombreUs.Content = CuentaUsuario.nombreUsuario;
         }
 
-        public Principal(CuentaUsuario1 cuentaUsuario)
-        {
-            this.cuentaUsuario = cuentaUsuario;
-        }
-
         private void MostrarBuscarEmpledosGui()
         {
             Dispatcher.Invoke(() =>
@@ -167,6 +162,13 @@ namespace ClienteItaliaPizza
         {
             string nombreRespaldoFechaActual = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
             return nombreRespaldoFechaActual;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ReporteDelDia ventana = new ReporteDelDia();
+            ventana.Show();
+            this.Close();
         }
     }
 }

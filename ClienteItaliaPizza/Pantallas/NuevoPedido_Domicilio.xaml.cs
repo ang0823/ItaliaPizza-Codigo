@@ -47,7 +47,6 @@ namespace ClienteItaliaPizza.Pantallas
             get { return comboBoxDireccion.Text; }
         }
 
-
         public string EditarComboBoxTelefono
         {
             get { return comboBoxTelefono.SelectedItem.ToString(); }

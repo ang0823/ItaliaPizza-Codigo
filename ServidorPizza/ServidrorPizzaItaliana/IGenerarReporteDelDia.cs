@@ -34,13 +34,15 @@ namespace ServidrorPizzaItaliana
         DateTime fecha;
         [DataMember]
         double totalCuenta;
+        [DataMember]
+        string nombreEmpleado;
 
-
-        public Reporte(int IdPedido, DateTime fecha, double totalCuenta)
+        public Reporte(int idPedido, DateTime fecha, double totalCuenta, string nombreEmpleado)
         {
-            this.IdPedido = IdPedido;
+            IdPedido = idPedido;
             this.fecha = fecha;
             this.totalCuenta = totalCuenta;
+            this.nombreEmpleado = nombreEmpleado;
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Host
                 {
                     host.Open();
                     Console.WriteLine("El servidor está arriba");
+                    //Servicios s = new Servicios();
+                    //s.ObtenerReporteDelDia();
                     Console.ReadLine();
                 }
                 catch (SocketException)

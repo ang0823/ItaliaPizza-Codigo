@@ -6,24 +6,24 @@
         xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
 
         mc:Ignorable="d"
-        Title="Ventana de Cocina" Height="650" Width="1000" VerticalContentAlignment="Stretch" WindowStartupLocation="CenterScreen">
+        Title="Ventana de Cocina" Height="721" Width="1202" VerticalContentAlignment="Stretch" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush ImageSource="RecursosGUI/fondoCocina.jpg"/>
     </Window.Background>
 
     <ScrollViewer x:Name="bar" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="grid">
-            <Label Content="Pedidos en Espera" HorizontalAlignment="Center" Height="60" Margin="265,0,257,0" VerticalAlignment="Top" Width="270" Foreground="White" FontSize="30" FontFamily="Palatino Linotype"/>
-            <Button x:Name="ButtonRegresar" HorizontalAlignment="Left" Height="43" Margin="5,5,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.222,0.556" Click="ButtonRegresarClick">
+            <Label Content="Pedidos en Espera" HorizontalAlignment="Center" Height="60" Margin="442,9,392,0" VerticalAlignment="Top" Width="360" Foreground="White" FontSize="36" FontFamily="Arial" FontWeight="Bold" FontStretch="UltraExpanded"/>
+            <Button x:Name="ButtonRegresar" HorizontalAlignment="Left" Height="63" Margin="5,5,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.222,0.556" Click="ButtonRegresarClick">
                 <Button.Background>
                     <SolidColorBrush Color="White" Opacity="0.5"/>
                 </Button.Background>
-                <Image Height="35" Width="39" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
+                <Image Height="47" Width="53" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
             </Button>
 
             <local:CocinaPedidoLocal x:Name="UC_PedidoLocal" Visibility="Collapsed" ></local:CocinaPedidoLocal>
             <local:CocinaPedidoDomicilio x:Name="UC_PedidoDomicilio" Visibility="Collapsed"></local:CocinaPedidoDomicilio>
-            <Image HorizontalAlignment="Left" Height="412" Margin="270,137,0,0" VerticalAlignment="Top" Width="440" Source="RecursosGUI/logo.png"/>
+            <Image HorizontalAlignment="Left" Height="484" Margin="310,86,0,0" Stretch="Fill" VerticalAlignment="Top" Width="530" Source="RecursosGUI/logo.png"/>
         </Grid>
 
     </ScrollViewer>

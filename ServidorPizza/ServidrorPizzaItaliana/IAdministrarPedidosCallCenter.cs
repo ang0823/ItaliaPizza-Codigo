@@ -24,8 +24,8 @@ namespace ServidrorPizzaItaliana
         [OperationContract(IsOneWay = true)]
         void RegistrarCliente(AccesoBD2.Cliente cliente, Direccion direccionCliente, Telefono telefonoCliente);
 
-        [OperationContract(IsOneWay = true)]
-        void ModificarPedidoADomicilio(PedidoADomicilio pedido);
+        [OperationContract]
+        bool ModificarDatosPedidoADomicilio(PedidoADomicilio pedido);        
 
         [OperationContract(IsOneWay = true)]
         void ModificarPedidoLocalCallCenter(PedidoLocal pedido);
@@ -89,19 +89,31 @@ namespace ServidrorPizzaItaliana
         private string categoria;
         [DataMember]
         private byte[] imagen;
-        [DataMember]
+        //Caicero: esto es una propiedad que he agregado para los pedidos
+        [DataMember] int cantidad;
+        private string descripcion;
         private string nombreReceta;
-        [DataMember]
         private bool activado;
 
-        public ProductoDePedido(int id, string nombre, string descrpcion, double precioUnitario, string restricciones, string categoria)
+        public ProductoDePedido(int id, string nombre, string descripcion, double precioUnitario, string restricciones, string categoria)
         {
-            this.Id = id;
-            this.Nombre = nombre;
-            this.Descrpcion = descrpcion;
-            this.PrecioUnitario = precioUnitario;
-            this.Restricciones = restricciones;
-            this.Categoria = categoria;
+            this.id = id;
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.precioUnitario = precioUnitario;
+            this.restricciones = restricciones;
+            this.categoria = categoria;
+        }
+
+        public ProductoDePedido(int id, string nombre, string descrpcion, double precioUnitario, string restricciones, string categoria, int cantidad)
+        {
+            this.id = id;
+            this.nombre = nombre;
+            this.descrpcion = descrpcion;
+            this.precioUnitario = precioUnitario;
+            this.restricciones = restricciones;
+            this.categoria = categoria;
+            this.cantidad = cantidad;
         }
 
         public byte[] Imagen { get => imagen; set => imagen = value; }
@@ -145,21 +157,40 @@ namespace ServidrorPizzaItaliana
         private string categoria;
         [DataMember]
         private byte[] imagen;
+        //Caicero: esto es una propiedad que he agregado de utilidad para los pedidos
+        [DataMember] int cantidad;
 
-        public ProvisionVentaDirecta(int idProvisionVentaDirecta, int idProvision, string nombre, int cantidadExistencias, string ubicacion, int stock, double precioUnitario, string unidadDeMedida, bool activado, string descripcion, string restricciones, string categoria)
+        public ProvisionVentaDirecta(int id1, int id2, string nombre, int noExistencias, string ubicacion, int stockMinimo, double costoUnitario, string unidadMedida, bool activado, string descripcion, string restricciones, string categoria)
         {
-            this.IdProvisionVentaDirecta = idProvisionVentaDirecta;
-            this.IdProvision = idProvision;
-            this.Nombre = nombre;
-            this.CantidadExistencias = cantidadExistencias;
-            this.Ubicacion = ubicacion;
-            this.Stock = stock;
-            this.PrecioUnitario = precioUnitario;
-            this.UnidadDeMedida = unidadDeMedida;
-            this.Activado = activado;
-            this.Descripcion = descripcion;
-            this.Restricciones = restricciones;
-            this.Categoria = categoria;
+            this.idProvisionVentaDirecta = id1;
+            this.idProvision = id2;
+            this.nombre = nombre;
+            this.cantidadExistencias = noExistencias;
+            this.ubicacion = ubicacion;
+            this.stock = stockMinimo;
+            this.precioUnitario = costoUnitario;
+            this.unidadDeMedida = unidadMedida;
+            this.activado = activado;
+            this.descripcion = descripcion;
+            this.restricciones = restricciones;
+            this.categoria = categoria;
+        }
+
+        public ProvisionVentaDirecta(int idProvisionVentaDirecta, int idProvision, string nombre, int cantidadExistencias, string ubicacion, int stock, double precioUnitario, string unidadDeMedida, bool activado, string descripcion, string restricciones, string categoria, int cantidad)
+        {
+            this.idProvisionVentaDirecta = idProvisionVentaDirecta;
+            this.idProvision = idProvision;
+            this.nombre = nombre;
+            this.cantidadExistencias = cantidadExistencias;
+            this.ubicacion = ubicacion;
+            this.stock = stock;
+            this.precioUnitario = precioUnitario;
+            this.unidadDeMedida = unidadDeMedida;
+            this.activado = activado;
+            this.descripcion = descripcion;
+            this.restricciones = restricciones;
+            this.categoria = categoria;
+            this.cantidad = cantidad;
         }
 
         public byte[] Imagen { get => imagen; set => imagen = value; }

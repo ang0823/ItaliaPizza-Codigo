@@ -20,6 +20,12 @@ namespace ServidrorPizzaItaliana
 
         [OperationContract(IsOneWay = true)]
         void NotificarPedidoADomicilioPreparado(PedidoADomicilio pedido, string usuario);
+
+        [OperationContract(IsOneWay = true)]
+        void ModificarEstadoPedidoLocal(PedidoLocal pedido);
+
+        [OperationContract(IsOneWay = true)]
+        void ModificarEstadoPedidoADomicilio(PedidoADomicilio pedido);
     }
 
     [ServiceContract]

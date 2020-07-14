@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
-        Title="BuscarReceta" Height="721" Width="1202" Background="White" WindowStartupLocation="CenterScreen">
+        Title="BuscarReceta" Height="721" Width="1202" Background="White" WindowStartupLocation="CenterScreen" Icon="RecursosGUI/WindowIcon.jpg">
     <Grid >
         <Grid VerticalAlignment="Top" Height="100" Margin="30, 0">
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="/RecursosGUI/logo.png"/>
             <Grid HorizontalAlignment="Center" Width="500">
-                <TextBox x:Name="SearchBox" Tag="Ingresar nombre de receta" HorizontalAlignment="Left" Style="{DynamicResource placeHolderSearchBox}" Width="350" Background="White" BorderBrush="Black"/>
+                <TextBox x:Name="SearchBox" Tag="Ingresar nombre de receta" HorizontalAlignment="Left" Style="{DynamicResource placeHolderSearchBox}" Width="350" Background="White" BorderBrush="Black" KeyDown="SearchBox_KeyDown"/>
                 <Button x:Name="SearchBtn" Content="Buscar" VerticalAlignment="Center" HorizontalAlignment="Right" Height="35" Width="120" Background="LightGray" FontFamily="Arial" FontSize="15" Click="SearchBtn_Click"/>
             </Grid>
             <Button x:Name="LogoutBtn" VerticalAlignment="Center" HorizontalAlignment="Right" Height="60" Width="50" Background="White" BorderThickness="0" Click="LogoutBtn_Click">
@@ -19,12 +19,14 @@
             <Label x:Name="UsuarioLbl" Content="Cerrar sesión" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black"/>
         </Grid>
 
-        <Grid VerticalAlignment="Bottom" Height="600" Margin="30, 0">
-            <Label Content="Nombre:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 25" FontSize="23" FontFamily="Arial"/>
-            <TextBox x:Name="NombreRecetaTxt" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 65" Height="40" Width="473" FontFamily="Arial" FontSize="23" MaxLines="1"/>
-            <Label Content="Porciones:" Margin="579,25,431,539" FontFamily="Arial" FontSize="23"/>
-            <TextBox x:Name="PorcionesTxt" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="579,66,0,0" Height="40" Width="473" FontFamily="Arial" FontSize="23" MaxLines="1"/>
-            <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="208" Margin="0,130,0,262" VerticalAlignment="Center" Width="1052" BorderBrush="Black" FontSize="20"  Background="#FFBDB9B9" CanUserDeleteRows="True" CanUserAddRows="True" CanUserResizeColumns="False" AutoGenerateColumns="False" Foreground="Black"  >
+        <Grid VerticalAlignment="Bottom" Height="585" Margin="30, 0">
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="75" Width="895">
+                <Label Content="Nombre:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="23" FontFamily="Arial"/>
+                <TextBox x:Name="NombreRecetaTxt" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="473" FontFamily="Arial" FontSize="23" MaxLines="1" TextChanged="ActivarDesactivarBotonGuardar"/>
+                <Label Content="Porciones:" HorizontalAlignment="Right" VerticalAlignment="Top" Width="259" FontFamily="Arial" FontSize="23"/>
+                <TextBox x:Name="PorcionesTxt" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40" Width="259" FontFamily="Arial" FontSize="23" MaxLines="1" TextChanged="ActivarDesactivarBotonGuardar"/>
+            </Grid>
+            <DataGrid x:Name="dataGridIngredientes" HorizontalAlignment="Left" Height="208" Margin="0,102,0,275" VerticalAlignment="Center" Width="895" BorderBrush="Black" FontSize="20"  Background="#FFBDB9B9" CanUserDeleteRows="True" CanUserAddRows="False" CanUserResizeColumns="False" AutoGenerateColumns="False" Foreground="Black" SelectionChanged="dataGridIngredientes_SelectionChanged"  >
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="ColumnNombreIngrediente" Header="Ingrediente" Width="300" IsReadOnly="False" Binding="{Binding nombre}"/>
                     <DataGridTextColumn x:Name="ColumnCantidad" Header="Cantidad" Width="100" IsReadOnly="False" Binding="{Binding cantidad}" />
@@ -33,11 +35,14 @@
                     <DataGridTextColumn x:Name="ColumnCostoPorUnidad" Header="Costo por Unidad" Width="*" IsReadOnly="False" Binding="{Binding costoPorUnidad}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="Procedimiento:" Margin="10,349,958,215" FontFamily="Arial" FontSize="23"/>
-            <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="160" Margin="0,0,0,50" TextWrapping="Wrap" Width="949" BorderBrush="#FF0C0C0C" MaxLength="150" FontFamily="Arial" FontSize="23" />
-            <Button x:Name="ButtonEditar" Content="Editar" HorizontalAlignment="Right" Margin="0,0,0,130" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonEditar_Click" Background="#FF305825" BorderBrush="#FF305825" Foreground="White"/>
-            <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Right" Margin="0,0,0,90" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonEliminar_Click" BorderBrush="#FF740005" Background="White" Foreground="#FF740005"/>
-            <Button x:Name="ButtonRegresar" Content="Cancelar" HorizontalAlignment="Right" Margin="0,0,0,50" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonRegresar_Click" Foreground="White" Background="#FF740005" BorderBrush="#FF740005"/>
+            <Label Content="Procedimiento:" Margin="0,319,968,230" FontFamily="Arial" FontSize="23"/>
+            <TextBox x:Name="textBoxProcedimiento" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="200" Margin="0,0,0,30" TextWrapping="Wrap" Width="895" BorderBrush="#FF0C0C0C" MaxLength="150" FontFamily="Arial" FontSize="23" TextChanged="ActivarDesactivarBotonGuardar" />
+            <Button x:Name="ButtonEditarGuardar" Content="Editar" HorizontalAlignment="Right" Margin="0,0,0,110" VerticalAlignment="Bottom" Width="155" Height="30" Background="#FF305825" BorderBrush="#FF305825" Foreground="White" Click="ButtonEditarGuardar_Click"/>
+            <Button x:Name="ButtonEliminar" Content="Eliminar" HorizontalAlignment="Right" Margin="0,0,0,70" VerticalAlignment="Bottom" Width="155" Height="30" BorderBrush="#FF740005" Background="White" Foreground="#FF740005"/>
+            <Button x:Name="ButtonRegresar" Content="Cancelar" HorizontalAlignment="Right" Margin="0,0,0,30" VerticalAlignment="Bottom" Width="155" Height="30" Click="ButtonRegresar_Click" Foreground="White" Background="#FF740005" BorderBrush="#FF740005"/>
+            <Label x:Name="SelectLbl" Content="Seleccionar ingredientes:" HorizontalAlignment="Left" Margin="919,10,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="18"/>
+            <ListBox x:Name="ingredientesList" HorizontalAlignment="Right" Height="238"  Margin="0, 40" VerticalAlignment="Top" Width="215" FontFamily="Arial" FontSize="20" MouseDoubleClick="ingredientesList_MouseDoubleClick"/>
+            <Button x:Name="removerBtn" Content="Remover" HorizontalAlignment="Right" Margin="0,283,0,0" VerticalAlignment="Top" Width="215" Height="27" FontFamily="Arial" FontSize="23" Click="RemoverIngrediente"/>
         </Grid>
 
     </Grid>

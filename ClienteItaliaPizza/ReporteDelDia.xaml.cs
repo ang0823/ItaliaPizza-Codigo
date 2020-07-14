@@ -17,11 +17,10 @@ using System.Windows.Shapes;
 
 namespace ClienteItaliaPizza
 {
-    /// <summary>
-    /// Lógica de interacción para ReporteDelDia.xaml
+
     public partial class ReporteDelDia : Window, IGenerarReporteDelDiaCallback
     {
-        private CuentaUsuario1 cuentaUsuario;
+        private CuentaUsuario1 cuentaUsuario = new CuentaUsuario1();
         InstanceContext contexto;
 
         public ReporteDelDia()
@@ -48,16 +47,44 @@ namespace ClienteItaliaPizza
         {
             double total = 0;
             List<Reporte> reportes1 = new List<Reporte>();
-            foreach (var valor in reportes)
+            ReporteDelDia1 reportes2 = new ReporteDelDia1();
+
+            for(int i=0; i<reportes.Length; i++)
             {
-                reportes1.Add(new Reporte() { IdPedido = valor.IdPedido, fecha = valor.fecha, totalCuenta = valor.totalCuenta });
-                total = total + valor.totalCuenta;
+                reportes1.Add(new Reporte() { IdPedido = reportes[i].IdPedido, fecha = reportes[i].fecha, totalCuenta = reportes[i].totalCuenta, nombreEmpleado = reportes[i].nombreEmpleado });
+                total = total + reportes[i].totalCuenta;
+
+                if (i == reportes.Length-1)
+                {
+                    Reporte r = new Reporte();
+                    reportes1.Add(new Reporte() { fecha = reportes[i].fecha, nombreEmpleado = "Total " + total.ToString()});
+                }
             }
+
+            /*foreach (var valor in reportes)
+            {
+                reportes1.Add(new Reporte() { IdPedido = valor.IdPedido, fecha = valor.fecha, totalCuenta = valor.totalCuenta, nombreEmpleado = valor.nombreEmpleado });
+                total = total + valor.totalCuenta;
+            }*/
+
+
+
             this.Dispatcher.Invoke(() =>
             {
                 lvReportes.ItemsSource = reportes1;
-                TotalCuentaOutput.Text = total.ToString();
             });
+        }
+
+        public void Imprimir()
+        {
+            PrintDialog dialogoImprimir = new PrintDialog();
+            var respuesta = dialogoImprimir.ShowDialog();
+
+            if (respuesta == true)
+            {
+                dialogoImprimir.PrintVisual(lvReportes, "Imprimiendo_WPF"); //Objeto visual a imprimir y descripción de la impresión               
+                
+            }
         }
 
         public void RespuestaReporteDelDia(string mensaje)
@@ -72,5 +99,9 @@ namespace ClienteItaliaPizza
             this.Close();
         }
 
+        private void buttonImprimirReporte_Click(object sender, RoutedEventArgs e)
+        {
+            Imprimir();
+        }
     }
 }

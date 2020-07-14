@@ -12,10 +12,10 @@ namespace ServidrorPizzaItaliana
         void ObtenerNombresDeRecetas();
 
         [OperationContract(IsOneWay = true)]
-        void ModificarProductoExterno(ProvisionVentaDirecta productoExterno, bool modificarImagen);
+        void ModificarProductoExterno(ProvisionVentaDirecta productoExterno, string antiguoNombreImagen);
 
         [OperationContract(IsOneWay = true)]
-        void ModificarProductoInterno(AccesoBD2.Producto producto, bool modificarImagen, string nombreReceta, byte[] imagen);
+        void ModificarProductoInterno(AccesoBD2.Producto producto, string antiguoNombreImagen, string nombreReceta, byte[] imagen);
     }
 
     [ServiceContract]

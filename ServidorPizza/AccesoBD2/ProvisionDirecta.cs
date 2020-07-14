@@ -14,6 +14,8 @@ namespace AccesoBD2
     
     public partial class ProvisionDirecta
     {
+        public int cantidad;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProvisionDirecta()
         {

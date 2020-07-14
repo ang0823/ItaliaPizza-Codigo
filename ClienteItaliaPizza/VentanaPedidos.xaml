@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
         
         mc:Ignorable="d"
-        Title="Ventana de Pedidos" Height="650" Width="1000" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" >
+        Title="Ventana de Pedidos" Height="721" Width="1202" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip" >
 
     <ScrollViewer x:Name="bar" VerticalScrollBarVisibility="Auto">
         <Grid x:Name="gridpedidos">
@@ -21,6 +21,7 @@
                 <Image Height="35" Width="39" Source="RecursosGUI/Back_Icon.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5"/>
 
             </Button>
+            <Label x:Name="labelDesconectado" Content="" HorizontalAlignment="Left" Margin="405,3,0,0" VerticalAlignment="Top" Width="479" FontFamily="Arial" FontSize="18" Foreground="#FFF91609" FontWeight="Bold"/>
         </Grid>
     </ScrollViewer>
 </Window>

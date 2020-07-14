@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteItaliaPizza.Pantallas"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="1000"
+             d:DesignHeight="650" d:DesignWidth="1202"
              Name="callCenterUserControl">
     <Grid Margin="0,10,10,21">
-        <Button x:Name="buttonNuevoPedidoDomicilio" Content="Domicilio" HorizontalAlignment="Left" Margin="854,102,0,0" VerticalAlignment="Top" Width="75" Height="40" RenderTransformOrigin="1.2,0.625" Background="#FFFF6600" Foreground="#FFF7F3F3" BorderBrush="#FF151414" FontSize="14" Click= "ButtonNuevoPedidoDomicilio_Click"/>
-        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="163,107,0,0" VerticalAlignment="Top" Width="80" Text="Tipo" IsEditable="True" IsReadOnly="True" SelectionChanged="ComboBox2_SelectionChanged" />
-        <TextBox x:Name="textBoxNombreCliente" HorizontalAlignment="Left" Height="20" Margin="342,107,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="110" MaxLength="40" TextChanged="TextBoxNombreCliente_TextChanged" PreviewTextInput="TextBoxNombreCliente_PreviewTextInput" /> 
+        <Button x:Name="buttonNuevoPedidoDomicilio" Content="Domicilio" HorizontalAlignment="Left" Margin="1040,69,0,0" VerticalAlignment="Top" Width="101" Height="60" RenderTransformOrigin="1.2,0.625" Background="#FFFF6600" Foreground="#FFF7F3F3" BorderBrush="#FF151414" FontSize="18" Click= "ButtonNuevoPedidoDomicilio_Click" FontFamily="Arial"/>
+        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="220,86,0,0" VerticalAlignment="Top" Width="91" Text="Tipo" IsEditable="True" IsReadOnly="True" SelectionChanged="ComboBox2_SelectionChanged" FontFamily="Arial" FontSize="16" />
+        <TextBox x:Name="textBoxNombreCliente" HorizontalAlignment="Left" Height="22" Margin="460,88,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="138" MaxLength="40" TextChanged="TextBoxNombreCliente_TextChanged" PreviewTextInput="TextBoxNombreCliente_PreviewTextInput" FontFamily="Arial" FontSize="16" />
 
     </Grid>
 </UserControl>

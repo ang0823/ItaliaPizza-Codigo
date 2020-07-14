@@ -6,13 +6,12 @@ using ClienteItaliaPizza.Servicio;
 using ClienteItaliaPizza.Pantallas;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 namespace ClienteItaliaPizza
 {
     [CallbackBehavior(UseSynchronizationContext = false)]
 
-    public partial class MainWindow : Window, ILoginCallback ,IGenerarReporteDelDiaCallback
+    public partial class MainWindow : Window, ILoginCallback
     {
         CuentaUsuario1 CuentaUsuario;
 
@@ -20,23 +19,11 @@ namespace ClienteItaliaPizza
         {
             InitializeComponent();
             textBoxNombreUsuario.Focus();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
-            timer.Start();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            if (DateTime.Now.ToLongTimeString().Equals("09:00:00 p. m."))
-            {
-                InstanceContext instanceContext = new InstanceContext(this);
-                GenerarRespaldoClient client = new GenerarRespaldoClient(instanceContext);
-                client.GenerarRespaldo("Respaldo");
-            }
-        }
         private void IniciarSesion()
         {
+            DeshabilitarCamposYBotonones();
             string Mensaje;
             string nombreUsuario = textBoxNombreUsuario.Text.Trim();
             string contraseña = passwordBoxContraseña.Password.Trim();
@@ -54,17 +41,45 @@ namespace ClienteItaliaPizza
                 {
                     Mensaje = "Se requiere usuario y contraseña";
                     FuncionesComunes.MostrarMensajeDeError(Mensaje);
+                    HabilitarCamposYBotonones();
                 }
             }
             catch (EndpointNotFoundException)
             {
                 Mensaje = "Falló la conexión con el servidor";
                 FuncionesComunes.MostrarMensajeDeError(Mensaje);
-            } catch (InvalidOperationException error)
+                HabilitarCamposYBotonones();
+            } 
+            catch (InvalidOperationException error)
             {
                 Mensaje = error.Message;
                 FuncionesComunes.MostrarMensajeDeError(Mensaje);
+                HabilitarCamposYBotonones();
             }
+            catch(TimeoutException)
+            {
+                Mensaje = "Se excedió el tiempo de espera y no hubo respuesta del servidor.";
+                FuncionesComunes.MostrarMensajeDeError(Mensaje);
+                HabilitarCamposYBotonones();
+            }
+        }
+
+        private void DeshabilitarCamposYBotonones()
+        {
+            textBoxNombreUsuario.IsEnabled = false;
+            passwordBoxContraseña.IsEnabled = false;
+            LoginBtn.IsEnabled = false;
+            ButtonVentanaMeseros.IsEnabled = false;
+            ButtonVentanaCocina.IsEnabled = false;
+        }
+
+        private void HabilitarCamposYBotonones()
+        {
+            textBoxNombreUsuario.IsEnabled = true;
+            passwordBoxContraseña.IsEnabled = true;
+            LoginBtn.IsEnabled = true;
+            ButtonVentanaMeseros.IsEnabled = true;
+            ButtonVentanaCocina.IsEnabled = true;
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
@@ -106,12 +121,13 @@ namespace ClienteItaliaPizza
                 else
                 {
                     FuncionesComunes.MostrarMensajeDeError("No cuentas con permisos para iniciar sesión");
+                    HabilitarCamposYBotonones();
                     textBoxNombreUsuario.Text = "";
                     passwordBoxContraseña.Password = "";
                 }                
             });
         }
-        */
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             VentanaCocina ventanaCocina = new VentanaCocina();
@@ -138,6 +154,7 @@ namespace ClienteItaliaPizza
         {
             if (e.Key == Key.Return)
             {
+                DeshabilitarCamposYBotonones();
                 IniciarSesion();
             }
         }
@@ -147,6 +164,7 @@ namespace ClienteItaliaPizza
             Dispatcher.Invoke(() =>
             {
                 FuncionesComunes.MostrarMensajeDeError(mensaje);
+                HabilitarCamposYBotonones();
             });
         }
 
@@ -154,21 +172,6 @@ namespace ClienteItaliaPizza
         {
             PasswordBox pb = sender as PasswordBox;
             pb.Tag = (!string.IsNullOrEmpty(pb.Password)).ToString();
-        }
-
-        public void DevuelveCuenta(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DevuelveReporte(Reporte[] reportes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RespuestaReporteDelDia(string mensaje)
-        {
-            throw new NotImplementedException();
         }
     }
 }

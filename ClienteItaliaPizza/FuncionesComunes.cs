@@ -46,11 +46,11 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException)
             {
-                throw new FormatException("Los campos marcaos solo aceptan valores numéricos");
+                throw new FormatException("Ingresó datos inválidos.");
             }
             catch (OverflowException)
             {
-                throw new OverflowException("Los campos marcados provocaron un desbordamiento porque el valor es deasiado grande.");
+                throw new OverflowException("El valor de uno o varios datos numéricos es demaiado grande.");
             }
 
             return entero;
@@ -73,11 +73,11 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException)
             {
-                throw new FormatException("El número de existencias no pueden ser letras");
+                throw new FormatException("Ingresó datos inválidos.");
             }
             catch (OverflowException)
             {
-                throw new OverflowException("El númweo de existencias ingresado provocó un desbordamiento porque es deasiado grande.");
+                throw new OverflowException("El valor de uno o varios datos numéricos es demaiado grande.");
             }
 
             return shortNumber;
@@ -100,11 +100,11 @@ namespace ClienteItaliaPizza
             }
             catch (FormatException)
             {
-                throw new FormatException("El precio del producto debe ser numérico (puede incluir punto decimal).");
+                throw new FormatException("Ingresó datos inválidos.");
             }
             catch (OverflowException)
             {
-                throw new OverflowException("El precio ingresado provoco un desbordamiento porque es deasiado grande.");
+                throw new OverflowException("El valor de uno o varios datos numéricos es demaiado grande.");
             }
 
             return costo;
@@ -150,6 +150,27 @@ namespace ClienteItaliaPizza
             string titulo = "Operación exitósa";
             opcion = MessageBox.Show(Mensaje, titulo,
                 MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        /// <summary>
+        /// Muestra un mensaje de confirmación con las opciones "Aceptar" y "Cancelar"
+        /// </summary>
+        /// <param name="titulo">Nombre de la operación a realizar</param>
+        /// <param name="mensaje">Pregunta a hacer al cliente para confirmar la operación</param>
+        /// <returns>true: si la operación se acepta. false: si se rechaza la operación</returns>
+        public static bool ConfirmarOperacion(string titulo, string mensaje)
+        {
+            MessageBoxResult option;
+            option = MessageBox.Show(mensaje, titulo, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if (option == MessageBoxResult.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

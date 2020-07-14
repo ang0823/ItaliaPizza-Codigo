@@ -1,29 +1,29 @@
-﻿<Window x:Class="ClienteItaliaPizza.ReporteDelDia"
+﻿<Window x:Name="Reporte"
+        x:Class="ClienteItaliaPizza.ReporteDelDia"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteItaliaPizza"
         mc:Ignorable="d"
-        Title="ReporteDelDia" Height="450" Width="800">
+        Title="ReporteDelDia" Height="450" Width="800 ">
     <Window.Background>
         <ImageBrush ImageSource="/RecursosGUI/FondoPrincipal.jpg"/>
     </Window.Background>
     <Grid Margin="0,0,0,-2">
-        <Label Content="Reporte Del Dia" HorizontalAlignment="Left" Margin="287,5,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
-        <Button x:Name="buttonImprimirReporte" Content="Imprimir Reporte" Height="40" Width="250" Margin="137,369,405,10" Background="#FF807E2A" BorderBrush="#FF444801" Foreground="White" Click="ImprimirReporte"/>
+        <Label Content="Reporte Del Dia" HorizontalAlignment="Left" Margin="195,5,0,0" VerticalAlignment="Top" FontSize="40" Foreground="White"/>
+        <Button x:Name="buttonImprimirReporte" Content="Imprimir Reporte" Height="40" Width="250" Margin="137,369,405,10" Background="#FF807E2A" BorderBrush="#FF444801" Foreground="White" Click="buttonImprimirReporte_Click"/>
         <Button x:Name="buttonVolverMenu" Content="Volver al menú" Height="40" Width="250" Margin="484,369,58,10" Background="#FF807E2A" BorderBrush="#FF444801" Foreground="White" Click="VolverMenu"/>
-        <ListView Margin="40,73,156,74" x:Name="lvReportes" RenderTransformOrigin="0.498,0.354">
+        <ListView Margin="40,73,146,130" x:Name="lvReportes" RenderTransformOrigin="0.498,0.354">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="IdPEdido" Width="200" DisplayMemberBinding="{Binding IdPedido}" />
-                    <GridViewColumn Header="Fecha" Width="180" DisplayMemberBinding="{Binding Fecha}" />
-                    <GridViewColumn Header="ValorTotal" Width="200" DisplayMemberBinding="{Binding ValorTotal}" />
+                    <GridViewColumn Header="IdPEdido" Width="120" DisplayMemberBinding="{Binding IdPedido}" />
+                    <GridViewColumn Header="Fecha" Width="120" DisplayMemberBinding="{Binding fecha}" />
+                    <GridViewColumn Header="ValorTotal" Width="120" DisplayMemberBinding="{Binding totalCuenta}" />
+                    <GridViewColumn Header="Nombre de Empleado" Width="120" DisplayMemberBinding="{Binding nombreEmpleado}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Total de la cuenta" HorizontalAlignment="Left" Margin="660,227,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox Name="TotalCuentaOutput" HorizontalAlignment="Left" Height="23" Margin="660,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>
