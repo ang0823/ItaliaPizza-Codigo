@@ -37,7 +37,7 @@
                         <ColumnDefinition Width="417*"/>
                         <ColumnDefinition Width="29*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView x:Name="ListViewEnsaladas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="3" SelectionChanged="ListViewEnsaladas_SelectionChanged" FontWeight="Normal" >
+                    <ListView x:Name="ListViewEnsaladas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="3" MouseDoubleClick="ListViewEnsaladas_MouseDoubleClick" FontWeight="Normal" >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -46,7 +46,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <Image Source="{Binding imagen}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
                                     <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                     <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                 </StackPanel>
@@ -68,7 +68,7 @@
                         <ColumnDefinition Width="204*"/>
                         <ColumnDefinition Width="515*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView x:Name="ListViewPizzas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" SelectionChanged="ListViewPizzas_SelectionChanged" FontWeight="Normal" >
+                    <ListView x:Name="ListViewPizzas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" MouseDoubleClick="ListViewPizzas_MouseDoubleClick" FontWeight="Normal" >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -77,7 +77,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <Image Source="{Binding imagen}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
                                     <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                     <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontSize="14" />
                                 </StackPanel>
@@ -92,10 +92,14 @@
                     <SolidColorBrush Color="#FF040404" Opacity="0.6"/>
                 </TabItem.Background>
                 <Grid Margin="0,2,0,-2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="137*"/>
+                        <ColumnDefinition Width="575*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <SolidColorBrush Color="#FF040404" Opacity="0.6"/>
                     </Grid.Background>
-                    <ListView x:Name="ListViewPastas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" SelectionChanged="ListViewPastas_SelectionChanged" FontWeight="Normal" >
+                    <ListView x:Name="ListViewPastas" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" MouseDoubleClick="ListViewPastas_MouseDoubleClick" FontWeight="Normal" >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -104,7 +108,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <Image Source="{Binding imagen}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
                                     <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                     <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontSize="14" />
                                 </StackPanel>
@@ -119,10 +123,14 @@
                     <SolidColorBrush Color="Black" Opacity="0.6"/>
                 </TabItem.Background>
                 <Grid Margin="0,2,0,-2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="22*"/>
+                        <ColumnDefinition Width="57*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <SolidColorBrush Color="#FF040404" Opacity="0.6"/>
                     </Grid.Background>
-                    <ListView x:Name="ListViewPostres" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" SelectionChanged="ListViewPostres_SelectionChanged" FontWeight="Normal"  >
+                    <ListView x:Name="ListViewPostres" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" Grid.ColumnSpan="2" MouseDoubleClick="ListViewPostres_MouseDoubleClick" FontWeight="Normal"  >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -131,7 +139,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <Image Source="{Binding imagen}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
                                     <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                     <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                 </StackPanel>
@@ -149,7 +157,7 @@
                     <Grid.Background>
                         <SolidColorBrush Color="#FF131313" Opacity="0.6"/>
                     </Grid.Background>
-                    <ListView x:Name="ListViewBebidas"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" SelectionChanged="ListViewBebidas_SelectionChanged"  Grid.ColumnSpan="2" Focusable="False" FontWeight="Normal"  >
+                    <ListView x:Name="ListViewBebidas"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,15,15,0" MouseDoubleClick="ListViewBebidas_MouseDoubleClick"  Grid.ColumnSpan="2" Focusable="False" FontWeight="Normal" >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -158,7 +166,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <Image Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
+                                    <Image Source="{Binding imagen}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50" />
                                     <TextBlock Text="{Binding nombre}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                     <TextBlock Text="{Binding precioUnitario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                                 </StackPanel>

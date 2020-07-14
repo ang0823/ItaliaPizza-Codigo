@@ -25,6 +25,7 @@ namespace ClienteItaliaPizza
         int idPedidoEdicion = 0;
         string mesaSeleccionada;
         double descuento = 0;
+        double totalADescontar = 0;
         double IVA = 0;
         EmpleadoPizzeria[] Meseros;
 
@@ -175,9 +176,9 @@ namespace ClienteItaliaPizza
              };  */
         }
 
-        private BitmapImage LoadImage(string filename)
+        private BitmapImage LoadImage(byte[] arrayImagen)
         {
-            return new BitmapImage(new Uri(filename));
+            return new BitmapImage();
         }
 
         private void buttonOrden_Click(object sender, RoutedEventArgs e)
@@ -238,16 +239,18 @@ namespace ClienteItaliaPizza
         {
             if (textBoxDescuento.Text.Length > 0 || textBoxDescuento.Text != "")
             {
-                descuento = Convert.ToDouble(textBoxDescuento.Text) / 100;
-               // ButtonAceptar.Content = descuento;
-               //labelTotal.Content = Convert.ToDouble(labelSubtotal.Content.ToString()) - (Convert.ToDouble(labelSubtotal.Content.ToString()) * descuento) + IVA;
+               descuento = Convert.ToDouble(textBoxDescuento.Text) / 100;
+               totalADescontar = Convert.ToDouble(labelSubtotal.Content.ToString()) * descuento;
+               labelTotal.Content = Convert.ToDouble(labelSubtotal.Content.ToString()) - totalADescontar + IVA;
             }
-            else { descuento = 0; ButtonAceptar.Content = descuento; }
+            else { descuento = 0; }
         }
 
 
         //      SELECCIÓN DE PRODUCTOS  **************************************************+
-        private void ListViewBebidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+        private void ListViewBebidas_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ProvisionVentaDirecta provisionSeleccionada = ListViewBebidas.SelectedItem as ProvisionVentaDirecta;
             Orden ordenExistente = listaOrdenes.FirstOrDefault<Orden>(i => i.nombreProducto == provisionSeleccionada.nombre);
@@ -263,12 +266,12 @@ namespace ClienteItaliaPizza
 
                 ProvisionDirecta provision = ConvertidorDeObjetos.ProvisionVentaDirecta_A_ProvisionDirecta(provisionSeleccionada);
                 provisionesSeleccionadas.Add(provision);
-                
+
                 labelSubtotal.Content = orden.precioUnitario + Convert.ToDouble(labelSubtotal.Content.ToString());
 
                 IVA = Convert.ToDouble(labelSubtotal.Content.ToString()) * .16;
                 //double conDescuento = Convert.ToDouble(labelSubtotal.Content.ToString()) * descuento;
-                labelTotal.Content = (Convert.ToDouble(labelSubtotal.Content.ToString()) - (Convert.ToDouble(labelSubtotal.Content.ToString()) * descuento)) + IVA;
+                labelTotal.Content = (Convert.ToDouble(labelSubtotal.Content.ToString())) - totalADescontar + IVA;
             }
             else
             {
@@ -285,23 +288,24 @@ namespace ClienteItaliaPizza
             }
         }
 
-        private void ListViewPostres_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListViewPostres_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPostres);
         }
-        private void ListViewEnsaladas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void ListViewPastas_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewEnsaladas);
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPastas);           
         }
 
-        private void ListViewPizzas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListViewPizzas_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPizzas);
         }
 
-        private void ListViewPastas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListViewEnsaladas_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewPastas);
+            ObtenerProductoSeleccionado<System.Windows.Controls.ListView>(ListViewEnsaladas);
         }
 
         /// <summary>
@@ -341,7 +345,7 @@ namespace ClienteItaliaPizza
                 labelSubtotal.Content = ordenExistente.precioUnitario + FuncionesComunes.ParsearADouble(labelSubtotal.Content.ToString());
 
                 IVA = Convert.ToDouble(labelSubtotal.Content.ToString()) * .16;
-                labelTotal.Content = (Convert.ToDouble(labelSubtotal.Content.ToString()) - (Convert.ToDouble(labelSubtotal.Content.ToString()) * descuento)) + IVA;
+                labelTotal.Content = (Convert.ToDouble(labelSubtotal.Content.ToString())) - totalADescontar + IVA;
             }
         }
         //      SELECCIÓN DE PRODUCTOS  **************************************************
@@ -844,6 +848,6 @@ namespace ClienteItaliaPizza
             public string nombreProducto { get; set; }
             public double precioUnitario { get; set; }
             public double precioTotal { get; set; }
-        }        
+        }       
     }
 }
