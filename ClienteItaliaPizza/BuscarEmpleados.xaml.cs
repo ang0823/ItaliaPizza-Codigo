@@ -19,9 +19,22 @@ namespace ClienteItaliaPizza
 
         Empleado empleado = new Empleado();
         Direccion direccion = new Direccion();
-        CuentaUsuario cuenta = null;
+        CuentaUsuario cuenta = new CuentaUsuario();
         string nombreRol;
         bool enEdicion = false;
+
+        public BuscarEmpleados()
+        {
+            InitializeComponent();
+            LlenarPuestosCb();
+            DeshabilitarCampos();
+
+            SearchBtn.IsEnabled = false;
+            idEmpleadoTxt.IsEnabled = false;
+            EstadoTxt.IsEnabled = false;
+            EditarGuardarBtn.IsEnabled = false;
+            EliminarBtn.IsEnabled = false;
+        }
 
         public BuscarEmpleados(CuentaUsuario1 cuenta)
         {
@@ -119,10 +132,7 @@ namespace ClienteItaliaPizza
 
                     if (EsAdministrativo())
                     {
-                        if(cuenta == null)
-                        {
-                            cuenta = new CuentaUsuario();
-                        }
+                        cuenta = new CuentaUsuario();
                         cuenta.nombreUsuario = usuarioTxt.Text;
                         cuenta.contraseña = contrasenaTxt.Password;
                         ServicioModificar.ModificarCuentaUsuario(cuenta, empleado, direccion, nombreRol);
@@ -538,9 +548,12 @@ namespace ClienteItaliaPizza
 
         public void DevuelveCuentas(CuentaUsuario1 cuenta, Empleado1 empleado, Direccion1 direccion, Rol1 rol)
         {
+            FuncionesComunes.MostrarMensajeExitoso(cuenta.nombreUsuario + cuenta.contraseña);
+
             Dispatcher.Invoke(() =>
             {
-                //this.empleado.IdEmpleado = empleado.idEmpleado;
+                VaciarCampos();
+                this.empleado.IdEmpleado = empleado.idEmpleado;
                 this.empleado.idEmpleadoGenerado = empleado.idEmpleadoGenerado;
                 this.empleado.nombre = empleado.nombre;
                 this.empleado.apellidoPaterno = empleado.apellidoPaterno;
@@ -548,15 +561,13 @@ namespace ClienteItaliaPizza
                 this.empleado.correo = empleado.correo;
                 this.empleado.telefono = empleado.telefono;
                 this.empleado.activado = empleado.activado;
-                //this.direccion.Id = direccion.id;
+                this.direccion.Id = direccion.id;
                 this.direccion.calle = direccion.calle;
                 this.direccion.numeroExterior = direccion.numeroExterior;
                 this.direccion.numeroInterior = direccion.numeroInterior;
                 this.direccion.colonia = direccion.colonia;
                 this.direccion.codigoPostal = direccion.codigoPostal;
                 nombreRol = rol.rol;
-                this.cuenta.Id = cuenta.id;
-                this.cuenta = new CuentaUsuario();
                 this.cuenta.nombreUsuario = cuenta.nombreUsuario;
                 this.cuenta.contraseña = cuenta.contraseña;
                 EstablecerInformacion();
