@@ -66,7 +66,8 @@ namespace ClienteItaliaPizza
         {
             if (e.Key == Key.Return && SearchBox.Text.Length > 0)
             {
-                ObtenerRecetaDesdeDb();
+                string nombreReceta = SearchBox.Text;
+                ObtenerRecetaDesdeDb(nombreReceta);
             }
         }
 
@@ -74,18 +75,18 @@ namespace ClienteItaliaPizza
         {
             if (SearchBox.Text.Length > 0)
             {
-                ObtenerRecetaDesdeDb();
+                string nombreReceta = SearchBox.Text;
+                ObtenerRecetaDesdeDb(nombreReceta);
             }
         }
 
-        private void ObtenerRecetaDesdeDb()
+        private void ObtenerRecetaDesdeDb(string nombreReceta)
         {
             context = new InstanceContext(this);
             ObtenerRecetasClient servicioReceta = new ObtenerRecetasClient(context);
 
             try
             {
-                string nombreReceta = SearchBox.Text;
                 SearchBox.Text = "";
                 servicioReceta.ObtenerReceta(nombreReceta);
             }
@@ -105,6 +106,7 @@ namespace ClienteItaliaPizza
 
         public void DevuelveReceta(Receta1 receta, Ingrediente1[] ingredientes)
         {
+            VaciarCampos();
             this.receta = receta;
             foreach (var ingrediente in ingredientes)
             {
@@ -246,9 +248,8 @@ namespace ClienteItaliaPizza
             if (mensaje == "Se modificó correctamente")
             {
                 string nombreRecetaModificada = NombreRecetaTxt.Text;
-                VaciarCampos();
                 DeshabilitarEdicion();
-                RecargarReceta(nombreRecetaModificada);
+                ObtenerRecetaDesdeDb(nombreRecetaModificada);
                 FuncionesComunes.MostrarMensajeExitoso(mensaje);
                 enEdicion = false;
             }
@@ -265,29 +266,6 @@ namespace ClienteItaliaPizza
             PorcionesTxt.Text = string.Empty;
             dataGridIngredientes.Items.Refresh();
             textBoxProcedimiento.Text = string.Empty;
-        }
-
-        private void RecargarReceta(string nombreReceta)
-        {
-            context = new InstanceContext(this);
-            ObtenerRecetasClient servicioReceta = new ObtenerRecetasClient(context);
-
-            try
-            {
-                servicioReceta.ObtenerReceta(nombreReceta);
-            }
-            catch (EndpointNotFoundException)
-            {
-                FuncionesComunes.MostrarMensajeDeError("El servidor no sstá disponible.");
-            }
-            catch (TimeoutException)
-            {
-                FuncionesComunes.MostrarMensajeDeError("Se excedio el tiempo de espera para la respuesta.");
-            }
-            catch (Exception e)
-            {
-                FuncionesComunes.MostrarMensajeDeError(e.GetType() + ": " + e.Message);
-            }
         }
 
         private void MostrarIngredientes()
@@ -347,11 +325,6 @@ namespace ClienteItaliaPizza
             textBoxProcedimiento.IsEnabled = true;
         }
 
-        private void ButtonEliminar_Click(object sender, RoutedEventArgs e)
-        {
-            FuncionesComunes.MostrarMensajeDeError("Aún no se implementa.");
-        }
-
         private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
         {
             Dispatcher.Invoke(() =>
@@ -395,6 +368,8 @@ namespace ClienteItaliaPizza
             PorcionesTxt.IsEnabled = false;
             dataGridIngredientes.IsEnabled = false;
             textBoxProcedimiento.IsEnabled = false;
+            ingredientesList.IsEnabled = false;
+            removerBtn.IsEnabled = false;
         }
 
         
