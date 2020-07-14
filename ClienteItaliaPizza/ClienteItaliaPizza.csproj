@@ -171,6 +171,7 @@
       <DependentUpon>RegistroProductos.xaml</DependentUpon>
     </Compile>
     <Compile Include="FuncionesReutilizables\ConvertidorDeObjetos.cs" />
+    <Compile Include="ReporteDelDia.cs" />
     <Compile Include="ReporteDelDia.xaml.cs">
       <DependentUpon>ReporteDelDia.xaml</DependentUpon>
     </Compile>

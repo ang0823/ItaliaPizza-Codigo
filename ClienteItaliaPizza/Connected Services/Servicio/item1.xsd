@@ -259,7 +259,7 @@
         <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="cuenta" nillable="true" type="q27:CuentaUsuario" />
         <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="empleado" nillable="true" type="q28:Empleado" />
         <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="direccion" nillable="true" type="q29:Direccion" />
-        <xs:element minOccurs="0" name="rol" type="xs:int" />
+        <xs:element minOccurs="0" name="rol" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -268,7 +268,7 @@
       <xs:sequence>
         <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="empleado" nillable="true" type="q30:Empleado" />
         <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/AccesoBD2" minOccurs="0" name="direccion" nillable="true" type="q31:Direccion" />
-        <xs:element minOccurs="0" name="rol" type="xs:int" />
+        <xs:element minOccurs="0" name="rol" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

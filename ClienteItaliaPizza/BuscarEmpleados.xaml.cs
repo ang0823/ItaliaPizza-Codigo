@@ -450,7 +450,7 @@ namespace ClienteItaliaPizza
         {
             string usuarioActual = usuarioTxt.Text;
 
-            if (usuarioActual == cuenta.nombreUsuario)
+            if (usuarioActual == CuentaUsuario.nombreUsuario)
             {
                 FuncionesComunes.MostrarMensajeDeError("No se puede dar de baja al usuario con la sesión actual.");
             }
@@ -489,8 +489,8 @@ namespace ClienteItaliaPizza
                {
                    FuncionesComunes.MostrarMensajeDeError(mensaje);
                }
+               EstablecerInformacion();
            });
-            EstablecerInformacion();
         }
 
         private void CamposDeTexto_TextChanged(object sender, TextChangedEventArgs e)

@@ -163,5 +163,12 @@ namespace ClienteItaliaPizza
             string nombreRespaldoFechaActual = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
             return nombreRespaldoFechaActual;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ReporteDelDia ventana = new ReporteDelDia();
+            ventana.Show();
+            this.Close();
+        }
     }
 }

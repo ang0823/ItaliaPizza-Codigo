@@ -300,7 +300,6 @@ namespace ClienteItaliaPizza
         private bool CamposEstanLlenos()
         {
             if(textBoxNombreReceta.Text.Length > 0 && textBoxPorciones.Text.Length > 0
-                && dataGridIngredientes.Items.Count > 0 && dataGridIngredientes.Items.Count > 1
                 && textBoxProcedimiento.Text.Length > 0)
             {
                 return true;

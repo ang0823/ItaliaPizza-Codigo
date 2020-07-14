@@ -147,7 +147,7 @@ namespace ClienteItaliaPizza
         {
             Empleado empleado = new Empleado();
             Direccion direccion = new Direccion();
-            int rol = puestosCB.SelectedIndex;
+            string rol = puestosCB.SelectedItem.ToString();           
 
             try
             {

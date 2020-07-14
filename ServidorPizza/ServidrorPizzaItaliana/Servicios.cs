@@ -129,7 +129,7 @@ namespace ServidrorPizzaItaliana
 
     public partial class Servicios : IRegistrarCuentaUsuario
     {
-        public void RegistrarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, int rol)
+        public void RegistrarCuentaUsuario(CuentaUsuario cuenta, Empleado empleado, Direccion direccion, string rol)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace ServidrorPizzaItaliana
                     var username = (from c in db.CuentaUsuarioSet where c.nombreUsuario == cuenta.nombreUsuario select c).FirstOrDefault();
                     if (username == null)
                     {
-                        var roldb = (from p in db.RolSet where p.Id == rol select p).FirstOrDefault();
+                        var roldb = (from p in db.RolSet where p.nombreRol == rol select p).FirstOrDefault();
 
                         empleado.Rol = roldb;
                         empleado.Direccion = direccion;
@@ -167,7 +167,7 @@ namespace ServidrorPizzaItaliana
             }
         }
 
-        public void RegistrarCuentaUsuario2(Empleado empleado, Direccion direccion, int rol)
+        public void RegistrarCuentaUsuario2(Empleado empleado, Direccion direccion, string rol)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace ServidrorPizzaItaliana
                 }
                 else
                 {
-                    var roldb = (from p in db.RolSet where p.Id == rol select p).FirstOrDefault();
+                    var roldb = (from p in db.RolSet where p.nombreRol == rol select p).FirstOrDefault();
                     empleado.Rol = roldb;
                     empleado.Direccion = direccion;
                     db.EmpleadoSet.Add(empleado);

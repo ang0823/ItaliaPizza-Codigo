@@ -849,48 +849,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             <End Role="Categoria" EntitySet="CategoriaSet" />
             <End Role="ProvisionDirecta" EntitySet="ProvisionDirectaSet" />
           </AssociationSet>
-          <FunctionImport Name="ModificarPedidoADomicilio">
-            <Parameter Name="IDPedido" Mode="In" Type="Int32" />
-            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
-            <Parameter Name="IdEmpleado" Mode="In" Type="Int64" />
-            <Parameter Name="IdCuenta" Mode="In" Type="String" />
-            <Parameter Name="PrecioTotal" Mode="In" Type="Double" />
-            <Parameter Name="Subtotal" Mode="In" Type="Double" />
-            <Parameter Name="Descuento" Mode="In" Type="Double" />
-            <Parameter Name="abierta" Mode="In" Type="Boolean" />
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
-            <Parameter Name="DireccionDestino" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ModificarPedidoLocal">
-            <Parameter Name="IDPedido" Mode="In" Type="Int32" />
-            <Parameter Name="InstruccionesEspeciales" Mode="In" Type="String" />
-            <Parameter Name="IdEmpleado" Mode="In" Type="Int64" />
-            <Parameter Name="IdCuenta" Mode="In" Type="String" />
-            <Parameter Name="PrecioTotal" Mode="In" Type="Double" />
-            <Parameter Name="Subtotal" Mode="In" Type="Double" />
-            <Parameter Name="Descuento" Mode="In" Type="Double" />
-            <Parameter Name="abierta" Mode="In" Type="Boolean" />
-            <Parameter Name="NumeroMesa" Mode="In" Type="Int16" />
-          </FunctionImport>
-          <FunctionImport Name="MostrarCantidadProductosPedido" ReturnType="Collection(BDPizzaModel.MostrarCantidadProductosPedido_Result5)">
-          <Parameter Name="IdPedido" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="MostrarCantidadProvisionesPedido" ReturnType="Collection(BDPizzaModel.MostrarCantidadProvisionesPedido_Result4)">
-          <Parameter Name="IdPedido" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="RegistrarProvisionDirecta">
-            <Parameter Name="NombreProvisionDirecta" Mode="In" Type="String" />
-            <Parameter Name="noExistencias" Mode="In" Type="Int32" />
-            <Parameter Name="Ubicacion" Mode="In" Type="String" />
-            <Parameter Name="StockMinimo" Mode="In" Type="Int32" />
-            <Parameter Name="CostoUnitario" Mode="In" Type="Double" />
-            <Parameter Name="UnidadMedida" Mode="In" Type="String" />
-            <Parameter Name="Activado" Mode="In" Type="Boolean" />
-            <Parameter Name="DescripcionProvisionDirecta" Mode="In" Type="String" />
-            <Parameter Name="ActivadoProvisionDirecta" Mode="In" Type="Boolean" />
-            <Parameter Name="RestriccionesProvisionDirecta" Mode="In" Type="String" />
-            <Parameter Name="Categoria" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="InsertarPedidoADomicilio">
             <Parameter Name="IdCliente" Mode="In" Type="Int32" />
             <Parameter Name="Fecha" Mode="In" Type="DateTime" />
@@ -953,10 +911,10 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
             <Parameter Name="abierta" Mode="In" Type="Boolean" />
             <Parameter Name="NumeroMesa" Mode="In" Type="Int16" />
           </FunctionImport>
-          <FunctionImport Name="MostrarCantidadProductosPedido" ReturnType="Collection(BDPizzaModel.MostrarCantidadProductosPedido_Result5)">
+          <FunctionImport Name="MostrarCantidadProductosPedido" ReturnType="Collection(BDPizzaModel.MostrarCantidadProductosPedido_Result6)">
             <Parameter Name="IdPedido" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="MostrarCantidadProvisionesPedido" ReturnType="Collection(BDPizzaModel.MostrarCantidadProvisionesPedido_Result4)">
+          <FunctionImport Name="MostrarCantidadProvisionesPedido" ReturnType="Collection(BDPizzaModel.MostrarCantidadProvisionesPedido_Result5)">
             <Parameter Name="IdPedido" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RegistrarPedidoYCuenta">
@@ -1436,6 +1394,36 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <Property Type="Int32" Name="Pedido_Id" Nullable="false" />
           <Property Type="String" Name="categoria" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="MostrarCantidadProductosPedido_Result6">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="nombre" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" />
+          <Property Type="Double" Name="precioUnitario" Nullable="true" />
+          <Property Type="Boolean" Name="activado" Nullable="true" />
+          <Property Type="String" Name="restricciones" Nullable="true" />
+          <Property Type="Int32" Name="Receta_id" Nullable="true" />
+          <Property Type="Int32" Name="Categoria_Id" Nullable="true" />
+          <Property Type="Int32" Name="cantidad" Nullable="true" />
+          <Property Type="Int32" Name="Pedido_Id" Nullable="false" />
+          <Property Type="String" Name="categoria" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="MostrarCantidadProvisionesPedido_Result5">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" />
+          <Property Type="Boolean" Name="activado" Nullable="true" />
+          <Property Type="String" Name="restricciones" Nullable="true" />
+          <Property Type="Int32" Name="Provision_Id" Nullable="true" />
+          <Property Type="Int32" Name="Categoria_Id" Nullable="true" />
+          <Property Type="String" Name="nombre" Nullable="false" />
+          <Property Type="Int32" Name="noExistencias" Nullable="false" />
+          <Property Type="String" Name="ubicacion" Nullable="false" />
+          <Property Type="Int32" Name="stockMinimo" Nullable="false" />
+          <Property Type="Double" Name="costoUnitario" Nullable="false" />
+          <Property Type="String" Name="unidadMedida" Nullable="false" />
+          <Property Type="Int32" Name="cantidad" Nullable="true" />
+          <Property Type="Int32" Name="Pedido_Id" Nullable="false" />
+          <Property Type="String" Name="categoria" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1756,7 +1744,7 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           <FunctionImportMapping FunctionImportName="ModificarPedidoLocal" FunctionName="BDPizzaModel.Store.ModificarPedidoLocal" />
           <FunctionImportMapping FunctionImportName="MostrarCantidadProductosPedido" FunctionName="BDPizzaModel.Store.MostrarCantidadProductosPedido">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="BDPizzaModel.MostrarCantidadProductosPedido_Result5">
+              <ComplexTypeMapping TypeName="BDPizzaModel.MostrarCantidadProductosPedido_Result6">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -1773,7 +1761,7 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="MostrarCantidadProvisionesPedido" FunctionName="BDPizzaModel.Store.MostrarCantidadProvisionesPedido">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="BDPizzaModel.MostrarCantidadProvisionesPedido_Result4">
+              <ComplexTypeMapping TypeName="BDPizzaModel.MostrarCantidadProvisionesPedido_Result5">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="activado" ColumnName="activado" />
@@ -1792,11 +1780,6 @@ advertencia 6002: La tabla o vista 'PizzaItaliana.dbo.CuentaSet' no tiene defini
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="RegistrarProvisionDirecta" FunctionName="BDPizzaModel.Store.RegistrarProvisionDirecta" />
-          <FunctionImportMapping FunctionImportName="InsertarPedidoADomicilio" FunctionName="BDPizzaModel.Store.InsertarPedidoADomicilio" />
-          <FunctionImportMapping FunctionImportName="InsertarPedidoLocal" FunctionName="BDPizzaModel.Store.InsertarPedidoLocal" />
-          <FunctionImportMapping FunctionImportName="LigarProductoConPedido" FunctionName="BDPizzaModel.Store.LigarProductoConPedido" />
-          <FunctionImportMapping FunctionImportName="LigarProvisionConPedido" FunctionName="BDPizzaModel.Store.LigarProvisionConPedido" />
           <FunctionImportMapping FunctionImportName="RegistrarPedidoYCuenta" FunctionName="BDPizzaModel.Store.RegistrarPedidoYCuenta" />
           <FunctionImportMapping FunctionImportName="RegistrarProvisionDirecta" FunctionName="BDPizzaModel.Store.RegistrarProvisionDirecta" />
           <FunctionImportMapping FunctionImportName="RegistroDeClienteConDireccion" FunctionName="BDPizzaModel.Store.RegistroDeClienteConDireccion" />
